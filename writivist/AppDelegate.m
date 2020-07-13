@@ -19,7 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(  NSDictionary *)launchOptions {
     ParseClientConfiguration *config = [ParseClientConfiguration   configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
         configuration.applicationId = @"myWritivistId";
-        configuration.server = @"http://writivist.herokuapp.com/parse";
+        configuration.server = @"https://writivist.herokuapp.com/parse";
     }];
     [Parse initializeWithConfiguration:config];
     return YES;

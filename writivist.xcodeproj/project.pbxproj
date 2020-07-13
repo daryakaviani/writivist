@@ -18,6 +18,8 @@
 		4BCB1DCD24BCAF6500BAE96E /* writivistTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DCC24BCAF6500BAE96E /* writivistTests.m */; };
 		4BCB1DD824BCAF6500BAE96E /* writivistUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DD724BCAF6500BAE96E /* writivistUITests.m */; };
 		4BD44FDD24BCD94200BEE897 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD44FDC24BCD94200BEE897 /* HomeViewController.m */; };
+		4BEA8B2024BCF4EE0041A6C9 /* RepresentativeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA8B1F24BCF4EE0041A6C9 /* RepresentativeCell.m */; };
+		4BEA8B2324BCFBC30041A6C9 /* Representative.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA8B2224BCFBC30041A6C9 /* Representative.m */; };
 		4F67EA9B2E78EAACBF41269D /* Pods_writivist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2359640AC575CBBB30FBB9 /* Pods_writivist.framework */; };
 		AD941507C20A326B014068A8 /* Pods_writivist_writivistUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D37CDD18E86B7514B082E08 /* Pods_writivist_writivistUITests.framework */; };
 /* End PBXBuildFile section */
@@ -62,6 +64,10 @@
 		4BCB1DD924BCAF6500BAE96E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BD44FDB24BCD94200BEE897 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		4BD44FDC24BCD94200BEE897 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		4BEA8B1E24BCF4EE0041A6C9 /* RepresentativeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RepresentativeCell.h; sourceTree = "<group>"; };
+		4BEA8B1F24BCF4EE0041A6C9 /* RepresentativeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RepresentativeCell.m; sourceTree = "<group>"; };
+		4BEA8B2124BCFBC30041A6C9 /* Representative.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Representative.h; sourceTree = "<group>"; };
+		4BEA8B2224BCFBC30041A6C9 /* Representative.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Representative.m; sourceTree = "<group>"; };
 		65817863549E4707641D708E /* Pods-writivistTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-writivistTests.release.xcconfig"; path = "Target Support Files/Pods-writivistTests/Pods-writivistTests.release.xcconfig"; sourceTree = "<group>"; };
 		6D2359640AC575CBBB30FBB9 /* Pods_writivist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_writivist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		702DB8F2C526BC7BDE4D1703 /* Pods-writivist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-writivist.release.xcconfig"; path = "Target Support Files/Pods-writivist/Pods-writivist.release.xcconfig"; sourceTree = "<group>"; };
@@ -145,6 +151,8 @@
 		4BCB1DAF24BCAF6300BAE96E /* writivist */ = {
 			isa = PBXGroup;
 			children = (
+				4BEA8B2424BCFBCD0041A6C9 /* Objects */,
+				4BD44FE024BCE32700BEE897 /* Views */,
 				4B7CB08224BCC02000AC26DF /* View Controllers */,
 				4BCB1DB024BCAF6300BAE96E /* AppDelegate.h */,
 				4BCB1DB124BCAF6300BAE96E /* AppDelegate.m */,
@@ -175,6 +183,24 @@
 				4BCB1DD924BCAF6500BAE96E /* Info.plist */,
 			);
 			path = writivistUITests;
+			sourceTree = "<group>";
+		};
+		4BD44FE024BCE32700BEE897 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4BEA8B1E24BCF4EE0041A6C9 /* RepresentativeCell.h */,
+				4BEA8B1F24BCF4EE0041A6C9 /* RepresentativeCell.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4BEA8B2424BCFBCD0041A6C9 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				4BEA8B2124BCFBC30041A6C9 /* Representative.h */,
+				4BEA8B2224BCFBC30041A6C9 /* Representative.m */,
+			);
+			path = Objects;
 			sourceTree = "<group>";
 		};
 		DE801E966CBBCD385B7C40E2 /* Pods */ = {
@@ -429,7 +455,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B7CB08524BCC03700AC26DF /* LoginViewController.m in Sources */,
+				4BEA8B2324BCFBC30041A6C9 /* Representative.m in Sources */,
 				4BCB1DB224BCAF6300BAE96E /* AppDelegate.m in Sources */,
+				4BEA8B2024BCF4EE0041A6C9 /* RepresentativeCell.m in Sources */,
 				4BCB1DC324BCAF6500BAE96E /* main.m in Sources */,
 				4BD44FDD24BCD94200BEE897 /* HomeViewController.m in Sources */,
 				4BCB1DB524BCAF6300BAE96E /* SceneDelegate.m in Sources */,

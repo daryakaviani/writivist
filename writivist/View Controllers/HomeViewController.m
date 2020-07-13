@@ -10,6 +10,7 @@
 #import "LoginViewController.h"
 #import "SceneDelegate.h"
 #import "Parse/Parse.h"
+#import "Representative.h"
 
 @interface HomeViewController ()
 
@@ -19,7 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self fetchRepresentatives];
 }
 
 - (IBAction)logoutButton:(id)sender {
@@ -35,6 +36,26 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
     myDelegate.window.rootViewController = loginViewController;
+}
+
+- (void)fetchRepresentatives {
+    NSString *targetUrl = @"https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyBF0K61_yqnXdJvNBSzyq2uTHJsNktnCZ0&address=1263%20Pacific%20Ave.%20Kansas%20City%20KS&electionId=2000";
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setHTTPMethod:@"GET"];
+    [request setURL:[NSURL URLWithString:targetUrl]];
+
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
+      ^(NSData * _Nullable data,
+        NSURLResponse * _Nullable response,
+        NSError * _Nullable error) {
+        NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+        NSArray *representativeArray = [JSON valueForKey:@"officials"];
+        NSLog(@"%@",representativeArray);
+        NSMutableArray *representatives  = [Representative representativesWithArray:representativeArray];
+        self.representatives = representatives;
+        NSString *myString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+          NSLog(@"Data received: %@", myString);
+    }] resume];
 }
 
 /*

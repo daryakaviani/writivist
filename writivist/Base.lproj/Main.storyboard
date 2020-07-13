@@ -10,7 +10,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -94,21 +94,28 @@
             </objects>
             <point key="canvasLocation" x="2879.7101449275365" y="438.61607142857139"/>
         </scene>
-        <!--View Controller-->
+        <!--Home View Controller-->
         <scene sceneID="Uyv-dx-NLb">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="3yW-d3-FQE" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="3yW-d3-FQE" customClass="HomeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oiW-Kk-eyD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="fdp-t4-P4k"/>
                     </view>
-                    <navigationItem key="navigationItem" id="HlQ-lO-ybo"/>
+                    <navigationItem key="navigationItem" id="HlQ-lO-ybo">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="I1X-VN-mIU">
+                            <color key="tintColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="logoutButton:" destination="3yW-d3-FQE" id="Fzc-Ac-vkK"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DUu-s7-sPL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2879.7101449275365" y="-210.26785714285714"/>
+            <point key="canvasLocation" x="2880" y="-210"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="4Xf-fl-dgi">

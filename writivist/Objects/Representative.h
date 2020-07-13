@@ -18,8 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *party;
 @property (nonatomic, strong) NSString *profileString;
 @property (nonatomic, strong) NSString *phone;
-@property (nonatomic, strong) NSURL *website;
-@property (nonatomic, strong) NSURL *email;
+@property (nonatomic, strong) NSString *website;
+@property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *facebook;
 @property (nonatomic, strong) NSString *twitter;
 

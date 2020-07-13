@@ -11,8 +11,11 @@
 #import "SceneDelegate.h"
 #import "Parse/Parse.h"
 #import "Representative.h"
+#import "RepresentativeCell.h"
+#import "UIImageView+AFNetworking.h"
 
-@interface HomeViewController ()
+@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -20,6 +23,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     [self fetchRepresentatives];
 }
 
@@ -53,10 +58,39 @@
         NSLog(@"%@",representativeArray);
         NSMutableArray *representatives  = [Representative representativesWithArray:representativeArray];
         self.representatives = representatives;
-        NSString *myString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-          NSLog(@"Data received: %@", myString);
     }] resume];
+    [self.tableView reloadData];
+    
 }
+
+// Tells us how many rows we need.
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 26;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+// Creating and configured a cell.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Reuses old objects to preserve memory. Uses TweetCell Template.
+    RepresentativeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RepresentativeCell"];
+    Representative *representative = self.representatives[indexPath.row];
+    cell.representative = representative;
+    cell.nameLabel.text = representative.name;
+    cell.roleLabel.text = representative.role;
+    cell.partyLabel.text = representative.party;
+    NSURL *profileURL = [NSURL URLWithString:representative.profileString];
+    [cell.profileView setImageWithURL:profileURL];
+    cell.phoneLabel.text = representative.phone;
+    cell.websiteLabel.text = representative.website;
+    cell.emailLabel.text = representative.email;
+    cell.facebookButton.titleLabel.text = representative.facebook;
+    cell.twitterButton.titleLabel.text = representative.twitter;
+    return cell;
+}
+
 
 /*
 #pragma mark - Navigation

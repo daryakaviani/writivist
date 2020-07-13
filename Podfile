@@ -7,6 +7,7 @@ target 'writivist' do
 
   # Pods for writivist
   pod 'Parse' 
+  pod 'AFNetworking'
 
   target 'writivistTests' do
     inherit! :search_paths

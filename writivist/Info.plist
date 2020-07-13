@@ -7,7 +7,20 @@
 		<string>Dancing Script.ttf</string>
 	</array>
 	<key>NSAppTransportSecurity</key>
-	<dict/>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>example.com</key>
+            <dict>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+            </dict>
+        </dict>
+    </dict>
 	<key>NSAllowArbitraryLoads</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>

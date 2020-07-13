@@ -17,11 +17,18 @@
         self.role = dictionary[@"role"];
         self.party = dictionary[@"party"];
         self.profileString = dictionary[@"photoUrl"];
-        NSArray *phones = dictionary[@"phones"];
-        self.phone = phones[0];
-        NSArray *websites = dictionary[@"urls"];
-        self.website = websites[0];
-        //NSArray *socialMedia = dictionary[@"channels"];
+        self.email = dictionary[@"emails"][0];
+        self.phone = dictionary[@"phones"][0];
+        self.website = dictionary[@"urls"][0];
+        NSArray *channels = dictionary[@"channels"];
+        for (NSDictionary *dictionary in channels) {
+            if ([dictionary[@"type"]  isEqual: @"Facebook"]) {
+                self.facebook = dictionary[@"id"];
+            }
+            if ([dictionary[@"type"]  isEqual: @"Twitter"]) {
+                self.twitter = dictionary[@"id"];
+            }
+        }
     }
     return self;
 }

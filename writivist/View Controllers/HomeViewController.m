@@ -86,8 +86,6 @@
     cell.phoneLabel.text = representative.phone;
     cell.websiteLabel.text = representative.website;
     cell.emailLabel.text = representative.email;
-    cell.facebookButton.titleLabel.text = representative.facebook;
-    cell.twitterButton.titleLabel.text = representative.twitter;
     return cell;
 }
 

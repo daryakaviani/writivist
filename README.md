@@ -93,7 +93,6 @@ Work in Progress: https://www.figma.com/file/paTyAfiEkzWdTvL2JOXDej/writivist?no
 ## Schema 
 
 ### Models
-[Add table of models]
 
 #### User
 
@@ -108,22 +107,8 @@ Work in Progress: https://www.figma.com/file/paTyAfiEkzWdTvL2JOXDej/writivist?no
 |letterCount|Number|number of letters sent by the user|	
 |createdAt|DateTime|date when the user account is created (default field)|	
 |updatedAt|DateTime|date when the user account is last updated (default field)|	
-	
+
 #### Template
-
-|Property|Type|Description|
-|---|---|---|
-|objectId|String|unique id for the user (default field)|
-|templates|Array|series of templates uploaded by the user|
-|location|String|current inputted location of the user|
-|profilePicture|File|user's profile picture|
-|likeCount|Number|number of likes acquired by the user's templates|	
-|templateCount|Number|number of templates posted by the user|	
-|letterCount|Number|number of letters sent by the user|	
-|createdAt|DateTime|date when the user account is created (default field)|	
-|updatedAt|DateTime|date when the user account is last updated (default field)|	
-
-Template
 
 |Property|Type|Description|
 |---|---|---|
@@ -139,15 +124,16 @@ Template
 
 ### Networking
 
-Network Request Outline
+#### Network Request Outline
 
-Login
+##### Login
 
 (Create/POST) Create a new user
 [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
     //perform segue
 }];
-Template Library
+
+##### Template Library
 
 (Read/GET) Get the templates
 Title
@@ -170,7 +156,7 @@ query.limit = 30;
 
 (Create/Post) Like a template //will do once i figure out how liking works for instagram!
 
-Compose
+##### Compose
 
 (Create/Post) If saved to template library is selected, make a new template
 
@@ -184,7 +170,7 @@ newPost.likeCount = @(0);
 [newPost saveInBackgroundWithBlock: completion];
 ```
 
-Profile
+##### Profile
 
 (Read/GET) Get the User
 Name
@@ -202,6 +188,6 @@ Here, we can use ```[PFUser currentUser]``` to access the current logged-in user
 [PFUser.currentUser saveInBackground];
 ```
 
-APIs
+#### APIs
 
 Need an API to ```GET``` list of elected officials for each user's location using the Google Civic API.

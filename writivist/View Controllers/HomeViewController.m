@@ -58,9 +58,10 @@
         NSLog(@"%@",representativeArray);
         NSMutableArray *representatives  = [Representative representativesWithArray:representativeArray];
         self.representatives = representatives;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
     }] resume];
-    [self.tableView reloadData];
-    
 }
 
 // Tells us how many rows we need.
@@ -86,6 +87,16 @@
     cell.phoneLabel.text = representative.phone;
     cell.websiteLabel.text = representative.website;
     cell.emailLabel.text = representative.email;
+    if (representative.twitter == nil) {
+        cell.twitterButton.hidden = YES;
+    } else {
+        cell.twitterButton.hidden = NO;
+    }
+    if (representative.facebook == nil) {
+        cell.facebookButton.hidden = YES;
+    } else {
+        cell.facebookButton.hidden = NO;
+    }
     return cell;
 }
 

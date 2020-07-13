@@ -1,0 +1,6 @@
+framework module Pods_writivist_writivistUITests {
+  umbrella header "Pods-writivist-writivistUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

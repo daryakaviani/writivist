@@ -25,12 +25,12 @@
 - (IBAction)facebookButton:(id)sender {
     NSString *baseURL = @"https://facebook.com/";
     NSString *stringURL = [baseURL stringByAppendingString:self.representative.facebook];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:stringURL]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:stringURL] options:@{} completionHandler:nil];
 }
 - (IBAction)twitterButton:(id)sender {
     NSString *baseURL = @"https://twitter.com/";
     NSString *stringURL = [baseURL stringByAppendingString:self.representative.twitter];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:stringURL]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:stringURL] options:@{} completionHandler:nil];
 }
 
 @end

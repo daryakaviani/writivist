@@ -66,7 +66,7 @@
 
 // Tells us how many rows we need.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 26;
+    return self.representatives.count;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -81,7 +81,15 @@
     cell.representative = representative;
     cell.nameLabel.text = representative.name;
     cell.roleLabel.text = representative.role;
-    cell.partyLabel.text = representative.party;
+    if ([representative.party  isEqual: @"Republican Party"]) {
+        cell.partyLabel.text = @"R";
+        cell.partyLabel.textColor = [UIColor systemRedColor];
+    } else if ([representative.party  isEqual: @"Democratic Party"]) {
+            cell.partyLabel.text = @"D";
+            cell.partyLabel.textColor = [UIColor systemIndigoColor];
+    } else {
+        cell.partyLabel.text = @"";
+    }
     NSURL *profileURL = [NSURL URLWithString:representative.profileString];
     [cell.profileView setImageWithURL:profileURL];
     cell.phoneLabel.text = representative.phone;

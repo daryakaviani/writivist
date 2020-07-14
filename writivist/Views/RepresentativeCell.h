@@ -23,8 +23,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *emailLabel;
 @property (weak, nonatomic) IBOutlet UIButton *facebookButton;
 @property (weak, nonatomic) IBOutlet UIButton *twitterButton;
+@property (weak, nonatomic) IBOutlet UIButton *checkButton;
 @property (weak, nonatomic) Representative *representative;
+@property (weak, nonatomic) IBOutlet UIView *checkView;
+@property (nonatomic, weak) id<RepresentativeCellDelegate> delegate;
 
+@end
+
+@protocol RepresentativeCellDelegate
+- (void)representativeCell:(RepresentativeCell *) representativeCell didTap: (Representative *)representative;
 @end
 
 NS_ASSUME_NONNULL_END

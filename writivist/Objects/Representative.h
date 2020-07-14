@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *facebook;
 @property (nonatomic, strong) NSString *twitter;
+@property (nonatomic) BOOL *selected;
 
 // Dictionary representing a representative
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;

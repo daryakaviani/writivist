@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HomeViewController : UIViewController
 @property (nonatomic, strong) NSArray *representatives;
 @property (nonatomic, strong) NSArray *offices;
+@property (nonatomic, strong) NSMutableArray *selectedReps;
 
 @end
 

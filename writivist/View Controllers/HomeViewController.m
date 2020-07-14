@@ -14,7 +14,7 @@
 #import "RepresentativeCell.h"
 #import "UIImageView+AFNetworking.h"
 
-@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, RepresentativeCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -79,9 +79,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RepresentativeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RepresentativeCell"];
     Representative *representative = self.representatives[indexPath.row];
+    cell.delegate = self;
     cell.representative = representative;
     cell.nameLabel.text = representative.name;
-    
     for (NSDictionary *dictionary in self.offices) {
         for (NSString *index in dictionary[@"officialIndices"]) {
             NSString *repIndex = [NSString stringWithFormat: @"%ld", indexPath.row];
@@ -120,7 +120,43 @@
     } else {
         cell.facebookButton.hidden = NO;
     }
+    if (representative.email == nil) {
+        cell.checkButton.hidden = YES;
+    } else {
+        cell.checkButton.hidden = NO;
+    }
+    if (representative.selected == (BOOL * _Nonnull) YES) {
+        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
+        cell.checkView.backgroundColor = color;
+        UIView *subview = cell.checkView.subviews[0];
+        subview.hidden = NO;
+    } else {
+        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+        cell.checkView.backgroundColor = color;
+        UIView *subview = cell.checkView.subviews[0];
+        subview.hidden = YES;
+    }
     return cell;
+}
+
+- (void)representativeCell:(RepresentativeCell *)representativeCell didTap:(Representative *)representative{
+    if (representative.selected == NO) {
+        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
+        representativeCell.checkView.backgroundColor = color;
+        representative.selected = (BOOL * _Nonnull) YES;
+        UIView *subview = representativeCell.checkView.subviews[0];
+        subview.hidden = NO;
+        [self.selectedReps addObject:representative];
+        NSLog(@"%@", self.selectedReps);
+    } else {
+        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+        representativeCell.checkView.backgroundColor = color;
+        representative.selected = (BOOL * _Nonnull) NO;
+        UIView *subview = representativeCell.checkView.subviews[0];
+        subview.hidden = YES;
+        [self.selectedReps removeObject:representative];
+        NSLog(@"%@", self.selectedReps);
+    }
 }
 
 

@@ -41,14 +41,11 @@
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
             // add the OK action to the alert controller
             [alert addAction:okAction];
-            // Do any additional setup after loading the view.
             [self presentViewController:alert animated:YES completion:^{
-                // optional code for what happens after the alert controller has finished presenting
             }];
         } else {
             NSLog(@"User registered successfully");
             [self performSegueWithIdentifier:@"loginSegue" sender:nil];
-            // manually segue to logged in view
         }
     }];
 }
@@ -67,14 +64,11 @@
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
             // add the OK action to the alert controller
             [alert addAction:okAction];
-            // Do any additional setup after loading the view.
             [self presentViewController:alert animated:YES completion:^{
-                // optional code for what happens after the alert controller has finished presenting
             }];
         } else {
             NSLog(@"User logged in successfully");
             [self performSegueWithIdentifier:@"loginSegue" sender:nil];
-            // display view controller that needs to shown after successful login
         }
     }];
 }

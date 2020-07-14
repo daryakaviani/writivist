@@ -16,6 +16,8 @@
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, RepresentativeCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) Representative* representative;
+@property (nonatomic, strong) NSMutableArray *selectedReps;
 
 @end
 
@@ -120,11 +122,6 @@
     } else {
         cell.facebookButton.hidden = NO;
     }
-    if (representative.email == nil) {
-        cell.checkButton.hidden = YES;
-    } else {
-        cell.checkButton.hidden = NO;
-    }
     if (representative.selected == (BOOL * _Nonnull) YES) {
         UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
         cell.checkView.backgroundColor = color;
@@ -140,22 +137,24 @@
 }
 
 - (void)representativeCell:(RepresentativeCell *)representativeCell didTap:(Representative *)representative{
+    self.representative = representative;
+    NSLog(@"%@", self.representative.name);
     if (representative.selected == NO) {
         UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
         representativeCell.checkView.backgroundColor = color;
         representative.selected = (BOOL * _Nonnull) YES;
         UIView *subview = representativeCell.checkView.subviews[0];
         subview.hidden = NO;
-        [self.selectedReps addObject:representative];
-        NSLog(@"%@", self.selectedReps);
+        [self.selectedReps addObject:self.representative];
+        NSLog(@"%lu", (unsigned long)self.selectedReps.count);
     } else {
         UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
         representativeCell.checkView.backgroundColor = color;
         representative.selected = (BOOL * _Nonnull) NO;
         UIView *subview = representativeCell.checkView.subviews[0];
         subview.hidden = YES;
-        [self.selectedReps removeObject:representative];
-        NSLog(@"%@", self.selectedReps);
+        [self.selectedReps removeObject:self.representative];
+        NSLog(@"%lu", (unsigned long)self.selectedReps.count);
     }
 }
 

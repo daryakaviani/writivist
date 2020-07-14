@@ -23,13 +23,6 @@
     // Configure the view for the selected state
 }
 
-- (IBAction)checkButton:(id)sender {
-    if (self.checkButton.selected == YES) {
-        self.checkButton.selected = NO;
-    } else {
-        self.checkButton.selected = YES;
-    }
-}
 - (IBAction)facebookButton:(id)sender {
     NSString *baseURL = @"https://facebook.com/";
     NSString *stringURL = [baseURL stringByAppendingString:self.representative.facebook];

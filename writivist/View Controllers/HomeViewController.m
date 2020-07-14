@@ -13,8 +13,9 @@
 #import "Representative.h"
 #import "RepresentativeCell.h"
 #import "UIImageView+AFNetworking.h"
+#import <MessageUI/MessageUI.h>
 
-@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, RepresentativeCellDelegate>
+@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, RepresentativeCellDelegate, MFMailComposeViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *selectedReps;
 
@@ -109,7 +110,6 @@
     } else {
         [cell.profileView setImage:[UIImage imageNamed:@"user.png"]];
     }
-//    cell.phoneButton.titleLabel.text = representative.phone;
     [cell.websiteButton setTitle:representative.website forState:UIControlStateNormal];
     [cell.phoneButton setTitle:representative.phone forState:UIControlStateNormal];
     cell.emailLabel.text = representative.email;
@@ -167,6 +167,48 @@
     }
 }
 
+- (IBAction)composeButton:(id)sender {
+    if (MFMailComposeViewController.canSendMail){
+        MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];
+        mailComposeViewController.mailComposeDelegate = self;
+        NSMutableArray *emails = [[NSMutableArray alloc] init];
+        NSString *bodyHeader = @"Dear ";
+        for (Representative *representative in self.selectedReps) {
+            [emails addObject:representative.email];
+            if (emails.count == self.selectedReps.count && emails.count != 1) {
+                bodyHeader = [bodyHeader stringByAppendingString:@"and "];
+            }
+            bodyHeader = [bodyHeader stringByAppendingString:representative.role];
+            bodyHeader = [bodyHeader stringByAppendingString:@" "];
+            bodyHeader = [bodyHeader stringByAppendingString:representative.name];
+            if (self.selectedReps.count >= 2) {
+                bodyHeader = [bodyHeader stringByAppendingString:@", "];
+            }
+        }
+        [self.selectedReps removeAllObjects];
+        [mailComposeViewController setToRecipients:emails];
+//        [mailComposeViewController setSubject:@"Test"];
+        [mailComposeViewController setMessageBody:bodyHeader isHTML:false];
+        [self presentViewController:mailComposeViewController animated:YES completion:nil];
+    } else {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Mail services are unavailable."
+               message:@"Please ensure that you have Apple's mail app installed and are logged in."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller
+          didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+   // Check the result or perform other tasks.
+ 
+   // Dismiss the mail compose view controller.
+   [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 /*
 #pragma mark - Navigation

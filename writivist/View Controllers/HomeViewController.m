@@ -29,6 +29,11 @@
     self.tableView.delegate = self;
     self.selectedReps = [[NSMutableArray alloc]init];
     [self fetchRepresentatives];
+    
+    // Customization for Nav Bar
+    self.navigationItem.title = @"let's write.";
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:40], NSForegroundColorAttributeName : [UIColor blackColor]};
 }
 
 - (IBAction)logoutButton:(id)sender {
@@ -187,7 +192,6 @@
         }
         [self.selectedReps removeAllObjects];
         [mailComposeViewController setToRecipients:emails];
-//        [mailComposeViewController setSubject:@"Test"];
         [mailComposeViewController setMessageBody:bodyHeader isHTML:false];
         [self presentViewController:mailComposeViewController animated:YES completion:nil];
     } else {

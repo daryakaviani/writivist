@@ -48,7 +48,7 @@
                                 </state>
                                 <connections>
                                     <action selector="signupButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7F7-UZ-ODO"/>
-                                    <segue destination="6TQ-7p-QtX" kind="show" identifier="signupsegue" id="dlF-eq-w47"/>
+                                    <segue destination="6TQ-7p-QtX" kind="presentation" identifier="signupsegue" id="dlF-eq-w47"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8VP-Fu-vVa">
@@ -69,6 +69,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="v8O-56-7fe"/>
                     <connections>
                         <outlet property="passwordField" destination="2e3-dH-CDr" id="SvA-3d-fJe"/>
                         <outlet property="usernameField" destination="tW0-o6-WYD" id="En1-9i-J0z"/>
@@ -82,9 +83,9 @@
         <!--Sign Up View Controller-->
         <scene sceneID="0B1-mh-8zy">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="6TQ-7p-QtX" customClass="SignUpViewController" sceneMemberID="viewController">
+                <viewController id="6TQ-7p-QtX" customClass="SignUpViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="v0R-tu-AL5">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1eP-vi-1qE">
@@ -110,7 +111,6 @@
                                 <connections>
                                     <action selector="loginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kcP-3e-caa"/>
                                     <action selector="signupButton:" destination="6TQ-7p-QtX" eventType="touchUpInside" id="2UI-Sd-XkV"/>
-                                    <segue destination="ibk-Gb-ML2" kind="presentation" identifier="signinsegue" id="OKt-Z9-QYd"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="writivist." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="So2-dk-Kf1">
@@ -431,9 +431,6 @@
             <point key="canvasLocation" x="1969.5652173913045" y="438.61607142857139"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="OKt-Z9-QYd"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="facebook" width="32" height="32"/>

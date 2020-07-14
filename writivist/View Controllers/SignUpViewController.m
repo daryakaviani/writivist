@@ -33,7 +33,6 @@
 
 - (IBAction)signupButton:(id)sender {
     [self registerUser];
-    [self performSegueWithIdentifier:@"signinsegue" sender:self];
 }
 
 - (void)registerUser {
@@ -76,23 +75,21 @@
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
             // add the OK action to the alert controller
             [alert addAction:okAction];
-            [self presentViewController:alert animated:YES completion:^{
-            }];
+            [self presentViewController:alert animated:YES completion:nil];
         } else {
             NSLog(@"User registered successfully");
-            [self performSegueWithIdentifier:@"signinsegue" sender:nil];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
 }
-*/
+
 
 @end

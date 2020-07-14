@@ -14,6 +14,7 @@
 #import "RepresentativeCell.h"
 #import "UIImageView+AFNetworking.h"
 #import <MessageUI/MessageUI.h>
+#import "User.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, RepresentativeCellDelegate, MFMailComposeViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -39,9 +40,9 @@
 - (IBAction)logoutButton:(id)sender {
     SceneDelegate *myDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
 
-    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+    [User logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
         // PFUser.current() will now be nil
-        PFUser *test = [PFUser currentUser];
+        PFUser *test = [User currentUser];
         
         NSLog(@" -- User is logged out -- %@", test.username);
     }];
@@ -52,11 +53,21 @@
 }
 
 - (void)fetchRepresentatives {
-    NSString *targetUrl = @"https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyBF0K61_yqnXdJvNBSzyq2uTHJsNktnCZ0&address=1500%20Via%20Campo%20Aureo.%20San%20Jose%20CA";
+    User *user = [User currentUser];
+    NSString *location = user.streetNumber;
+    location = [location stringByAppendingString:@"%20"];
+    location = [location stringByAppendingString:user.streetName];
+    location = [location stringByAppendingString:@".%20"];
+    location = [location stringByAppendingString:user.city];
+    location = [location stringByAppendingString:@"%20"];
+    location = [location stringByAppendingString:user.state];
+    location = [location stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    NSLog(@"%@", user);
+    NSLog(@"%@", location);
+    NSString *targetUrl = [@"https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyBF0K61_yqnXdJvNBSzyq2uTHJsNktnCZ0&address=&address=" stringByAppendingString:location];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"GET"];
     [request setURL:[NSURL URLWithString:targetUrl]];
-
     [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
       ^(NSData * _Nullable data,
         NSURLResponse * _Nullable response,
@@ -67,7 +78,6 @@
         NSMutableArray *representatives  = [Representative representativesWithArray:representativeArray];
         self.representatives = representatives;
         self.offices = officesArray;
-        NSLog(@"%@", self.offices);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });

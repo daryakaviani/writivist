@@ -55,9 +55,11 @@
         NSError * _Nullable error) {
         NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
         NSArray *representativeArray = [JSON valueForKey:@"officials"];
-        NSLog(@"%@",representativeArray);
+        NSArray *officesArray = [JSON valueForKey:@"offices"];
         NSMutableArray *representatives  = [Representative representativesWithArray:representativeArray];
         self.representatives = representatives;
+        self.offices = officesArray;
+        NSLog(@"%@", self.offices);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
@@ -75,11 +77,20 @@
 
 // Creating and configured a cell.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Reuses old objects to preserve memory. Uses TweetCell Template.
     RepresentativeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RepresentativeCell"];
     Representative *representative = self.representatives[indexPath.row];
     cell.representative = representative;
     cell.nameLabel.text = representative.name;
+    
+    for (NSDictionary *dictionary in self.offices) {
+        for (NSString *index in dictionary[@"officialIndices"]) {
+            NSString *repIndex = [NSString stringWithFormat: @"%ld", indexPath.row];
+            NSString *officialIndex = [NSString stringWithFormat: @"%@", index];
+            if (repIndex == officialIndex) {
+                representative.role = dictionary[@"name"];
+            }
+        }
+    }
     cell.roleLabel.text = representative.role;
     if ([representative.party  isEqual: @"Republican Party"]) {
         cell.partyLabel.text = @"R";

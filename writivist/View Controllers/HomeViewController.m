@@ -173,7 +173,16 @@
 }
 
 - (IBAction)composeButton:(id)sender {
-    if (MFMailComposeViewController.canSendMail){
+    if (self.selectedReps.count == 0) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No representatives selected."
+               message:@"Please select at least one representative to send your message to."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    } else if (MFMailComposeViewController.canSendMail){
         MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];
         mailComposeViewController.mailComposeDelegate = self;
         NSMutableArray *emails = [[NSMutableArray alloc] init];
@@ -186,7 +195,7 @@
             bodyHeader = [bodyHeader stringByAppendingString:representative.role];
             bodyHeader = [bodyHeader stringByAppendingString:@" "];
             bodyHeader = [bodyHeader stringByAppendingString:representative.name];
-            if (self.selectedReps.count >= 2) {
+            if (self.selectedReps.count != 2) {
                 bodyHeader = [bodyHeader stringByAppendingString:@", "];
             }
         }

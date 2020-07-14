@@ -44,7 +44,7 @@
 }
 
 - (void)fetchRepresentatives {
-    NSString *targetUrl = @"https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyBF0K61_yqnXdJvNBSzyq2uTHJsNktnCZ0&address=1263%20Pacific%20Ave.%20Kansas%20City%20KS&electionId=2000";
+    NSString *targetUrl = @"https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyBF0K61_yqnXdJvNBSzyq2uTHJsNktnCZ0&address=1500%20Via%20Campo%20Aureo.%20San%20Jose%20CA";
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"GET"];
     [request setURL:[NSURL URLWithString:targetUrl]];
@@ -91,7 +91,11 @@
         cell.partyLabel.text = @"";
     }
     NSURL *profileURL = [NSURL URLWithString:representative.profileString];
-    [cell.profileView setImageWithURL:profileURL];
+    if (representative.profileString != nil) {
+        [cell.profileView setImageWithURL:profileURL];
+    } else {
+        [cell.profileView setImage:[UIImage imageNamed:@"user.png"]];
+    }
     cell.phoneLabel.text = representative.phone;
     cell.websiteLabel.text = representative.website;
     cell.emailLabel.text = representative.email;

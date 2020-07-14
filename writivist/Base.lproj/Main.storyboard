@@ -149,7 +149,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S4C-Ng-mNM">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="S4C-Ng-mNM">
                                                     <rect key="frame" x="54" y="46" width="80" height="80"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -308,5 +308,6 @@
         <image name="facebook" width="32" height="32"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="twitter" width="32" height="32"/>
+        <image name="user" width="256" height="256"/>
     </resources>
 </document>

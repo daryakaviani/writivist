@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "Representative.h"
-#import <TTTAttributedLabel/TTTAttributedLabel.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -38,15 +38,14 @@
     [self.delegate representativeCell:self didTap:self.representative];
 }
 - (IBAction)phoneButton:(id)sender {
-    NSString *baseURL = @"https://twitter.com/";
-    NSString *stringURL = [baseURL stringByAppendingString:self.representative.twitter];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:stringURL] options:@{} completionHandler:nil];
+    NSString *number = [@"tel:" stringByAppendingString:self.representative.phone];
+    number = [number stringByReplacingOccurrencesOfString:@" " withString:@""];
+    number = [number stringByReplacingOccurrencesOfString:@"(" withString:@""];
+    number = [number stringByReplacingOccurrencesOfString:@")" withString:@""];
+    number = [number stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:number] options:@{} completionHandler:nil];
 }
 - (IBAction)websiteButton:(id)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.representative.website] options:@{} completionHandler:nil];
 }
-- (IBAction)emailButton:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.representative.email] options:@{} completionHandler:nil];
-}
-
 @end

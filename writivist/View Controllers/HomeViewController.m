@@ -16,7 +16,6 @@
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, RepresentativeCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) Representative* representative;
 @property (nonatomic, strong) NSMutableArray *selectedReps;
 
 @end
@@ -110,9 +109,9 @@
     } else {
         [cell.profileView setImage:[UIImage imageNamed:@"user.png"]];
     }
-    cell.phoneButton.titleLabel.text = representative.phone;
+//    cell.phoneButton.titleLabel.text = representative.phone;
     [cell.websiteButton setTitle:representative.website forState:UIControlStateNormal];
-    cell.phoneLabel.text = representative.phone;
+    [cell.phoneButton setTitle:representative.phone forState:UIControlStateNormal];
     cell.emailLabel.text = representative.email;
     if (representative.twitter == nil) {
         cell.twitterButton.hidden = YES;
@@ -139,21 +138,32 @@
 }
 
 - (void)representativeCell:(RepresentativeCell *)representativeCell didTap:(Representative *)representative{
-    self.representative = representative;
-    if (representative.selected == NO) {
-        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
-        representativeCell.checkView.backgroundColor = color;
-        representative.selected = (BOOL * _Nonnull) YES;
-        UIView *subview = representativeCell.checkView.subviews[0];
-        subview.hidden = NO;
-        [self.selectedReps addObject:self.representative];
+    if (representative.email != nil) {
+        if (representative.selected == NO) {
+            UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
+            representativeCell.checkView.backgroundColor = color;
+            representative.selected = (BOOL * _Nonnull) YES;
+            UIView *subview = representativeCell.checkView.subviews[0];
+            subview.hidden = NO;
+            [self.selectedReps addObject:representative];
+        } else {
+            UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+            representativeCell.checkView.backgroundColor = color;
+            representative.selected = (BOOL * _Nonnull) NO;
+            UIView *subview = representativeCell.checkView.subviews[0];
+            subview.hidden = YES;
+            [self.selectedReps removeObject:representative];
+        }
     } else {
-        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
-        representativeCell.checkView.backgroundColor = color;
-        representative.selected = (BOOL * _Nonnull) NO;
-        UIView *subview = representativeCell.checkView.subviews[0];
-        subview.hidden = YES;
-        [self.selectedReps removeObject:self.representative];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Sorry, my email is unavailable to the public."
+               message:@"Feel free to call my office or navigate to my website to contact me. Please take a look at my social media pages to see where I stand on political and social issues!"
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{
+        }];
     }
 }
 

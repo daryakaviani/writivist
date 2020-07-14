@@ -19,22 +19,26 @@ PODS:
     - Parse/Core (= 1.18.0)
   - Parse/Core (1.18.0):
     - Bolts/Tasks (= 1.9.1)
+  - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
   - AFNetworking
   - Parse
+  - TTTAttributedLabel
 
 SPEC REPOS:
   trunk:
     - AFNetworking
     - Bolts
     - Parse
+    - TTTAttributedLabel
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
   Parse: 79bdda34fdb7eb2a707a43a951c8aae236cb3e34
+  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: aa38eee21a85f92810e1c3fa39bb674e7da48bc5
+PODFILE CHECKSUM: 8b3baf9cf8551085e45bd5816272fc5a826035e4
 
 COCOAPODS: 1.9.3

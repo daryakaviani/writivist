@@ -110,8 +110,9 @@
     } else {
         [cell.profileView setImage:[UIImage imageNamed:@"user.png"]];
     }
+    cell.phoneButton.titleLabel.text = representative.phone;
+    [cell.websiteButton setTitle:representative.website forState:UIControlStateNormal];
     cell.phoneLabel.text = representative.phone;
-    cell.websiteLabel.text = representative.website;
     cell.emailLabel.text = representative.email;
     if (representative.twitter == nil) {
         cell.twitterButton.hidden = YES;

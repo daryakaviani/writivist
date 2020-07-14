@@ -141,6 +141,15 @@
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="tintColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         </imageView>
+                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jtg-Hr-ve7">
+                                                            <rect key="frame" x="102" y="79" width="246" height="30"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                                            <state key="normal" title="gavin.com"/>
+                                                            <connections>
+                                                                <action selector="websiteButton:" destination="i4X-Wb-tRv" eventType="touchUpInside" id="CC6-GX-goz"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 </view>
@@ -167,13 +176,6 @@
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(408) 888-8888" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TVC-4j-iDw">
                                                     <rect key="frame" x="101" y="61" width="250" height="18"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="gavin.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KP7-pE-v2s">
-                                                    <rect key="frame" x="101" y="83" width="250" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                     <nil key="textColor"/>
@@ -208,6 +210,14 @@
                                                         <action selector="twitterButton:" destination="i4X-Wb-tRv" eventType="touchUpInside" id="aCV-5J-B6r"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMF-Fl-Nyr">
+                                                    <rect key="frame" x="218" y="53" width="128" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Phone Button"/>
+                                                    <connections>
+                                                        <action selector="phoneButton:" destination="i4X-Wb-tRv" eventType="touchUpInside" id="duD-FU-WlY"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
@@ -216,11 +226,12 @@
                                             <outlet property="facebookButton" destination="Fmm-rE-ebf" id="AgM-Oi-XKR"/>
                                             <outlet property="nameLabel" destination="fPO-vb-sTW" id="U6R-NR-IDw"/>
                                             <outlet property="partyLabel" destination="Oxf-qJ-Kxj" id="hbI-63-dgY"/>
+                                            <outlet property="phoneButton" destination="dMF-Fl-Nyr" id="h9Q-ia-itO"/>
                                             <outlet property="phoneLabel" destination="TVC-4j-iDw" id="r1X-nX-zWN"/>
                                             <outlet property="profileView" destination="S4C-Ng-mNM" id="aLv-25-aRN"/>
                                             <outlet property="roleLabel" destination="3Q9-D5-pTW" id="5Ma-8R-FfP"/>
                                             <outlet property="twitterButton" destination="hhe-No-Ol9" id="XRq-Ea-e6j"/>
-                                            <outlet property="websiteLabel" destination="KP7-pE-v2s" id="AWq-Gf-Uhg"/>
+                                            <outlet property="websiteButton" destination="Jtg-Hr-ve7" id="WSR-Oy-CQX"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

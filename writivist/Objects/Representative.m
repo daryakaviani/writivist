@@ -14,7 +14,6 @@
     self = [super init];
     if (self) {
         self.name = dictionary[@"name"];
-        self.role = dictionary[@"role"];
         self.party = dictionary[@"party"];
         self.profileString = dictionary[@"photoUrl"];
         self.email = dictionary[@"emails"][0];

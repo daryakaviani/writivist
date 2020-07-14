@@ -27,6 +27,7 @@
     [super viewDidLoad];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.selectedReps = [[NSMutableArray alloc]init];
     [self fetchRepresentatives];
 }
 
@@ -138,7 +139,6 @@
 
 - (void)representativeCell:(RepresentativeCell *)representativeCell didTap:(Representative *)representative{
     self.representative = representative;
-    NSLog(@"%@", self.representative.name);
     if (representative.selected == NO) {
         UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
         representativeCell.checkView.backgroundColor = color;
@@ -146,7 +146,6 @@
         UIView *subview = representativeCell.checkView.subviews[0];
         subview.hidden = NO;
         [self.selectedReps addObject:self.representative];
-        NSLog(@"%lu", (unsigned long)self.selectedReps.count);
     } else {
         UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
         representativeCell.checkView.backgroundColor = color;
@@ -154,7 +153,6 @@
         UIView *subview = representativeCell.checkView.subviews[0];
         subview.hidden = YES;
         [self.selectedReps removeObject:self.representative];
-        NSLog(@"%lu", (unsigned long)self.selectedReps.count);
     }
 }
 

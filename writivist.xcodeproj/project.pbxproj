@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		045C1E4BFE4E1F674D9468A7 /* Pods_writivistTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9B8CCF1C340ACBAAD38E3F /* Pods_writivistTests.framework */; };
 		4B1CC16E24BD3559007F9A52 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1CC16D24BD3559007F9A52 /* user.png */; };
+		4B1CC17724BE4DB7007F9A52 /* Template.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CC17624BE4DB7007F9A52 /* Template.m */; };
+		4B1CC17A24BE4E68007F9A52 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CC17924BE4E68007F9A52 /* User.m */; };
+		4B1CC17D24BE5783007F9A52 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CC17C24BE5783007F9A52 /* SignUpViewController.m */; };
 		4B7CB08524BCC03700AC26DF /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7CB08424BCC03700AC26DF /* LoginViewController.m */; };
 		4BCB1DB224BCAF6300BAE96E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DB124BCAF6300BAE96E /* AppDelegate.m */; };
 		4BCB1DB524BCAF6300BAE96E /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DB424BCAF6300BAE96E /* SceneDelegate.m */; };
@@ -46,6 +49,12 @@
 		091CD5D0013341656E444C88 /* Pods-writivistTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-writivistTests.debug.xcconfig"; path = "Target Support Files/Pods-writivistTests/Pods-writivistTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2D37CDD18E86B7514B082E08 /* Pods_writivist_writivistUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_writivist_writivistUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B1CC16D24BD3559007F9A52 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = user.png; path = ../../writivistassets/user.png; sourceTree = "<group>"; };
+		4B1CC17524BE4DB7007F9A52 /* Template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Template.h; sourceTree = "<group>"; };
+		4B1CC17624BE4DB7007F9A52 /* Template.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Template.m; sourceTree = "<group>"; };
+		4B1CC17824BE4E68007F9A52 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		4B1CC17924BE4E68007F9A52 /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		4B1CC17B24BE5783007F9A52 /* SignUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		4B1CC17C24BE5783007F9A52 /* SignUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		4B7CB08324BCC03700AC26DF /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		4B7CB08424BCC03700AC26DF /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		4BCB1DAD24BCAF6300BAE96E /* writivist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = writivist.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,6 +133,8 @@
 				4B7CB08424BCC03700AC26DF /* LoginViewController.m */,
 				4BD44FDB24BCD94200BEE897 /* HomeViewController.h */,
 				4BD44FDC24BCD94200BEE897 /* HomeViewController.m */,
+				4B1CC17B24BE5783007F9A52 /* SignUpViewController.h */,
+				4B1CC17C24BE5783007F9A52 /* SignUpViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -202,6 +213,10 @@
 			children = (
 				4BEA8B2124BCFBC30041A6C9 /* Representative.h */,
 				4BEA8B2224BCFBC30041A6C9 /* Representative.m */,
+				4B1CC17524BE4DB7007F9A52 /* Template.h */,
+				4B1CC17624BE4DB7007F9A52 /* Template.m */,
+				4B1CC17824BE4E68007F9A52 /* User.h */,
+				4B1CC17924BE4E68007F9A52 /* User.m */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -459,9 +474,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B7CB08524BCC03700AC26DF /* LoginViewController.m in Sources */,
+				4B1CC17724BE4DB7007F9A52 /* Template.m in Sources */,
+				4B1CC17A24BE4E68007F9A52 /* User.m in Sources */,
 				4BEA8B2324BCFBC30041A6C9 /* Representative.m in Sources */,
 				4BCB1DB224BCAF6300BAE96E /* AppDelegate.m in Sources */,
 				4BEA8B2024BCF4EE0041A6C9 /* RepresentativeCell.m in Sources */,
+				4B1CC17D24BE5783007F9A52 /* SignUpViewController.m in Sources */,
 				4BCB1DC324BCAF6500BAE96E /* main.m in Sources */,
 				4BD44FDD24BCD94200BEE897 /* HomeViewController.m in Sources */,
 				4BCB1DB524BCAF6300BAE96E /* SceneDelegate.m in Sources */,

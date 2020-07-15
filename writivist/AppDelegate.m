@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "Parse/Parse.h"
+#import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface AppDelegate ()
 
@@ -17,7 +18,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(  NSDictionary *)launchOptions {
-    ParseClientConfiguration *config = [ParseClientConfiguration   configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
+        [IQKeyboardManager sharedManager].enable = YES;
+        ParseClientConfiguration *config = [ParseClientConfiguration   configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
         configuration.applicationId = @"myWritivistId";
         configuration.server = @"https://writivist.herokuapp.com/parse";
     }];

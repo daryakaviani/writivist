@@ -190,17 +190,19 @@
             </objects>
             <point key="canvasLocation" x="327.536231884058" y="783.48214285714278"/>
         </scene>
-        <!--View Controller-->
+        <!--Template Library View Controller-->
         <scene sceneID="gvh-3K-jFU">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="YnS-dc-5zz" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="giF-6K-mmf">
+                <viewController modalPresentationStyle="fullScreen" id="YnS-dc-5zz" customClass="TemplateLibraryViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="cQB-C8-kfX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="NHk-jN-kxV"/>
-                    </view>
+                    </tableView>
                     <navigationItem key="navigationItem" id="3go-4W-StK"/>
+                    <connections>
+                        <outlet property="tableView" destination="cQB-C8-kfX" id="0KR-Rd-dff"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hqW-mP-Vyg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -358,19 +360,6 @@
             </objects>
             <point key="canvasLocation" x="2879.7101449275365" y="-210.26785714285714"/>
         </scene>
-        <!--Mail Compose View Controller-->
-        <scene sceneID="TaC-7s-fQV">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Vyj-Jr-TTW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <navigationController id="NO8-Tn-fsq" customClass="MFMailComposeViewController" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VVC-0x-bzX">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                </navigationController>
-            </objects>
-            <point key="canvasLocation" x="3628" y="-215"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="4Xf-fl-dgi">
             <objects>
@@ -380,6 +369,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="selectedImageTintColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="byA-1k-36o" kind="relationship" relationship="viewControllers" id="crg-NE-wHY"/>
@@ -394,9 +385,7 @@
         <scene sceneID="mMX-Km-oeS">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="byA-1k-36o" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="house.fill" catalog="system" selectedImage="house.fill" id="kVc-ci-d8E">
-                        <color key="badgeColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="" image="house.fill" catalog="system" selectedImage="house.fill" id="kVc-ci-d8E"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="G8q-Oq-ZuJ">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -411,11 +400,11 @@
             </objects>
             <point key="canvasLocation" x="1969.5652173913045" y="-210.26785714285714"/>
         </scene>
-        <!--Item 2-->
+        <!--Navigation Controller-->
         <scene sceneID="8TC-xT-O1E">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="baJ-Wf-b2o" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 2" id="Pn5-Tc-niA"/>
+                    <tabBarItem key="tabBarItem" title="" image="book.fill" catalog="system" id="Pn5-Tc-niA"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vJn-Fb-2JM">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -432,6 +421,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="book.fill" catalog="system" width="128" height="100"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="facebook" width="32" height="32"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>

@@ -13,6 +13,7 @@
 		4B1CC17A24BE4E68007F9A52 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CC17924BE4E68007F9A52 /* User.m */; };
 		4B1CC17D24BE5783007F9A52 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CC17C24BE5783007F9A52 /* SignUpViewController.m */; };
 		4B1CC18024BE89DD007F9A52 /* TemplateLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CC17F24BE89DD007F9A52 /* TemplateLibraryViewController.m */; };
+		4B1CC18324BEA71E007F9A52 /* CategoryRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CC18224BEA71E007F9A52 /* CategoryRow.m */; };
 		4B7CB08524BCC03700AC26DF /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7CB08424BCC03700AC26DF /* LoginViewController.m */; };
 		4BCB1DB224BCAF6300BAE96E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DB124BCAF6300BAE96E /* AppDelegate.m */; };
 		4BCB1DB524BCAF6300BAE96E /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DB424BCAF6300BAE96E /* SceneDelegate.m */; };
@@ -58,6 +59,8 @@
 		4B1CC17C24BE5783007F9A52 /* SignUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		4B1CC17E24BE89DD007F9A52 /* TemplateLibraryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TemplateLibraryViewController.h; sourceTree = "<group>"; };
 		4B1CC17F24BE89DD007F9A52 /* TemplateLibraryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TemplateLibraryViewController.m; sourceTree = "<group>"; };
+		4B1CC18124BEA71E007F9A52 /* CategoryRow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CategoryRow.h; sourceTree = "<group>"; };
+		4B1CC18224BEA71E007F9A52 /* CategoryRow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CategoryRow.m; sourceTree = "<group>"; };
 		4B7CB08324BCC03700AC26DF /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		4B7CB08424BCC03700AC26DF /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		4BCB1DAD24BCAF6300BAE96E /* writivist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = writivist.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -209,6 +212,8 @@
 			children = (
 				4BEA8B1E24BCF4EE0041A6C9 /* RepresentativeCell.h */,
 				4BEA8B1F24BCF4EE0041A6C9 /* RepresentativeCell.m */,
+				4B1CC18124BEA71E007F9A52 /* CategoryRow.h */,
+				4B1CC18224BEA71E007F9A52 /* CategoryRow.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -488,6 +493,7 @@
 				4B1CC17D24BE5783007F9A52 /* SignUpViewController.m in Sources */,
 				4BCB1DC324BCAF6500BAE96E /* main.m in Sources */,
 				4BD44FDD24BCD94200BEE897 /* HomeViewController.m in Sources */,
+				4B1CC18324BEA71E007F9A52 /* CategoryRow.m in Sources */,
 				4BCB1DB524BCAF6300BAE96E /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

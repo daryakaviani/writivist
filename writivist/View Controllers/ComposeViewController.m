@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIView *categoryView;
 @property (strong, nonatomic) NSArray *categories;
 @property (strong, nonatomic) NSString *category;
+@property (strong, nonatomic) NSString *navTitle;
 
 @end
 
@@ -26,10 +27,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.category = @"Category";
+    self.navTitle = self.category;
     self.categories = @[@"black lives matter", @"climate action", @"financial justice", @"islamophobia", @"topic", @"topic", @"topic", @"topic"];
     self.letterField.borderStyle = UITextBorderStyleRoundedRect;
     MKDropdownMenu *dropdownMenu = [[MKDropdownMenu alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     [dropdownMenu setComponentTextAlignment:NSTextAlignmentLeft];
+    [dropdownMenu setDisclosureIndicatorImage:[UIImage imageNamed:@"download.png"]];
+    [dropdownMenu setTintColor:[UIColor redColor]];
     dropdownMenu.dataSource = self;
     dropdownMenu.delegate = self;
     [self.categoryView addSubview:dropdownMenu];
@@ -50,6 +54,7 @@
 
 -(void)dropdownMenu:(MKDropdownMenu *)dropdownMenu didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     self.category = self.categories[row];
+    [dropdownMenu reloadAllComponents];
     [dropdownMenu closeAllComponentsAnimated:YES];
     NSLog(@"%@", self.category);
 }

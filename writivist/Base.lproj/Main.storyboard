@@ -268,7 +268,7 @@
         <!--Compose View Controller-->
         <scene sceneID="Pte-DS-RJN">
             <objects>
-                <viewController id="ifm-OH-TuW" customClass="ComposeViewController" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="ifm-OH-TuW" customClass="ComposeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8ug-YS-YlZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -306,6 +306,7 @@
                         <outlet property="categoryView" destination="V7m-ED-anL" id="p2I-4h-G8V"/>
                         <outlet property="letterField" destination="EhI-r6-rM2" id="axc-hg-Okz"/>
                         <outlet property="subjectField" destination="Uue-gl-qrH" id="9pm-39-309"/>
+                        <segue destination="YnS-dc-5zz" kind="show" identifier="postedTemplate" id="rNY-De-iyh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z26-t3-kpy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -524,6 +525,9 @@
             <point key="canvasLocation" x="1969.5652173913045" y="438.61607142857139"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="rNY-De-iyh"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="book.fill" catalog="system" width="128" height="100"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>

@@ -24,6 +24,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     [super viewDidLoad];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.navigationItem.hidesBackButton = YES;
 
     categories = @[@"black lives matter", @"climate action", @"financial justice", @"islamophobia", @"topic", @"topic", @"topic", @"topic"];
     

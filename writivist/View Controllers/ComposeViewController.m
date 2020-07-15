@@ -57,7 +57,7 @@
 
 - (IBAction)shareButton:(id)sender {
     [Template postUserTemplate:self.letterField.text withCategory:self.category withTitle:self.subjectField.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        [self dismissViewControllerAnimated:true completion:nil];
+        [self performSegueWithIdentifier:@"postedTemplate" sender:nil];
     }];
 }
 /*

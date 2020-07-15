@@ -268,6 +268,14 @@
                                                                 </subviews>
                                                             </view>
                                                             <size key="customSize" width="200" height="200"/>
+                                                            <connections>
+                                                                <outlet property="authorImage" destination="v0K-T1-Uuq" id="A0T-WM-AKh"/>
+                                                                <outlet property="authorLabel" destination="VOT-ky-RQJ" id="SWS-G5-gop"/>
+                                                                <outlet property="likeButton" destination="6et-DE-TLt" id="zHT-hO-3Su"/>
+                                                                <outlet property="likeLabel" destination="wud-mb-M1U" id="jet-Dh-BlA"/>
+                                                                <outlet property="previewButton" destination="hCZ-l1-mit" id="ejj-Io-zTg"/>
+                                                                <outlet property="titleLabel" destination="Fzn-EA-f1A" id="7dL-Qb-vvO"/>
+                                                            </connections>
                                                         </collectionViewCell>
                                                     </cells>
                                                 </collectionView>

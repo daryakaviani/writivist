@@ -12,7 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CategoryRow : UITableViewCell <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet UILabel *testLabel;
+@property (strong, nonatomic) NSString *category;
+@property (strong, nonatomic) NSNumber *tester;
+@property (strong, nonatomic) NSArray *templates;
+
+- (void) setCategory: (NSString *) category;
 
 @end
 

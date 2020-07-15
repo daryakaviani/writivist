@@ -27,8 +27,6 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     self.navigationItem.hidesBackButton = YES;
 
     categories = @[@"black lives matter", @"climate action", @"financial justice", @"islamophobia", @"topic", @"topic", @"topic", @"topic"];
-    
-//    [self.tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:HeaderViewIdentifier];
 }
    
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -39,8 +37,10 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     return 1;
 }
 
-- (CategoryRow *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *category = categories[indexPath.section];
     CategoryRow *cell = (CategoryRow *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    [cell setCategory:category];
     return cell;
 }
 
@@ -48,7 +48,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 50)];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 50)];
     [label setFont: [UIFont fontWithName:@"Snell Roundhand" size:30]];
-     NSString *string = categories[section];
+    NSString *string = categories[section];
     [label setText:string];
     [view addSubview:label];
     [view setBackgroundColor:[[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5]];

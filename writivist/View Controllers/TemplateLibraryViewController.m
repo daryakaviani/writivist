@@ -25,9 +25,9 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
 
-    categories = @[@"black lives matter", @"climate action", @"financial justice", @"islamophobia"];
+    categories = @[@"black lives matter", @"climate action", @"financial justice", @"islamophobia", @"topic", @"topic", @"topic", @"topic"];
     
-    [self.tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:HeaderViewIdentifier];
+//    [self.tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:HeaderViewIdentifier];
 }
    
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -44,13 +44,18 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UITableViewHeaderFooterView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HeaderViewIdentifier];
-    header.textLabel.text = categories[section];
-    return header;
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 50)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 50)];
+    [label setFont: [UIFont fontWithName:@"Snell Roundhand" size:30]];
+     NSString *string = categories[section];
+    [label setText:string];
+    [view addSubview:label];
+    [view setBackgroundColor:[[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5]];
+    return view;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 30;
+    return 55;
 }
 
 @end

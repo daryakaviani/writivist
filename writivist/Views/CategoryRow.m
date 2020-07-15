@@ -35,10 +35,8 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-//    CGFloat itemsPerRow = 4;
-//    CGFloat hardCodedPadding = 5;
-    CGFloat itemWidth = 128;
-    CGFloat itemHeight = 128;
+    CGFloat itemWidth = 200;
+    CGFloat itemHeight = 200;
     return CGSizeMake(itemWidth, itemHeight);
 }
 

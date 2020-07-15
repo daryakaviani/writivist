@@ -27,7 +27,6 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 
     categories = @[@"black lives matter", @"climate action", @"financial justice", @"islamophobia"];
     
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
     [self.tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:HeaderViewIdentifier];
 }
    
@@ -39,8 +38,8 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     return 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+- (CategoryRow *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CategoryRow *cell = (CategoryRow *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     return cell;
 }
 

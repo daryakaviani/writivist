@@ -200,7 +200,7 @@
         for (Representative *representative in self.selectedReps) {
             [emails addObject:representative.email];
             if (emails.count == self.selectedReps.count && emails.count != 1) {
-                bodyHeader = [bodyHeader stringByAppendingString:@"and "];
+                bodyHeader = [bodyHeader stringByAppendingString:@" and "];
             }
             bodyHeader = [bodyHeader stringByAppendingString:representative.role];
             bodyHeader = [bodyHeader stringByAppendingString:@" "];
@@ -208,6 +208,9 @@
             if (self.selectedReps.count != 2) {
                 bodyHeader = [bodyHeader stringByAppendingString:@", "];
             }
+        }
+        if (self.selectedReps.count == 2) {
+            bodyHeader = [bodyHeader stringByAppendingString:@", "];
         }
         [self.selectedReps removeAllObjects];
         [mailComposeViewController setToRecipients:emails];

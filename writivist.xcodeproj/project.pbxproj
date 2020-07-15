@@ -10,6 +10,7 @@
 		045C1E4BFE4E1F674D9468A7 /* Pods_writivistTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9B8CCF1C340ACBAAD38E3F /* Pods_writivistTests.framework */; };
 		4B09E3A324BF7BA10021F076 /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B09E3A224BF7BA10021F076 /* ComposeViewController.m */; };
 		4B09E3A524BF8F4E0021F076 /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B09E3A424BF8F4E0021F076 /* download.png */; };
+		4B09E3A824BF92710021F076 /* TemplateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B09E3A724BF92710021F076 /* TemplateCell.m */; };
 		4B1CC16E24BD3559007F9A52 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1CC16D24BD3559007F9A52 /* user.png */; };
 		4B1CC17724BE4DB7007F9A52 /* Template.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CC17624BE4DB7007F9A52 /* Template.m */; };
 		4B1CC17A24BE4E68007F9A52 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CC17924BE4E68007F9A52 /* User.m */; };
@@ -55,6 +56,8 @@
 		4B09E3A124BF7BA10021F076 /* ComposeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
 		4B09E3A224BF7BA10021F076 /* ComposeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
 		4B09E3A424BF8F4E0021F076 /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = download.png; path = ../../download.png; sourceTree = "<group>"; };
+		4B09E3A624BF92710021F076 /* TemplateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TemplateCell.h; sourceTree = "<group>"; };
+		4B09E3A724BF92710021F076 /* TemplateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TemplateCell.m; sourceTree = "<group>"; };
 		4B1CC16D24BD3559007F9A52 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = user.png; path = ../../writivistassets/user.png; sourceTree = "<group>"; };
 		4B1CC17524BE4DB7007F9A52 /* Template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Template.h; sourceTree = "<group>"; };
 		4B1CC17624BE4DB7007F9A52 /* Template.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Template.m; sourceTree = "<group>"; };
@@ -222,6 +225,8 @@
 				4BEA8B1F24BCF4EE0041A6C9 /* RepresentativeCell.m */,
 				4B1CC18124BEA71E007F9A52 /* CategoryRow.h */,
 				4B1CC18224BEA71E007F9A52 /* CategoryRow.m */,
+				4B09E3A624BF92710021F076 /* TemplateCell.h */,
+				4B09E3A724BF92710021F076 /* TemplateCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -493,6 +498,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B1CC18024BE89DD007F9A52 /* TemplateLibraryViewController.m in Sources */,
+				4B09E3A824BF92710021F076 /* TemplateCell.m in Sources */,
 				4B7CB08524BCC03700AC26DF /* LoginViewController.m in Sources */,
 				4B1CC17724BE4DB7007F9A52 /* Template.m in Sources */,
 				4B1CC17A24BE4E68007F9A52 /* User.m in Sources */,

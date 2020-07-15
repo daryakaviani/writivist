@@ -8,6 +8,7 @@
 @property (nonatomic, strong) NSString  * _Nonnull category;
 @property (nonatomic, strong) NSString  * _Nonnull body;
 @property (nonatomic, strong) NSString  * _Nonnull title;
+@property (nonatomic) bool selected;
 
 + (void) postUserTemplate: ( NSString * _Nullable )body withCategory: ( NSString * _Nullable )category withTitle: ( NSString * _Nullable )title withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 

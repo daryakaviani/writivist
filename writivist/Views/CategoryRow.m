@@ -32,7 +32,19 @@
     [cell.layer setBorderWidth:1];
     Template *template = self.templates[indexPath.item];
     cell.temp = template;
+    cell.delegate = self;
     [cell setTemplate:template];
+    if (cell.temp.selected == true) {
+        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
+        cell.checkView.backgroundColor = color;
+        UIView *subview = cell.checkView.subviews[0];
+        subview.hidden = NO;
+    } else {
+        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+        cell.checkView.backgroundColor = color;
+        UIView *subview = cell.checkView.subviews[0];
+        subview.hidden = YES;
+    }
     return cell;
 }
 
@@ -71,6 +83,26 @@
     CGFloat itemWidth = 200;
     CGFloat itemHeight = 200;
     return CGSizeMake(itemWidth, itemHeight);
+}
+
+- (void)templateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull Template *)temp {
+//    self.body = temp.body;
+    if (temp.selected == NO) {
+        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
+        templateCell.checkView.backgroundColor = color;
+        temp.selected = true;
+        UIView *subview = templateCell.checkView.subviews[0];
+        subview.hidden = NO;
+//        [self.selectedReps addObject:representative];
+    } else {
+        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+        templateCell.checkView.backgroundColor = color;
+        temp.selected = false;
+        UIView *subview = templateCell.checkView.subviews[0];
+        subview.hidden = YES;
+//        [self.selectedReps removeObject:representative];
+    }
+    
 }
 
 @end

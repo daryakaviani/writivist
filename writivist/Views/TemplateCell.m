@@ -7,14 +7,29 @@
 //
 
 #import "TemplateCell.h"
+#import "HomeViewController.h"
 
 @implementation TemplateCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+     UITapGestureRecognizer *templateTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapTemplate:)];
+    [self.checkView addGestureRecognizer:templateTapGestureRecognizer];
+    [self.checkView setUserInteractionEnabled:YES];
+}
 
 - (void)setTemplate:(Template *)template {
     _temp = template;
     self.authorLabel.text = template.author.username;
     self.likeLabel.text = [NSString stringWithFormat:@"%@", template.likeCount];
     self.titleLabel.text = template.title;
+}
+- (IBAction)selectButton:(id)sender {
+
+}
+
+- (void) didTapTemplate:(UITapGestureRecognizer *)sender{
+    [self.delegate templateCell:self didTap:self.temp];
 }
 
 @end

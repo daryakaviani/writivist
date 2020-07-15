@@ -8,9 +8,11 @@
 
 #import "TemplateLibraryViewController.h"
 #import "CategoryRow.h"
+#import "TemplateCell.h"
 
 @interface TemplateLibraryViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSString *body;
 
 @end
 

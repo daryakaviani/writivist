@@ -11,6 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol TemplateCellDelegate;
+
 @interface TemplateCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
@@ -19,12 +21,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;
 @property (weak, nonatomic) IBOutlet UIButton *previewButton;
 @property (strong, nonatomic) Template *temp;
+@property (weak, nonatomic) IBOutlet UIView *checkView;
+@property (nonatomic, weak) id<TemplateCellDelegate> delegate;
 
 
 - (void)setTemplate:(Template *)template;
 
 @end
 
+@protocol TemplateCellDelegate
+- (void)templateCell:(TemplateCell *) templateCell didTap: (Template *)temp;
+@end
 
 
 NS_ASSUME_NONNULL_END

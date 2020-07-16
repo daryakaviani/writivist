@@ -26,11 +26,11 @@
     self.titleLabel.text = template.title;
 }
 
-//- (IBAction)previewButton:(id)sender {
-//    PreviewViewController *previewViewController = [self.inputViewController segue destinationViewController];
-//    previewViewController.bodyLabel.text = self.temp.body;
-//    
-//}
+- (IBAction)previewButton:(id)sender {
+    PreviewViewController *previewViewController = [self.inputViewController.storyboard instantiateViewControllerWithIdentifier:@"PreviewViewController"];
+    previewViewController.bodyLabel.text = self.temp.body;
+    [self.inputViewController presentViewController:previewViewController animated:NO completion:nil];
+}
 
 - (void) didTapTemplate:(UITapGestureRecognizer *)sender{
     [self.delegate templateCell:self didTap:self.temp];

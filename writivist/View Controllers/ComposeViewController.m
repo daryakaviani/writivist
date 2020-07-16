@@ -12,7 +12,7 @@
 
 @interface ComposeViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *subjectField;
-@property (weak, nonatomic) IBOutlet UITextField *letterField;
+@property (weak, nonatomic) IBOutlet UITextView *letterField;
 @property (weak, nonatomic) IBOutlet UIView *categoryView;
 @property (strong, nonatomic) NSArray *categories;
 @property (strong, nonatomic) NSString *category;
@@ -30,7 +30,6 @@
     self.navTitle = self.category;
     self.navigationController.navigationBar.tintColor = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:1];
     self.categories = @[@"black lives matter", @"climate action", @"financial justice", @"islamophobia", @"topic", @"topic", @"topic", @"topic"];
-    self.letterField.borderStyle = UITextBorderStyleRoundedRect;
     MKDropdownMenu *dropdownMenu = [[MKDropdownMenu alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     [dropdownMenu setComponentTextAlignment:NSTextAlignmentLeft];
     [dropdownMenu setDisclosureIndicatorImage:[UIImage imageNamed:@"download.png"]];

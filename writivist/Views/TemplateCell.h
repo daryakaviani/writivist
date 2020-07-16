@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) Template   *temp;
 @property (weak, nonatomic) IBOutlet UIView *checkView;
 @property (nonatomic, weak) id<TemplateCellDelegate> delegate;
-//@property (nonatomic, strong) CategoryRow *categoryRow;
+
 //@property (strong, nonatomic) CategoryRow * _Nullable categoryRow;
 
 - (void)setTemplate:(Template *)template;

@@ -73,6 +73,10 @@
         }
     }];
 }
+//
+//- (void)saveIndex:(TemplateCell *) templateCell{
+//    self.indexPath.item = templateCell;
+//}
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.templates.count;

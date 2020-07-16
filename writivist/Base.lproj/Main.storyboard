@@ -269,18 +269,6 @@
                                                                         </subviews>
                                                                         <color key="backgroundColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                     </view>
-                                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCZ-l1-mit">
-                                                                        <rect key="frame" x="20" y="157.5" width="65" height="33"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                                                        <state key="normal" title="Preview">
-                                                                            <color key="titleColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                                        </state>
-                                                                        <connections>
-                                                                            <action selector="previewButton:" destination="jkB-LO-zDF" eventType="touchUpInside" id="4Wx-m0-G4q"/>
-                                                                            <segue destination="9Dh-CU-C0r" kind="presentation" identifier="previewSegue" id="qgK-3d-cox"/>
-                                                                        </connections>
-                                                                    </button>
                                                                 </subviews>
                                                             </view>
                                                             <size key="customSize" width="200" height="200"/>
@@ -290,7 +278,6 @@
                                                                 <outlet property="checkView" destination="FCh-5L-Pwh" id="qDM-si-aSQ"/>
                                                                 <outlet property="likeButton" destination="6et-DE-TLt" id="zHT-hO-3Su"/>
                                                                 <outlet property="likeLabel" destination="wud-mb-M1U" id="jet-Dh-BlA"/>
-                                                                <outlet property="previewButton" destination="hCZ-l1-mit" id="ejj-Io-zTg"/>
                                                                 <outlet property="titleLabel" destination="Fzn-EA-f1A" id="7dL-Qb-vvO"/>
                                                             </connections>
                                                         </collectionViewCell>
@@ -322,13 +309,22 @@
                                 <segue destination="ifm-OH-TuW" kind="show" id="o0O-ap-Bhy"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="rMU-Lp-mtP">
-                            <color key="tintColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="doneButton:" destination="YnS-dc-5zz" id="YCQ-5s-Qo5"/>
-                                <segue destination="3yW-d3-FQE" kind="show" identifier="selectedTemplate" id="zDs-ub-Ass"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="done" id="rMU-Lp-mtP">
+                                <color key="tintColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="doneButton:" destination="YnS-dc-5zz" id="YCQ-5s-Qo5"/>
+                                    <segue destination="3yW-d3-FQE" kind="show" identifier="selectedTemplate" id="zDs-ub-Ass"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Preview" id="NLb-Xx-ukt">
+                                <color key="tintColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="previewButton:" destination="YnS-dc-5zz" id="1DO-wE-w7t"/>
+                                    <segue destination="9Dh-CU-C0r" kind="presentation" identifier="preview" id="h9w-nq-IX8"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="rrG-3L-zoh" id="0NA-rk-kyD"/>
@@ -399,7 +395,7 @@
         <!--PreviewViewController-->
         <scene sceneID="Ack-Xw-CfK">
             <objects>
-                <viewController storyboardIdentifier="PreviewViewController" title="PreviewViewController" id="9Dh-CU-C0r" customClass="PreviewViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PreviewViewController" title="PreviewViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9Dh-CU-C0r" customClass="PreviewViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UbC-Vy-sxH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -427,6 +423,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="cPK-VJ-4Yl"/>
                     </view>
+                    <navigationItem key="navigationItem" id="dte-Ic-Xug"/>
                     <connections>
                         <outlet property="bodyLabel" destination="T07-sH-gMu" id="0fq-eN-mEl"/>
                     </connections>

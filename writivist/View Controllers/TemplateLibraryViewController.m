@@ -67,6 +67,9 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     [view setBackgroundColor:[[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5]];
     return view;
 }
+- (IBAction)previewButton:(id)sender {
+    [self performSegueWithIdentifier:@"selectedTemplate" sender:nil];
+}
 - (IBAction)doneButton:(id)sender {
     if (self.body.length == 0) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No template selected."
@@ -93,6 +96,11 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     if ([segue.identifier isEqualToString:@"selectedTemplate"]) {
         HomeViewController *homeViewController = [segue destinationViewController];
         homeViewController.body = self.body;
+        self.body = @"";
+    }
+    if ([segue.identifier isEqualToString:@"preview"]) {
+        PreviewViewController *previewViewController = [segue destinationViewController];
+        previewViewController.body = self.body;
         self.body = @"";
     }
 

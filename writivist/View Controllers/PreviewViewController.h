@@ -11,7 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PreviewViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UILabel *bodyLabel;
+
+@property (nonatomic, strong) NSString *body;
+
 
 @end
 

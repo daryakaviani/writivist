@@ -28,12 +28,12 @@
     [super viewDidLoad];
     self.category = @"Category";
     self.navTitle = self.category;
+    self.navigationController.navigationBar.tintColor = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:1];
     self.categories = @[@"black lives matter", @"climate action", @"financial justice", @"islamophobia", @"topic", @"topic", @"topic", @"topic"];
     self.letterField.borderStyle = UITextBorderStyleRoundedRect;
     MKDropdownMenu *dropdownMenu = [[MKDropdownMenu alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     [dropdownMenu setComponentTextAlignment:NSTextAlignmentLeft];
     [dropdownMenu setDisclosureIndicatorImage:[UIImage imageNamed:@"download.png"]];
-    [dropdownMenu setTintColor:[UIColor redColor]];
     dropdownMenu.dataSource = self;
     dropdownMenu.delegate = self;
     [self.categoryView addSubview:dropdownMenu];

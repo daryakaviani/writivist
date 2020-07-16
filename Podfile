@@ -10,7 +10,7 @@ target 'writivist' do
   pod 'AFNetworking'
   pod 'IQKeyboardManager'
   pod 'MKDropdownMenu'
-
+  pod 'Parse/UI'
   target 'writivistTests' do
     inherit! :search_paths
     # Pods for testing

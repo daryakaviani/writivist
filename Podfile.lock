@@ -21,12 +21,15 @@ PODS:
     - Parse/Core (= 1.18.0)
   - Parse/Core (1.18.0):
     - Bolts/Tasks (= 1.9.1)
+  - Parse/UI (1.18.0):
+    - Parse/Core
 
 DEPENDENCIES:
   - AFNetworking
   - IQKeyboardManager
   - MKDropdownMenu
   - Parse
+  - Parse/UI
 
 SPEC REPOS:
   trunk:
@@ -43,6 +46,6 @@ SPEC CHECKSUMS:
   MKDropdownMenu: 269df4a41d21a1db684ce8bc709befe419fc5bae
   Parse: 79bdda34fdb7eb2a707a43a951c8aae236cb3e34
 
-PODFILE CHECKSUM: 7d9e4d716a93ef54cd0fd662e4b258859f03e315
+PODFILE CHECKSUM: 759705131a1f737757674c1f21acef238763d9d4
 
 COCOAPODS: 1.9.3

@@ -350,10 +350,6 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="717"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wwf-MV-geu">
-                                                <rect key="frame" x="15" y="21" width="111" height="111"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Full Name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="27D-Vu-NYT">
                                                 <rect key="frame" x="140" y="21" width="261" height="92"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -485,6 +481,10 @@
                                                 <color key="textColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ajf-Ow-BoB" customClass="PFImageView">
+                                                <rect key="frame" x="18" y="21" width="111" height="104"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aDK-au-N8w">
                                                 <rect key="frame" x="91" y="98" width="24" height="22"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -517,7 +517,7 @@
                     <connections>
                         <outlet property="letterCountLabel" destination="uDK-3x-Be4" id="9jY-oG-aq0"/>
                         <outlet property="nameLabel" destination="27D-Vu-NYT" id="M6f-lb-Qac"/>
-                        <outlet property="profileView" destination="Wwf-MV-geu" id="pdS-Uv-UUr"/>
+                        <outlet property="profileView" destination="Ajf-Ow-BoB" id="uzz-j4-LeB"/>
                         <outlet property="scrollView" destination="oCQ-qa-wNf" id="X62-Bz-d9v"/>
                         <outlet property="tableView" destination="w2z-9g-hW8" id="oGQ-bh-cSk"/>
                         <outlet property="templateLikeLabel" destination="W1x-G4-4yn" id="HiL-2L-MNY"/>

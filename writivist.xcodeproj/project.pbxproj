@@ -27,6 +27,7 @@
 		4BCB1DC324BCAF6500BAE96E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DC224BCAF6500BAE96E /* main.m */; };
 		4BCB1DCD24BCAF6500BAE96E /* writivistTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DCC24BCAF6500BAE96E /* writivistTests.m */; };
 		4BCB1DD824BCAF6500BAE96E /* writivistUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DD724BCAF6500BAE96E /* writivistUITests.m */; };
+		4BCD9B1924C1062500E1BCBD /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD9B1824C1062500E1BCBD /* ProfileViewController.m */; };
 		4BD44FDD24BCD94200BEE897 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD44FDC24BCD94200BEE897 /* HomeViewController.m */; };
 		4BEA8B2024BCF4EE0041A6C9 /* RepresentativeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA8B1F24BCF4EE0041A6C9 /* RepresentativeCell.m */; };
 		4BEA8B2324BCFBC30041A6C9 /* Representative.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA8B2224BCFBC30041A6C9 /* Representative.m */; };
@@ -90,6 +91,8 @@
 		4BCB1DD324BCAF6500BAE96E /* writivistUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = writivistUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BCB1DD724BCAF6500BAE96E /* writivistUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = writivistUITests.m; sourceTree = "<group>"; };
 		4BCB1DD924BCAF6500BAE96E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4BCD9B1724C1062500E1BCBD /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		4BCD9B1824C1062500E1BCBD /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		4BD44FDB24BCD94200BEE897 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		4BD44FDC24BCD94200BEE897 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		4BEA8B1E24BCF4EE0041A6C9 /* RepresentativeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RepresentativeCell.h; sourceTree = "<group>"; };
@@ -158,6 +161,8 @@
 				4B09E3A224BF7BA10021F076 /* ComposeViewController.m */,
 				4B09E3A924C01CA70021F076 /* PreviewViewController.h */,
 				4B09E3AA24C01CA70021F076 /* PreviewViewController.m */,
+				4BCD9B1724C1062500E1BCBD /* ProfileViewController.h */,
+				4BCD9B1824C1062500E1BCBD /* ProfileViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -504,6 +509,7 @@
 			files = (
 				4B1CC18024BE89DD007F9A52 /* TemplateLibraryViewController.m in Sources */,
 				4B09E3A824BF92710021F076 /* TemplateCell.m in Sources */,
+				4BCD9B1924C1062500E1BCBD /* ProfileViewController.m in Sources */,
 				4B09E3AB24C01CA70021F076 /* PreviewViewController.m in Sources */,
 				4B7CB08524BCC03700AC26DF /* LoginViewController.m in Sources */,
 				4B1CC17724BE4DB7007F9A52 /* Template.m in Sources */,

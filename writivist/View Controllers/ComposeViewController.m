@@ -9,6 +9,7 @@
 #import "ComposeViewController.h"
 #import "Template.h"
 #import "MKDropdownMenu.h"
+#import "User.h"
 
 @interface ComposeViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *subjectField;
@@ -75,6 +76,10 @@
         [self presentViewController:alert animated:YES completion:^{
         }];
     } else {
+        User *user = [User currentUser];
+        int val = [user.likeCount intValue];
+        user.likeCount = [NSNumber numberWithInt:(val + 1)];
+        [user saveInBackground];
         [Template postUserTemplate:self.letterField.text withCategory:self.category withTitle:self.subjectField.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
             [self performSegueWithIdentifier:@"postedTemplate" sender:nil];
         }];

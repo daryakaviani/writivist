@@ -49,6 +49,9 @@
     newUser.city = self.cityField.text;
     newUser.state = self.stateField.text;
     newUser.zipCode = self.zipCodeField.text;
+    newUser.likeCount = @(0);
+    newUser.templateCount = @(0);
+    newUser.letterCount = @(0);
     
     if ([self.passwordField.text isEqualToString:self.confirmPasswordField.text]) {
         newUser.password = self.passwordField.text;

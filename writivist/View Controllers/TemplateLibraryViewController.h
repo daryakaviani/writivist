@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TemplateCell.h"
+@class TemplateCell;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TemplateLibraryViewController : UIViewController
 @property (strong, nonatomic) NSString *body;
 @property (strong, nonatomic) NSString *previewBody;
+@property (strong, nonatomic) TemplateCell *currentCell;
 
 @end
 

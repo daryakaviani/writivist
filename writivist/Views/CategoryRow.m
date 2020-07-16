@@ -44,6 +44,14 @@
         UIView *subview = cell.checkView.subviews[0];
         subview.hidden = YES;
     }
+//    if ([cell.temp.body isEqual:self.templateLibrary.currentCell.temp.body]) {
+//        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
+//        cell.checkView.backgroundColor = color;
+//        cell.temp.selected = true;
+//        self.templateLibrary.currentCell = cell;
+//        UIView *subview = cell.checkView.subviews[0];
+//        subview.hidden = NO;
+//    }
     return cell;
 }
 
@@ -89,11 +97,18 @@
 }
 
 - (void)templateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull Template *)temp {
-    if (temp.selected == false && self.templateLibrary.body.length == 0) {
+    if (temp.selected == false) {
+        if (self.templateLibrary.currentCell != nil) {
+            TemplateCell *current = self.templateLibrary.currentCell;
+            UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+            current.checkView.backgroundColor = color;
+            UIView *subview = current.checkView.subviews[0];
+            subview.hidden = YES;
+        }
         UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
         templateCell.checkView.backgroundColor = color;
         temp.selected = true;
-//        self.selectedCell = templateCell;
+        self.templateLibrary.currentCell = templateCell;
         UIView *subview = templateCell.checkView.subviews[0];
         subview.hidden = NO;
         self.templateLibrary.body = temp.body;
@@ -101,6 +116,7 @@
         UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
         templateCell.checkView.backgroundColor = color;
         temp.selected = false;
+        self.templateLibrary.currentCell = nil;
 //        self.selectedCell = nil;
         UIView *subview = templateCell.checkView.subviews[0];
         subview.hidden = YES;

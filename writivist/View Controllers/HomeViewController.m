@@ -30,9 +30,11 @@
     self.tableView.delegate = self;
     self.selectedReps = [[NSMutableArray alloc]init];
     [self fetchRepresentatives];
-    
-    // Customization for Nav Bar
-    self.navigationItem.title = @"let's write.";
+    if (self.body != nil) {
+        self.navigationItem.title = @"select reps.";
+    } else {
+        self.navigationItem.title = @"let's write.";
+    }
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:40], NSForegroundColorAttributeName : [UIColor blackColor]};
 }

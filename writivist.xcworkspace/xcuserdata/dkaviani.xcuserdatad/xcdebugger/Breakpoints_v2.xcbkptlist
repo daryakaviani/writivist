@@ -14,8 +14,8 @@
             filePath = "writivist/Views/CategoryRow.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
             landmarkName = "-fetchTemplates"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "writivist/Views/CategoryRow.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "-fetchTemplates"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "writivist/Views/CategoryRow.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "-fetchTemplates"
             landmarkType = "7">
             <Locations>
@@ -94,10 +94,10 @@
             filePath = "writivist/Views/CategoryRow.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
-            landmarkName = "-fetchTemplates"
-            landmarkType = "7">
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "CategoryRow"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -110,10 +110,10 @@
             filePath = "writivist/Views/CategoryRow.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "CategoryRow"
-            landmarkType = "3">
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "-fetchTemplates"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -126,8 +126,8 @@
             filePath = "writivist/Views/CategoryRow.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
             landmarkName = "-fetchTemplates"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,8 +154,8 @@
             filePath = "writivist/Views/CategoryRow.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
             landmarkName = "-templateCell:didTap:"
             landmarkType = "7">
          </BreakpointContent>

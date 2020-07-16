@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TemplateCell.h"
 #import "TemplateLibraryViewController.h"
+@class TemplateLibraryViewController;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CategoryRow : UITableViewCell <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>

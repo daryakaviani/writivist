@@ -8,7 +8,6 @@
 
 #import "TemplateLibraryViewController.h"
 #import "CategoryRow.h"
-#import "TemplateCell.h"
 #import "HomeViewController.h"
 #import "PreviewViewController.h"
 
@@ -43,6 +42,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     NSString *category = categories[indexPath.section];
     CategoryRow *cell = (CategoryRow *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     cell.templateLibrary = self;
+    self.body = @"";
 //    [cell.collectionView reloadData];
 //    if (cell.selectedCell != nil) {
 //        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];

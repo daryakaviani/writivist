@@ -100,16 +100,8 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     }
     if ([segue.identifier isEqualToString:@"preview"]) {
         PreviewViewController *previewViewController = [segue destinationViewController];
-        if (![self.body isEqualToString:@""]) {
-            previewViewController.body = self.body;
-        } else {
-            previewViewController.body = self.previousBody;
-        }
         previewViewController.templateTitle = self.previewTitle;
-        if (![self.body isEqualToString:@""]){
-            self.previousBody = self.body;
-        }
-        self.body = @"";
+        previewViewController.body = self.body;
     }
 
 }

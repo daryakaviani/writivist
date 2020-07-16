@@ -257,9 +257,12 @@
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller
           didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
-   // Check the result or perform other tasks.
- 
-   // Dismiss the mail compose view controller.
+    if (result == MFMailComposeResultSent) {
+        User *user = [User currentUser];
+        int val = [user.letterCount intValue];
+        user.letterCount = [NSNumber numberWithInt:(val + 1)];
+        [user saveInBackground];
+    }
    [self dismissViewControllerAnimated:YES completion:nil];
 }
 

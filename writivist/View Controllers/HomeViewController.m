@@ -167,14 +167,14 @@
             representative.selected = (BOOL * _Nonnull) YES;
             UIView *subview = representativeCell.checkView.subviews[0];
             subview.hidden = NO;
-            [self.selectedReps addObject:representative];
+            [self.selectedReps addObject:representativeCell];
         } else {
             UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
             representativeCell.checkView.backgroundColor = color;
             representative.selected = (BOOL * _Nonnull) NO;
             UIView *subview = representativeCell.checkView.subviews[0];
             subview.hidden = YES;
-            [self.selectedReps removeObject:representative];
+            [self.selectedReps removeObject:representativeCell];
         }
     } else {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Sorry, my email is unavailable to the public."
@@ -204,7 +204,8 @@
         mailComposeViewController.mailComposeDelegate = self;
         NSMutableArray *emails = [[NSMutableArray alloc] init];
         NSString *bodyHeader = @"Dear ";
-        for (Representative *representative in self.selectedReps) {
+        for (RepresentativeCell *representativeCell in self.selectedReps) {
+            Representative *representative = representativeCell.representative;
             [emails addObject:representative.email];
             if (emails.count == self.selectedReps.count && emails.count != 1) {
                 bodyHeader = [bodyHeader stringByAppendingString:@" and "];
@@ -215,6 +216,11 @@
             if (self.selectedReps.count != 2) {
                 bodyHeader = [bodyHeader stringByAppendingString:@", "];
             }
+            UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+            representativeCell.checkView.backgroundColor = color;
+            representative.selected = (BOOL * _Nonnull) NO;
+            UIView *subview = representativeCell.checkView.subviews[0];
+            subview.hidden = YES;
         }
         if (self.selectedReps.count == 2) {
             bodyHeader = [bodyHeader stringByAppendingString:@", "];

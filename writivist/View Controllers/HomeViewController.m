@@ -213,8 +213,7 @@
             bodyHeader = [bodyHeader stringByAppendingString:@", "];
         }
         if (self.body.length > 0) {
-            bodyHeader =  [NSString stringWithFormat:@"%@\r%@", bodyHeader,@" "];          bodyHeader =  [NSString stringWithFormat:@"%@\r%@", bodyHeader,@" "];
-            bodyHeader =  [NSString stringWithFormat:@"%@\r%@", bodyHeader, self.body];
+            bodyHeader = [NSString stringWithFormat:@"%@\n@\n%@",bodyHeader, self.body];
             self.body = @"";
         }
         [self.selectedReps removeAllObjects];

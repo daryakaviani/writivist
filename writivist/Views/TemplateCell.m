@@ -24,9 +24,6 @@
     self.likeLabel.text = [NSString stringWithFormat:@"%@", template.likeCount];
     self.titleLabel.text = template.title;
 }
-- (IBAction)selectButton:(id)sender {
-
-}
 
 - (void) didTapTemplate:(UITapGestureRecognizer *)sender{
     [self.delegate templateCell:self didTap:self.temp];

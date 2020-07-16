@@ -27,7 +27,6 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.navigationItem.hidesBackButton = YES;
-
     categories = @[@"black lives matter", @"climate action", @"financial justice", @"islamophobia", @"topic", @"topic", @"topic", @"topic"];
 }
    
@@ -43,6 +42,16 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     NSString *category = categories[indexPath.section];
     CategoryRow *cell = (CategoryRow *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     cell.templateLibrary = self;
+//    [cell.collectionView reloadData];
+//    if (cell.selectedCell != nil) {
+//        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
+//        cell.selectedCell.checkView.backgroundColor = color;
+//        UIView *subview = cell.selectedCell.checkView.subviews[0];
+//        subview.hidden = NO;
+//    }
+    cell.tag = indexPath.section;
+    [cell.collectionView reloadData];
+    [cell.collectionView.collectionViewLayout invalidateLayout];
     [cell setCategory:category];
     return cell;
 }

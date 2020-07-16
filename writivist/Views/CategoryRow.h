@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSNumber *tester;
 @property (strong, nonatomic) NSArray *templates;
 @property (strong, nonatomic) TemplateLibraryViewController *templateLibrary;
+@property (strong, nonatomic) TemplateCell * _Nullable selectedCell;
 
 - (void) setCategory: (NSString *) category;
 

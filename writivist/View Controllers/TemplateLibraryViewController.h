@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TemplateLibraryViewController : UIViewController
 @property (strong, nonatomic) NSString *body;
+@property (strong, nonatomic) NSString *previewBody;
 
 @end
 

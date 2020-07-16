@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Template.h"
+#import "CategoryRow.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,10 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIImageView *authorImage;
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;
 @property (weak, nonatomic) IBOutlet UIButton *previewButton;
-@property (strong, nonatomic) Template *temp;
+@property (strong, nonatomic) Template   *temp;
 @property (weak, nonatomic) IBOutlet UIView *checkView;
 @property (nonatomic, weak) id<TemplateCellDelegate> delegate;
-
+//@property (nonatomic, strong) CategoryRow *categoryRow;
+//@property (strong, nonatomic) CategoryRow * _Nullable categoryRow;
 
 - (void)setTemplate:(Template *)template;
 

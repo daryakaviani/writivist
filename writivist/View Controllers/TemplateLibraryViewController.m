@@ -10,6 +10,7 @@
 #import "CategoryRow.h"
 #import "TemplateCell.h"
 #import "HomeViewController.h"
+#import "PreviewViewController.h"
 
 @interface TemplateLibraryViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -94,6 +95,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
         homeViewController.body = self.body;
         self.body = @"";
     }
+
 }
 
 @end

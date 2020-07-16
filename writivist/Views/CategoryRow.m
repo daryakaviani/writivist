@@ -89,7 +89,7 @@
         UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
         templateCell.checkView.backgroundColor = color;
         temp.selected = true;
-        self.selectedCell = templateCell;
+//        self.selectedCell = templateCell;
         UIView *subview = templateCell.checkView.subviews[0];
         subview.hidden = NO;
         self.templateLibrary.body = temp.body;
@@ -97,7 +97,7 @@
         UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
         templateCell.checkView.backgroundColor = color;
         temp.selected = false;
-        self.selectedCell = nil;
+//        self.selectedCell = nil;
         UIView *subview = templateCell.checkView.subviews[0];
         subview.hidden = YES;
         self.templateLibrary.body = @"";

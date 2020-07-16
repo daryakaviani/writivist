@@ -11,13 +11,13 @@
 #import "TemplateLibraryViewController.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CategoryRow : UITableViewCell <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, TemplateCellDelegate>
+@interface CategoryRow : UITableViewCell <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSString *category;
 @property (strong, nonatomic) NSNumber *tester;
 @property (strong, nonatomic) NSArray *templates;
 @property (strong, nonatomic) TemplateLibraryViewController *templateLibrary;
-@property (strong, nonatomic) TemplateCell * _Nullable selectedCell;
+//@property (strong, nonatomic) TemplateCell * _Nullable selectedCell;
 
 - (void) setCategory: (NSString *) category;
 

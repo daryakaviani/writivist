@@ -33,8 +33,12 @@
     MKDropdownMenu *dropdownMenu = [[MKDropdownMenu alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     [dropdownMenu setComponentTextAlignment:NSTextAlignmentLeft];
     [dropdownMenu setDisclosureIndicatorImage:[UIImage imageNamed:@"download.png"]];
+    [dropdownMenu setDropdownBackgroundColor:[[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:1]];
     dropdownMenu.dataSource = self;
     dropdownMenu.delegate = self;
+    self.letterField.layer.cornerRadius = 8;
+    self.letterField.layer.borderWidth = 0.8;
+    self.letterField.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     [self.categoryView addSubview:dropdownMenu];
 }
 

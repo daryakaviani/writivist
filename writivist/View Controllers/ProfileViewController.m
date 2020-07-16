@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *templateLikeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *templatesPublishedLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @end
 
@@ -24,6 +26,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self updateInformation];
+//    self.tableView.delegate = self;
+//    self.tableView.dataSource = self;
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.scrollView addSubview:self.refreshControl];
+    [self.refreshControl addTarget:self action:@selector(updateInformation) forControlEvents:UIControlEventValueChanged];
+
+
+    // Do any additional setup after loading the view.
+}
+- (IBAction)cameraButton:(id)sender {
+}
+- (IBAction)editButton:(id)sender {
+}
+-(void)updateInformation{
     User *user = [User currentUser];
     self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
     self.usernameLabel.text = [NSString stringWithFormat:@"%@%@", @"@", user.username];
@@ -31,13 +48,8 @@
     self.letterCountLabel.text = [NSString stringWithFormat:@"%@",  user.letterCount];
     self.templateLikeLabel.text = [NSString stringWithFormat:@"%@",  user.likeCount];
     self.templatesPublishedLabel.text = [NSString stringWithFormat:@"%@",  user.templateCount];
-    // Do any additional setup after loading the view.
+    [self.refreshControl endRefreshing];
 }
-- (IBAction)cameraButton:(id)sender {
-}
-- (IBAction)editButton:(id)sender {
-}
-
 /*
 #pragma mark - Navigation
 

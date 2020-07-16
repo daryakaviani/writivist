@@ -518,6 +518,7 @@
                         <outlet property="letterCountLabel" destination="uDK-3x-Be4" id="9jY-oG-aq0"/>
                         <outlet property="nameLabel" destination="27D-Vu-NYT" id="M6f-lb-Qac"/>
                         <outlet property="profileView" destination="Wwf-MV-geu" id="pdS-Uv-UUr"/>
+                        <outlet property="scrollView" destination="oCQ-qa-wNf" id="X62-Bz-d9v"/>
                         <outlet property="tableView" destination="w2z-9g-hW8" id="oGQ-bh-cSk"/>
                         <outlet property="templateLikeLabel" destination="W1x-G4-4yn" id="HiL-2L-MNY"/>
                         <outlet property="templatesPublishedLabel" destination="kpE-yg-Bcx" id="hl9-lq-tCt"/>

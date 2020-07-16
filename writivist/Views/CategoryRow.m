@@ -112,6 +112,7 @@
         UIView *subview = templateCell.checkView.subviews[0];
         subview.hidden = NO;
         self.templateLibrary.body = temp.body;
+        self.templateLibrary.previewTitle = temp.title;
     } else if (temp.selected == true) {
         UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
         templateCell.checkView.backgroundColor = color;

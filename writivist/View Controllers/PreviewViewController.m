@@ -9,7 +9,8 @@
 #import "PreviewViewController.h"
 
 @interface PreviewViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *bodyLabel;
+@property (weak, nonatomic) IBOutlet UITextView *bodyLabel;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end
 
@@ -18,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.bodyLabel.text = self.body;
-    NSLog(@"%@", self.body);
+    self.titleLabel.text = self.templateTitle;
 }
 - (IBAction)doneButton:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];

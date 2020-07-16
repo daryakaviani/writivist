@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TemplateCell.h"
+#import "TemplateLibraryViewController.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CategoryRow : UITableViewCell <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, TemplateCellDelegate>
@@ -15,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *category;
 @property (strong, nonatomic) NSNumber *tester;
 @property (strong, nonatomic) NSArray *templates;
+@property (strong, nonatomic) TemplateLibraryViewController *templateLibrary;
 
 - (void) setCategory: (NSString *) category;
 

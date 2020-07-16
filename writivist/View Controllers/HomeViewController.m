@@ -212,6 +212,11 @@
         if (self.selectedReps.count == 2) {
             bodyHeader = [bodyHeader stringByAppendingString:@", "];
         }
+        if (self.body.length > 0) {
+            bodyHeader =  [NSString stringWithFormat:@"%@\r%@", bodyHeader,@" "];          bodyHeader =  [NSString stringWithFormat:@"%@\r%@", bodyHeader,@" "];
+            bodyHeader =  [NSString stringWithFormat:@"%@\r%@", bodyHeader, self.body];
+            self.body = @"";
+        }
         [self.selectedReps removeAllObjects];
         [mailComposeViewController setToRecipients:emails];
         [mailComposeViewController setMessageBody:bodyHeader isHTML:false];

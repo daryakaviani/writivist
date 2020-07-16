@@ -21,7 +21,6 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
     // Configure the view for the selected state
 }
 
@@ -86,21 +85,20 @@
 }
 
 - (void)templateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull Template *)temp {
-//    self.body = temp.body;
-    if (temp.selected == NO) {
+    if (temp.selected == false && self.templateLibrary.body.length == 0) {
         UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
         templateCell.checkView.backgroundColor = color;
         temp.selected = true;
         UIView *subview = templateCell.checkView.subviews[0];
         subview.hidden = NO;
-//        [self.selectedReps addObject:representative];
-    } else {
+        self.templateLibrary.body = temp.body;
+    } else if (temp.selected == true) {
         UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
         templateCell.checkView.backgroundColor = color;
         temp.selected = false;
         UIView *subview = templateCell.checkView.subviews[0];
         subview.hidden = YES;
-//        [self.selectedReps removeObject:representative];
+        self.templateLibrary.body = @"";
     }
     
 }

@@ -258,18 +258,6 @@
                                                                             <color key="titleColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </state>
                                                                     </button>
-                                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t6I-Wz-3eL">
-                                                                        <rect key="frame" x="120" y="159" width="51" height="33"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                                                        <state key="normal" title="Select">
-                                                                            <color key="titleColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                                        </state>
-                                                                        <connections>
-                                                                            <action selector="selectButton:" destination="jkB-LO-zDF" eventType="touchUpInside" id="Rkg-2g-xKc"/>
-                                                                            <segue destination="3yW-d3-FQE" kind="show" identifier="selectedTemplate" id="cRi-dZ-cYC"/>
-                                                                        </connections>
-                                                                    </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="darya" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VOT-ky-RQJ">
                                                                         <rect key="frame" x="65" y="124" width="122" height="26"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -324,10 +312,17 @@
                         <viewLayoutGuide key="safeArea" id="s3u-pk-5ML"/>
                     </view>
                     <navigationItem key="navigationItem" id="3go-4W-StK">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="1n7-sH-YXs">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="1n7-sH-YXs">
                             <color key="tintColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="ifm-OH-TuW" kind="show" id="o0O-ap-Bhy"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="rMU-Lp-mtP">
+                            <color key="tintColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="doneButton:" destination="YnS-dc-5zz" id="YCQ-5s-Qo5"/>
+                                <segue destination="3yW-d3-FQE" kind="show" identifier="selectedTemplate" id="zDs-ub-Ass"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -600,7 +595,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="cRi-dZ-cYC"/>
+        <segue reference="zDs-ub-Ass"/>
         <segue reference="0nU-vq-fGN"/>
     </inferredMetricsTieBreakers>
     <resources>

@@ -9,10 +9,10 @@
 #import "TemplateLibraryViewController.h"
 #import "CategoryRow.h"
 #import "TemplateCell.h"
+#import "HomeViewController.h"
 
 @interface TemplateLibraryViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSString *body;
 
 @end
 
@@ -42,6 +42,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *category = categories[indexPath.section];
     CategoryRow *cell = (CategoryRow *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cell.templateLibrary = self;
     [cell setCategory:category];
     return cell;
 }
@@ -56,9 +57,34 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     [view setBackgroundColor:[[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5]];
     return view;
 }
+- (IBAction)doneButton:(id)sender {
+    if (self.body.length == 0) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No template selected."
+               message:@"If you would like to write a letter from scratch, navigate to the home page and select your representatives from there."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{
+        }];
+    } else {
+        [self performSegueWithIdentifier:@"selectedTemplate" sender:nil];
+    }
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 55;
+}
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"selectedTemplate"]) {
+        HomeViewController *homeViewController = [segue destinationViewController];
+        homeViewController.body = self.body;
+        self.body = @"";
+    }
 }
 
 @end

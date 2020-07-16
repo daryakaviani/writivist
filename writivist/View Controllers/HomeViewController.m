@@ -18,6 +18,7 @@
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, RepresentativeCellDelegate, MFMailComposeViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
 @property (nonatomic, strong) NSMutableArray *selectedReps;
 
 @end
@@ -32,8 +33,12 @@
     [self fetchRepresentatives];
     if (self.body != nil) {
         self.navigationItem.title = @"select reps.";
+        self.logoutButton.tintColor = [UIColor clearColor];
+        self.logoutButton.enabled = NO;
     } else {
         self.navigationItem.title = @"let's write.";
+        self.logoutButton.tintColor = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:1];
+        self.logoutButton.enabled = YES;
     }
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:40], NSForegroundColorAttributeName : [UIColor blackColor]};
@@ -214,6 +219,16 @@
         if (self.selectedReps.count == 2) {
             bodyHeader = [bodyHeader stringByAppendingString:@", "];
         }
+        bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, @"My name is "];
+        bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].firstName];
+        bodyHeader = [bodyHeader stringByAppendingString:@" "];
+        bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].lastName];
+        bodyHeader = [bodyHeader stringByAppendingString:@" and I am from "];
+        bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].city];
+        bodyHeader = [bodyHeader stringByAppendingString:@", "];
+        bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].state];
+        bodyHeader = [bodyHeader stringByAppendingString:@". "];
+
         if (self.body.length > 0) {
             bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, self.body];
             self.body = @"";

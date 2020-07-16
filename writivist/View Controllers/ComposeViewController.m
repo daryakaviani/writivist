@@ -61,9 +61,21 @@
 
 
 - (IBAction)shareButton:(id)sender {
-    [Template postUserTemplate:self.letterField.text withCategory:self.category withTitle:self.subjectField.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        [self performSegueWithIdentifier:@"postedTemplate" sender:nil];
-    }];
+    if ([self.letterField.text isEqual: @""] || [self.subjectField.text isEqual: @""]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Empty Subject or Message"
+               message:@"Please enter a message and subject before submitting your template."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{
+        }];
+    } else {
+        [Template postUserTemplate:self.letterField.text withCategory:self.category withTitle:self.subjectField.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            [self performSegueWithIdentifier:@"postedTemplate" sender:nil];
+        }];
+    }
 }
 /*
 #pragma mark - Navigation

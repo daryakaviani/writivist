@@ -10,7 +10,6 @@
 #import "User.h"
 #import <Parse/Parse.h>
 #import "PFImageView.h"
-#import <UIKit/UIKit.h>
 
 @interface ProfileViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -37,7 +36,6 @@
     [self.scrollView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(updateInformation) forControlEvents:UIControlEventValueChanged];
 
-
     // Do any additional setup after loading the view.
 }
 - (IBAction)cameraButton:(id)sender {
@@ -60,7 +58,9 @@
     // Get the image captured by the UIImagePickerController
     UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
     UIImage *editedImage = [self resizeImage:originalImage withSize:CGSizeMake(414, 414)];
-    
+    self.pickerView = [self getPFFileFromImage:editedImage];
+    [User.currentUser setObject:self.pickerView forKey:@"profilePicture"];
+    [User.currentUser saveInBackground];
     [self.profileView setImage:editedImage];
     // Dismiss UIImagePickerController to go back to your original view controller
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -91,8 +91,26 @@
     self.letterCountLabel.text = [NSString stringWithFormat:@"%@",  user.letterCount];
     self.templateLikeLabel.text = [NSString stringWithFormat:@"%@",  user.likeCount];
     self.templatesPublishedLabel.text = [NSString stringWithFormat:@"%@",  user.templateCount];
+    self.profileView.file = [User currentUser].profilePicture;
+    [self.profileView loadInBackground];
     [self.refreshControl endRefreshing];
 }
+
+- (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image {
+    // check if image is not nil
+    if (!image) {
+        NSLog(@"Image is nil");
+        return nil;
+    }
+    NSData *imageData = UIImagePNGRepresentation(image);
+    // get image data and check if that is not nil
+    if (!imageData) {
+        NSLog(@"Image data is nil");
+        return nil;
+    }
+    return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
+}
+
 /*
  
  

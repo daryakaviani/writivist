@@ -11,8 +11,12 @@
 #import <Parse/Parse.h>
 #import "PFImageView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "MyTemplateCell.h"
+#import "Template.h"
+#import <DateTools.h>
+#import "PreviewViewController.h"
 
-@interface ProfileViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface ProfileViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet PFImageView *profileView;
@@ -20,9 +24,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *templateLikeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *templatesPublishedLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) UIRefreshControl *refreshControl;
+//@property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) PFFileObject *pickerView;
+@property (strong, nonatomic) NSArray *templates;
 
 @end
 
@@ -30,12 +35,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (self.user == nil) {
+        self.user = [User currentUser];
+    }
     [self updateInformation];
-//    self.tableView.delegate = self;
-//    self.tableView.dataSource = self;
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.scrollView addSubview:self.refreshControl];
-    [self.refreshControl addTarget:self action:@selector(updateInformation) forControlEvents:UIControlEventValueChanged];
+    self.templates = [[NSArray alloc] init];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self fetchTemplates];
+//    self.refreshControl = [[UIRefreshControl alloc] init];
+//    [self.scrollView addSubview:self.refreshControl];
+//    [self.refreshControl addTarget:self action:@selector(updateInformation) forControlEvents:UIControlEventValueChanged];
 
     // Do any additional setup after loading the view.
 }
@@ -61,8 +71,8 @@
     UIImage *editedImage = [self resizeImage:originalImage withSize:CGSizeMake(414, 414)];
     self.pickerView = [self getPFFileFromImage:editedImage];
     [self roundImage];
-    [User.currentUser setObject:self.pickerView forKey:@"profilePicture"];
-    [User.currentUser saveInBackground];
+    [self.user setObject:self.pickerView forKey:@"profilePicture"];
+    [self.user saveInBackground];
     [self.profileView setImage:editedImage];
     // Dismiss UIImagePickerController to go back to your original view controller
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -85,16 +95,16 @@
 - (IBAction)editButton:(id)sender {
 }
 -(void)updateInformation{
-    User *user = [User currentUser];
+    User *user = self.user;
     self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
     self.usernameLabel.text = [NSString stringWithFormat:@"%@%@", @"@", user.username];
     self.letterCountLabel.text = [NSString stringWithFormat:@"%@",  user.letterCount];
     self.templateLikeLabel.text = [NSString stringWithFormat:@"%@",  user.likeCount];
     self.templatesPublishedLabel.text = [NSString stringWithFormat:@"%@",  user.templateCount];
     [self roundImage];
-    self.profileView.file = [User currentUser].profilePicture;
+    self.profileView.file = self.user.profilePicture;
     [self.profileView loadInBackground];
-    [self.refreshControl endRefreshing];
+//    [self.refreshControl endRefreshing];
 }
 
 - (void) roundImage {
@@ -122,16 +132,60 @@
     return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
 }
 
-/*
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.templates.count;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+// Creating and configured a cell.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    MyTemplateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyTemplateCell"];
+    Template *template = self.templates[indexPath.row];
+    cell.categoryLabel.text = template.category;
+    cell.likeLabel.text = [NSString stringWithFormat:@"%@", template.likeCount];
+    cell.titleLabel.text = template.title;
+    NSDate *tempTime = template.createdAt;
+    NSDate *timeAgo = [NSDate dateWithTimeInterval:0 sinceDate:tempTime];
+    cell.timestampLabel.text = timeAgo.timeAgoSinceNow;
+    return cell;
+}
+
+- (void)fetchTemplates {
+    // construct query
+    PFQuery *query = [Template query];
+    [query orderByDescending:@"createdAt"];
+    [query includeKey:@"author"];
+    [query whereKey:@"author" equalTo:self.user];
+    query.limit = 20;
+
+    // fetch data asynchronously
+    [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
+        if (templates != nil) {
+            self.templates = templates;
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+}
+
+
  
  
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    UITableViewCell *tappedCell = sender;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+      if ([segue.identifier isEqualToString:@"myTemplateSegue"]) {
+          Template *template = self.templates[indexPath.row];
+          PreviewViewController *previewViewController = [segue destinationViewController];
+          previewViewController.body = template.body;
+          previewViewController.templateTitle = template.title;
+      }
 }
-*/
 
 @end

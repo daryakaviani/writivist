@@ -11,6 +11,7 @@ target 'writivist' do
   pod 'IQKeyboardManager'
   pod 'MKDropdownMenu'
   pod 'Parse/UI'
+  pod 'DateTools'
   target 'writivistTests' do
     inherit! :search_paths
     # Pods for testing

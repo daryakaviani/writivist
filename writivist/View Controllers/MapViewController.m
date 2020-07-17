@@ -74,16 +74,16 @@ CGFloat lng;
             marker.position = CLLocationCoordinate2DMake(lat, lng);
             marker.title = representative.name;
             NSString *baseUrl = representative.role;
-            baseUrl = [baseUrl stringByAppendingFormat:@"\n%@", representative.address[0][@"line1"]];
-            baseUrl = [baseUrl stringByAppendingFormat:@"%@", @" "];
-            baseUrl = [baseUrl stringByAppendingFormat:@"%@", representative.address[0][@"city"]];
-            baseUrl = [baseUrl stringByAppendingFormat:@"%@", @", "];
-            baseUrl = [baseUrl stringByAppendingFormat:@"%@", representative.address[0][@"state"]];
-            baseUrl = [baseUrl stringByAppendingFormat:@"%@", @" "];
-            baseUrl = [baseUrl stringByAppendingFormat:@"%@", representative.address[0][@"zip"]];
             if (representative.address != nil) {
-                marker.snippet = baseUrl;
+                baseUrl = [baseUrl stringByAppendingFormat:@"\n%@", representative.address[0][@"line1"]];
+                baseUrl = [baseUrl stringByAppendingFormat:@"%@", @" "];
+                baseUrl = [baseUrl stringByAppendingFormat:@"%@", representative.address[0][@"city"]];
+                baseUrl = [baseUrl stringByAppendingFormat:@"%@", @", "];
+                baseUrl = [baseUrl stringByAppendingFormat:@"%@", representative.address[0][@"state"]];
+                baseUrl = [baseUrl stringByAppendingFormat:@"%@", @" "];
+                baseUrl = [baseUrl stringByAppendingFormat:@"%@", representative.address[0][@"zip"]];
             }
+            marker.snippet = baseUrl;
             marker.map = self.mapView;
             self.mapView.myLocationEnabled = YES;
             [self.view addSubview:self.mapView];

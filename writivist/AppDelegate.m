@@ -20,8 +20,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(  NSDictionary *)launchOptions {
-    [GMSPlacesClient provideAPIKey:@"AIzaSyBF0K61_yqnXdJvNBSzyq2uTHJsNktnCZ0"];
-    [GMSServices provideAPIKey:@"AIzaSyBF0K61_yqnXdJvNBSzyq2uTHJsNktnCZ0"];
+    [GMSPlacesClient provideAPIKey:@"AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls"];
+    [GMSServices provideAPIKey:@"AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls"];
     [IQKeyboardManager sharedManager].enable = YES;
         ParseClientConfiguration *config = [ParseClientConfiguration   configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
         configuration.applicationId = @"myWritivistId";

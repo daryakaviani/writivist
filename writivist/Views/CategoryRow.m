@@ -124,7 +124,6 @@
         templateCell.checkView.backgroundColor = color;
         temp.selected = false;
         self.templateLibrary.currentCell = nil;
-//        self.selectedCell = nil;
         UIView *subview = templateCell.checkView.subviews[0];
         subview.hidden = YES;
         self.templateLibrary.body = @"";

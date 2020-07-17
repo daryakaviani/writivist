@@ -8,6 +8,7 @@
 
 #import "MapViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
+#import <GooglePlaces/GooglePlaces.h>
 #import "Representative.h"
 #import "User.h"
 
@@ -18,6 +19,8 @@
 @property (nonatomic, strong) NSArray *representatives;
 @property (nonatomic, strong) GMSMapView *mapView;
 @property (nonatomic, strong) NSArray *offices;
+@property (nonatomic, strong) GMSPlacesClient *placesClient;
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
 @end
 
@@ -28,13 +31,36 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self startUserLocationSearch];
+
     self.navigationItem.title = @"find my reps.";
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:40], NSForegroundColorAttributeName : [UIColor blackColor]};
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithTarget:CLLocationCoordinate2DMake(37.3382, -121.8863) zoom:6];
+    
+    [self.locationManager requestAlwaysAuthorization];
+    
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithTarget:self.locationManager.location.coordinate zoom:8];
     self.mapView = [GMSMapView mapWithFrame:self.view.frame camera:camera];
     [self fetchAddresses];
 }
+
+- (void)startUserLocationSearch {
+    self.locationManager = [[CLLocationManager alloc]init];
+    self.locationManager.delegate = self;
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+    [self.locationManager startUpdatingLocation];
+}
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{\
+    [self.locationManager stopUpdatingLocation];
+    self.latitude = self.locationManager.location.coordinate.latitude;
+    self.longitude = self.locationManager.location.coordinate.longitude;
+}
+
+
 CGFloat lat;
 CGFloat lng;
 - (void) addMarker:(Representative *) representative {

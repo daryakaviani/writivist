@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "Parse/Parse.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
+#import <GoogleMaps/GoogleMaps.h>
+#import <GooglePlaces/GooglePlaces.h>
 
 @interface AppDelegate ()
 
@@ -18,7 +20,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(  NSDictionary *)launchOptions {
-        [IQKeyboardManager sharedManager].enable = YES;
+    [GMSPlacesClient provideAPIKey:@"AIzaSyBF0K61_yqnXdJvNBSzyq2uTHJsNktnCZ0"];
+    [GMSServices provideAPIKey:@"AIzaSyBF0K61_yqnXdJvNBSzyq2uTHJsNktnCZ0"];
+    [IQKeyboardManager sharedManager].enable = YES;
         ParseClientConfiguration *config = [ParseClientConfiguration   configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
         configuration.applicationId = @"myWritivistId";
         configuration.server = @"https://writivist.herokuapp.com/parse";

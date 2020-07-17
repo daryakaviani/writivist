@@ -12,6 +12,8 @@ target 'writivist' do
   pod 'MKDropdownMenu'
   pod 'Parse/UI'
   pod 'DateTools'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
   target 'writivistTests' do
     inherit! :search_paths
     # Pods for testing

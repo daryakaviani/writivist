@@ -19,6 +19,7 @@
 		4B1CC18024BE89DD007F9A52 /* TemplateLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CC17F24BE89DD007F9A52 /* TemplateLibraryViewController.m */; };
 		4B1CC18324BEA71E007F9A52 /* CategoryRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CC18224BEA71E007F9A52 /* CategoryRow.m */; };
 		4B6D8C9324C131460042EDC7 /* MyTemplateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D8C9224C131460042EDC7 /* MyTemplateCell.m */; };
+		4B6D8C9624C202390042EDC7 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D8C9524C202390042EDC7 /* MapViewController.m */; };
 		4B7CB08524BCC03700AC26DF /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7CB08424BCC03700AC26DF /* LoginViewController.m */; };
 		4BCB1DB224BCAF6300BAE96E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DB124BCAF6300BAE96E /* AppDelegate.m */; };
 		4BCB1DB524BCAF6300BAE96E /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DB424BCAF6300BAE96E /* SceneDelegate.m */; };
@@ -76,6 +77,8 @@
 		4B1CC18224BEA71E007F9A52 /* CategoryRow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CategoryRow.m; sourceTree = "<group>"; };
 		4B6D8C9124C131460042EDC7 /* MyTemplateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyTemplateCell.h; sourceTree = "<group>"; };
 		4B6D8C9224C131460042EDC7 /* MyTemplateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyTemplateCell.m; sourceTree = "<group>"; };
+		4B6D8C9424C202390042EDC7 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		4B6D8C9524C202390042EDC7 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		4B7CB08324BCC03700AC26DF /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		4B7CB08424BCC03700AC26DF /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		4BCB1DAD24BCAF6300BAE96E /* writivist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = writivist.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,6 +169,8 @@
 				4B09E3AA24C01CA70021F076 /* PreviewViewController.m */,
 				4BCD9B1724C1062500E1BCBD /* ProfileViewController.h */,
 				4BCD9B1824C1062500E1BCBD /* ProfileViewController.m */,
+				4B6D8C9424C202390042EDC7 /* MapViewController.h */,
+				4B6D8C9524C202390042EDC7 /* MapViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -284,6 +289,7 @@
 				4BCB1DAA24BCAF6300BAE96E /* Frameworks */,
 				4BCB1DAB24BCAF6300BAE96E /* Resources */,
 				3344D95FD29A231387C20FB1 /* [CP] Embed Pods Frameworks */,
+				2850402A4F0C2BF94A02FC5E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -322,6 +328,7 @@
 				4BCB1DD024BCAF6500BAE96E /* Frameworks */,
 				4BCB1DD124BCAF6500BAE96E /* Resources */,
 				9B73BA064DBC58E1A5F45D62 /* [CP] Embed Pods Frameworks */,
+				F324A7EC4F46A3AF2A14360D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -405,6 +412,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2850402A4F0C2BF94A02FC5E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-writivist/Pods-writivist-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-writivist/Pods-writivist-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-writivist/Pods-writivist-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3344D95FD29A231387C20FB1 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -505,6 +529,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F324A7EC4F46A3AF2A14360D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-writivist-writivistUITests/Pods-writivist-writivistUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-writivist-writivistUITests/Pods-writivist-writivistUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-writivist-writivistUITests/Pods-writivist-writivistUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -515,6 +556,7 @@
 				4B6D8C9324C131460042EDC7 /* MyTemplateCell.m in Sources */,
 				4B1CC18024BE89DD007F9A52 /* TemplateLibraryViewController.m in Sources */,
 				4B09E3A824BF92710021F076 /* TemplateCell.m in Sources */,
+				4B6D8C9624C202390042EDC7 /* MapViewController.m in Sources */,
 				4BCD9B1924C1062500E1BCBD /* ProfileViewController.m in Sources */,
 				4B09E3AB24C01CA70021F076 /* PreviewViewController.m in Sources */,
 				4B7CB08524BCC03700AC26DF /* LoginViewController.m in Sources */,

@@ -19,6 +19,7 @@
         self.email = dictionary[@"emails"][0];
         self.phone = dictionary[@"phones"][0];
         self.website = dictionary[@"urls"][0];
+        self.address = dictionary[@"address"];
         NSArray *channels = dictionary[@"channels"];
         for (NSDictionary *dictionary in channels) {
             if ([dictionary[@"type"]  isEqual: @"Facebook"]) {

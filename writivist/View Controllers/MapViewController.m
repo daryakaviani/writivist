@@ -54,6 +54,7 @@
     }
     [self.locationManager startUpdatingLocation];
 }
+
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{\
     [self.locationManager stopUpdatingLocation];
     self.latitude = self.locationManager.location.coordinate.latitude;

@@ -29,6 +29,51 @@
     self.authorImage.file = self.temp.author.profilePicture;
     [self.authorImage loadInBackground];
 }
+- (IBAction)likeButton:(id)sender {
+    __block bool containsUser = false;
+    PFRelation *relation = [self.temp relationForKey:@"likedBy"];
+    PFQuery *query = [relation query];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        for (User *user in objects) {
+            if ([user.username isEqual:[User currentUser].username]) {
+                self.likeButton.selected = NO;
+                containsUser = true;
+                NSLog(@"Found user");
+                [Template postUserUnlike:[User currentUser] withTemplate:self.temp withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+//                    [self.contentView reloadData];
+                }];
+            }
+            break;
+        }
+        if (!containsUser) {
+            NSLog(@"Did not find user");
+            self.likeButton.selected = YES;
+            [Template postUserLike:[User currentUser] withTemplate:self.temp withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            //                    [self.contentView reloadData];
+            }];
+        }
+        self.likeLabel.text = [NSString stringWithFormat:@"%@", self.temp.likeCount];
+    }];
+}
+
+- (void)fetchLikes {
+    __block bool containsUser = false;
+    PFRelation *relation = [self.temp relationForKey:@"likedBy"];
+    PFQuery *query = [relation query];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        for (User *user in objects) {
+            if ([user.username isEqual:[User currentUser].username]) {
+               self.likeButton.selected = YES;
+               containsUser = true;
+            }
+            break;
+        }
+        if (!containsUser) {
+            self.likeButton.selected = NO;
+        }
+        self.likeLabel.text = [NSString stringWithFormat:@"%@", self.temp.likeCount];
+    }];
+}
 
 - (void) roundImage {
     CALayer *imageLayer = self.authorImage.layer;

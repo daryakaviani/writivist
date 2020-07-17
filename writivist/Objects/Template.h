@@ -12,5 +12,7 @@
 @property (nonatomic) bool selected;
 
 + (void) postUserTemplate: ( NSString * _Nullable )body withCategory: ( NSString * _Nullable )category withTitle: ( NSString * _Nullable )title withCompletion: (PFBooleanResultBlock  _Nullable)completion;
++ (void) postUserLike: ( User * _Nullable)user withTemplate: ( Template * _Nullable ) temp withCompletion: (PFBooleanResultBlock  _Nullable)completion;
++ (void) postUserUnlike: ( User * _Nullable)user withTemplate: ( Template * _Nullable ) temp withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 
 @end

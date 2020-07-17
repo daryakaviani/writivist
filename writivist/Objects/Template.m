@@ -25,21 +25,21 @@
     [newTemplate saveInBackgroundWithBlock: completion];
 }
 
-//+ (void) postUserLike: ( PFUser * _Nullable)user withPost: ( Template * _Nullable ) post withCompletion: (PFBooleanResultBlock  _Nullable)completion {
-//    PFRelation *relation = [post relationForKey:@"likedBy"];
-//    [relation addObject:user];
-//    int val = [post.likeCount intValue];
-//    post.likeCount = [NSNumber numberWithInt:(val + 1)];
-//    [post saveInBackground];
-//}
-//
-//+ (void) postUserUnlike: ( PFUser * _Nullable)user withPost: ( Template * _Nullable ) post withCompletion: (PFBooleanResultBlock  _Nullable)completion {
-//    PFRelation *relation = [post relationForKey:@"likedBy"];
-//    [relation removeObject:user];
-//    int val = [post.likeCount intValue];
-//    post.likeCount = [NSNumber numberWithInt:(val - 1)];
-//    [post saveInBackground];
-//}
++ (void) postUserLike: ( User * _Nullable)user withTemplate: ( Template * _Nullable ) temp withCompletion: (PFBooleanResultBlock  _Nullable)completion {
+    PFRelation *relation = [temp relationForKey:@"likedBy"];
+    [relation addObject:user];
+    int val = [temp.likeCount intValue];
+    temp.likeCount = [NSNumber numberWithInt:(val + 1)];
+    [temp saveInBackground];
+}
+
++ (void) postUserUnlike: ( User * _Nullable)user withTemplate: ( Template * _Nullable ) temp withCompletion: (PFBooleanResultBlock  _Nullable)completion {
+    PFRelation *relation = [temp relationForKey:@"likedBy"];
+    [relation removeObject:user];
+    int val = [temp.likeCount intValue];
+    temp.likeCount = [NSNumber numberWithInt:(val - 1)];
+    [temp saveInBackground];
+}
 
 + (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image {
     // check if image is not nil

@@ -250,6 +250,9 @@
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <state key="normal" image="unfilled"/>
                                                                         <state key="selected" image="filled"/>
+                                                                        <connections>
+                                                                            <action selector="likeButton:" destination="jkB-LO-zDF" eventType="touchUpInside" id="pcT-mP-xgE"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="5030" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wud-mb-M1U">
                                                                         <rect key="frame" x="88" y="70" width="101" height="26"/>
@@ -891,8 +894,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="o0O-ap-Bhy"/>
         <segue reference="zDs-ub-Ass"/>
-        <segue reference="X5I-1p-WB2"/>
+        <segue reference="h9w-nq-IX8"/>
         <segue reference="rNY-De-iyh"/>
     </inferredMetricsTieBreakers>
     <resources>

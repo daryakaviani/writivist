@@ -108,6 +108,12 @@
         UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
         templateCell.checkView.backgroundColor = color;
         temp.selected = true;
+        TemplateCell *prevCell = self.templateLibrary.currentCell;
+        UIView *prevSubview = prevCell.checkView.subviews[0];
+        UIColor *prevColor = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+        prevCell.checkView.backgroundColor = prevColor;
+        prevCell.temp.selected = false;
+        prevSubview.hidden = YES;
         self.templateLibrary.currentCell = templateCell;
         UIView *subview = templateCell.checkView.subviews[0];
         subview.hidden = NO;

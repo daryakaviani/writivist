@@ -25,8 +25,19 @@
     self.authorLabel.text = template.author.username;
     self.likeLabel.text = [NSString stringWithFormat:@"%@", template.likeCount];
     self.titleLabel.text = template.title;
+    [self roundImage];
     self.authorImage.file = self.temp.author.profilePicture;
     [self.authorImage loadInBackground];
+}
+
+- (void) roundImage {
+    CALayer *imageLayer = self.authorImage.layer;
+    [imageLayer setCornerRadius:5];
+    [imageLayer setBorderWidth:3];
+    [imageLayer setBorderColor:[[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:1].CGColor];
+    [imageLayer setMasksToBounds:YES];
+    [self.authorImage.layer setCornerRadius:self.authorImage.frame.size.width/2];
+    [self.authorImage.layer setMasksToBounds:YES];
 }
 
 - (void) didTapTemplate:(UITapGestureRecognizer *)sender{

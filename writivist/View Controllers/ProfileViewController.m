@@ -10,6 +10,7 @@
 #import "User.h"
 #import <Parse/Parse.h>
 #import "PFImageView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface ProfileViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -59,6 +60,7 @@
     UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
     UIImage *editedImage = [self resizeImage:originalImage withSize:CGSizeMake(414, 414)];
     self.pickerView = [self getPFFileFromImage:editedImage];
+    [self roundImage];
     [User.currentUser setObject:self.pickerView forKey:@"profilePicture"];
     [User.currentUser saveInBackground];
     [self.profileView setImage:editedImage];
@@ -89,9 +91,20 @@
     self.letterCountLabel.text = [NSString stringWithFormat:@"%@",  user.letterCount];
     self.templateLikeLabel.text = [NSString stringWithFormat:@"%@",  user.likeCount];
     self.templatesPublishedLabel.text = [NSString stringWithFormat:@"%@",  user.templateCount];
+    [self roundImage];
     self.profileView.file = [User currentUser].profilePicture;
     [self.profileView loadInBackground];
     [self.refreshControl endRefreshing];
+}
+
+- (void) roundImage {
+    CALayer *imageLayer = self.profileView.layer;
+    [imageLayer setCornerRadius:5];
+    [imageLayer setBorderWidth:5];
+    [imageLayer setBorderColor:[[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:1].CGColor];
+    [imageLayer setMasksToBounds:YES];
+    [self.profileView.layer setCornerRadius:self.profileView.frame.size.width/2];
+    [self.profileView.layer setMasksToBounds:YES];
 }
 
 - (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image {

@@ -16,6 +16,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
      UITapGestureRecognizer *templateTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapTemplate:)];
+    [self fetchLikes];
     [self.checkView addGestureRecognizer:templateTapGestureRecognizer];
     [self.checkView setUserInteractionEnabled:YES];
 }
@@ -54,6 +55,17 @@
         }
         self.likeLabel.text = [NSString stringWithFormat:@"%@", self.temp.likeCount];
     }];
+    [UIView animateWithDuration:0.3/1.5 animations:^{
+        self.likeButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3/2 animations:^{
+            self.likeButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.7, 0.7);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.3/2 animations:^{
+                self.likeButton.transform = CGAffineTransformIdentity;
+            }];
+        }];
+    }];
 }
 
 - (void)fetchLikes {
@@ -62,6 +74,8 @@
     PFQuery *query = [relation query];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         for (User *user in objects) {
+            NSLog(@"%@", user.username);
+            NSLog(@"%@", [User currentUser].username);
             if ([user.username isEqual:[User currentUser].username]) {
                self.likeButton.selected = YES;
                containsUser = true;

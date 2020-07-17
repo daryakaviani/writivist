@@ -17,6 +17,8 @@
 @property (nonatomic) CGFloat longitude;
 @property (nonatomic, strong) NSArray *representatives;
 @property (nonatomic, strong) GMSMapView *mapView;
+@property (nonatomic, strong) NSArray *offices;
+
 @end
 
 @implementation MapViewController
@@ -71,7 +73,17 @@ CGFloat lng;
             GMSMarker *marker = [[GMSMarker alloc] init];
             marker.position = CLLocationCoordinate2DMake(lat, lng);
             marker.title = representative.name;
-            marker.snippet = [representative.address componentsJoinedByString:@" "];
+            NSString *baseUrl = representative.role;
+            baseUrl = [baseUrl stringByAppendingFormat:@"\n%@", representative.address[0][@"line1"]];
+            baseUrl = [baseUrl stringByAppendingFormat:@"%@", @" "];
+            baseUrl = [baseUrl stringByAppendingFormat:@"%@", representative.address[0][@"city"]];
+            baseUrl = [baseUrl stringByAppendingFormat:@"%@", @", "];
+            baseUrl = [baseUrl stringByAppendingFormat:@"%@", representative.address[0][@"state"]];
+            baseUrl = [baseUrl stringByAppendingFormat:@"%@", @" "];
+            baseUrl = [baseUrl stringByAppendingFormat:@"%@", representative.address[0][@"zip"]];
+            if (representative.address != nil) {
+                marker.snippet = baseUrl;
+            }
             marker.map = self.mapView;
             self.mapView.myLocationEnabled = YES;
             [self.view addSubview:self.mapView];
@@ -102,9 +114,21 @@ CGFloat lng;
         NSArray *representativeArray = [JSON valueForKey:@"officials"];
         NSMutableArray *representatives  = [Representative representativesWithArray:representativeArray];
         self.representatives = representatives;
+        NSArray *officesArray = [JSON valueForKey:@"offices"];
+        self.offices = officesArray;
         dispatch_async(dispatch_get_main_queue(), ^{
-           for (Representative *representative in self.representatives) {
-                [self addMarker:representative];
+            for (int i = 0; i < self.representatives.count; i += 1) {
+                Representative *representative = self.representatives[i];
+               for (NSDictionary *dictionary in self.offices) {
+                   for (NSString *index in dictionary[@"officialIndices"]) {
+                       NSString *repIndex = [NSString stringWithFormat: @"%d", i];
+                       NSString *officialIndex = [NSString stringWithFormat: @"%@", index];
+                       if (repIndex == officialIndex) {
+                           representative.role = dictionary[@"name"];
+                       }
+                   }
+               }
+            [self addMarker:representative];
             }
         });
         

@@ -35,6 +35,21 @@
     [self registerUser];
 }
 
+- (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image {
+    // check if image is not nil
+    if (!image) {
+        NSLog(@"Image is nil");
+        return nil;
+    }
+    NSData *imageData = UIImagePNGRepresentation(image);
+    // get image data and check if that is not nil
+    if (!imageData) {
+        NSLog(@"Image data is nil");
+        return nil;
+    }
+    return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
+}
+
 - (void)registerUser {
     // initialize a user object
     User *newUser = [User user];
@@ -52,6 +67,7 @@
     newUser.likeCount = @(0);
     newUser.templateCount = @(0);
     newUser.letterCount = @(0);
+    newUser.profilePicture = [self getPFFileFromImage:[UIImage imageNamed:@"user.png"]];
     
     if ([self.passwordField.text isEqualToString:self.confirmPasswordField.text]) {
         newUser.password = self.passwordField.text;

@@ -86,8 +86,6 @@
     User *user = [User currentUser];
     self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
     self.usernameLabel.text = [NSString stringWithFormat:@"%@%@", @"@", user.username];
-//    self.profileView.file = user[@"profilePicture"];
-//    [self.profileView loadInBackground];
     self.letterCountLabel.text = [NSString stringWithFormat:@"%@",  user.letterCount];
     self.templateLikeLabel.text = [NSString stringWithFormat:@"%@",  user.likeCount];
     self.templatesPublishedLabel.text = [NSString stringWithFormat:@"%@",  user.templateCount];

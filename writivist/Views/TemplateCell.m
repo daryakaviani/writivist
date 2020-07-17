@@ -9,6 +9,7 @@
 #import "TemplateCell.h"
 #import "HomeViewController.h"
 #import "PreviewViewController.h"
+#import "PFImageView.h"
 
 @implementation TemplateCell
 
@@ -24,6 +25,8 @@
     self.authorLabel.text = template.author.username;
     self.likeLabel.text = [NSString stringWithFormat:@"%@", template.likeCount];
     self.titleLabel.text = template.title;
+    self.authorImage.file = self.temp.author.profilePicture;
+    [self.authorImage loadInBackground];
 }
 
 - (void) didTapTemplate:(UITapGestureRecognizer *)sender{

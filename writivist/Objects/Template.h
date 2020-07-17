@@ -1,9 +1,10 @@
 //  Template.h
 #import <Foundation/Foundation.h>
 #import "Parse/Parse.h"
+#import "User.h"
 @interface Template : PFObject<PFSubclassing>
 
-@property (nonatomic, strong) PFUser * _Nonnull author;
+@property (nonatomic, strong) User * _Nonnull author;
 @property (nonatomic, strong) NSNumber  * _Nonnull likeCount;
 @property (nonatomic, strong) NSString  * _Nonnull category;
 @property (nonatomic, strong) NSString  * _Nonnull body;

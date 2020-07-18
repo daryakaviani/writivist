@@ -212,6 +212,7 @@
           Template *template = self.templates[indexPath.row];
           PreviewViewController *previewViewController = [segue destinationViewController];
           previewViewController.body = template.body;
+          previewViewController.temp = template;
           previewViewController.templateTitle = template.title;
       }
 }

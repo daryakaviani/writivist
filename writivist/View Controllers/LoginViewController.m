@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.passwordField.secureTextEntry = YES;
     NSLog(@"%@", @"Name");
 }
 

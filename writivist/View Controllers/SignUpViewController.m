@@ -28,7 +28,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.passwordField.secureTextEntry = YES;
+    self.confirmPasswordField.secureTextEntry = YES;
 }
 
 - (IBAction)signupButton:(id)sender {
@@ -69,7 +70,22 @@
     newUser.letterCount = @(0);
     newUser.profilePicture = [self getPFFileFromImage:[UIImage imageNamed:@"user.png"]];
     
-    if ([self.passwordField.text isEqualToString:self.confirmPasswordField.text]) {
+    if (self.passwordField.text.length == 0 || self.usernameField.text.length == 0
+        || self.firstNameField.text.length == 0 || self.lastNameField.text.length == 0
+        || self.streetNumberField.text.length == 0 || self.streetNameField.text.length == 0
+        || self.cityField.text.length == 0 || self.stateField.text.length == 0
+        || self.zipCodeField.text.length == 0) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"At least one field is empty."
+               message:@"Please ensure all fields are completed and try again."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    
+    if ([self.passwordField.text isEqual:self.confirmPasswordField.text]) {
         newUser.password = self.passwordField.text;
     } else {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Passwords must match."

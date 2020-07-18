@@ -16,9 +16,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
      UITapGestureRecognizer *templateTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapTemplate:)];
-    [self fetchLikes];
     [self.checkView addGestureRecognizer:templateTapGestureRecognizer];
     [self.checkView setUserInteractionEnabled:YES];
+//    [self fetchLikes];
 }
 
 - (void)setTemplate:(Template *)template {
@@ -26,6 +26,7 @@
     self.authorLabel.text = template.author.username;
     self.likeLabel.text = [NSString stringWithFormat:@"%@", template.likeCount];
     self.titleLabel.text = template.title;
+    [self fetchLikes];
     [self roundImage];
     self.authorImage.file = self.temp.author.profilePicture;
     [self.authorImage loadInBackground];

@@ -157,6 +157,30 @@
     return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Template *template = self.templates[indexPath.row];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to delete this template?"
+               message:@"This action cannot be undone."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [template deleteInBackground];
+            [self fetchTemplates];
+        }];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        [alert addAction:cancelAction];
+        [self presentViewController:alert animated:YES completion:nil];
+        [tableView reloadData]; // tell table to refresh now
+    }
+}
+
 - (void)fetchTemplates {
     // construct query
     PFQuery *query = [Template query];

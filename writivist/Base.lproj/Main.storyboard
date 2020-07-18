@@ -335,7 +335,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hqW-mP-Vyg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2879.7101449275365" y="438.61607142857139"/>
+            <point key="canvasLocation" x="2880" y="1756"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="fP3-HW-QjX">
@@ -544,7 +544,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nEQ-fF-OoL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2880" y="1778"/>
+            <point key="canvasLocation" x="2880" y="435"/>
         </scene>
         <!--Compose View Controller-->
         <scene sceneID="Pte-DS-RJN">
@@ -643,7 +643,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zuX-0u-HmQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3806" y="439"/>
+            <point key="canvasLocation" x="3806" y="1756"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="Uyv-dx-NLb">
@@ -807,9 +807,9 @@
                     </tabBar>
                     <connections>
                         <segue destination="byA-1k-36o" kind="relationship" relationship="viewControllers" id="crg-NE-wHY"/>
+                        <segue destination="hn3-yf-Qve" kind="relationship" relationship="viewControllers" id="eop-mj-OIT"/>
                         <segue destination="baJ-Wf-b2o" kind="relationship" relationship="viewControllers" id="JXl-z4-Xuh"/>
                         <segue destination="j46-re-pPd" kind="relationship" relationship="viewControllers" id="UDT-kS-s3l"/>
-                        <segue destination="hn3-yf-Qve" kind="relationship" relationship="viewControllers" id="eop-mj-OIT"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vSb-pM-p4n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -852,7 +852,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dvw-ts-Ejy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1969.5652173913045" y="438.61607142857139"/>
+            <point key="canvasLocation" x="1970" y="1756"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="o9e-lI-1Dm">
@@ -890,14 +890,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dxe-hn-oS6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1970" y="1778"/>
+            <point key="canvasLocation" x="1970" y="435"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="o0O-ap-Bhy"/>
         <segue reference="zDs-ub-Ass"/>
         <segue reference="h9w-nq-IX8"/>
-        <segue reference="rNY-De-iyh"/>
+        <segue reference="0nU-vq-fGN"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="book.fill" catalog="system" width="128" height="100"/>

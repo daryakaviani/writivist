@@ -8,8 +8,9 @@
 
 #import "MapContentViewController.h"
 
-@interface MapContentViewController ()
+@interface MapContentViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *barView;
 
 @end
 
@@ -17,7 +18,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.barView.layer.cornerRadius = 5;
+    self.barView.layer.masksToBounds = true;
 }
 
 /*
@@ -29,5 +33,14 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+//    Representative *representative = self.representatives[indexPath.row];
+    return cell;
+}
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 5;
+}
 
 @end

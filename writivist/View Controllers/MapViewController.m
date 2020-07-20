@@ -57,7 +57,7 @@
     maskLayer.path  = maskPath.CGPath;
     self.trayView.layer.mask = maskLayer;
     
-//    self.trayView.center = self.view.bottomAnchor.accessibilityActivationPoint;
+    self.trayView.center = self.trayDown;
     
     UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPanTray:)];
     [panRecognizer setMinimumNumberOfTouches:1];
@@ -93,19 +93,6 @@
             }];
         }
     }
-    
-    
-//    [UIView animateWithDuration:0.3/1.5 animations:^{
-//        self.likeButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
-//    } completion:^(BOOL finished) {
-//        [UIView animateWithDuration:0.3/2 animations:^{
-//            self.likeButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.7, 0.7);
-//        } completion:^(BOOL finished) {
-//            [UIView animateWithDuration:0.3/2 animations:^{
-//                self.likeButton.transform = CGAffineTransformIdentity;
-//            }];
-//        }];
-//    }];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{\

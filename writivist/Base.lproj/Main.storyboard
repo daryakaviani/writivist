@@ -550,7 +550,14 @@
                         <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="DPf-CD-Iht"/>
                     </view>
-                    <navigationItem key="navigationItem" id="QVL-Ro-R4k"/>
+                    <navigationItem key="navigationItem" id="QVL-Ro-R4k">
+                        <barButtonItem key="rightBarButtonItem" image="location.fill" catalog="system" id="OPd-eL-w45">
+                            <color key="tintColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="centerLocation:" destination="Xa2-iR-rd3" id="mSY-hT-pvb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="trayView" destination="1iO-iz-9pB" id="mnB-pA-Hmd"/>
                     </connections>
@@ -998,6 +1005,7 @@
         <image name="facebook" width="32" height="32"/>
         <image name="filled" width="512" height="512"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
+        <image name="location.fill" catalog="system" width="128" height="115"/>
         <image name="map.fill" catalog="system" width="128" height="113"/>
         <image name="paperplane.fill" catalog="system" width="128" height="121"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>

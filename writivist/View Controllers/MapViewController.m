@@ -60,6 +60,11 @@
     [panRecognizer setMaximumNumberOfTouches:1];
     [self.trayView addGestureRecognizer:panRecognizer];
 }
+- (IBAction)centerLocation:(id)sender {
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithTarget:self.locationManager.location.coordinate zoom:8];
+    [self.mapView setCamera:camera];
+    self.trayView.center = self.trayDown;
+}
 
 
 - (void)startUserLocationSearch {

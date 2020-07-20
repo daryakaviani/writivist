@@ -108,6 +108,13 @@
                 baseUrl = [baseUrl stringByAppendingFormat:@"%@", representative.address[0][@"zip"]];
             }
             marker.snippet = baseUrl;
+            if ([representative.party isEqualToString:@"Republican Party"]) {
+                marker.icon = [GMSMarker markerImageWithColor:[UIColor redColor]];
+            } else if ([representative.party isEqualToString:@"Democratic Party"]) {
+                marker.icon = [GMSMarker markerImageWithColor:[UIColor systemBlueColor]];
+            } else {
+                marker.icon = [GMSMarker markerImageWithColor:[UIColor whiteColor]];
+            }
             marker.map = self.mapView;
             self.mapView.myLocationEnabled = YES;
             [self.view addSubview:self.mapView];

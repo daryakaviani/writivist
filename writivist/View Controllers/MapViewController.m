@@ -11,6 +11,7 @@
 #import <GooglePlaces/GooglePlaces.h>
 #import "Representative.h"
 #import "User.h"
+#import "MapContentViewController.h"
 
 
 @interface MapViewController ()
@@ -45,10 +46,9 @@
     self.mapView = [GMSMapView mapWithFrame:self.view.frame camera:camera];
     [self.view addSubview:self.mapView];
     [self.view insertSubview:self.trayView aboveSubview:self.mapView];
-    
     [self fetchAddresses];
     
-    self.trayDownOffset = 500;
+    self.trayDownOffset = 560;
     self.trayUp = self.trayView.center;
     self.trayDown = CGPointMake(self.trayView.center.x, self.trayView.center.y + self.trayDownOffset);
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.trayView.bounds byRoundingCorners:(UIRectCornerTopLeft | UIRectCornerTopRight) cornerRadii:CGSizeMake(20.0, 20.0)];
@@ -56,7 +56,6 @@
     maskLayer.frame = self.view.bounds;
     maskLayer.path  = maskPath.CGPath;
     self.trayView.layer.mask = maskLayer;
-    
     self.trayView.center = self.trayDown;
     
     UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPanTray:)];
@@ -95,14 +94,13 @@
     }
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{\
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
     [self.locationManager stopUpdatingLocation];
     self.latitude = self.locationManager.location.coordinate.latitude;
     self.longitude = self.locationManager.location.coordinate.longitude;
 }
 
 - (void) addMarker:(Representative *) representative {
-    
     NSString *baseUrl = @"https://maps.googleapis.com/maps/api/geocode/json?address=";
     NSString *keyUrl = @"&key=AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls";
     baseUrl = [baseUrl stringByAppendingFormat:@"%@", representative.address[0][@"line1"]];
@@ -202,20 +200,22 @@
                        }
                    }
                }
-            [self addMarker:representative];
+                [self addMarker:representative];
             }
         });
     }] resume];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+//    if ([segue.identifier isEqualToString:@"contentSegue"]) {
+//        MapContentViewController *contentViewController = [segue destinationViewController];
+//        contentViewController.representatives = self.representatives;
+//    }
 }
-*/
+
 
 @end

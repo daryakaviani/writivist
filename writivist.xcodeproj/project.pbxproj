@@ -21,6 +21,7 @@
 		4B6D8C9324C131460042EDC7 /* MyTemplateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D8C9224C131460042EDC7 /* MyTemplateCell.m */; };
 		4B6D8C9624C202390042EDC7 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D8C9524C202390042EDC7 /* MapViewController.m */; };
 		4B6D8C9924C61AD70042EDC7 /* MapContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D8C9824C61AD70042EDC7 /* MapContentViewController.m */; };
+		4B6D8C9C24C6344C0042EDC7 /* MapContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D8C9B24C6344C0042EDC7 /* MapContentCell.m */; };
 		4B7CB08524BCC03700AC26DF /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7CB08424BCC03700AC26DF /* LoginViewController.m */; };
 		4BCB1DB224BCAF6300BAE96E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DB124BCAF6300BAE96E /* AppDelegate.m */; };
 		4BCB1DB524BCAF6300BAE96E /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DB424BCAF6300BAE96E /* SceneDelegate.m */; };
@@ -82,6 +83,8 @@
 		4B6D8C9524C202390042EDC7 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		4B6D8C9724C61AD70042EDC7 /* MapContentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapContentViewController.h; sourceTree = "<group>"; };
 		4B6D8C9824C61AD70042EDC7 /* MapContentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapContentViewController.m; sourceTree = "<group>"; };
+		4B6D8C9A24C6344C0042EDC7 /* MapContentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapContentCell.h; sourceTree = "<group>"; };
+		4B6D8C9B24C6344C0042EDC7 /* MapContentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapContentCell.m; sourceTree = "<group>"; };
 		4B7CB08324BCC03700AC26DF /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		4B7CB08424BCC03700AC26DF /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		4BCB1DAD24BCAF6300BAE96E /* writivist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = writivist.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -252,6 +255,8 @@
 				4B09E3A724BF92710021F076 /* TemplateCell.m */,
 				4B6D8C9124C131460042EDC7 /* MyTemplateCell.h */,
 				4B6D8C9224C131460042EDC7 /* MyTemplateCell.m */,
+				4B6D8C9A24C6344C0042EDC7 /* MapContentCell.h */,
+				4B6D8C9B24C6344C0042EDC7 /* MapContentCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -574,6 +579,7 @@
 				4B1CC17D24BE5783007F9A52 /* SignUpViewController.m in Sources */,
 				4BCB1DC324BCAF6500BAE96E /* main.m in Sources */,
 				4BD44FDD24BCD94200BEE897 /* HomeViewController.m in Sources */,
+				4B6D8C9C24C6344C0042EDC7 /* MapContentCell.m in Sources */,
 				4B09E3A324BF7BA10021F076 /* ComposeViewController.m in Sources */,
 				4B1CC18324BEA71E007F9A52 /* CategoryRow.m in Sources */,
 				4BCB1DB524BCAF6300BAE96E /* SceneDelegate.m in Sources */,

@@ -24,8 +24,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *templateLikeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *templatesPublishedLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-//@property (nonatomic, strong) UIRefreshControl *refreshControl;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+//@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) PFFileObject *pickerView;
 @property (strong, nonatomic) NSArray *templates;
 
@@ -43,11 +43,15 @@
     [self updateInformation];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-//    self.refreshControl = [[UIRefreshControl alloc] init];
-//    [self.scrollView addSubview:self.refreshControl];
-//    [self.refreshControl addTarget:self action:@selector(updateInformation) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.tableView addSubview:self.refreshControl];
+    [self.refreshControl addTarget:self action:@selector(fetchTemplates) forControlEvents:UIControlEventValueChanged];
 
     // Do any additional setup after loading the view.
+}
+- (IBAction)refreshButton:(id)sender {
+    [self updateInformation];
+    [self fetchTemplates];
 }
 - (IBAction)cameraButton:(id)sender {
    [self openImagePicker];
@@ -108,7 +112,6 @@
     [self roundImage];
     self.profileView.file = self.user.profilePicture;
     [self.profileView loadInBackground];
-//    [self.refreshControl endRefreshing];
 }
 
 - (void) roundImage {
@@ -203,6 +206,7 @@
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
+        [self.refreshControl endRefreshing];
     }];
     [self updateInformation];
 

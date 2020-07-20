@@ -13,6 +13,7 @@
 
 @interface TemplateLibraryViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
@@ -28,6 +29,9 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     self.tableView.delegate = self;
     self.navigationItem.hidesBackButton = YES;
     categories = @[@"black lives matter", @"climate action", @"financial justice", @"islamophobia", @"topic", @"topic", @"topic", @"topic"];
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.tableView addSubview:self.refreshControl];
+    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
 }
    
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -43,18 +47,16 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     CategoryRow *cell = (CategoryRow *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     cell.templateLibrary = self;
     self.body = @"";
-//    [cell.collectionView reloadData];
-//    if (cell.selectedCell != nil) {
-//        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
-//        cell.selectedCell.checkView.backgroundColor = color;
-//        UIView *subview = cell.selectedCell.checkView.subviews[0];
-//        subview.hidden = NO;
-//    }
     cell.tag = indexPath.section;
     [cell.collectionView reloadData];
     [cell.collectionView.collectionViewLayout invalidateLayout];
     [cell setCategory:category];
     return cell;
+}
+
+- (void) refresh {
+    [self.tableView reloadData];
+    [self.refreshControl endRefreshing];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

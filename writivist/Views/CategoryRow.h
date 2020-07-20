@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSInteger *indexPathItem;
 
 - (void) setCategory: (NSString *) category;
-
+- (void)fetchTemplates;
 @end
 
 

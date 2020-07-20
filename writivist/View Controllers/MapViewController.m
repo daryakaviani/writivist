@@ -21,18 +21,20 @@
 @property (nonatomic, strong) NSArray *offices;
 @property (nonatomic, strong) GMSPlacesClient *placesClient;
 @property (nonatomic, strong) CLLocationManager *locationManager;
+@property (weak, nonatomic) IBOutlet UIView *trayView;
+@property (nonatomic) CGPoint trayOriginalCenter;
+@property (nonatomic) CGFloat trayDownOffset;
+@property (nonatomic) CGPoint trayUp;
+@property (nonatomic) CGPoint trayDown;
 
 @end
 
 @implementation MapViewController
-//
-//double latdouble;
-//double londouble;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self startUserLocationSearch];
-
+    
     self.navigationItem.title = @"find my reps.";
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:40], NSForegroundColorAttributeName : [UIColor blackColor]};
@@ -41,8 +43,28 @@
     
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithTarget:self.locationManager.location.coordinate zoom:8];
     self.mapView = [GMSMapView mapWithFrame:self.view.frame camera:camera];
+    [self.view addSubview:self.mapView];
+    [self.view insertSubview:self.trayView aboveSubview:self.mapView];
+    
     [self fetchAddresses];
+    
+    self.trayDownOffset = 500;
+    self.trayUp = self.trayView.center;
+    self.trayDown = CGPointMake(self.trayView.center.x, self.trayView.center.y + self.trayDownOffset);
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.trayView.bounds byRoundingCorners:(UIRectCornerTopLeft | UIRectCornerTopRight) cornerRadii:CGSizeMake(20.0, 20.0)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = self.view.bounds;
+    maskLayer.path  = maskPath.CGPath;
+    self.trayView.layer.mask = maskLayer;
+    
+//    self.trayView.center = self.view.bottomAnchor.accessibilityActivationPoint;
+    
+    UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPanTray:)];
+    [panRecognizer setMinimumNumberOfTouches:1];
+    [panRecognizer setMaximumNumberOfTouches:1];
+    [self.trayView addGestureRecognizer:panRecognizer];
 }
+
 
 - (void)startUserLocationSearch {
     self.locationManager = [[CLLocationManager alloc]init];
@@ -53,6 +75,37 @@
         [self.locationManager requestWhenInUseAuthorization];
     }
     [self.locationManager startUpdatingLocation];
+}
+- (IBAction)didPanTray:(UIPanGestureRecognizer*)sender {
+    CGPoint translation = [sender translationInView:self.view];
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        self.trayOriginalCenter = self.trayView.center;
+    } else if (sender.state == UIGestureRecognizerStateChanged) {
+        self.trayView.center = CGPointMake(self.trayOriginalCenter.x, self.trayOriginalCenter.y + translation.y);
+    } else if (sender.state == UIGestureRecognizerStateEnded) {
+        if ([sender velocityInView:self.view].y > 0) {
+            [UIView animateWithDuration:0.3 animations:^{
+                self.trayView.center = self.trayDown;
+            }];
+        } else {
+            [UIView animateWithDuration:0.3 animations:^{
+                self.trayView.center = self.trayUp;
+            }];
+        }
+    }
+    
+    
+//    [UIView animateWithDuration:0.3/1.5 animations:^{
+//        self.likeButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
+//    } completion:^(BOOL finished) {
+//        [UIView animateWithDuration:0.3/2 animations:^{
+//            self.likeButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.7, 0.7);
+//        } completion:^(BOOL finished) {
+//            [UIView animateWithDuration:0.3/2 animations:^{
+//                self.likeButton.transform = CGAffineTransformIdentity;
+//            }];
+//        }];
+//    }];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{\
@@ -95,7 +148,11 @@
         lng = [longitude floatValue];
         dispatch_async(dispatch_get_main_queue(), ^{
             GMSMarker *marker = [[GMSMarker alloc] init];
-            marker.position = CLLocationCoordinate2DMake(lat, lng);
+//            if (lat == nil) {
+//                marker.position = self.locationManager.location.coordinate;
+//            } else {
+                marker.position = CLLocationCoordinate2DMake(lat, lng);
+//            }
             marker.title = representative.name;
             NSString *baseUrl = representative.role;
             if (representative.address != nil) {
@@ -117,7 +174,6 @@
             }
             marker.map = self.mapView;
             self.mapView.myLocationEnabled = YES;
-            [self.view addSubview:self.mapView];
         });
     }] resume];
     
@@ -162,8 +218,6 @@
             [self addMarker:representative];
             }
         });
-        
-        
     }] resume];
 }
 

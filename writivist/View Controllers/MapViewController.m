@@ -61,9 +61,6 @@
     self.longitude = self.locationManager.location.coordinate.longitude;
 }
 
-
-CGFloat lat;
-CGFloat lng;
 - (void) addMarker:(Representative *) representative {
     
     NSString *baseUrl = @"https://maps.googleapis.com/maps/api/geocode/json?address=";
@@ -77,8 +74,6 @@ CGFloat lng;
     baseUrl = [baseUrl stringByAppendingFormat:@"%@", representative.address[0][@"state"]];
     baseUrl = [baseUrl stringByAppendingFormat:@"%@", keyUrl];
     baseUrl = [baseUrl stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-//    NSLog(@"%@", baseUrl);
-//    NSString *targetUrl = @"https://maps.googleapis.com/maps/api/geocode/json?address=1567+Via+Campo+Aureo,+San+Jose,+CA&key=AIzaSyBF0K61_yqnXdJvNBSzyq2uTHJsNktnCZ0";
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"GET"];
     [request setURL:[NSURL URLWithString:baseUrl]];
@@ -94,6 +89,8 @@ CGFloat lng;
         NSString *longitude = [location valueForKey:@"lng"];
         NSLog(@"%@", latitude);
         NSLog(@"%@", longitude);
+        CGFloat lat;
+        CGFloat lng;
         lat = [latitude floatValue];
         lng = [longitude floatValue];
         dispatch_async(dispatch_get_main_queue(), ^{

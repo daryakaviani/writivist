@@ -18,15 +18,12 @@
 @property (nonatomic) CGFloat latitude;
 @property (nonatomic) CGFloat longitude;
 @property (nonatomic, strong) NSArray *representatives;
-@property (nonatomic, strong) GMSMapView *mapView;
 @property (nonatomic, strong) NSArray *offices;
 @property (nonatomic, strong) GMSPlacesClient *placesClient;
-@property (nonatomic, strong) CLLocationManager *locationManager;
-@property (weak, nonatomic) IBOutlet UIView *trayView;
 @property (nonatomic) CGPoint trayOriginalCenter;
 @property (nonatomic) CGFloat trayDownOffset;
 @property (nonatomic) CGPoint trayUp;
-@property (nonatomic) CGPoint trayDown;
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
 @end
 
@@ -211,10 +208,10 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    if ([segue.identifier isEqualToString:@"contentSegue"]) {
-//        MapContentViewController *contentViewController = [segue destinationViewController];
-//        contentViewController.representatives = self.representatives;
-//    }
+    if ([segue.identifier isEqualToString:@"contentSegue"]) {
+        MapContentViewController *contentViewController = [segue destinationViewController];
+        contentViewController.mapViewController = self;
+    }
 }
 
 

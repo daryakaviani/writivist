@@ -10,8 +10,10 @@
 #import "Representative.h"
 #import "MapContentCell.h"
 #import "User.h"
+#import <GoogleMaps/GoogleMaps.h>
+#import <GooglePlaces/GooglePlaces.h>
 
-@interface MapContentViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface MapContentViewController ()<UITableViewDelegate, UITableViewDataSource, MapContentCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *barView;
 @property (nonatomic, strong) NSArray *offices;
@@ -27,22 +29,17 @@
     [self fetchAddresses];
     self.barView.layer.cornerRadius = 5;
     self.barView.layer.masksToBounds = true;
-    self.tableView.allowsSelection = false;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-*/
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     MapContentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MapContentCell"];
     Representative *representative = self.representatives[indexPath.row];
+    cell.representative = representative;
+    cell.delegate = self;
     cell.roleLabel.text = representative.role;
     cell.nameLabel.text = representative.name;
     NSString *address = representative.address[0][@"line1"];
@@ -106,6 +103,45 @@
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.representatives.count;
+}
+
+- (void)mapContentCell:(nonnull MapContentCell *)mapContentCell didTap:(nonnull Representative *)representative {
+    NSString *baseUrl = @"https://maps.googleapis.com/maps/api/geocode/json?address=";
+        NSString *keyUrl = @"&key=AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls";
+        baseUrl = [baseUrl stringByAppendingFormat:@"%@", representative.address[0][@"line1"]];
+        baseUrl = [baseUrl stringByAppendingFormat:@"%@", @","];
+        baseUrl = [baseUrl stringByAppendingFormat:@"%@", @"+"];
+        baseUrl = [baseUrl stringByAppendingFormat:@"%@", representative.address[0][@"city"]];
+        baseUrl = [baseUrl stringByAppendingFormat:@"%@", @","];
+        baseUrl = [baseUrl stringByAppendingFormat:@"%@", @"+"];
+        baseUrl = [baseUrl stringByAppendingFormat:@"%@", representative.address[0][@"state"]];
+        baseUrl = [baseUrl stringByAppendingFormat:@"%@", keyUrl];
+        baseUrl = [baseUrl stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+        [request setHTTPMethod:@"GET"];
+        [request setURL:[NSURL URLWithString:baseUrl]];
+        [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
+          ^(NSData * _Nullable data,
+            NSURLResponse * _Nullable response,
+            NSError * _Nullable error) {
+            NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+            NSArray *results = [JSON valueForKey:@"results"];
+            NSDictionary *geocodingDictionary = [results valueForKey:@"geometry"];
+            NSDictionary *location = [geocodingDictionary valueForKey:@"location"][0];
+            NSString *latitude = [location valueForKey:@"lat"];
+            NSString *longitude = [location valueForKey:@"lng"];
+            NSLog(@"%@", latitude);
+            NSLog(@"%@", longitude);
+            CGFloat lat;
+            CGFloat lng;
+            lat = [latitude floatValue];
+            lng = [longitude floatValue];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                GMSCameraPosition *camera = [GMSCameraPosition cameraWithTarget:CLLocationCoordinate2DMake(lat, lng) zoom:20];
+                [self.mapViewController.mapView setCamera:camera];
+                self.mapViewController.trayView.center = self.mapViewController.trayDown;
+            });
+        }] resume];
 }
 
 @end

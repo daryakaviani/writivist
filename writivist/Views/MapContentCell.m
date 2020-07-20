@@ -12,13 +12,19 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+     UITapGestureRecognizer *cellTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapCell:)];
+    [self addGestureRecognizer:cellTapGestureRecognizer];
+    [self setUserInteractionEnabled:YES];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void) didTapCell:(UITapGestureRecognizer *)sender{
+    [self.delegate mapContentCell:self didTap:self.representative];
 }
 
 @end

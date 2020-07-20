@@ -31,9 +31,9 @@
     int val = [temp.likeCount intValue];
     temp.likeCount = [NSNumber numberWithInt:(val + 1)];
     
-    int authorVal = [temp.author.likeCount intValue];
-    temp.author.likeCount = [NSNumber numberWithInt:(authorVal + 1)];
-    [temp.author saveInBackground];
+//    int authorVal = [temp.author.likeCount intValue];
+//    temp.author.likeCount = [NSNumber numberWithInt:(authorVal + 1)];
+//    [temp.author saveInBackground];
     [temp saveInBackground];
 }
 
@@ -43,9 +43,9 @@
     int val = [temp.likeCount intValue];
     temp.likeCount = [NSNumber numberWithInt:(val - 1)];
     
-    int authorVal = [temp.author.likeCount intValue];
-    temp.author.likeCount = [NSNumber numberWithInt:(authorVal - 1)];
-    [temp.author saveInBackground];
+//    int authorVal = [temp.author.likeCount intValue];
+//    temp.author.likeCount = [NSNumber numberWithInt:(authorVal - 1)];
+//    [temp.author saveInBackground];
     [temp saveInBackground];
 }
 

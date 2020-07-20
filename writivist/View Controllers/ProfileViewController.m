@@ -38,11 +38,11 @@
     if (self.user == nil) {
         self.user = [User currentUser];
     }
-    [self updateInformation];
     self.templates = [[NSArray alloc] init];
+    [self fetchTemplates];
+    [self updateInformation];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    [self fetchTemplates];
 //    self.refreshControl = [[UIRefreshControl alloc] init];
 //    [self.scrollView addSubview:self.refreshControl];
 //    [self.refreshControl addTarget:self action:@selector(updateInformation) forControlEvents:UIControlEventValueChanged];
@@ -103,7 +103,7 @@
     self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
     self.usernameLabel.text = [NSString stringWithFormat:@"%@%@", @"@", user.username];
     self.letterCountLabel.text = [NSString stringWithFormat:@"%@",  user.letterCount];
-    self.templateLikeLabel.text = [NSString stringWithFormat:@"%@",  user.likeCount];
+//    self.templateLikeLabel.text = [NSString stringWithFormat:@"%d",  self.likeCount];
     self.templatesPublishedLabel.text = [NSString stringWithFormat:@"%@",  user.templateCount];
     [self roundImage];
     self.profileView.file = self.user.profilePicture;
@@ -193,11 +193,19 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
         if (templates != nil) {
             self.templates = templates;
+            int likes = 0;
+            for (Template *template in templates) {
+                likes += [template.likeCount intValue];
+                NSLog(@"%@", template.likeCount);
+            }
+            self.templateLikeLabel.text = [NSString stringWithFormat:@"%d",  likes];
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
     }];
+    [self updateInformation];
+
 }
 
 

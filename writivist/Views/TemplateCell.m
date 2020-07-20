@@ -42,7 +42,6 @@
                 containsUser = true;
                 NSLog(@"Found user");
                 [Template postUserUnlike:[User currentUser] withTemplate:self.temp withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-//                    [self.contentView reloadData];
                 }];
             }
             break;
@@ -51,7 +50,6 @@
             NSLog(@"Did not find user");
             self.likeButton.selected = YES;
             [Template postUserLike:[User currentUser] withTemplate:self.temp withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-            //                    [self.contentView reloadData];
             }];
         }
         self.likeLabel.text = [NSString stringWithFormat:@"%@", self.temp.likeCount];

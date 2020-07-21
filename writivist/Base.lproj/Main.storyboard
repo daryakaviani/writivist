@@ -692,6 +692,12 @@
                         <viewLayoutGuide key="safeArea" id="xau-eo-R2U"/>
                     </view>
                     <navigationItem key="navigationItem" id="VtW-Pl-NBU">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="hOw-zo-e0m">
+                            <color key="tintColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="cancelButton:" destination="9uN-lg-gWE" id="2j0-t9-Wa9"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="h3x-Os-VhN">
                             <color key="tintColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>

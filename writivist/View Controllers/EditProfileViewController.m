@@ -122,6 +122,9 @@
         }];
     }];
 }
+- (IBAction)cancelButton:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image {
     // check if image is not nil

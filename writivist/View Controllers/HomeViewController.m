@@ -292,6 +292,7 @@
         user.letterCount = [NSNumber numberWithInt:(val + 1)];
         [user saveInBackground];
     }
+    self.counterView.hidden = YES;
    [self dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -24,16 +24,6 @@
 @dynamic city;
 @dynamic state;
 @dynamic zipCode;
-//
-//+ (void) postUserTemplate: ( NSString * _Nullable )body withCategory: ( NSString * _Nullable )category withTitle: ( NSString * _Nullable )title withCompletion: (PFBooleanResultBlock  _Nullable)completion {
-////    Template *newTemplate = [Template new];
-////    newTemplate.author = [User currentUser];
-////    newTemplate.likeCount = @(0);
-////    newTemplate.body = body;
-////    newTemplate.category = category;
-////    newTemplate.title = title;
-////    [newTemplate saveInBackgroundWithBlock: completion];
-//}
 
 
 @end

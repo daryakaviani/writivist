@@ -28,8 +28,15 @@
     self.titleLabel.text = template.title;
     [self fetchLikes];
     [self roundImage];
-    self.authorImage.file = self.temp.author.profilePicture;
-    [self.authorImage loadInBackground];
+    PFFileObject *data = self.temp.author.profilePicture;
+    [data getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error) {
+      if (error == nil) {
+        UIImage *image = [UIImage imageWithData:data];
+        [self.authorButton setImage:image forState:UIControlStateNormal];
+      } else {
+        NSLog(@"Error");
+      }
+    }];
 }
 - (IBAction)likeButton:(id)sender {
     __block bool containsUser = false;
@@ -89,13 +96,13 @@
 }
 
 - (void) roundImage {
-    CALayer *imageLayer = self.authorImage.layer;
+    CALayer *imageLayer = self.authorButton.imageView.layer;
     [imageLayer setCornerRadius:5];
     [imageLayer setBorderWidth:3];
     [imageLayer setBorderColor:[[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:1].CGColor];
     [imageLayer setMasksToBounds:YES];
-    [self.authorImage.layer setCornerRadius:self.authorImage.frame.size.width/2];
-    [self.authorImage.layer setMasksToBounds:YES];
+    [self.authorButton.imageView.layer setCornerRadius:self.authorButton.imageView.frame.size.width/2];
+    [self.authorButton.imageView.layer setMasksToBounds:YES];
 }
 
 - (void) didTapTemplate:(UITapGestureRecognizer *)sender{

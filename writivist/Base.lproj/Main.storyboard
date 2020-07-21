@@ -236,7 +236,7 @@
                                                                                 <color key="tintColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="darya" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VOT-ky-RQJ">
-                                                                                <rect key="frame" x="81" y="137" width="103" height="37"/>
+                                                                                <rect key="frame" x="78" y="138" width="103" height="37"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="21"/>
                                                                                 <nil key="textColor"/>
@@ -268,15 +268,16 @@
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="v0K-T1-Uuq" customClass="PFImageView">
-                                                                        <rect key="frame" x="14" y="125" width="60" height="60"/>
+                                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WLO-Ch-0yk">
+                                                                        <rect key="frame" x="14" y="123.5" width="60" height="60"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                    </imageView>
+                                                                        <state key="normal" image="user"/>
+                                                                    </button>
                                                                 </subviews>
                                                             </view>
                                                             <size key="customSize" width="200" height="200"/>
                                                             <connections>
-                                                                <outlet property="authorImage" destination="v0K-T1-Uuq" id="A0T-WM-AKh"/>
+                                                                <outlet property="authorButton" destination="WLO-Ch-0yk" id="e7L-W8-wMi"/>
                                                                 <outlet property="authorLabel" destination="VOT-ky-RQJ" id="SWS-G5-gop"/>
                                                                 <outlet property="checkView" destination="FCh-5L-Pwh" id="qDM-si-aSQ"/>
                                                                 <outlet property="likeButton" destination="6et-DE-TLt" id="zHT-hO-3Su"/>
@@ -335,7 +336,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hqW-mP-Vyg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2880" y="1756"/>
+            <point key="canvasLocation" x="2879.7101449275365" y="1755.8035714285713"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="fP3-HW-QjX">

@@ -19,13 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UILabel *likeLabel;
-@property (weak, nonatomic) IBOutlet PFImageView *authorImage;
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;
 @property (strong, nonatomic) Template   *temp;
 @property (weak, nonatomic) IBOutlet UIView *checkView;
 @property (nonatomic, weak) id<TemplateCellDelegate> delegate;
-
-//@property (strong, nonatomic) CategoryRow * _Nullable categoryRow;
+@property (weak, nonatomic) IBOutlet UIButton *authorButton;
 
 - (void)setTemplate:(Template *)template;
 

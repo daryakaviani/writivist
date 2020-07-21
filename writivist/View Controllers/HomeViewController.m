@@ -22,12 +22,22 @@
 @property (nonatomic, strong) NSMutableArray *selectedReps;
 @property (weak, nonatomic) IBOutlet UIView *counterView;
 @property (weak, nonatomic) IBOutlet UIView *internalView;
+@property (nonatomic) NSMutableArray *federalReps;
+@property (nonatomic) NSMutableArray *stateReps;
+@property (nonatomic) NSMutableArray *countyReps;
+@property (nonatomic) NSMutableArray *cityReps;
+
 @end
 
 @implementation HomeViewController
 
+NSArray *levels;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    levels = @[@"federal", @"state", @"county", @"city"];
+
     self.counterView.hidden = YES;
     self.internalView.layer.cornerRadius = self.internalView.bounds.size.width/2;
     self.internalView.layer.masksToBounds = YES;
@@ -54,6 +64,38 @@
     }
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:40], NSForegroundColorAttributeName : [UIColor blackColor]};
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 4;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    switch (section) {
+        case 0:
+            return self.federalReps.count;
+        case 1:
+            return self.stateReps.count;
+        case 2:
+            return self.countyReps.count;
+        default:
+            return self.cityReps.count;
+    }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 50)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 50)];
+    [label setFont: [UIFont fontWithName:@"Snell Roundhand" size:30]];
+    NSString *string = levels[section];
+    [label setText:string];
+    [view addSubview:label];
+    [view setBackgroundColor:[[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5]];
+    return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 55;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -103,17 +145,50 @@
         NSMutableArray *representatives  = [Representative representativesWithArray:representativeArray];
         self.representatives = representatives;
         self.offices = officesArray;
+        self.federalReps = [[NSMutableArray alloc] init];
+        self.stateReps = [[NSMutableArray alloc] init];
+        self.countyReps = [[NSMutableArray alloc] init];
+        self.cityReps = [[NSMutableArray alloc] init];
+        for (int i = 0; i < self.representatives.count; i += 1) {
+            Representative *representative = self.representatives[i];
+           for (NSDictionary *dictionary in self.offices) {
+               for (NSString *index in dictionary[@"officialIndices"]) {
+                   NSString *repIndex = [NSString stringWithFormat: @"%d", i];
+                   NSString *officialIndex = [NSString stringWithFormat: @"%@", index];
+                   if (repIndex == officialIndex) {
+                       representative.level = dictionary[@"levels"][0];
+                       if ([representative.level isEqual:@"country"]) {
+                           [self.federalReps addObject:representative];
+                       }
+                       if ([representative.level isEqual:@"administrativeArea1"]) {
+                           [self.stateReps addObject:representative];
+                       }
+                       if ([representative.level isEqual:@"administrativeArea2"]) {
+                           [self.countyReps addObject:representative];
+                       }
+                       if ([representative.level isEqual:@"locality"]) {
+                           [self.cityReps addObject:representative];
+                       }
+                   }
+               }
+           }
+            NSLog(@"%lu", (unsigned long)self.federalReps.count);
+            NSLog(@"%lu", (unsigned long)self.stateReps.count);
+            NSLog(@"%lu", (unsigned long)self.countyReps.count);
+            NSLog(@"%lu", (unsigned long)self.cityReps.count);
+
+
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
-        NSLog(@"%@", representativeArray);
     }] resume];
 }
 
-// Tells us how many rows we need.
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.representatives.count;
-}
+//// Tells us how many rows we need.
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//    return self.representatives.count;
+//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

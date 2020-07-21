@@ -67,7 +67,11 @@ NSArray *levels;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    if (self.cityReps.count == 0) {
+        return 3;
+    } else {
+        return 4;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -197,13 +201,26 @@ NSArray *levels;
 // Creating and configured a cell.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RepresentativeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RepresentativeCell"];
-    Representative *representative = self.representatives[indexPath.row];
+    Representative *representative;
+    NSString *repIndex = [NSString stringWithFormat: @"%ld", indexPath.row];
+    if (indexPath.section == 0) {
+        representative = self.representatives[indexPath.row];
+        repIndex = [NSString stringWithFormat: @"%ld", indexPath.row];
+    } else if (indexPath.section == 1) {
+        representative = self.representatives[indexPath.row + self.federalReps.count];
+        repIndex = [NSString stringWithFormat: @"%ld", indexPath.row + self.federalReps.count];
+    } else if (indexPath.section == 2) {
+        representative = self.representatives[indexPath.row + self.federalReps.count + self.stateReps.count];
+        repIndex = [NSString stringWithFormat: @"%ld", indexPath.row + self.federalReps.count + self.stateReps.count];
+    } else {
+        representative = self.representatives[indexPath.row + self.federalReps.count + self.stateReps.count + self.countyReps.count];
+        repIndex = [NSString stringWithFormat: @"%ld", indexPath.row + self.federalReps.count + self.stateReps.count  + self.countyReps.count];
+    }
     cell.delegate = self;
     cell.representative = representative;
     cell.nameLabel.text = representative.name;
     for (NSDictionary *dictionary in self.offices) {
         for (NSString *index in dictionary[@"officialIndices"]) {
-            NSString *repIndex = [NSString stringWithFormat: @"%ld", indexPath.row];
             NSString *officialIndex = [NSString stringWithFormat: @"%@", index];
             if (repIndex == officialIndex) {
                 representative.role = dictionary[@"name"];

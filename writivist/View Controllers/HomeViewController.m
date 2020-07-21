@@ -22,8 +22,6 @@
 @property (nonatomic, strong) NSMutableArray *selectedReps;
 @property (weak, nonatomic) IBOutlet UIView *counterView;
 @property (weak, nonatomic) IBOutlet UIView *internalView;
-@property (weak, nonatomic) IBOutlet UILabel *counterLabel;
-
 @end
 
 @implementation HomeViewController
@@ -61,7 +59,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self fetchRepresentatives];
-    self.counterLabel.text = [[NSString alloc] initWithFormat:@"%lu", (unsigned long)self.selectedReps.count];
+    self.counterView.hidden = YES;
 }
 
 - (IBAction)logoutButton:(id)sender {
@@ -192,9 +190,7 @@
             representative.selected = (BOOL * _Nonnull) YES;
             UIView *subview = representativeCell.checkView.subviews[0];
             subview.hidden = NO;
-            self.counterView.hidden = NO;
             [self.selectedReps addObject:representativeCell];
-            self.counterLabel.text = [[NSString alloc] initWithFormat:@"%lu", (unsigned long)self.selectedReps.count];
         } else {
             UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
             representativeCell.checkView.backgroundColor = color;
@@ -202,6 +198,12 @@
             UIView *subview = representativeCell.checkView.subviews[0];
             subview.hidden = YES;
             [self.selectedReps removeObject:representativeCell];
+        }
+        if (self.selectedReps.count == 0) {
+            self.counterView.hidden = YES;
+        } else {
+            self.counterView.hidden = NO;
+            self.counterLabel.text = [[NSString alloc] initWithFormat:@"%lu", (unsigned long)self.selectedReps.count];
         }
     } else {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Sorry, my email is unavailable to the public."

@@ -202,7 +202,9 @@
                        }
                    }
                }
-                [self addMarker:representative];
+                if (representative.address != nil) {
+                    [self addMarker:representative];
+                }
             }
         });
     }] resume];

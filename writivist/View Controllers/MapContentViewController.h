@@ -12,7 +12,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MapContentViewController : UIViewController
-@property (nonatomic, strong) NSArray *representatives;
 @property (nonatomic, strong) MapViewController *mapViewController;
 @end
 

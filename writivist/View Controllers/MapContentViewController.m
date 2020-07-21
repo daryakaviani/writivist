@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *barView;
 @property (nonatomic, strong) NSArray *offices;
+@property (nonatomic, strong) NSMutableArray *representatives;
+
 
 @end
 
@@ -26,6 +28,7 @@
     [super viewDidLoad];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.representatives = [[NSMutableArray alloc] init];
     [self fetchAddresses];
     self.barView.layer.cornerRadius = 5;
     self.barView.layer.masksToBounds = true;
@@ -76,7 +79,11 @@
         NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
         NSArray *representativeArray = [JSON valueForKey:@"officials"];
         NSMutableArray *representatives  = [Representative representativesWithArray:representativeArray];
-        self.representatives = representatives;
+        for (Representative *representative in representatives) {
+            if (representative.address != nil) {
+                [self.representatives addObject:representative];
+            }
+        }
         NSArray *officesArray = [JSON valueForKey:@"offices"];
         self.offices = officesArray;
         dispatch_async(dispatch_get_main_queue(), ^{

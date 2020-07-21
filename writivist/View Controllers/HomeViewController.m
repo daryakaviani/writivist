@@ -138,18 +138,22 @@
     } else {
         [cell.profileView setImage:[UIImage imageNamed:@"user.png"]];
     }
-    [cell.websiteButton setTitle:representative.website forState:UIControlStateNormal];
-    [cell.phoneButton setTitle:representative.phone forState:UIControlStateNormal];
-    cell.emailLabel.text = representative.email;
-    if (representative.twitter == nil) {
-        cell.twitterButton.hidden = YES;
+//    [cell.websiteButton setTitle:representative.website forState:UIControlStateNormal];
+//    [cell.phoneButton setTitle:representative.phone forState:UIControlStateNormal];
+    if (representative.email == nil) {
+        cell.emailView.hidden = YES;
     } else {
-        cell.twitterButton.hidden = NO;
+        cell.emailView.hidden = NO;
+    }
+    if (representative.twitter == nil) {
+        cell.twitterButton.enabled = NO;
+    } else {
+        cell.twitterButton.enabled = YES;
     }
     if (representative.facebook == nil) {
-        cell.facebookButton.hidden = YES;
+        cell.facebookButton.enabled = NO;
     } else {
-        cell.facebookButton.hidden = NO;
+        cell.facebookButton.enabled = YES;
     }
     if (representative.selected == (BOOL * _Nonnull) YES) {
         UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];

@@ -15,12 +15,23 @@
     UITapGestureRecognizer *cellTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapCell:)];
     [self.checkView addGestureRecognizer:cellTapGestureRecognizer];
     [self.checkView setUserInteractionEnabled:YES];
+    [self roundImage];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void) roundImage {
+    CALayer *imageLayer = self.profileView.layer;
+    [imageLayer setCornerRadius:5];
+    [imageLayer setBorderWidth:3];
+    [imageLayer setBorderColor:[[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:1].CGColor];
+    [imageLayer setMasksToBounds:YES];
+    [self.profileView.layer setCornerRadius:self.profileView.frame.size.width/2];
+    [self.profileView.layer setMasksToBounds:YES];
 }
 
 - (IBAction)facebookButton:(id)sender {

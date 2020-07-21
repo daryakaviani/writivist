@@ -871,98 +871,94 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="125" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="32j-zl-EjN">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="32j-zl-EjN">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RepresentativeCell" rowHeight="125" id="i4X-Wb-tRv" customClass="RepresentativeCell">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="125"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RepresentativeCell" rowHeight="150" id="i4X-Wb-tRv" customClass="RepresentativeCell">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="i4X-Wb-tRv" id="N4l-Zv-KlY" customClass="RepresentativeCell">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="S4C-Ng-mNM">
-                                                    <rect key="frame" x="27" y="59" width="56" height="56"/>
+                                                    <rect key="frame" x="20" y="11" width="65" height="77"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s9f-Ee-gTj" userLabel="Check View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="136"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="8UR-bX-GcV">
-                                                            <rect key="frame" x="35" y="70.5" width="39" height="40"/>
+                                                            <rect key="frame" x="33" y="32.5" width="39" height="40"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="tintColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        </imageView>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="email" translatesAutoresizingMaskIntoConstraints="NO" id="NBv-u4-4hz">
+                                                            <rect key="frame" x="30" y="70" width="49" height="57"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Gavin Newsom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPO-vb-sTW">
-                                                    <rect key="frame" x="19" y="6" width="327" height="26"/>
+                                                    <rect key="frame" x="103" y="21" width="259" height="26"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="23"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMF-Fl-Nyr">
+                                                    <rect key="frame" x="123" y="90" width="40" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="call"/>
+                                                    <connections>
+                                                        <action selector="phoneButton:" destination="i4X-Wb-tRv" eventType="touchUpInside" id="duD-FU-WlY"/>
+                                                    </connections>
+                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Governor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Q9-D5-pTW">
-                                                    <rect key="frame" x="19" y="34" width="302" height="20"/>
+                                                    <rect key="frame" x="105" y="56" width="302" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="D" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oxf-qJ-Kxj">
-                                                    <rect key="frame" x="372" y="12" width="16" height="26"/>
+                                                    <rect key="frame" x="370" y="17" width="25" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="gavin@gmail.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VpV-aI-Yne">
-                                                    <rect key="frame" x="101" y="93" width="250" height="18"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                                    <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="30"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fmm-rE-ebf">
-                                                    <rect key="frame" x="364" y="43" width="32" height="32"/>
+                                                    <rect key="frame" x="248" y="90" width="40" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                     <state key="normal" image="facebook">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <state key="disabled" image="grayfacebook"/>
                                                     <connections>
                                                         <action selector="facebookButton:" destination="i4X-Wb-tRv" eventType="touchUpInside" id="eQz-ZM-9Eh"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hhe-No-Ol9">
-                                                    <rect key="frame" x="364" y="83" width="32" height="32"/>
+                                                    <rect key="frame" x="310" y="90" width="40" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                     <state key="normal" image="twitter">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <state key="disabled" image="graytwitter"/>
                                                     <connections>
                                                         <action selector="twitterButton:" destination="i4X-Wb-tRv" eventType="touchUpInside" id="aCV-5J-B6r"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMF-Fl-Nyr">
-                                                    <rect key="frame" x="101" y="50" width="128" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jtg-Hr-ve7">
+                                                    <rect key="frame" x="185" y="90" width="40" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                                    <state key="normal" title="(408) 888-8888"/>
-                                                    <connections>
-                                                        <action selector="phoneButton:" destination="i4X-Wb-tRv" eventType="touchUpInside" id="duD-FU-WlY"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jtg-Hr-ve7">
-                                                    <rect key="frame" x="101" y="68" width="246" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                                    <state key="normal" title="gavin.com"/>
+                                                    <state key="normal" image="safari"/>
                                                     <connections>
                                                         <action selector="websiteButton:" destination="i4X-Wb-tRv" eventType="touchUpInside" id="CC6-GX-goz"/>
                                                     </connections>
@@ -971,7 +967,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="checkView" destination="s9f-Ee-gTj" id="DYz-HL-uQM"/>
-                                            <outlet property="emailLabel" destination="VpV-aI-Yne" id="f9v-u9-OAL"/>
+                                            <outlet property="emailView" destination="NBv-u4-4hz" id="ukj-yu-49F"/>
                                             <outlet property="facebookButton" destination="Fmm-rE-ebf" id="AgM-Oi-XKR"/>
                                             <outlet property="nameLabel" destination="fPO-vb-sTW" id="U6R-NR-IDw"/>
                                             <outlet property="partyLabel" destination="Oxf-qJ-Kxj" id="hbI-63-dgY"/>
@@ -986,6 +982,14 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="32j-zl-EjN" firstAttribute="top" secondItem="fdp-t4-P4k" secondAttribute="top" id="Qcv-4D-dyb"/>
+                            <constraint firstItem="32j-zl-EjN" firstAttribute="top" secondItem="fdp-t4-P4k" secondAttribute="top" id="VQF-Ny-3sk"/>
+                            <constraint firstItem="32j-zl-EjN" firstAttribute="leading" secondItem="fdp-t4-P4k" secondAttribute="leading" id="ayI-UU-M6V"/>
+                            <constraint firstItem="32j-zl-EjN" firstAttribute="leading" secondItem="fdp-t4-P4k" secondAttribute="leading" id="gib-k2-YcJ"/>
+                            <constraint firstItem="32j-zl-EjN" firstAttribute="bottom" secondItem="fdp-t4-P4k" secondAttribute="bottom" id="kV3-X5-OYQ"/>
+                            <constraint firstItem="32j-zl-EjN" firstAttribute="trailing" secondItem="fdp-t4-P4k" secondAttribute="trailing" id="mJg-CK-5WD"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="fdp-t4-P4k"/>
                     </view>
                     <navigationItem key="navigationItem" id="HlQ-lO-ybo">
@@ -1201,22 +1205,27 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="zDs-ub-Ass"/>
+        <segue reference="xt8-hm-Qjv"/>
         <segue reference="X5I-1p-WB2"/>
-        <segue reference="0nU-vq-fGN"/>
+        <segue reference="rNY-De-iyh"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="book.fill" catalog="system" width="128" height="100"/>
+        <image name="call" width="128" height="128"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="circle-vol-1circle" width="512" height="512"/>
-        <image name="facebook" width="32" height="32"/>
+        <image name="email" width="128" height="128"/>
+        <image name="facebook" width="128" height="128"/>
         <image name="filled" width="512" height="512"/>
+        <image name="grayfacebook" width="128" height="128"/>
+        <image name="graytwitter" width="128" height="128"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="location.fill" catalog="system" width="128" height="115"/>
         <image name="map.fill" catalog="system" width="128" height="113"/>
         <image name="paperplane.fill" catalog="system" width="128" height="121"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
-        <image name="twitter" width="32" height="32"/>
+        <image name="safari" width="128" height="128"/>
+        <image name="twitter" width="128" height="128"/>
         <image name="unfilled" width="512" height="512"/>
         <image name="user" width="256" height="256"/>
     </resources>

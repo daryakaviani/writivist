@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *cityField;
 @property (weak, nonatomic) IBOutlet UITextField *stateField;
 @property (weak, nonatomic) IBOutlet UITextField *zipField;
+@property (weak, nonatomic) PFFileObject *pickerView;
 
 @end
 
@@ -56,7 +57,51 @@
 }
 
 - (IBAction)changeProfilePhoto:(id)sender {
+    [self openImagePicker];
 }
+
+-(void)openImagePicker {
+    UIImagePickerController *imagePickerVC = [UIImagePickerController new];
+    imagePickerVC.delegate = self;
+    imagePickerVC.allowsEditing = YES;
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }
+    else {
+        NSLog(@"Camera 🚫 available so we will use photo library instead");
+        imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    [self presentViewController:imagePickerVC animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    User *user = [User currentUser];
+    // Get the image captured by the UIImagePickerController
+    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
+    UIImage *editedImage = [self resizeImage:originalImage withSize:CGSizeMake(414, 414)];
+    self.pickerView = [self getPFFileFromImage:editedImage];
+    [self roundImage];
+    [user setObject:self.pickerView forKey:@"profilePicture"];
+    [user saveInBackground];
+    [self.profileView setImage:editedImage];
+    // Dismiss UIImagePickerController to go back to your original view controller
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
+    UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    
+    resizeImageView.contentMode = UIViewContentModeScaleAspectFill;
+    resizeImageView.image = image;
+    
+    UIGraphicsBeginImageContext(size);
+    [resizeImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
 - (IBAction)doneButton:(id)sender {
     User *user = [User currentUser];
     user.firstName = self.firstNameField.text;
@@ -73,6 +118,21 @@
             [self.profileViewController viewWillAppear:YES];
         }];
     }];
+}
+
+- (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image {
+    // check if image is not nil
+    if (!image) {
+        NSLog(@"Image is nil");
+        return nil;
+    }
+    NSData *imageData = UIImagePNGRepresentation(image);
+    // get image data and check if that is not nil
+    if (!imageData) {
+        NSLog(@"Image data is nil");
+        return nil;
+    }
+    return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
 }
 
 

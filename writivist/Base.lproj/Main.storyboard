@@ -980,6 +980,25 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mkz-T3-Sde">
+                                <rect key="frame" x="335" y="734" width="66" height="64"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hzB-2B-LRr">
+                                        <rect key="frame" x="0.0" y="0.0" width="66" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.98823529409999999" green="0.59607843140000005" blue="0.4941176471" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RyI-eP-EaE">
+                                        <rect key="frame" x="25" y="15" width="16" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -1007,6 +1026,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="counterLabel" destination="RyI-eP-EaE" id="gmP-BQ-MTy"/>
+                        <outlet property="counterView" destination="Mkz-T3-Sde" id="DKQ-Qd-zoM"/>
+                        <outlet property="internalView" destination="hzB-2B-LRr" id="Y6H-dE-i3g"/>
                         <outlet property="logoutButton" destination="I1X-VN-mIU" id="3y7-GY-HN1"/>
                         <outlet property="tableView" destination="32j-zl-EjN" id="jkA-Rg-LKV"/>
                     </connections>
@@ -1214,7 +1236,7 @@
         <image name="call" width="128" height="128"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="circle-vol-1circle" width="512" height="512"/>
-        <image name="email" width="128" height="128"/>
+        <image name="email" width="512" height="512"/>
         <image name="facebook" width="128" height="128"/>
         <image name="filled" width="512" height="512"/>
         <image name="grayfacebook" width="128" height="128"/>

@@ -20,6 +20,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
 @property (nonatomic, strong) NSMutableArray *selectedReps;
+@property (weak, nonatomic) IBOutlet UIView *counterView;
+@property (weak, nonatomic) IBOutlet UIView *internalView;
+@property (weak, nonatomic) IBOutlet UILabel *counterLabel;
 
 @end
 
@@ -27,6 +30,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.counterView.hidden = YES;
+    self.internalView.layer.cornerRadius = self.internalView.bounds.size.width/2;
+    self.internalView.layer.masksToBounds = YES;
+
+    self.self.counterView.backgroundColor = [UIColor clearColor];
+    self.self.counterView.layer.shadowColor = [UIColor darkGrayColor].CGColor;
+    self.self.counterView.layer.shadowOffset = CGSizeMake(2,2);
+    self.self.counterView.layer.shadowOpacity = 0.4;
+    self.self.counterView.layer.shadowRadius = 0.5;
+    self.self.self.counterView.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.counterView.bounds cornerRadius:100.0].CGPath;
+
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.selectedReps = [[NSMutableArray alloc]init];
@@ -47,6 +61,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self fetchRepresentatives];
+    self.counterLabel.text = [[NSString alloc] initWithFormat:@"%lu", (unsigned long)self.selectedReps.count];
 }
 
 - (IBAction)logoutButton:(id)sender {
@@ -177,7 +192,9 @@
             representative.selected = (BOOL * _Nonnull) YES;
             UIView *subview = representativeCell.checkView.subviews[0];
             subview.hidden = NO;
+            self.counterView.hidden = NO;
             [self.selectedReps addObject:representativeCell];
+            self.counterLabel.text = [[NSString alloc] initWithFormat:@"%lu", (unsigned long)self.selectedReps.count];
         } else {
             UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
             representativeCell.checkView.backgroundColor = color;

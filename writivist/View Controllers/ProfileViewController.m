@@ -15,6 +15,7 @@
 #import "Template.h"
 #import <DateTools.h>
 #import "PreviewViewController.h"
+#import "EditProfileViewController.h"
 
 @interface ProfileViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -107,7 +108,6 @@
     self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
     self.usernameLabel.text = [NSString stringWithFormat:@"%@%@", @"@", user.username];
     self.letterCountLabel.text = [NSString stringWithFormat:@"%@",  user.letterCount];
-//    self.templateLikeLabel.text = [NSString stringWithFormat:@"%d",  self.likeCount];
     self.templatesPublishedLabel.text = [NSString stringWithFormat:@"%@",  user.templateCount];
     [self roundImage];
     self.profileView.file = self.user.profilePicture;
@@ -226,6 +226,9 @@
           previewViewController.body = template.body;
           previewViewController.temp = template;
           previewViewController.templateTitle = template.title;
+      } else if ([segue.identifier isEqualToString:@"editSegue"]) {
+          EditProfileViewController *editProfileViewController = [segue destinationViewController];
+          editProfileViewController.profileViewController = self;
       }
 }
 

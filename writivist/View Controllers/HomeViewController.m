@@ -44,6 +44,11 @@
     navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:40], NSForegroundColorAttributeName : [UIColor blackColor]};
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self fetchRepresentatives];
+}
+
 - (IBAction)logoutButton:(id)sender {
     SceneDelegate *myDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
 

@@ -11,10 +11,13 @@
 #import "HomeViewController.h"
 #import "PreviewViewController.h"
 #import "ProfileViewController.h"
+#import "SectionTapper.h"
+#import "CategoryViewController.h"
 
 @interface TemplateLibraryViewController ()<UITableViewDelegate, UITableViewDataSource, ProfileDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, strong) NSString *category;
 
 @end
 
@@ -61,15 +64,29 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    NSString *string = categories[section];
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 50)];
+    
+    SectionTapper *singleTapRecognizer = [[SectionTapper alloc] initWithTarget:self action:@selector(handleGesture:)];
+    [singleTapRecognizer setDelegate:self];
+    singleTapRecognizer.numberOfTouchesRequired = 1;
+    singleTapRecognizer.numberOfTapsRequired = 1;
+    singleTapRecognizer.data = string;
+    [view addGestureRecognizer:singleTapRecognizer];
+    
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 50)];
     [label setFont: [UIFont fontWithName:@"Snell Roundhand" size:30]];
-    NSString *string = categories[section];
     [label setText:string];
     [view addSubview:label];
     [view setBackgroundColor:[[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5]];
     return view;
 }
+
+-(void) handleGesture:(SectionTapper *)gestureRecognizer {
+    self.category = gestureRecognizer.data;
+    [self performSegueWithIdentifier:@"toCategory" sender:nil];
+}
+
 - (IBAction)previewButton:(id)sender {
     [self performSegueWithIdentifier:@"preview" sender:nil];
 }
@@ -79,6 +96,11 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 55;
+}
+
+- (void)templateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull User *)user {
+    self.user = user;
+    [self performSegueWithIdentifier:@"profileSegue" sender:user];
 }
 
 #pragma mark - Navigation
@@ -105,12 +127,11 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
         ProfileViewController *profileViewController = [segue destinationViewController];
         profileViewController.user = self.user;
     }
+    if ([segue.identifier isEqualToString:@"toCategory"]) {
+        CategoryViewController *categoryViewController = [segue destinationViewController];
+        categoryViewController.category = self.category;
+    }
 
-}
-
-- (void)templateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull User *)user {
-    self.user = user;
-    [self performSegueWithIdentifier:@"profileSegue" sender:user];
 }
 
 @end

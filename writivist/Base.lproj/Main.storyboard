@@ -344,6 +344,8 @@
                     <connections>
                         <outlet property="tableView" destination="rrG-3L-zoh" id="0NA-rk-kyD"/>
                         <segue destination="Gyg-a9-A0H" kind="show" identifier="profileSegue" id="BUt-yG-D0s"/>
+                        <segue destination="L7h-RI-wtO" kind="show" identifier="" id="HLB-JW-WA9"/>
+                        <segue destination="Alw-S1-ZA3" kind="show" identifier="toCategory" id="NWH-Dg-Zb7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hqW-mP-Vyg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -875,7 +877,23 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zuX-0u-HmQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3806" y="1756"/>
+            <point key="canvasLocation" x="2880" y="2443"/>
+        </scene>
+        <!--Category View Controller-->
+        <scene sceneID="fSL-DS-w0c">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="Alw-S1-ZA3" customClass="CategoryViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8ZT-gW-xeb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="v2D-E1-yRr"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="GEt-WE-wDX"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9zf-LM-nMC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4754" y="1756"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="Uyv-dx-NLb">
@@ -1239,9 +1257,31 @@
             </objects>
             <point key="canvasLocation" x="3805.7971014492755" y="1097.5446428571429"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="vSB-0j-IOe">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="L7h-RI-wtO" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="mzY-WZ-0un">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="4EH-Wr-0SE"/>
+                    </navigationItem>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hcF-4e-4or">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Alw-S1-ZA3" kind="relationship" relationship="rootViewController" id="pOV-Lg-l3I"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="00C-Vr-QXu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3806" y="1756"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="zDs-ub-Ass"/>
+        <segue reference="NWH-Dg-Zb7"/>
         <segue reference="h9w-nq-IX8"/>
         <segue reference="BUt-yG-D0s"/>
         <segue reference="0nU-vq-fGN"/>

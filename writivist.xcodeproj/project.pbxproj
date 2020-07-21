@@ -32,6 +32,8 @@
 		4BCB1DC324BCAF6500BAE96E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DC224BCAF6500BAE96E /* main.m */; };
 		4BCB1DCD24BCAF6500BAE96E /* writivistTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DCC24BCAF6500BAE96E /* writivistTests.m */; };
 		4BCB1DD824BCAF6500BAE96E /* writivistUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DD724BCAF6500BAE96E /* writivistUITests.m */; };
+		4BCD151B24C7A2BE00B831A4 /* SectionTapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD151A24C7A2BE00B831A4 /* SectionTapper.m */; };
+		4BCD151F24C7A3F100B831A4 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD151E24C7A3F100B831A4 /* CategoryViewController.m */; };
 		4BCD9B1924C1062500E1BCBD /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD9B1824C1062500E1BCBD /* ProfileViewController.m */; };
 		4BD44FDD24BCD94200BEE897 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD44FDC24BCD94200BEE897 /* HomeViewController.m */; };
 		4BEA8B2024BCF4EE0041A6C9 /* RepresentativeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA8B1F24BCF4EE0041A6C9 /* RepresentativeCell.m */; };
@@ -106,6 +108,10 @@
 		4BCB1DD324BCAF6500BAE96E /* writivistUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = writivistUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BCB1DD724BCAF6500BAE96E /* writivistUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = writivistUITests.m; sourceTree = "<group>"; };
 		4BCB1DD924BCAF6500BAE96E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4BCD151924C7A2BE00B831A4 /* SectionTapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SectionTapper.h; sourceTree = "<group>"; };
+		4BCD151A24C7A2BE00B831A4 /* SectionTapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SectionTapper.m; sourceTree = "<group>"; };
+		4BCD151D24C7A3F100B831A4 /* CategoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
+		4BCD151E24C7A3F100B831A4 /* CategoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
 		4BCD9B1724C1062500E1BCBD /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		4BCD9B1824C1062500E1BCBD /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		4BD44FDB24BCD94200BEE897 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -184,6 +190,8 @@
 				4B6D8C9824C61AD70042EDC7 /* MapContentViewController.m */,
 				4B1489AA24C65E9300269C7E /* EditProfileViewController.h */,
 				4B1489AB24C65E9300269C7E /* EditProfileViewController.m */,
+				4BCD151D24C7A3F100B831A4 /* CategoryViewController.h */,
+				4BCD151E24C7A3F100B831A4 /* CategoryViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -213,8 +221,9 @@
 		4BCB1DAF24BCAF6300BAE96E /* writivist */ = {
 			isa = PBXGroup;
 			children = (
+				4BCD151C24C7A37700B831A4 /* Gesture Recognizers */,
 				4BEA8B2424BCFBCD0041A6C9 /* Objects */,
-				4BD44FE024BCE32700BEE897 /* Views */,
+				4BD44FE024BCE32700BEE897 /* Cells */,
 				4B7CB08224BCC02000AC26DF /* View Controllers */,
 				4BCB1DB024BCAF6300BAE96E /* AppDelegate.h */,
 				4BCB1DB124BCAF6300BAE96E /* AppDelegate.m */,
@@ -249,7 +258,16 @@
 			path = writivistUITests;
 			sourceTree = "<group>";
 		};
-		4BD44FE024BCE32700BEE897 /* Views */ = {
+		4BCD151C24C7A37700B831A4 /* Gesture Recognizers */ = {
+			isa = PBXGroup;
+			children = (
+				4BCD151924C7A2BE00B831A4 /* SectionTapper.h */,
+				4BCD151A24C7A2BE00B831A4 /* SectionTapper.m */,
+			);
+			path = "Gesture Recognizers";
+			sourceTree = "<group>";
+		};
+		4BD44FE024BCE32700BEE897 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				4BEA8B1E24BCF4EE0041A6C9 /* RepresentativeCell.h */,
@@ -263,7 +281,7 @@
 				4B6D8C9A24C6344C0042EDC7 /* MapContentCell.h */,
 				4B6D8C9B24C6344C0042EDC7 /* MapContentCell.m */,
 			);
-			path = Views;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		4BEA8B2424BCFBCD0041A6C9 /* Objects */ = {
@@ -571,6 +589,7 @@
 				4B6D8C9324C131460042EDC7 /* MyTemplateCell.m in Sources */,
 				4B1CC18024BE89DD007F9A52 /* TemplateLibraryViewController.m in Sources */,
 				4B1489AC24C65E9300269C7E /* EditProfileViewController.m in Sources */,
+				4BCD151B24C7A2BE00B831A4 /* SectionTapper.m in Sources */,
 				4B09E3A824BF92710021F076 /* TemplateCell.m in Sources */,
 				4B6D8C9624C202390042EDC7 /* MapViewController.m in Sources */,
 				4BCD9B1924C1062500E1BCBD /* ProfileViewController.m in Sources */,
@@ -582,6 +601,7 @@
 				4BEA8B2324BCFBC30041A6C9 /* Representative.m in Sources */,
 				4BCB1DB224BCAF6300BAE96E /* AppDelegate.m in Sources */,
 				4BEA8B2024BCF4EE0041A6C9 /* RepresentativeCell.m in Sources */,
+				4BCD151F24C7A3F100B831A4 /* CategoryViewController.m in Sources */,
 				4B1CC17D24BE5783007F9A52 /* SignUpViewController.m in Sources */,
 				4BCB1DC324BCAF6500BAE96E /* main.m in Sources */,
 				4BD44FDD24BCD94200BEE897 /* HomeViewController.m in Sources */,

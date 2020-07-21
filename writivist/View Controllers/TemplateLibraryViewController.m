@@ -10,8 +10,9 @@
 #import "CategoryRow.h"
 #import "HomeViewController.h"
 #import "PreviewViewController.h"
+#import "ProfileViewController.h"
 
-@interface TemplateLibraryViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface TemplateLibraryViewController ()<UITableViewDelegate, UITableViewDataSource, ProfileDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
@@ -100,7 +101,16 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
         previewViewController.templateTitle = self.previewTitle;
         previewViewController.body = self.body;
     }
+    if ([segue.identifier isEqualToString:@"profileSegue"]) {
+        ProfileViewController *profileViewController = [segue destinationViewController];
+        profileViewController.user = self.user;
+    }
 
+}
+
+- (void)templateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull User *)user {
+    self.user = user;
+    [self performSegueWithIdentifier:@"profileSegue" sender:user];
 }
 
 @end

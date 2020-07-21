@@ -10,10 +10,12 @@
 #import "Template.h"
 #import "CategoryRow.h"
 #import "PFImageView.h"
+#import "TemplateLibraryViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol TemplateCellDelegate;
+@protocol ProfileDelegate;
 
 @interface TemplateCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -23,7 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) Template   *temp;
 @property (weak, nonatomic) IBOutlet UIView *checkView;
 @property (nonatomic, weak) id<TemplateCellDelegate> delegate;
+@property (nonatomic, weak) id<ProfileDelegate> otherDelegate;
 @property (weak, nonatomic) IBOutlet UIButton *authorButton;
+@property (strong, nonatomic) TemplateLibraryViewController *templateLibrary;
 
 - (void)setTemplate:(Template *)template;
 
@@ -31,6 +35,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol TemplateCellDelegate
 - (void)templateCell:(TemplateCell *) templateCell didTap: (Template *)temp;
+@end
+
+@protocol ProfileDelegate
+- (void)templateCell:(TemplateCell *) templateCell didTap: (User *)user;
 @end
 
 

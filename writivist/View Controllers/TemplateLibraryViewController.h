@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TemplateCell.h"
+#import "User.h"
 @class TemplateCell;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -17,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *previousBody;
 @property (strong, nonatomic) NSString *previewTitle;
 @property (strong, nonatomic) TemplateCell * _Nullable currentCell;
+@property (strong, nonatomic) User *user;
+
 
 @end
 

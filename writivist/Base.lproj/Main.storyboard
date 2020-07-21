@@ -272,6 +272,9 @@
                                                                         <rect key="frame" x="14" y="123.5" width="60" height="60"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <state key="normal" image="user"/>
+                                                                        <connections>
+                                                                            <action selector="authorButton:" destination="jkB-LO-zDF" eventType="touchUpInside" id="en5-SK-pYR"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                             </view>
@@ -332,6 +335,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="rrG-3L-zoh" id="0NA-rk-kyD"/>
+                        <segue destination="Gyg-a9-A0H" kind="show" identifier="profileSegue" id="BUt-yG-D0s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hqW-mP-Vyg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1236,6 +1240,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="zDs-ub-Ass"/>
         <segue reference="h9w-nq-IX8"/>
+        <segue reference="BUt-yG-D0s"/>
         <segue reference="0nU-vq-fGN"/>
     </inferredMetricsTieBreakers>
     <resources>

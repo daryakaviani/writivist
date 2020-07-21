@@ -94,6 +94,9 @@
         self.likeLabel.text = [NSString stringWithFormat:@"%@", self.temp.likeCount];
     }];
 }
+- (IBAction)authorButton:(id)sender {
+    [self.otherDelegate templateCell:self didTap:self.temp.author];
+}
 
 - (void) roundImage {
     CALayer *imageLayer = self.authorButton.imageView.layer;

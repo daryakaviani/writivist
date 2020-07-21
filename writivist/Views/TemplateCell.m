@@ -10,6 +10,7 @@
 #import "HomeViewController.h"
 #import "PreviewViewController.h"
 #import "PFImageView.h"
+#import <DateTools.h>
 
 @implementation TemplateCell
 
@@ -37,6 +38,9 @@
         NSLog(@"Error");
       }
     }];
+    NSDate *tempTime = template.createdAt;
+    NSDate *timeAgo = [NSDate dateWithTimeInterval:0 sinceDate:tempTime];
+    self.timestampLabel.text = timeAgo.timeAgoSinceNow;
 }
 - (IBAction)likeButton:(id)sender {
     __block bool containsUser = false;

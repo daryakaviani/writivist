@@ -70,22 +70,10 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     return view;
 }
 - (IBAction)previewButton:(id)sender {
-    [self performSegueWithIdentifier:@"selectedTemplate" sender:nil];
+    [self performSegueWithIdentifier:@"preview" sender:nil];
 }
 - (IBAction)doneButton:(id)sender {
-    if (self.body.length == 0) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No template selected."
-               message:@"If you would like to write a letter from scratch, navigate to the home page and select your representatives from there."
-        preferredStyle:(UIAlertControllerStyleAlert)];
-        // create an OK action
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
-        // add the OK action to the alert controller
-        [alert addAction:okAction];
-        [self presentViewController:alert animated:YES completion:^{
-        }];
-    } else {
-        [self performSegueWithIdentifier:@"selectedTemplate" sender:nil];
-    }
+    [self performSegueWithIdentifier:@"selectedTemplate" sender:nil];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -99,6 +87,13 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
         HomeViewController *homeViewController = [segue destinationViewController];
         homeViewController.body = self.body;
         self.body = @"";
+        self.previewTitle = @"";
+        TemplateCell *current = self.currentCell;
+        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+        current.checkView.backgroundColor = color;
+        UIView *subview = current.checkView.subviews[0];
+        subview.hidden = YES;
+        self.currentCell = nil;
     }
     if ([segue.identifier isEqualToString:@"preview"]) {
         PreviewViewController *previewViewController = [segue destinationViewController];

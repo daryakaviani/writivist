@@ -30,6 +30,7 @@
 //@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) PFFileObject *pickerView;
 @property (strong, nonatomic) NSArray *templates;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
 
 @end
 
@@ -37,9 +38,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (self.user == nil) {
+    if (self.user == nil || [[User currentUser].username isEqualToString:self.user.username]) {
         self.user = [User currentUser];
+    } else {
+        self.editButton.tintColor = [UIColor clearColor];
+        self.editButton.enabled = NO;
     }
+    self.navigationController.navigationBar.tintColor = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:1];
     self.templates = [[NSArray alloc] init];
     [self fetchTemplates];
     [self updateInformation];
@@ -107,6 +112,11 @@
 // Creating and configured a cell.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MyTemplateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyTemplateCell"];
+//    if ([User currentUser] != self.user) {
+//        cell.userInteractionEnabled = NO;
+//    } else {
+//        cell.userInteractionEnabled = YES;
+//    }
     Template *template = self.templates[indexPath.row];
     cell.categoryLabel.text = template.category;
     cell.likeLabel.text = [NSString stringWithFormat:@"%@", template.likeCount];
@@ -118,7 +128,11 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    if ([[User currentUser].username isEqualToString:self.user.username]) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

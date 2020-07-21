@@ -16,6 +16,7 @@
 #import <DateTools.h>
 #import "PreviewViewController.h"
 #import "EditProfileViewController.h"
+#import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface ProfileViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -47,7 +48,6 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.tableView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(fetchTemplates) forControlEvents:UIControlEventValueChanged];
-
     // Do any additional setup after loading the view.
 }
 - (IBAction)refreshButton:(id)sender {

@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "PFImageView.h"
 #import "User.h"
+#import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface EditProfileViewController ()
 
@@ -22,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *streetNameField;
 @property (weak, nonatomic) IBOutlet UITextField *cityField;
 @property (weak, nonatomic) IBOutlet UITextField *stateField;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextField *zipField;
 @property (weak, nonatomic) PFFileObject *pickerView;
 
@@ -31,6 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.scrollView.shouldIgnoreScrollingAdjustment = YES;
     User *user = [User currentUser];
     self.firstNameField.text = user.firstName;
     self.lastNameField.text = user.lastName;

@@ -58,6 +58,11 @@
    [self openImagePicker];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    [self updateInformation];
+}
 
 -(void)openImagePicker {
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];

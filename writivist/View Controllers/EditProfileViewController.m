@@ -70,7 +70,7 @@
     user.zipCode = self.zipField.text;
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         [self dismissViewControllerAnimated:YES completion:^{
-            [self.profileViewController updateInformation];
+            [self.profileViewController viewWillAppear:YES];
         }];
     }];
 }

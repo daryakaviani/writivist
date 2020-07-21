@@ -194,6 +194,7 @@
       if ([segue.identifier isEqualToString:@"myTemplateSegue"]) {
           Template *template = self.templates[indexPath.row];
           PreviewViewController *previewViewController = [segue destinationViewController];
+          previewViewController.user = self.user;
           previewViewController.body = template.body;
           previewViewController.temp = template;
           previewViewController.templateTitle = template.title;

@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (self.temp == nil) {
+    if (self.temp == nil || self.user == nil || ![[User currentUser].username isEqualToString:self.user.username]) {
         self.editButton.hidden = YES;
     }
     self.bodyLabel.editable = NO;

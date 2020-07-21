@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *body;
 @property (nonatomic, strong) NSString *templateTitle;
 @property (nonatomic, strong) Template *temp;
+@property (nonatomic, strong) User *user;
 
 @end
 

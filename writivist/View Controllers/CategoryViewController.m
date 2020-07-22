@@ -12,8 +12,10 @@
 #import <Parse/Parse.h>
 #import "PreviewViewController.h"
 #import "HomeViewController.h"
+#import "User.h"
+#import "ProfileViewController.h"
 
-@interface CategoryViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
+@interface CategoryViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, ProfileDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) NSArray *templates;
@@ -21,6 +23,7 @@
 @property (nonatomic, strong) NSString *body;
 @property (nonatomic, strong) NSString *previewTitle;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, strong) User *user;
 
 
 @end
@@ -76,6 +79,10 @@
     }];
 }
 
+- (void)profileTemplateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull User *)user {
+    self.user = user;
+    [self performSegueWithIdentifier:@"profileSegue" sender:user];
+}
 
 - (void)templateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull Template *)temp {
     if (temp.selected == false) {
@@ -162,6 +169,10 @@
         PreviewViewController *previewViewController = [segue destinationViewController];
         previewViewController.templateTitle = self.previewTitle;
         previewViewController.body = self.body;
+    }
+    if ([segue.identifier isEqualToString:@"profileSegue"]) {
+        ProfileViewController *profileViewController = [segue destinationViewController];
+        profileViewController.user = self.user;
     }
 }
 

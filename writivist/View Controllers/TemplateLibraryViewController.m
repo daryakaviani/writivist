@@ -98,7 +98,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     return 55;
 }
 
-- (void)templateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull User *)user {
+- (void)profileTemplateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull User *)user {
     self.user = user;
     [self performSegueWithIdentifier:@"profileSegue" sender:user];
 }

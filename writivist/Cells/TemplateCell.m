@@ -99,7 +99,7 @@
     }];
 }
 - (IBAction)authorButton:(id)sender {
-    [self.otherDelegate templateCell:self didTap:self.temp.author];
+    [self.otherDelegate profileTemplateCell:self didTap:self.temp.author];
 }
 
 - (void) roundImage {

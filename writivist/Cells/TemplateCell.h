@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @protocol ProfileDelegate
-- (void)templateCell:(TemplateCell *) templateCell didTap: (User *)user;
+- (void)profileTemplateCell:(TemplateCell *) templateCell didTap: (User *)user;
 @end
 
 

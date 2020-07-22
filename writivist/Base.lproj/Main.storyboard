@@ -999,6 +999,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="TbJ-hs-877" id="rYw-cs-SDM"/>
+                        <segue destination="Gyg-a9-A0H" kind="show" identifier="profileSegue" id="hPE-iF-O2s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9zf-LM-nMC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1393,7 +1394,7 @@
         <segue reference="glp-DH-tfj"/>
         <segue reference="NWH-Dg-Zb7"/>
         <segue reference="PuW-oL-poE"/>
-        <segue reference="BUt-yG-D0s"/>
+        <segue reference="hPE-iF-O2s"/>
         <segue reference="0nU-vq-fGN"/>
     </inferredMetricsTieBreakers>
     <resources>

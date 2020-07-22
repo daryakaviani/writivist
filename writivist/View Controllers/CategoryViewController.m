@@ -221,8 +221,19 @@ int skip = 20;
             NSString *templateTitle = template.title;
             return [templateTitle containsString:searchText];
         }];
-        self.filteredData = [self.templates filteredArrayUsingPredicate:predicate];
-        
+        PFQuery *query = [Template query];
+        [query orderByDescending:@"createdAt"];
+        [query  includeKey:@"author"];
+        [query whereKey:@"category" equalTo:self.category];
+        // fetch data asynchronously
+        [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
+            if (templates != nil) {
+                self.filteredData = [templates filteredArrayUsingPredicate:predicate];
+                [self.collectionView reloadData];
+            } else {
+                NSLog(@"%@", error.localizedDescription);
+            }
+        }];
     } else {
         self.filteredData = self.templates;
     }

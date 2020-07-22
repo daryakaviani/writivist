@@ -15,6 +15,9 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) NSArray *templates;
+@property (nonatomic, strong) TemplateCell *currentCell;
+@property (nonatomic, strong) NSString *body;
+@property (nonatomic, strong) NSString *previewTitle;
 
 @end
 
@@ -42,11 +45,6 @@
     layout.itemSize = CGSizeMake(itemWidth, itemHeight);
     // Do any additional setup after loading the view.
 }
-//
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-//
-//    return CGSizeMake(itemWidth, itemHeight);
-//}
 
 - (void)fetchTemplates {
     // construct query
@@ -69,6 +67,41 @@
     }];
 }
 
+
+- (void)templateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull Template *)temp {
+    if (temp.selected == false) {
+        if (self.currentCell != nil) {
+            TemplateCell *current = self.currentCell;
+            UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+            current.checkView.backgroundColor = color;
+            UIView *subview = current.checkView.subviews[0];
+            subview.hidden = YES;
+        }
+        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
+        templateCell.checkView.backgroundColor = color;
+        temp.selected = true;
+        TemplateCell *prevCell = self.currentCell;
+        UIView *prevSubview = prevCell.checkView.subviews[0];
+        UIColor *prevColor = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+        prevCell.checkView.backgroundColor = prevColor;
+        prevCell.temp.selected = false;
+        prevSubview.hidden = YES;
+        self.currentCell = templateCell;
+        UIView *subview = templateCell.checkView.subviews[0];
+        subview.hidden = NO;
+        self.body = temp.body;
+        self.previewTitle = temp.title;
+    } else if (temp.selected == true) {
+        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+        templateCell.checkView.backgroundColor = color;
+        temp.selected = false;
+        self.currentCell = nil;
+        UIView *subview = templateCell.checkView.subviews[0];
+        subview.hidden = YES;
+        self.body = @"";
+    }
+    
+}
 
 /*
 #pragma mark - Navigation

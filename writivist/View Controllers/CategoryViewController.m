@@ -14,8 +14,11 @@
 #import "HomeViewController.h"
 #import "User.h"
 #import "ProfileViewController.h"
+#import "InfiniteScrollActivityView.h"
 
 @interface CategoryViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, ProfileDelegate>
+
+
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) NSArray *templates;
@@ -29,7 +32,9 @@
 @end
 
 @implementation CategoryViewController
-
+bool isMoreDataLoading = false;
+InfiniteScrollActivityView* loadingMoreView;
+int skip = 20;
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"%@", self.category);
@@ -54,8 +59,66 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.collectionView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(fetchTemplates) forControlEvents:UIControlEventValueChanged];
-    // Do any additional setup after loading the view.
+    
+    // Set up Infinite Scroll loading indicator
+    CGRect frame = CGRectMake(0, self.collectionView.contentSize.height, self.collectionView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
+    loadingMoreView = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
+    loadingMoreView.hidden = true;
+    [self.collectionView addSubview:loadingMoreView];
+    
+    UIEdgeInsets insets = self.collectionView.contentInset;
+    insets.bottom += InfiniteScrollActivityView.defaultHeight;
+    self.collectionView.contentInset = insets;
 }
+
+-(void)loadMoreData{
+    // construct query
+    PFQuery *query = [Template query];
+    [query orderByDescending:@"createdAt"];
+    [query includeKey:@"author"];
+    [query whereKey:@"category" equalTo:self.category];
+    query.limit = 20;
+    query.skip = skip;
+    // fetch data asynchronously
+    [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
+        if (templates != nil) {
+            NSMutableArray *newTemplates = (NSMutableArray *) templates;
+            NSArray *newArray = [self.templates arrayByAddingObjectsFromArray:newTemplates];
+            self.templates = (NSMutableArray *) newArray;
+            skip += templates.count;
+            isMoreDataLoading = false;
+            [loadingMoreView stopAnimating];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+        [self.collectionView reloadData];
+    }];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+     if(!isMoreDataLoading){
+         // Calculate the position of one screen length before the bottom of the results
+         int scrollViewContentHeight = self.collectionView.contentSize.height;
+         int scrollOffsetThreshold = scrollViewContentHeight - self.collectionView.bounds.size.height;
+         
+         // When the user has scrolled past the threshold, start requesting
+         if(scrollView.contentOffset.y > scrollOffsetThreshold && self.collectionView.isDragging) {
+             isMoreDataLoading = true;
+             
+             // Update position of loadingMoreView, and start loading indicator
+             CGRect frame = CGRectMake(0, self.collectionView.contentSize.height, self.collectionView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
+             loadingMoreView.frame = frame;
+             
+             // Code to load more results
+             bool isAtLeast20 = self.templates.count >= 20;
+             if (isAtLeast20) {
+                 [loadingMoreView startAnimating];
+                 [self loadMoreData];
+             }
+         }
+     }
+}
+
 
 - (void)fetchTemplates {
     // construct query

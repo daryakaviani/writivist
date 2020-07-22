@@ -34,6 +34,7 @@
 		4BCB1DD824BCAF6500BAE96E /* writivistUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DD724BCAF6500BAE96E /* writivistUITests.m */; };
 		4BCD151B24C7A2BE00B831A4 /* SectionTapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD151A24C7A2BE00B831A4 /* SectionTapper.m */; };
 		4BCD151F24C7A3F100B831A4 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD151E24C7A3F100B831A4 /* CategoryViewController.m */; };
+		4BCD152224C7C34A00B831A4 /* InfiniteScrollActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD152124C7C34A00B831A4 /* InfiniteScrollActivityView.m */; };
 		4BCD9B1924C1062500E1BCBD /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD9B1824C1062500E1BCBD /* ProfileViewController.m */; };
 		4BD44FDD24BCD94200BEE897 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD44FDC24BCD94200BEE897 /* HomeViewController.m */; };
 		4BEA8B2024BCF4EE0041A6C9 /* RepresentativeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA8B1F24BCF4EE0041A6C9 /* RepresentativeCell.m */; };
@@ -112,6 +113,8 @@
 		4BCD151A24C7A2BE00B831A4 /* SectionTapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SectionTapper.m; sourceTree = "<group>"; };
 		4BCD151D24C7A3F100B831A4 /* CategoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
 		4BCD151E24C7A3F100B831A4 /* CategoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
+		4BCD152024C7C34A00B831A4 /* InfiniteScrollActivityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfiniteScrollActivityView.h; sourceTree = "<group>"; };
+		4BCD152124C7C34A00B831A4 /* InfiniteScrollActivityView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfiniteScrollActivityView.m; sourceTree = "<group>"; };
 		4BCD9B1724C1062500E1BCBD /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		4BCD9B1824C1062500E1BCBD /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		4BD44FDB24BCD94200BEE897 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -221,7 +224,7 @@
 		4BCB1DAF24BCAF6300BAE96E /* writivist */ = {
 			isa = PBXGroup;
 			children = (
-				4BCD151C24C7A37700B831A4 /* Gesture Recognizers */,
+				4BCD151C24C7A37700B831A4 /* Utilities */,
 				4BEA8B2424BCFBCD0041A6C9 /* Objects */,
 				4BD44FE024BCE32700BEE897 /* Cells */,
 				4B7CB08224BCC02000AC26DF /* View Controllers */,
@@ -258,13 +261,15 @@
 			path = writivistUITests;
 			sourceTree = "<group>";
 		};
-		4BCD151C24C7A37700B831A4 /* Gesture Recognizers */ = {
+		4BCD151C24C7A37700B831A4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				4BCD151924C7A2BE00B831A4 /* SectionTapper.h */,
 				4BCD151A24C7A2BE00B831A4 /* SectionTapper.m */,
+				4BCD152024C7C34A00B831A4 /* InfiniteScrollActivityView.h */,
+				4BCD152124C7C34A00B831A4 /* InfiniteScrollActivityView.m */,
 			);
-			path = "Gesture Recognizers";
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		4BD44FE024BCE32700BEE897 /* Cells */ = {
@@ -590,6 +595,7 @@
 				4B1CC18024BE89DD007F9A52 /* TemplateLibraryViewController.m in Sources */,
 				4B1489AC24C65E9300269C7E /* EditProfileViewController.m in Sources */,
 				4BCD151B24C7A2BE00B831A4 /* SectionTapper.m in Sources */,
+				4BCD152224C7C34A00B831A4 /* InfiniteScrollActivityView.m in Sources */,
 				4B09E3A824BF92710021F076 /* TemplateCell.m in Sources */,
 				4B6D8C9624C202390042EDC7 /* MapViewController.m in Sources */,
 				4BCD9B1924C1062500E1BCBD /* ProfileViewController.m in Sources */,

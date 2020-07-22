@@ -18,8 +18,6 @@
 
 @interface CategoryViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, ProfileDelegate>
 
-
-
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) NSArray *templates;
 @property (nonatomic, strong) TemplateCell *currentCell;
@@ -27,7 +25,8 @@
 @property (nonatomic, strong) NSString *previewTitle;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) User *user;
-
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (nonatomic, strong) NSArray *filteredData;
 
 @end
 
@@ -35,12 +34,14 @@
 bool isMoreDataLoading = false;
 InfiniteScrollActivityView* loadingMoreView;
 int skip = 20;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"%@", self.category);
     self.navigationController.navigationBar.tintColor = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:1];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
+    self.searchBar.delegate = self;
     
     self.navigationItem.title = self.category;
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
@@ -134,6 +135,7 @@ int skip = 20;
     [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
         if (templates != nil) {
             self.templates = templates;
+            self.filteredData = self.templates;
             [self.collectionView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -182,13 +184,12 @@ int skip = 20;
     
 }
 
-
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     TemplateCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TemplateCell" forIndexPath:indexPath];
     UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:1];
     [cell.layer setBorderColor:color.CGColor];
     [cell.layer setBorderWidth:1];
-    Template *template = self.templates[indexPath.item];
+    Template *template = self.filteredData[indexPath.item];
     cell.temp = template;
     cell.delegate = self;
     [cell setTemplate:template];
@@ -207,8 +208,34 @@ int skip = 20;
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.templates.count;
+    return self.filteredData.count;
 }
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if (searchText.length != 0) {
+        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+            Template *template = evaluatedObject;
+            NSString *templateTitle = template.title;
+            return [templateTitle containsString:searchText];
+        }];
+        self.filteredData = [self.templates filteredArrayUsingPredicate:predicate];
+    } else {
+        self.filteredData = self.templates;
+    }
+    [self.collectionView reloadData];
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    self.searchBar.showsCancelButton = YES;
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    self.searchBar.showsCancelButton = NO;
+    self.searchBar.text = @"";
+    [self.searchBar resignFirstResponder];
+    [self fetchTemplates];
+}
+
 
 
 

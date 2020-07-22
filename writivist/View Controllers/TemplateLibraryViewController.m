@@ -14,16 +14,19 @@
 #import "SectionTapper.h"
 #import "CategoryViewController.h"
 
-@interface TemplateLibraryViewController ()<UITableViewDelegate, UITableViewDataSource, ProfileDelegate>
+@interface TemplateLibraryViewController ()<UITableViewDelegate, UITableViewDataSource, ProfileDelegate, UISearchBarDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) NSString *category;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (nonatomic, strong) NSArray *filteredData;
+@property (nonatomic, strong) NSArray *categories;
 
 @end
 
 @implementation TemplateLibraryViewController
 
-NSArray *categories;
+//NSArray *categories;
 NSString *CellIdentifier = @"CategoryRow";
 NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 
@@ -31,15 +34,17 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     [super viewDidLoad];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.searchBar.delegate = self;
     self.navigationItem.hidesBackButton = YES;
-    categories = @[@"black lives matter", @"climate action", @"financial justice", @"islamophobia", @"topic", @"topic", @"topic", @"topic"];
+    self.categories = @[@"black lives matter", @"climate action", @"financial justice", @"islamophobia", @"topic", @"topic", @"topic", @"topic"];
+    self.filteredData = self.categories;
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.tableView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
 }
    
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return categories.count;
+    return self.filteredData.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -47,7 +52,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *category = categories[indexPath.section];
+    NSString *category = self.categories[indexPath.section];
     CategoryRow *cell = (CategoryRow *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     cell.templateLibrary = self;
     self.body = @"";
@@ -64,7 +69,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    NSString *string = categories[section];
+    NSString *string = self.filteredData[section];
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 50)];
     
     SectionTapper *singleTapRecognizer = [[SectionTapper alloc] initWithTarget:self action:@selector(handleGesture:)];
@@ -101,6 +106,23 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 - (void)profileTemplateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull User *)user {
     self.user = user;
     [self performSegueWithIdentifier:@"profileSegue" sender:user];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if (searchText.length != 0) {
+        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+            NSString *categoryTitle = evaluatedObject;
+            return [categoryTitle containsString:searchText];
+        }];
+        self.filteredData = [self.categories filteredArrayUsingPredicate:predicate];
+    } else {
+        self.filteredData = self.categories;
+    }
+    [self.tableView reloadData];
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    self.searchBar.showsCancelButton = NO;
 }
 
 #pragma mark - Navigation

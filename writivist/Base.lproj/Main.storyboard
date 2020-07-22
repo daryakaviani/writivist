@@ -199,7 +199,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="223" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rrG-3L-zoh">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="134" width="414" height="679"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryRow" rowHeight="223" id="3Xm-uk-GYy" customClass="CategoryRow">
@@ -313,6 +313,11 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sy7-d5-giV">
+                                <rect key="frame" x="0.0" y="88" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="s3u-pk-5ML"/>
@@ -342,6 +347,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchBar" destination="Sy7-d5-giV" id="Vvi-Rp-kxB"/>
                         <outlet property="tableView" destination="rrG-3L-zoh" id="0NA-rk-kyD"/>
                         <segue destination="Gyg-a9-A0H" kind="show" identifier="profileSegue" id="BUt-yG-D0s"/>
                         <segue destination="L7h-RI-wtO" kind="show" identifier="" id="HLB-JW-WA9"/>
@@ -1397,10 +1403,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="glp-DH-tfj"/>
+        <segue reference="zDs-ub-Ass"/>
         <segue reference="NWH-Dg-Zb7"/>
-        <segue reference="PuW-oL-poE"/>
-        <segue reference="hPE-iF-O2s"/>
+        <segue reference="h9w-nq-IX8"/>
+        <segue reference="BUt-yG-D0s"/>
         <segue reference="0nU-vq-fGN"/>
     </inferredMetricsTieBreakers>
     <resources>

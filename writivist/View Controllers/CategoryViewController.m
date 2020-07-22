@@ -16,7 +16,7 @@
 #import "ProfileViewController.h"
 #import "InfiniteScrollActivityView.h"
 
-@interface CategoryViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, ProfileDelegate>
+@interface CategoryViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, ProfileDelegate, UISearchBarDelegate, TemplateCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) NSArray *templates;
@@ -90,10 +90,10 @@ int skip = 20;
             skip += templates.count;
             isMoreDataLoading = false;
             [loadingMoreView stopAnimating];
+            [self.collectionView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
-        [self.collectionView reloadData];
     }];
 }
 
@@ -126,11 +126,11 @@ int skip = 20;
     // construct query
     PFQuery *query = [Template query];
     [query orderByDescending:@"createdAt"];
-    [query includeKey:@"author"];
+    [query  includeKey:@"author"];
     if (self.category != nil) {
         [query whereKey:@"category" equalTo:self.category];
     }
-    query.limit = 20 + skip;
+    query.limit = 20;
 
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
@@ -222,6 +222,7 @@ int skip = 20;
             return [templateTitle containsString:searchText];
         }];
         self.filteredData = [self.templates filteredArrayUsingPredicate:predicate];
+        
     } else {
         self.filteredData = self.templates;
     }
@@ -229,14 +230,7 @@ int skip = 20;
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    self.searchBar.showsCancelButton = YES;
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     self.searchBar.showsCancelButton = NO;
-    self.searchBar.text = @"";
-    [self.searchBar resignFirstResponder];
-    [self fetchTemplates];
 }
 
 

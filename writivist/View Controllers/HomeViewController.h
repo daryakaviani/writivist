@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "User.h"
+#import "Template.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) NSString *body;
 @property (weak, nonatomic) IBOutlet UILabel *counterLabel;
+@property (nonatomic, strong) Template * _Nullable currentTemplate;
 
 @end
 

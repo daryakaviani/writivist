@@ -131,6 +131,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     if ([segue.identifier isEqualToString:@"selectedTemplate"]) {
         HomeViewController *homeViewController = [segue destinationViewController];
         homeViewController.body = self.body;
+        homeViewController.currentTemplate = self.currentTemplate;
         self.body = @"";
         self.previewTitle = @"";
         TemplateCell *current = self.currentCell;

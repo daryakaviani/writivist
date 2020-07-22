@@ -26,6 +26,7 @@
     _temp = template;
     self.authorLabel.text = template.author.username;
     self.likeLabel.text = [NSString stringWithFormat:@"%@", template.likeCount];
+    self.senderLabel.text = [NSString stringWithFormat:@"%@", template.senderCount];
     self.titleLabel.text = template.title;
     [self fetchLikes];
     [self roundImage];
@@ -105,7 +106,7 @@
 - (void) roundImage {
     CALayer *imageLayer = self.authorButton.imageView.layer;
     [imageLayer setCornerRadius:5];
-    [imageLayer setBorderWidth:3];
+    [imageLayer setBorderWidth:2];
     [imageLayer setBorderColor:[[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:1].CGColor];
     [imageLayer setMasksToBounds:YES];
     [self.authorButton.imageView.layer setCornerRadius:self.authorButton.imageView.frame.size.width/2];

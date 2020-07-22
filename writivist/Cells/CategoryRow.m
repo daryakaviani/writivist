@@ -105,6 +105,7 @@
         prevCell.temp.selected = false;
         prevSubview.hidden = YES;
         self.templateLibrary.currentCell = templateCell;
+        self.templateLibrary.currentTemplate = templateCell.temp;
         UIView *subview = templateCell.checkView.subviews[0];
         subview.hidden = NO;
         self.templateLibrary.body = temp.body;
@@ -114,6 +115,7 @@
         templateCell.checkView.backgroundColor = color;
         temp.selected = false;
         self.templateLibrary.currentCell = nil;
+        self.templateLibrary.currentTemplate = nil;
         UIView *subview = templateCell.checkView.subviews[0];
         subview.hidden = YES;
         self.templateLibrary.body = @"";

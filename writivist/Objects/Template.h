@@ -6,6 +6,7 @@
 
 @property (nonatomic, strong) User * _Nonnull author;
 @property (nonatomic, strong) NSNumber  * _Nonnull likeCount;
+@property (nonatomic, strong) NSNumber  * _Nonnull senderCount;
 @property (nonatomic, strong) NSString  * _Nonnull category;
 @property (nonatomic, strong) NSString  * _Nonnull body;
 @property (nonatomic, strong) NSString  * _Nonnull title;

@@ -86,6 +86,7 @@ int skip = 20;
             NSMutableArray *newTemplates = (NSMutableArray *) templates;
             NSArray *newArray = [self.templates arrayByAddingObjectsFromArray:newTemplates];
             self.templates = (NSMutableArray *) newArray;
+            self.filteredData = self.templates;
             skip += templates.count;
             isMoreDataLoading = false;
             [loadingMoreView stopAnimating];
@@ -111,7 +112,7 @@ int skip = 20;
              loadingMoreView.frame = frame;
              
              // Code to load more results
-             bool isAtLeast20 = self.templates.count >= 20;
+             bool isAtLeast20 = self.filteredData.count >= 20;
              if (isAtLeast20) {
                  [loadingMoreView startAnimating];
                  [self loadMoreData];

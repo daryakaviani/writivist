@@ -84,9 +84,9 @@ int skip = 20;
     [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
         if (templates != nil) {
             NSMutableArray *newTemplates = (NSMutableArray *) templates;
-            NSArray *newArray = [self.templates arrayByAddingObjectsFromArray:newTemplates];
-            self.templates = (NSMutableArray *) newArray;
-            self.filteredData = self.templates;
+            NSArray *newArray = [self.filteredData arrayByAddingObjectsFromArray:newTemplates];
+//            self.templates = (NSMutableArray *) newArray;
+            self.filteredData = (NSMutableArray *) newArray;
             skip += templates.count;
             isMoreDataLoading = false;
             [loadingMoreView stopAnimating];
@@ -146,6 +146,7 @@ int skip = 20;
 }
 
 - (void)profileTemplateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull User *)user {
+    NSLog(@"hi");
     self.user = user;
     [self performSegueWithIdentifier:@"profileSegue" sender:user];
 }
@@ -192,7 +193,7 @@ int skip = 20;
     [cell.layer setBorderWidth:1];
     Template *template = self.filteredData[indexPath.item];
     cell.temp = template;
-    cell.delegate = self;
+    cell.otherDelegate = self;
     [cell setTemplate:template];
     if (cell.temp.selected == true) {
         UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];

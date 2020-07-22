@@ -176,10 +176,6 @@ NSArray *levels;
                    }
                }
            }
-            NSLog(@"%lu", (unsigned long)self.federalReps.count);
-            NSLog(@"%lu", (unsigned long)self.stateReps.count);
-            NSLog(@"%lu", (unsigned long)self.countyReps.count);
-            NSLog(@"%lu", (unsigned long)self.cityReps.count);
 
 
         }

@@ -56,24 +56,84 @@
 
 - (void)fetchTemplates {
     // construct query
-    PFQuery *query = [Template query];
-    [query orderByDescending:@"createdAt"];
-    [query includeKey:@"author"];
-    if (self.category != nil) {
-        [query whereKey:@"category" equalTo:self.category];
-    }
-//
-    query.limit = 20;
+    PFQuery *senderQuery = [Template query];
+    [senderQuery orderByDescending:@"senderCount"];
+    [senderQuery includeKey:@"author"];
+    senderQuery.limit = 20;
 
     // fetch data asynchronously
-    [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
+    [senderQuery findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
         if (templates != nil) {
-            self.templates = templates;
-            [self.collectionView reloadData];
+            self.senderTemplates = templates;
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
     }];
+    
+    // construct query
+    PFQuery *likeQuery = [Template query];
+    [likeQuery orderByDescending:@"likeCount"];
+    [likeQuery includeKey:@"author"];
+    likeQuery.limit = 20;
+
+    // fetch data asynchronously
+    [likeQuery findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
+        if (templates != nil) {
+            self.likeTemplates = templates;
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+        [self rankTemplates];
+    }];
+}
+
+- (void) rankTemplates {
+    self.dict = [[NSMutableDictionary alloc] init];
+    for (int i = 0; i < self.senderTemplates.count; i += 1) {
+        NSNumber *heuristic = [NSNumber numberWithInt:20-i];
+        Template *template = self.senderTemplates[i];
+        [self.dict setObject:heuristic forKey:template.objectId];
+    }
+    for (int i = 0; i < self.likeTemplates.count; i += 1) {
+        NSNumber *heuristic = [NSNumber numberWithInt:20-i];
+        Template *template = self.likeTemplates[i];
+        if ([self.dict.allKeys containsObject:template.objectId]) {
+            NSNumber *sumHeuristics = [NSNumber numberWithInt:[self.dict[self.senderTemplates[i]] intValue] + [heuristic intValue]];
+            [self.dict setObject:sumHeuristics forKey:template.objectId];
+        } else {
+            [self.dict setObject:heuristic forKey:template.objectId];
+        }
+    }
+    NSArray *keys = [self.dict allKeys];
+    NSArray *sortedKeys = [keys sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSString *first = [self.dict objectForKey:b];
+        NSString *second = [self.dict objectForKey:a];
+        return [first compare:second];
+    }];
+    
+    NSLog(@"%@", sortedKeys);
+    NSMutableArray *sortedTemplates = [[NSMutableArray alloc] init];
+    
+    for (NSString *objectID in sortedKeys) {
+        bool foundInFirst = false;
+        for (int i = 0; i < self.senderTemplates.count; i += 1) {
+            Template *template = self.senderTemplates[i];
+            if ([template.objectId isEqual:objectID]) {
+                [sortedTemplates addObject:template];
+                foundInFirst = true;
+            }
+        }
+        if (!foundInFirst) {
+            for (int i = 0; i < self.likeTemplates.count; i += 1) {
+                Template *template = self.likeTemplates[i];
+                if ([template.objectId isEqual:objectID]) {
+                    [sortedTemplates addObject:template];
+                }
+            }
+        }
+    }
+    self.templates = sortedTemplates;
+    [self.collectionView reloadData];
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {

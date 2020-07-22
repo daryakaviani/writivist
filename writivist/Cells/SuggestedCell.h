@@ -15,10 +15,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SuggestedCell : UITableViewCell <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) NSString *category;
 @property (strong, nonatomic) NSNumber *tester;
+@property (strong, nonatomic) NSArray *senderTemplates;
+@property (strong, nonatomic) NSArray *likeTemplates;
 @property (strong, nonatomic) NSArray *templates;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) TemplateLibraryViewController *templateLibrary;
 @property (nonatomic) NSInteger *indexPathItem;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *dict;
 
 - (void) setCategory: (NSString *) category;
 - (void)fetchTemplates;

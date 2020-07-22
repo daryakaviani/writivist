@@ -85,8 +85,6 @@
     PFQuery *query = [relation query];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         for (User *user in objects) {
-            NSLog(@"%@", user.username);
-            NSLog(@"%@", [User currentUser].username);
             if ([user.username isEqual:[User currentUser].username]) {
                self.likeButton.selected = YES;
                containsUser = true;

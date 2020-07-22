@@ -20,6 +20,8 @@
 @property (nonatomic, strong) TemplateCell *currentCell;
 @property (nonatomic, strong) NSString *body;
 @property (nonatomic, strong) NSString *previewTitle;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+
 
 @end
 
@@ -45,6 +47,10 @@
     CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing - layout.sectionInset.left - layout.sectionInset.right) / 2;
     CGFloat itemHeight = itemWidth;
     layout.itemSize = CGSizeMake(itemWidth, itemHeight);
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.collectionView addSubview:self.refreshControl];
+    [self.refreshControl addTarget:self action:@selector(fetchTemplates) forControlEvents:UIControlEventValueChanged];
     // Do any additional setup after loading the view.
 }
 
@@ -66,6 +72,7 @@
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
+        [self.refreshControl endRefreshing];
     }];
 }
 

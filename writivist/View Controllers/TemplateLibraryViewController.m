@@ -13,6 +13,7 @@
 #import "ProfileViewController.h"
 #import "SectionTapper.h"
 #import "CategoryViewController.h"
+#import "SuggestedCell.h"
 
 @interface TemplateLibraryViewController ()<UITableViewDelegate, UITableViewDataSource, ProfileDelegate, UISearchBarDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -36,7 +37,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     self.tableView.delegate = self;
     self.searchBar.delegate = self;
     self.navigationItem.hidesBackButton = YES;
-    self.categories = @[@"black lives matter", @"climate action", @"financial justice", @"islamophobia", @"topic", @"topic", @"topic", @"topic"];
+    self.categories = @[@"for you", @"black lives matter", @"climate action", @"financial justice", @"islamophobia", @"topic", @"topic", @"topic", @"topic"];
     self.filteredData = self.categories;
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.tableView addSubview:self.refreshControl];
@@ -53,14 +54,28 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *category = self.categories[indexPath.section];
-    CategoryRow *cell = (CategoryRow *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    cell.templateLibrary = self;
-    self.body = @"";
-    cell.tag = indexPath.section;
-    [cell.collectionView reloadData];
-    [cell.collectionView.collectionViewLayout invalidateLayout];
-    [cell setCategory:category];
-    return cell;
+    switch (indexPath.section) {
+        case 0:{
+            SuggestedCell *staticCell = (SuggestedCell *) [tableView dequeueReusableCellWithIdentifier:@"SuggestedCell"];
+            staticCell.templateLibrary = self;
+            self.body = @"";
+            staticCell.tag = indexPath.section;
+            [staticCell.collectionView reloadData];
+            [staticCell.collectionView.collectionViewLayout invalidateLayout];
+            [staticCell setCategory:category];
+            return staticCell;
+        }break;
+        default:{
+            CategoryRow *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            cell.templateLibrary = self;
+            self.body = @"";
+            cell.tag = indexPath.section;
+            [cell.collectionView reloadData];
+            [cell.collectionView.collectionViewLayout invalidateLayout];
+            [cell setCategory:category];
+            return cell;
+        }break;
+    }
 }
 
 - (void) refresh {

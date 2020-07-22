@@ -136,5 +136,53 @@
             </Actions>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3A8FA29D-4530-4F21-ACC4-D69C91804962"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "writivist/Cells/CategoryRow.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "-templateCell:didTap:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3A8FA29D-4530-4F21-ACC4-D69C91804962 - 2eaed2a2c055f272"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[CategoryRow templateCell:didTap:]"
+                  moduleName = "writivist"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dkaviani/Desktop/writivist/writivist/Cells/CategoryRow.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "112"
+                  endingLineNumber = "112"
+                  offsetFromSymbolStart = "1813">
+               </Location>
+               <Location
+                  uuid = "3A8FA29D-4530-4F21-ACC4-D69C91804962 - 2eaed2a2c055f272"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[CategoryRow templateCell:didTap:]"
+                  moduleName = "writivist"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dkaviani/Desktop/writivist/writivist/Cells/CategoryRow.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "112"
+                  endingLineNumber = "112"
+                  offsetFromSymbolStart = "1897">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

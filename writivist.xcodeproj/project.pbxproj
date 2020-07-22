@@ -35,6 +35,7 @@
 		4BCD151B24C7A2BE00B831A4 /* SectionTapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD151A24C7A2BE00B831A4 /* SectionTapper.m */; };
 		4BCD151F24C7A3F100B831A4 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD151E24C7A3F100B831A4 /* CategoryViewController.m */; };
 		4BCD152224C7C34A00B831A4 /* InfiniteScrollActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD152124C7C34A00B831A4 /* InfiniteScrollActivityView.m */; };
+		4BCD152524C8C41300B831A4 /* SuggestedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD152424C8C41300B831A4 /* SuggestedCell.m */; };
 		4BCD9B1924C1062500E1BCBD /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD9B1824C1062500E1BCBD /* ProfileViewController.m */; };
 		4BD44FDD24BCD94200BEE897 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD44FDC24BCD94200BEE897 /* HomeViewController.m */; };
 		4BEA8B2024BCF4EE0041A6C9 /* RepresentativeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA8B1F24BCF4EE0041A6C9 /* RepresentativeCell.m */; };
@@ -115,6 +116,8 @@
 		4BCD151E24C7A3F100B831A4 /* CategoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
 		4BCD152024C7C34A00B831A4 /* InfiniteScrollActivityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfiniteScrollActivityView.h; sourceTree = "<group>"; };
 		4BCD152124C7C34A00B831A4 /* InfiniteScrollActivityView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfiniteScrollActivityView.m; sourceTree = "<group>"; };
+		4BCD152324C8C41300B831A4 /* SuggestedCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuggestedCell.h; sourceTree = "<group>"; };
+		4BCD152424C8C41300B831A4 /* SuggestedCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuggestedCell.m; sourceTree = "<group>"; };
 		4BCD9B1724C1062500E1BCBD /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		4BCD9B1824C1062500E1BCBD /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		4BD44FDB24BCD94200BEE897 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -285,6 +288,8 @@
 				4B6D8C9224C131460042EDC7 /* MyTemplateCell.m */,
 				4B6D8C9A24C6344C0042EDC7 /* MapContentCell.h */,
 				4B6D8C9B24C6344C0042EDC7 /* MapContentCell.m */,
+				4BCD152324C8C41300B831A4 /* SuggestedCell.h */,
+				4BCD152424C8C41300B831A4 /* SuggestedCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -604,6 +609,7 @@
 				4B6D8C9924C61AD70042EDC7 /* MapContentViewController.m in Sources */,
 				4B1CC17724BE4DB7007F9A52 /* Template.m in Sources */,
 				4B1CC17A24BE4E68007F9A52 /* User.m in Sources */,
+				4BCD152524C8C41300B831A4 /* SuggestedCell.m in Sources */,
 				4BEA8B2324BCFBC30041A6C9 /* Representative.m in Sources */,
 				4BCB1DB224BCAF6300BAE96E /* AppDelegate.m in Sources */,
 				4BEA8B2024BCF4EE0041A6C9 /* RepresentativeCell.m in Sources */,

@@ -981,7 +981,22 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="v2D-E1-yRr"/>
                     </view>
-                    <navigationItem key="navigationItem" id="GEt-WE-wDX"/>
+                    <navigationItem key="navigationItem" id="GEt-WE-wDX">
+                        <rightBarButtonItems>
+                            <barButtonItem title="Done" style="done" id="dLb-kU-9Ag">
+                                <color key="tintColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <segue destination="3yW-d3-FQE" kind="show" identifier="selectedTemplate" id="glp-DH-tfj"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Preview" id="EDn-RC-lUM">
+                                <color key="tintColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <segue destination="9Dh-CU-C0r" kind="presentation" identifier="preview" id="PuW-oL-poE"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="TbJ-hs-877" id="rYw-cs-SDM"/>
                     </connections>
@@ -1375,9 +1390,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="zDs-ub-Ass"/>
+        <segue reference="glp-DH-tfj"/>
         <segue reference="NWH-Dg-Zb7"/>
-        <segue reference="h9w-nq-IX8"/>
+        <segue reference="PuW-oL-poE"/>
         <segue reference="BUt-yG-D0s"/>
         <segue reference="0nU-vq-fGN"/>
     </inferredMetricsTieBreakers>

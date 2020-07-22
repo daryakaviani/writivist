@@ -10,6 +10,8 @@
 #import "Template.h"
 #import "TemplateCell.h"
 #import <Parse/Parse.h>
+#import "PreviewViewController.h"
+#import "HomeViewController.h"
 
 @interface CategoryViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -103,15 +105,6 @@
     
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     TemplateCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TemplateCell" forIndexPath:indexPath];
@@ -139,4 +132,30 @@
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.templates.count;
 }
+
+
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"selectedTemplate"]) {
+        HomeViewController *homeViewController = [segue destinationViewController];
+        homeViewController.body = self.body;
+        self.body = @"";
+        self.previewTitle = @"";
+        TemplateCell *current = self.currentCell;
+        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+        current.checkView.backgroundColor = color;
+        UIView *subview = current.checkView.subviews[0];
+        subview.hidden = YES;
+        self.currentCell = nil;
+    }
+    if ([segue.identifier isEqualToString:@"preview"]) {
+        PreviewViewController *previewViewController = [segue destinationViewController];
+        previewViewController.templateTitle = self.previewTitle;
+        previewViewController.body = self.body;
+    }
+}
+
 @end

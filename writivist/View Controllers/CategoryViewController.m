@@ -45,7 +45,7 @@ int skip = 20;
     
     self.navigationItem.title = self.category;
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
-    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:40], NSForegroundColorAttributeName : [UIColor blackColor]};
+    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:30], NSForegroundColorAttributeName : [UIColor blackColor]};
     
     [self fetchTemplates];
     
@@ -85,7 +85,7 @@ int skip = 20;
         if (templates != nil) {
             NSMutableArray *newTemplates = (NSMutableArray *) templates;
             NSArray *newArray = [self.filteredData arrayByAddingObjectsFromArray:newTemplates];
-//            self.templates = (NSMutableArray *) newArray;
+            self.templates = (NSMutableArray *) newArray;
             self.filteredData = (NSMutableArray *) newArray;
             skip += templates.count;
             isMoreDataLoading = false;
@@ -130,7 +130,7 @@ int skip = 20;
     if (self.category != nil) {
         [query whereKey:@"category" equalTo:self.category];
     }
-    query.limit = 20;
+    query.limit = 20 + skip;
 
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
@@ -194,6 +194,7 @@ int skip = 20;
     Template *template = self.filteredData[indexPath.item];
     cell.temp = template;
     cell.otherDelegate = self;
+    cell.delegate = self;
     [cell setTemplate:template];
     if (cell.temp.selected == true) {
         UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];

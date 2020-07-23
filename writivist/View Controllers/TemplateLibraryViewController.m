@@ -27,7 +27,6 @@
 
 @implementation TemplateLibraryViewController
 
-//NSArray *categories;
 NSString *CellIdentifier = @"CategoryRow";
 NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 

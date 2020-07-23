@@ -18,10 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSArray *senderTemplates;
 @property (strong, nonatomic) NSArray *likeTemplates;
 @property (strong, nonatomic) NSArray *templates;
+@property (strong, nonatomic) NSArray *myTemplates;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) TemplateLibraryViewController *templateLibrary;
 @property (nonatomic) NSInteger *indexPathItem;
-@property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *dict;
+@property (nonatomic, strong) NSMutableDictionary *dict;
 
 - (void) setCategory: (NSString *) category;
 - (void)fetchTemplates;

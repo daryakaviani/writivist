@@ -60,7 +60,6 @@
     [senderQuery orderByDescending:@"senderCount"];
     [senderQuery includeKey:@"author"];
     senderQuery.limit = 20;
-
     // fetch data asynchronously
     [senderQuery findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
         if (templates != nil) {
@@ -81,32 +80,78 @@
             } else {
                 NSLog(@"%@", error.localizedDescription);
             }
-            [self rankTemplates];
+            PFQuery *query = [Template query];
+                [query orderByDescending:@"createdAt"];
+                [query includeKey:@"author"];
+                [query whereKey:@"author" equalTo:[User currentUser]];
+                query.limit = 20;
+
+                // fetch data asynchronously
+                [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
+                    if (templates != nil) {
+                        self.myTemplates = templates;
+                    } else {
+                        NSLog(@"%@", error.localizedDescription);
+                    }
+                    [self rankTemplates];
+                }];
         }];
     }];
 }
 
 - (void) rankTemplates {
+    NSMutableDictionary *myDict = [[NSMutableDictionary alloc] init];
+    for (Template *template in self.myTemplates) {
+        NSString *category = template.category;
+        NSDecimalNumber *currentCount = [NSDecimalNumber numberWithFloat:([myDict[category] floatValue] + 1.0)];
+        [myDict setObject:currentCount forKey:category];
+    }
+    for (NSObject *category in myDict.allKeys) {
+        NSDecimalNumber *categoryCount = myDict[category];
+        NSDecimalNumber *totalTemplates = [NSDecimalNumber numberWithInteger:self.myTemplates.count];
+        myDict[category] = [categoryCount decimalNumberByDividingBy:totalTemplates];
+        myDict[category] = [NSDecimalNumber numberWithFloat:([myDict[category] floatValue] + 1.0)];
+    }
+    
     self.dict = [[NSMutableDictionary alloc] init];
     for (int i = 0; i < self.senderTemplates.count; i += 1) {
         Template *template = self.senderTemplates[i];
-        [self.dict setObject:template.likeCount forKey:template.objectId];
+        NSString *category = template.category;
+        if (myDict[category] != nil && [myDict[category] intValue] != 0) {
+            NSDecimalNumber *multiplier = myDict[category];
+            NSDecimalNumber *decNum = [NSDecimalNumber decimalNumberWithDecimal:[template.senderCount decimalValue]];
+            NSDecimalNumber *heuristic = [multiplier decimalNumberByMultiplyingBy:decNum];
+            [self.dict setObject:heuristic forKey:template.objectId];
+        } else {
+            [self.dict setObject:template.senderCount forKey:template.objectId];
+        }
     }
     for (int i = 0; i < self.likeTemplates.count; i += 1) {
         Template *template = self.likeTemplates[i];
+        NSString *category = template.category;
+        NSNumber *heuristic;
         if ([self.dict.allKeys containsObject:template.objectId]) {
-            NSNumber *sumHeuristics = [NSNumber numberWithInt:([template.likeCount intValue] + [template.senderCount intValue])];
-            [self.dict setObject:sumHeuristics forKey:template.objectId];
+            heuristic = [NSNumber numberWithInt:([template.likeCount intValue] + [template.senderCount intValue])];
         } else {
-            [self.dict setObject:template.likeCount forKey:template.objectId];
+            heuristic = template.likeCount;
+        }
+        if (myDict[category] != nil && [myDict[category] intValue]) {
+            NSDecimalNumber *multiplier = myDict[category];
+            NSDecimalNumber *decNum = [NSDecimalNumber decimalNumberWithDecimal:[heuristic decimalValue]];
+            NSDecimalNumber *newHeuristic = [multiplier decimalNumberByMultiplyingBy:decNum];
+            [self.dict setObject:newHeuristic forKey:template.objectId];
+        } else {
+            [self.dict setObject:heuristic forKey:template.objectId];
         }
     }
+    
     NSArray *keys = [self.dict allKeys];
     NSArray *sortedKeys = [keys sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
         NSNumber *first = [self.dict objectForKey:b];
         NSNumber *second = [self.dict objectForKey:a];
         return [first compare:second];
     }];
+        
     NSMutableArray *sortedTemplates = [[NSMutableArray alloc] init];
     for (NSString *objectID in sortedKeys) {
         bool foundInFirst = false;
@@ -126,6 +171,7 @@
             }
         }
     }
+    
     self.templates = sortedTemplates;
     [self.collectionView reloadData];
 }

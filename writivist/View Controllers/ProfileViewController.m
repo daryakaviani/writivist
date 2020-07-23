@@ -112,11 +112,6 @@
 // Creating and configured a cell.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MyTemplateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyTemplateCell"];
-//    if ([User currentUser] != self.user) {
-//        cell.userInteractionEnabled = NO;
-//    } else {
-//        cell.userInteractionEnabled = YES;
-//    }
     Template *template = self.templates[indexPath.row];
     cell.categoryLabel.text = template.category;
     cell.likeLabel.text = [NSString stringWithFormat:@"%@", template.likeCount];

@@ -457,7 +457,7 @@
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="done" id="rMU-Lp-mtP">
+                            <barButtonItem style="done" systemItem="done" id="rMU-Lp-mtP">
                                 <color key="tintColor" red="0.97254901959999995" green="0.75686274509999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="doneButton:" destination="YnS-dc-5zz" id="YCQ-5s-Qo5"/>

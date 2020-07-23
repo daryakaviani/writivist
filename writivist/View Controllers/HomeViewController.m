@@ -26,6 +26,7 @@
 @property (nonatomic) NSMutableArray *stateReps;
 @property (nonatomic) NSMutableArray *countyReps;
 @property (nonatomic) NSMutableArray *cityReps;
+@property(nonatomic, readonly) UIUserInterfaceStyle userInterfaceStyle;
 
 @end
 
@@ -63,7 +64,7 @@ NSArray *levels;
         self.logoutButton.enabled = YES;
     }
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
-    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:40], NSForegroundColorAttributeName : [UIColor blackColor]};
+    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:40], NSForegroundColorAttributeName : [UIColor labelColor]};
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

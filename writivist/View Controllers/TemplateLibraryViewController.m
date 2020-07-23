@@ -41,6 +41,9 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.tableView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+    self.navigationItem.title = @"templates.";
+    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:40], NSForegroundColorAttributeName : [UIColor labelColor]};
 }
    
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

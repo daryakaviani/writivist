@@ -24,6 +24,7 @@
 @dynamic city;
 @dynamic state;
 @dynamic zipCode;
+@dynamic sendIndividually;
 
 
 @end

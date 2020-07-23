@@ -69,6 +69,7 @@
     newUser.templateCount = @(0);
     newUser.letterCount = @(0);
     newUser.profilePicture = [self getPFFileFromImage:[UIImage imageNamed:@"user.png"]];
+    newUser.sendIndividually = YES;
     
     if (self.passwordField.text.length == 0 || self.usernameField.text.length == 0
         || self.firstNameField.text.length == 0 || self.lastNameField.text.length == 0

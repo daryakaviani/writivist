@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *cityField;
 @property (weak, nonatomic) IBOutlet UITextField *stateField;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UISwitch *sendSwitch;
 @property (weak, nonatomic) IBOutlet UITextField *zipField;
 @property (weak, nonatomic) PFFileObject *pickerView;
 
@@ -44,6 +45,13 @@
     self.cityField.text = user.city;
     self.stateField.text = user.state;
     self.zipField.text = user.zipCode;
+    
+    if (user.sendIndividually) {
+        self.sendSwitch.on = YES;
+    } else {
+        self.sendSwitch.on = NO;
+    }
+    
     [self roundImage];
     self.profileView.file = user.profilePicture;
     [self.profileView loadInBackground];
@@ -116,6 +124,11 @@
     user.city = self.cityField.text;
     user.state = self.stateField.text;
     user.zipCode = self.zipField.text;
+    if (self.sendSwitch.on) {
+        user.sendIndividually = YES;
+    } else {
+        user.sendIndividually = NO;
+    }
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         [self dismissViewControllerAnimated:YES completion:^{
             [self.profileViewController viewWillAppear:YES];

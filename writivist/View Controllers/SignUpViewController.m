@@ -84,11 +84,7 @@
         // add the OK action to the alert controller
         [alert addAction:okAction];
         [self presentViewController:alert animated:YES completion:nil];
-    }
-    
-    if ([self.passwordField.text isEqual:self.confirmPasswordField.text]) {
-        newUser.password = self.passwordField.text;
-    } else {
+    } else if (![self.passwordField.text isEqual:self.confirmPasswordField.text]) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Passwords must match."
                message:@"Please try again."
         preferredStyle:(UIAlertControllerStyleAlert)];
@@ -97,26 +93,24 @@
         // add the OK action to the alert controller
         [alert addAction:okAction];
         [self presentViewController:alert animated:YES completion:nil];
+    } else {
+        [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
+            if (error != nil) {
+                NSLog(@"Error: %@", error.localizedDescription);
+                NSLog(@"User sign in failed: %@", error.localizedDescription);
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"User sign in failed:"
+                   message:error.localizedDescription preferredStyle:(UIAlertControllerStyleAlert)];
+                // create an OK action
+                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault          handler:^(UIAlertAction * _Nonnull action) { }];
+                // add the OK action to the alert controller
+                [alert addAction:okAction];
+                [self presentViewController:alert animated:YES completion:nil];
+            } else {
+                NSLog(@"User registered successfully");
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        }];
     }
-    
-    // call sign up function on the object
-    [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
-        if (error != nil) {
-            NSLog(@"Error: %@", error.localizedDescription);
-            NSLog(@"User sign in failed: %@", error.localizedDescription);
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"User sign in failed:"
-                   message:error.localizedDescription
-            preferredStyle:(UIAlertControllerStyleAlert)];
-            // create an OK action
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
-            // add the OK action to the alert controller
-            [alert addAction:okAction];
-            [self presentViewController:alert animated:YES completion:nil];
-        } else {
-            NSLog(@"User registered successfully");
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-    }];
 }
 
 

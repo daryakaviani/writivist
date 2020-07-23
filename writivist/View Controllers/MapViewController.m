@@ -135,11 +135,7 @@
         lng = [longitude floatValue];
         dispatch_async(dispatch_get_main_queue(), ^{
             GMSMarker *marker = [[GMSMarker alloc] init];
-//            if (lat == nil) {
-//                marker.position = self.locationManager.location.coordinate;
-//            } else {
-                marker.position = CLLocationCoordinate2DMake(lat, lng);
-//            }
+            marker.position = CLLocationCoordinate2DMake(lat, lng);
             marker.title = representative.name;
             NSString *baseUrl = representative.role;
             if (representative.address != nil) {

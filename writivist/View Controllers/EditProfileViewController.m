@@ -11,6 +11,8 @@
 #import "PFImageView.h"
 #import "User.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
+#import <GoogleMaps/GoogleMaps.h>
+#import <GooglePlaces/GooglePlaces.h>
 
 @interface EditProfileViewController ()
 
@@ -27,6 +29,9 @@
 @property (weak, nonatomic) IBOutlet UISwitch *sendSwitch;
 @property (weak, nonatomic) IBOutlet UITextField *zipField;
 @property (weak, nonatomic) PFFileObject *pickerView;
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic) CGFloat latitude;
+@property (nonatomic) CGFloat longitude;
 
 @end
 
@@ -34,6 +39,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self startUserLocationSearch];
+    [self.locationManager requestAlwaysAuthorization];
     self.scrollView.shouldIgnoreScrollingAdjustment = YES;
     User *user = [User currentUser];
     self.firstNameField.text = user.firstName;
@@ -55,6 +62,62 @@
     [self roundImage];
     self.profileView.file = user.profilePicture;
     [self.profileView loadInBackground];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+    [self.locationManager stopUpdatingLocation];
+    self.latitude = self.locationManager.location.coordinate.latitude;
+    self.longitude = self.locationManager.location.coordinate.longitude;
+}
+
+- (void)startUserLocationSearch {
+    self.locationManager = [[CLLocationManager alloc]init];
+    self.locationManager.delegate = self;
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+    [self.locationManager startUpdatingLocation];
+}
+- (IBAction)findMe:(id)sender {
+    NSLog(@"%f", self.locationManager.location.coordinate.latitude);
+    NSLog(@"%f", self.locationManager.location.coordinate.longitude);
+    
+    NSString *baseUrl = @"https://maps.googleapis.com/maps/api/geocode/json?latlng=";
+    NSString *keyUrl = @"&key=AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls";
+    baseUrl = [baseUrl stringByAppendingFormat:@"%f", self.locationManager.location.coordinate.latitude];
+    baseUrl = [baseUrl stringByAppendingFormat:@"%@", @","];
+    baseUrl = [baseUrl stringByAppendingFormat:@"%f", self.locationManager.location.coordinate.longitude];
+    baseUrl = [baseUrl stringByAppendingFormat:@"%@", keyUrl];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setHTTPMethod:@"GET"];
+    [request setURL:[NSURL URLWithString:baseUrl]];
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
+      ^(NSData * _Nullable data,
+        NSURLResponse * _Nullable response,
+        NSError * _Nullable error) {
+        NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+        NSArray *addressComponents = [JSON valueForKey:@"results"][0][@"address_components"];
+        NSLog(@"%@", addressComponents);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           for (NSDictionary *dict in addressComponents) {
+               if ([dict[@"types"] containsObject:@"street_number"]) {
+                   self.streetNumberField.text = dict[@"short_name" ];
+               } else if ([dict[@"types"] containsObject:@"route"]) {
+                   self.streetNameField.text = dict[@"short_name"];
+               } else if ([dict[@"types"] containsObject:@"locality"]) {
+                   self.cityField.text = dict[@"short_name"];
+                } else if ([dict[@"types"] containsObject:@"administrative_area_level_1"]) {
+                   self.stateField.text = dict[@"short_name"];
+               } else if ([dict[@"types"] containsObject:@"postal_code"]) {
+                   self.zipField.text = dict[@"short_name"];
+               }
+           }
+
+        });
+    }] resume];
+    
 }
 
 - (void) roundImage {

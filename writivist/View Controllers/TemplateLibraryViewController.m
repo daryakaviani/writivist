@@ -86,12 +86,14 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     NSString *string = self.filteredData[section];
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 50)];
     
-    SectionTapper *singleTapRecognizer = [[SectionTapper alloc] initWithTarget:self action:@selector(handleGesture:)];
-    [singleTapRecognizer setDelegate:self];
-    singleTapRecognizer.numberOfTouchesRequired = 1;
-    singleTapRecognizer.numberOfTapsRequired = 1;
-    singleTapRecognizer.data = string;
-    [view addGestureRecognizer:singleTapRecognizer];
+    if (section != 0) {
+        SectionTapper *singleTapRecognizer = [[SectionTapper alloc] initWithTarget:self action:@selector(handleGesture:)];
+        [singleTapRecognizer setDelegate:self];
+        singleTapRecognizer.numberOfTouchesRequired = 1;
+        singleTapRecognizer.numberOfTapsRequired = 1;
+        singleTapRecognizer.data = string;
+        [view addGestureRecognizer:singleTapRecognizer];
+    }
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 50)];
     [label setFont: [UIFont fontWithName:@"Snell Roundhand" size:30]];

@@ -28,6 +28,7 @@
     self.likeLabel.text = [NSString stringWithFormat:@"%@", template.likeCount];
     self.senderLabel.text = [NSString stringWithFormat:@"%@", template.senderCount];
     self.titleLabel.text = template.title;
+    self.categoryLabel.text = template.category;
     [self fetchLikes];
     [self roundImage];
     PFFileObject *data = self.temp.author.profilePicture;

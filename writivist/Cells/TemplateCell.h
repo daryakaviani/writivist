@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *timestampLabel;
 @property (weak, nonatomic) IBOutlet UILabel *senderLabel;
 @property (strong, nonatomic) TemplateLibraryViewController *templateLibrary;
+@property (weak, nonatomic) IBOutlet UILabel *categoryLabel;
 
 - (void)setTemplate:(Template *)template;
 

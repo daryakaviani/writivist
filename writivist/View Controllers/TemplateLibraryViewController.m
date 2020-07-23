@@ -17,6 +17,7 @@
 
 @interface TemplateLibraryViewController ()<UITableViewDelegate, UITableViewDataSource, ProfileDelegate, UISearchBarDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) NSString *category;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;

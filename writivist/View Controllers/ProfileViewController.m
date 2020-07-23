@@ -138,6 +138,11 @@
         preferredStyle:(UIAlertControllerStyleAlert)];
         // create an OK action
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            User *user = [User currentUser];
+            int val = [user.templateCount intValue];
+            user.templateCount = [NSNumber numberWithInt:(val - 1)];
+            [user saveInBackground];
+            [self updateInformation];            
             [template deleteInBackground];
             [self fetchTemplates];
         }];

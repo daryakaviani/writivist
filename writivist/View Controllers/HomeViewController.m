@@ -144,46 +144,48 @@ NSArray *levels;
       ^(NSData * _Nullable data,
         NSURLResponse * _Nullable response,
         NSError * _Nullable error) {
-        NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-        NSArray *representativeArray = [JSON valueForKey:@"officials"];
-        NSArray *officesArray = [JSON valueForKey:@"offices"];
-        NSMutableArray *representatives  = [Representative representativesWithArray:representativeArray];
-        self.representatives = representatives;
-        self.offices = officesArray;
-        self.federalReps = [[NSMutableArray alloc] init];
-        self.stateReps = [[NSMutableArray alloc] init];
-        self.countyReps = [[NSMutableArray alloc] init];
-        self.cityReps = [[NSMutableArray alloc] init];
-        for (int i = 0; i < self.representatives.count; i += 1) {
-            Representative *representative = self.representatives[i];
-           for (NSDictionary *dictionary in self.offices) {
-               for (NSString *index in dictionary[@"officialIndices"]) {
-                   NSString *repIndex = [NSString stringWithFormat: @"%d", i];
-                   NSString *officialIndex = [NSString stringWithFormat: @"%@", index];
-                   if (repIndex == officialIndex) {
-                       representative.level = dictionary[@"levels"][0];
-                       if ([representative.level isEqual:@"country"]) {
-                           [self.federalReps addObject:representative];
-                       }
-                       if ([representative.level isEqual:@"administrativeArea1"]) {
-                           [self.stateReps addObject:representative];
-                       }
-                       if ([representative.level isEqual:@"administrativeArea2"]) {
-                           [self.countyReps addObject:representative];
-                       }
-                       if ([representative.level isEqual:@"locality"]) {
-                           [self.cityReps addObject:representative];
+//        if (error) {
+//            NSLog(@"oops");
+//        } else {
+            NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+            NSArray *representativeArray = [JSON valueForKey:@"officials"];
+            NSArray *officesArray = [JSON valueForKey:@"offices"];
+            NSMutableArray *representatives  = [Representative representativesWithArray:representativeArray];
+            self.representatives = representatives;
+            self.offices = officesArray;
+            self.federalReps = [[NSMutableArray alloc] init];
+            self.stateReps = [[NSMutableArray alloc] init];
+            self.countyReps = [[NSMutableArray alloc] init];
+            self.cityReps = [[NSMutableArray alloc] init];
+            for (int i = 0; i < self.representatives.count; i += 1) {
+                Representative *representative = self.representatives[i];
+               for (NSDictionary *dictionary in self.offices) {
+                   for (NSString *index in dictionary[@"officialIndices"]) {
+                       NSString *repIndex = [NSString stringWithFormat: @"%d", i];
+                       NSString *officialIndex = [NSString stringWithFormat: @"%@", index];
+                       if (repIndex == officialIndex) {
+                           representative.level = dictionary[@"levels"][0];
+                           if ([representative.level isEqual:@"country"]) {
+                               [self.federalReps addObject:representative];
+                           }
+                           if ([representative.level isEqual:@"administrativeArea1"]) {
+                               [self.stateReps addObject:representative];
+                           }
+                           if ([representative.level isEqual:@"administrativeArea2"]) {
+                               [self.countyReps addObject:representative];
+                           }
+                           if ([representative.level isEqual:@"locality"]) {
+                               [self.cityReps addObject:representative];
+                           }
                        }
                    }
                }
-           }
 
-
-        }
+            }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
-    }] resume];
+        }] resume];
 }
 
 //// Tells us how many rows we need.

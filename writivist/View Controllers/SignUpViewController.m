@@ -94,22 +94,53 @@
         [alert addAction:okAction];
         [self presentViewController:alert animated:YES completion:nil];
     } else {
-        [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
-            if (error != nil) {
-                NSLog(@"Error: %@", error.localizedDescription);
-                NSLog(@"User sign in failed: %@", error.localizedDescription);
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"User sign in failed:"
-                   message:error.localizedDescription preferredStyle:(UIAlertControllerStyleAlert)];
+        NSString *location = newUser.streetNumber;
+        location = [location stringByAppendingString:@"%20"];
+        location = [location stringByAppendingString:newUser.streetName];
+        location = [location stringByAppendingString:@".%20"];
+        location = [location stringByAppendingString:newUser.city];
+        location = [location stringByAppendingString:@"%20"];
+        location = [location stringByAppendingString:newUser.state];
+        location = [location stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+        NSLog(@"%@", location);
+        NSString *targetUrl = [@"https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls&address=&address=" stringByAppendingString:location];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+        [request setHTTPMethod:@"GET"];
+        [request setURL:[NSURL URLWithString:targetUrl]];
+        [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
+          ^(NSData * _Nullable data,
+            NSURLResponse * _Nullable response,
+            NSError * _Nullable error) {
+            if (error) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Your address is unsupported."
+                       message:@"Please ensure your submission is valid and that there are no accents in your address."
+                preferredStyle:(UIAlertControllerStyleAlert)];
                 // create an OK action
-                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault          handler:^(UIAlertAction * _Nonnull action) { }];
+                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
                 // add the OK action to the alert controller
                 [alert addAction:okAction];
-                [self presentViewController:alert animated:YES completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentViewController:alert animated:YES completion:nil];
+                });
             } else {
-                NSLog(@"User registered successfully");
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
+                    if (error != nil) {
+                        NSLog(@"Error: %@", error.localizedDescription);
+                        NSLog(@"User sign in failed: %@", error.localizedDescription);
+                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"User sign in failed:"
+                           message:error.localizedDescription preferredStyle:(UIAlertControllerStyleAlert)];
+                        // create an OK action
+                        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault          handler:^(UIAlertAction * _Nonnull action) { }];
+                        // add the OK action to the alert controller
+                        [alert addAction:okAction];
+                        [self presentViewController:alert animated:YES completion:nil];
+                    } else {
+                        NSLog(@"User registered successfully");
+                        [self dismissViewControllerAnimated:YES completion:nil];
+                    }
+                }];
             }
-        }];
+            }] resume];
     }
 }
 

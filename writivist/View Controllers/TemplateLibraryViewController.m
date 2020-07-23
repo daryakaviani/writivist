@@ -86,7 +86,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     NSString *string = self.filteredData[section];
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 50)];
     
-    if (section != 0) {
+    if (![string isEqual:@"for you"]) {
         SectionTapper *singleTapRecognizer = [[SectionTapper alloc] initWithTarget:self action:@selector(handleGesture:)];
         [singleTapRecognizer setDelegate:self];
         singleTapRecognizer.numberOfTouchesRequired = 1;

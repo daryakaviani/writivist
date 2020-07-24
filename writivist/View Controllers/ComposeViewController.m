@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSArray *categories;
 @property (strong, nonatomic) NSString *category;
 @property (strong, nonatomic) NSString *navTitle;
+@property (strong, nonatomic) MKDropdownMenu *dropdownMenu;
 
 @end
 
@@ -35,6 +36,7 @@
     self.navigationController.navigationBar.tintColor = [[UIColor alloc]initWithRed:96/255.0 green:125/255.0 blue:139/255.0 alpha:1];
     self.categories = @[@"black lives matter", @"climate action", @"financial justice", @"islamophobia", @"topic", @"topic", @"topic", @"topic"];
     MKDropdownMenu *dropdownMenu = [[MKDropdownMenu alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    self.dropdownMenu = dropdownMenu;
     [dropdownMenu setComponentTextAlignment:NSTextAlignmentLeft];
 //    [dropdownMenu setDisclosureIndicatorImage:[UIImage imageNamed:@"download.png"]];
     [dropdownMenu setDropdownBackgroundColor:[[UIColor alloc]initWithRed:178/255.0 green:223/255.0 blue:219/255.0 alpha:1]];
@@ -64,6 +66,10 @@
     self.category = self.categories[row];
     [dropdownMenu reloadAllComponents];
     [dropdownMenu closeAllComponentsAnimated:YES];
+}
+
+- (void)didMoveToParentViewController:(UIViewController *)parent {
+    [self.dropdownMenu closeAllComponentsAnimated:YES];
 }
 
 

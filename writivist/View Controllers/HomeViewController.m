@@ -91,7 +91,7 @@ NSArray *levels;
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 50)];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 50)];
-    [label setFont: [UIFont fontWithName:@"Helvetica Bold" size:25]];
+    [label setFont: [UIFont fontWithName:@"Helvetica" size:25]];
     [label setTextColor:[UIColor whiteColor]];
     NSString *string = levels[section];
     [label setText:string];

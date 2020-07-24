@@ -100,7 +100,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     }
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 50)];
-    [label setFont: [UIFont fontWithName:@"Helvetica Bold" size:25]];
+    [label setFont: [UIFont fontWithName:@"Helvetica" size:25]];
     [label setText:string];
     [label setTextColor:[UIColor whiteColor]];
     [view addSubview:label];

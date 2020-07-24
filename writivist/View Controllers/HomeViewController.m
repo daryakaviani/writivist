@@ -37,7 +37,7 @@ NSArray *levels;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    levels = @[@"federal", @"state", @"county", @"city"];
+    levels = @[@"Federal", @"State", @"County", @"City"];
 
     self.counterView.hidden = YES;
     self.internalView.layer.cornerRadius = self.internalView.bounds.size.width/2;
@@ -60,7 +60,7 @@ NSArray *levels;
         self.logoutButton.enabled = NO;
     } else {
         self.navigationItem.title = @"let's write.";
-        self.logoutButton.tintColor = [[UIColor alloc]initWithRed:255/255.0 green:152/255.0 blue:0/255.0 alpha:1];
+        self.logoutButton.tintColor = [[UIColor alloc]initWithRed:96/255.0 green:125/255.0 blue:139/255.0 alpha:1];
         self.logoutButton.enabled = YES;
     }
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
@@ -91,11 +91,12 @@ NSArray *levels;
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 50)];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 50)];
-    [label setFont: [UIFont fontWithName:@"Snell Roundhand" size:30]];
+    [label setFont: [UIFont fontWithName:@"Helvetica Bold" size:25]];
+    [label setTextColor:[UIColor whiteColor]];
     NSString *string = levels[section];
     [label setText:string];
     [view addSubview:label];
-    [view setBackgroundColor:[[UIColor alloc]initWithRed:255/255.0 green:152/255.0 blue:0/255.0 alpha:0.75]];
+    [view setBackgroundColor:[[UIColor alloc]initWithRed:96/255.0 green:125/255.0 blue:139/255.0 alpha:0.75]];
     return view;
 }
 
@@ -253,7 +254,7 @@ NSArray *levels;
         cell.facebookButton.enabled = YES;
     }
     if (representative.selected == (BOOL * _Nonnull) YES) {
-        UIColor *color = [[UIColor alloc]initWithRed:255/255.0 green:152/255.0 blue:0/255.0 alpha:0.25];
+        UIColor *color = [[UIColor alloc]initWithRed:178/255.0 green:223/255.0 blue:219/255.0 alpha:0.4];
         cell.checkView.backgroundColor = color;
         UIView *subview = cell.checkView.subviews[0];
         subview.hidden = NO;
@@ -269,7 +270,7 @@ NSArray *levels;
 - (void)representativeCell:(RepresentativeCell *)representativeCell didTap:(Representative *)representative{
     if (representative.email != nil) {
         if (representative.selected == NO) {
-            UIColor *color = [[UIColor alloc]initWithRed:255/255.0 green:152/255.0 blue:0/255.0 alpha:0.25];
+            UIColor *color = [[UIColor alloc]initWithRed:178/255.0 green:223/255.0 blue:219/255.0 alpha:0.4];
             representativeCell.checkView.backgroundColor = color;
             representative.selected = (BOOL * _Nonnull) YES;
             UIView *subview = representativeCell.checkView.subviews[0];

@@ -37,7 +37,7 @@ NSArray *levels;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    levels = @[@"federal", @"state", @"county", @"city"];
+    levels = @[@"Federal", @"State", @"County", @"City"];
 
     self.counterView.hidden = YES;
     self.internalView.layer.cornerRadius = self.internalView.bounds.size.width/2;

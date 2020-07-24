@@ -144,7 +144,7 @@
             lat = [latitude floatValue];
             lng = [longitude floatValue];
             dispatch_async(dispatch_get_main_queue(), ^{
-                GMSCameraPosition *camera = [GMSCameraPosition cameraWithTarget:CLLocationCoordinate2DMake(lat, lng) zoom:20];
+                GMSCameraPosition *camera = [GMSCameraPosition cameraWithTarget:CLLocationCoordinate2DMake(lat, lng) zoom:18];
                 [self.mapViewController.mapView setCamera:camera];
                 self.mapViewController.trayView.center = self.mapViewController.trayDown;
             });

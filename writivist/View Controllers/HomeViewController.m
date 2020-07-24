@@ -60,7 +60,7 @@ NSArray *levels;
         self.logoutButton.enabled = NO;
     } else {
         self.navigationItem.title = @"let's write.";
-        self.logoutButton.tintColor = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:1];
+        self.logoutButton.tintColor = [[UIColor alloc]initWithRed:245/255.0 green:127/255.0 blue:33/255.0 alpha:1];
         self.logoutButton.enabled = YES;
     }
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
@@ -95,7 +95,7 @@ NSArray *levels;
     NSString *string = levels[section];
     [label setText:string];
     [view addSubview:label];
-    [view setBackgroundColor:[[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5]];
+    [view setBackgroundColor:[[UIColor alloc]initWithRed:245/255.0 green:127/255.0 blue:33/255.0 alpha:0.75]];
     return view;
 }
 
@@ -188,11 +188,6 @@ NSArray *levels;
         }] resume];
 }
 
-//// Tells us how many rows we need.
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return self.representatives.count;
-//}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -258,12 +253,12 @@ NSArray *levels;
         cell.facebookButton.enabled = YES;
     }
     if (representative.selected == (BOOL * _Nonnull) YES) {
-        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
+        UIColor *color = [[UIColor alloc]initWithRed:245/255.0 green:127/255.0 blue:33/255.0 alpha:0.25];
         cell.checkView.backgroundColor = color;
         UIView *subview = cell.checkView.subviews[0];
         subview.hidden = NO;
     } else {
-        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+        UIColor *color = [UIColor clearColor];
         cell.checkView.backgroundColor = color;
         UIView *subview = cell.checkView.subviews[0];
         subview.hidden = YES;
@@ -274,14 +269,14 @@ NSArray *levels;
 - (void)representativeCell:(RepresentativeCell *)representativeCell didTap:(Representative *)representative{
     if (representative.email != nil) {
         if (representative.selected == NO) {
-            UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
+            UIColor *color = [[UIColor alloc]initWithRed:245/255.0 green:127/255.0 blue:33/255.0 alpha:0.25];
             representativeCell.checkView.backgroundColor = color;
             representative.selected = (BOOL * _Nonnull) YES;
             UIView *subview = representativeCell.checkView.subviews[0];
             subview.hidden = NO;
             [self.selectedReps addObject:representativeCell];
         } else {
-            UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+            UIColor *color = [UIColor clearColor];
             representativeCell.checkView.backgroundColor = color;
             representative.selected = (BOOL * _Nonnull) NO;
             UIView *subview = representativeCell.checkView.subviews[0];
@@ -332,7 +327,7 @@ NSArray *levels;
             bodyHeader = [bodyHeader stringByAppendingString:@" "];
             bodyHeader = [bodyHeader stringByAppendingString:representative.name];
             bodyHeader = [bodyHeader stringByAppendingString:@", "];
-            UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+            UIColor *color = [UIColor clearColor];
             representativeCell.checkView.backgroundColor = color;
             representative.selected = (BOOL * _Nonnull) NO;
             UIView *subview = representativeCell.checkView.subviews[0];
@@ -370,7 +365,7 @@ NSArray *levels;
                 if (self.selectedReps.count != 2) {
                     bodyHeader = [bodyHeader stringByAppendingString:@", "];
                 }
-                UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+                UIColor *color = [UIColor clearColor];
                 representativeCell.checkView.backgroundColor = color;
                 representative.selected = (BOOL * _Nonnull) NO;
                 UIView *subview = representativeCell.checkView.subviews[0];
@@ -438,7 +433,7 @@ NSArray *levels;
         bodyHeader = [bodyHeader stringByAppendingString:@" "];
         bodyHeader = [bodyHeader stringByAppendingString:representative.name];
         bodyHeader = [bodyHeader stringByAppendingString:@", "];
-        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+        UIColor *color = [UIColor clearColor];
         representativeCell.checkView.backgroundColor = color;
         representative.selected = (BOOL * _Nonnull) NO;
         UIView *subview = representativeCell.checkView.subviews[0];

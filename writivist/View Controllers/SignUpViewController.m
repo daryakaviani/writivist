@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UITextField *confirmPasswordField;
 @property (nonatomic, strong) CLLocationManager *locationManager;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @end
 
@@ -33,6 +34,12 @@
     [super viewDidLoad];
     self.passwordField.secureTextEntry = YES;
     self.confirmPasswordField.secureTextEntry = YES;
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    CGSize size = CGSizeMake(320, 750);
+    self.scrollView.scrollEnabled = YES;
+    self.scrollView.contentSize = size;
 }
 
 - (IBAction)signupButton:(id)sender {

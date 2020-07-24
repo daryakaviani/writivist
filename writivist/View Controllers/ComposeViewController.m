@@ -27,18 +27,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.category = @"Category";
+    self.category = @"Select a category...";
     self.navTitle = self.category;
-    self.navigationController.navigationBar.tintColor = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:1];
+    self.navigationItem.title = @"compose";
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:40], NSForegroundColorAttributeName : [UIColor labelColor]};
+    self.navigationController.navigationBar.tintColor = [[UIColor alloc]initWithRed:96/255.0 green:125/255.0 blue:139/255.0 alpha:1];
     self.categories = @[@"black lives matter", @"climate action", @"financial justice", @"islamophobia", @"topic", @"topic", @"topic", @"topic"];
     MKDropdownMenu *dropdownMenu = [[MKDropdownMenu alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     [dropdownMenu setComponentTextAlignment:NSTextAlignmentLeft];
-    [dropdownMenu setDisclosureIndicatorImage:[UIImage imageNamed:@"download.png"]];
-    [dropdownMenu setDropdownBackgroundColor:[[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:1]];
+//    [dropdownMenu setDisclosureIndicatorImage:[UIImage imageNamed:@"download.png"]];
+    [dropdownMenu setDropdownBackgroundColor:[[UIColor alloc]initWithRed:178/255.0 green:223/255.0 blue:219/255.0 alpha:1]];
+    [dropdownMenu setDropdownCornerRadius:8];
     dropdownMenu.dataSource = self;
     dropdownMenu.delegate = self;
-    self.letterField.layer.cornerRadius = 8;
-    self.letterField.layer.borderWidth = 0.8;
+    self.letterField.layer.cornerRadius = 5;
+    self.letterField.layer.borderWidth = 0.7;
     self.letterField.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     [self.categoryView addSubview:dropdownMenu];
 }
@@ -60,7 +64,6 @@
     self.category = self.categories[row];
     [dropdownMenu reloadAllComponents];
     [dropdownMenu closeAllComponentsAnimated:YES];
-    NSLog(@"%@", self.category);
 }
 
 
@@ -75,6 +78,16 @@
         [alert addAction:okAction];
         [self presentViewController:alert animated:YES completion:^{
         }];
+    } else if ([self.category isEqualToString:@"Select a category..."]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Empty Category"
+                      message:@"Please select a category before submitting your template."
+               preferredStyle:(UIAlertControllerStyleAlert)];
+       // create an OK action
+       UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+       // add the OK action to the alert controller
+       [alert addAction:okAction];
+       [self presentViewController:alert animated:YES completion:^{
+       }];
     } else {
         User *user = [User currentUser];
         int val = [user.templateCount intValue];

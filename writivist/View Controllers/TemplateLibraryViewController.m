@@ -43,7 +43,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     [self.tableView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
-    self.navigationItem.title = @"templates.";
+    self.navigationItem.title = @"templates";
     navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:40], NSForegroundColorAttributeName : [UIColor labelColor]};
 }
    
@@ -100,10 +100,11 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     }
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 50)];
-    [label setFont: [UIFont fontWithName:@"Snell Roundhand" size:30]];
+    [label setFont: [UIFont fontWithName:@"Helvetica Bold" size:25]];
     [label setText:string];
+    [label setTextColor:[UIColor whiteColor]];
     [view addSubview:label];
-    [view setBackgroundColor:[[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5]];
+    [view setBackgroundColor:[[UIColor alloc]initWithRed:96/255.0 green:125/255.0 blue:139/255.0 alpha:0.75]];
     return view;
 }
 

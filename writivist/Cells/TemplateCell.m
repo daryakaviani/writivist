@@ -19,7 +19,6 @@
      UITapGestureRecognizer *templateTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapTemplate:)];
     [self.checkView addGestureRecognizer:templateTapGestureRecognizer];
     [self.checkView setUserInteractionEnabled:YES];
-//    [self fetchLikes];
 }
 
 - (void)setTemplate:(Template *)template {
@@ -106,7 +105,7 @@
     CALayer *imageLayer = self.authorButton.imageView.layer;
     [imageLayer setCornerRadius:5];
     [imageLayer setBorderWidth:2];
-    [imageLayer setBorderColor:[[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:1].CGColor];
+    [imageLayer setBorderColor:[[UIColor alloc]initWithRed:178/255.0 green:223/255.0 blue:219/255.0 alpha:1].CGColor];
     [imageLayer setMasksToBounds:YES];
     [self.authorButton.imageView.layer setCornerRadius:self.authorButton.imageView.frame.size.width/2];
     [self.authorButton.imageView.layer setMasksToBounds:YES];

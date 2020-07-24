@@ -38,7 +38,7 @@ int skip = 20;
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"%@", self.category);
-    self.navigationController.navigationBar.tintColor = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:1];
+    self.navigationController.navigationBar.tintColor = [[UIColor alloc]initWithRed:96/255.0 green:125/255.0 blue:139/255.0 alpha:1];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     self.searchBar.delegate = self;
@@ -155,17 +155,17 @@ int skip = 20;
     if (temp.selected == false) {
         if (self.currentCell != nil) {
             TemplateCell *current = self.currentCell;
-            UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+            UIColor *color = [UIColor clearColor];
             current.checkView.backgroundColor = color;
             UIView *subview = current.checkView.subviews[0];
             subview.hidden = YES;
         }
-        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
+        UIColor *color = [[UIColor alloc]initWithRed:178/255.0 green:223/255.0 blue:219/255.0 alpha:0.4];
         templateCell.checkView.backgroundColor = color;
         temp.selected = true;
         TemplateCell *prevCell = self.currentCell;
         UIView *prevSubview = prevCell.checkView.subviews[0];
-        UIColor *prevColor = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+        UIColor *prevColor = [UIColor clearColor];
         prevCell.checkView.backgroundColor = prevColor;
         prevCell.temp.selected = false;
         prevSubview.hidden = YES;
@@ -175,7 +175,7 @@ int skip = 20;
         self.body = temp.body;
         self.previewTitle = temp.title;
     } else if (temp.selected == true) {
-        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+        UIColor *color = [UIColor clearColor];
         templateCell.checkView.backgroundColor = color;
         temp.selected = false;
         self.currentCell = nil;
@@ -188,7 +188,7 @@ int skip = 20;
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     TemplateCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TemplateCell" forIndexPath:indexPath];
-    UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:1];
+    UIColor *color = [[UIColor alloc]initWithRed:96/255.0 green:125/255.0 blue:139/255.0 alpha:1];
     [cell.layer setBorderColor:color.CGColor];
     [cell.layer setBorderWidth:1];
     Template *template = self.filteredData[indexPath.item];
@@ -197,12 +197,12 @@ int skip = 20;
     cell.delegate = self;
     [cell setTemplate:template];
     if (cell.temp.selected == true) {
-        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
+        UIColor *color = [[UIColor alloc]initWithRed:178/255.0 green:223/255.0 blue:219/255.0 alpha:0.4];
         cell.checkView.backgroundColor = color;
         UIView *subview = cell.checkView.subviews[0];
         subview.hidden = NO;
     } else {
-        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+        UIColor *color = [UIColor clearColor];
         cell.checkView.backgroundColor = color;
         UIView *subview = cell.checkView.subviews[0];
         subview.hidden = YES;
@@ -257,7 +257,7 @@ int skip = 20;
         self.body = @"";
         self.previewTitle = @"";
         TemplateCell *current = self.currentCell;
-        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+        UIColor *color = [UIColor clearColor];
         current.checkView.backgroundColor = color;
         UIView *subview = current.checkView.subviews[0];
         subview.hidden = YES;

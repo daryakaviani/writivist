@@ -1508,14 +1508,14 @@
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mkz-T3-Sde">
-                                <rect key="frame" x="335" y="734" width="66" height="64"/>
+                                <rect key="frame" x="325" y="773" width="65" height="65"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hzB-2B-LRr">
-                                        <rect key="frame" x="0.0" y="0.0" width="66" height="64"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
                                         <color key="backgroundColor" red="0.37647058823529411" green="0.49019607843137253" blue="0.54509803921568623" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RyI-eP-EaE">
-                                        <rect key="frame" x="25" y="15.5" width="16" height="33.5"/>
+                                        <rect key="frame" x="24.5" y="15.5" width="16" height="33.5"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
@@ -1523,23 +1523,24 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="RyI-eP-EaE" firstAttribute="centerX" secondItem="hzB-2B-LRr" secondAttribute="centerX" id="5Xv-Kx-t2a"/>
-                                    <constraint firstItem="RyI-eP-EaE" firstAttribute="centerY" secondItem="Mkz-T3-Sde" secondAttribute="centerY" id="DYD-Ra-8JQ"/>
-                                    <constraint firstItem="hzB-2B-LRr" firstAttribute="top" secondItem="Mkz-T3-Sde" secondAttribute="top" id="Ox4-vC-98P"/>
-                                    <constraint firstItem="hzB-2B-LRr" firstAttribute="leading" secondItem="Mkz-T3-Sde" secondAttribute="leading" id="UAL-Pn-wlA"/>
-                                    <constraint firstItem="RyI-eP-EaE" firstAttribute="centerY" secondItem="hzB-2B-LRr" secondAttribute="centerY" id="ZWV-xi-njb"/>
-                                    <constraint firstItem="RyI-eP-EaE" firstAttribute="centerX" secondItem="Mkz-T3-Sde" secondAttribute="centerX" id="hLg-0Y-UxH"/>
+                                    <constraint firstItem="hzB-2B-LRr" firstAttribute="leading" secondItem="Mkz-T3-Sde" secondAttribute="leading" id="3H1-Vc-Ldd"/>
+                                    <constraint firstAttribute="width" constant="65" id="3Ln-fv-GnZ"/>
+                                    <constraint firstItem="RyI-eP-EaE" firstAttribute="centerX" secondItem="Mkz-T3-Sde" secondAttribute="centerX" id="3fa-S2-TYw"/>
+                                    <constraint firstItem="RyI-eP-EaE" firstAttribute="top" secondItem="Mkz-T3-Sde" secondAttribute="top" constant="15.5" id="EV7-bl-CYy"/>
+                                    <constraint firstAttribute="bottom" secondItem="RyI-eP-EaE" secondAttribute="bottom" constant="16" id="Hxy-hO-nFe"/>
+                                    <constraint firstItem="hzB-2B-LRr" firstAttribute="top" secondItem="Mkz-T3-Sde" secondAttribute="top" id="WL4-Sh-3GX"/>
+                                    <constraint firstAttribute="height" constant="65" id="YtR-ok-w7q"/>
+                                    <constraint firstAttribute="bottom" secondItem="hzB-2B-LRr" secondAttribute="bottom" id="hlT-9T-IAJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="hzB-2B-LRr" secondAttribute="trailing" id="krT-ew-fBu"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="fdp-t4-P4k" firstAttribute="bottom" secondItem="Mkz-T3-Sde" secondAttribute="bottom" constant="24" id="0Kb-mA-TS5"/>
                             <constraint firstItem="32j-zl-EjN" firstAttribute="trailing" secondItem="fdp-t4-P4k" secondAttribute="trailing" id="BZ4-7v-WmH"/>
                             <constraint firstItem="32j-zl-EjN" firstAttribute="leading" secondItem="fdp-t4-P4k" secondAttribute="leading" id="EYY-qh-XSK"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Mkz-T3-Sde" secondAttribute="trailing" constant="-7" id="Ka0-5g-TIT"/>
-                            <constraint firstItem="Mkz-T3-Sde" firstAttribute="top" secondItem="oiW-Kk-eyD" secondAttribute="top" constant="734" id="Mzp-Vf-QjO"/>
-                            <constraint firstItem="Mkz-T3-Sde" firstAttribute="leading" secondItem="oiW-Kk-eyD" secondAttribute="leading" constant="335" id="UGP-aT-UQD"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="Mkz-T3-Sde" secondAttribute="bottom" constant="64" id="Uyy-8q-wzo"/>
+                            <constraint firstItem="fdp-t4-P4k" firstAttribute="trailing" secondItem="Mkz-T3-Sde" secondAttribute="trailing" constant="24" id="ZLb-Cy-fwC"/>
                             <constraint firstAttribute="bottom" secondItem="32j-zl-EjN" secondAttribute="bottom" id="k2y-al-IbF"/>
                             <constraint firstItem="32j-zl-EjN" firstAttribute="top" secondItem="oiW-Kk-eyD" secondAttribute="top" id="nCJ-RI-TOh"/>
                         </constraints>
@@ -1782,6 +1783,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="o0O-ap-Bhy"/>
         <segue reference="zDs-ub-Ass"/>
         <segue reference="NWH-Dg-Zb7"/>
         <segue reference="h9w-nq-IX8"/>

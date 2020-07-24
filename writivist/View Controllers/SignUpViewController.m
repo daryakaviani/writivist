@@ -9,6 +9,8 @@
 #import "SignUpViewController.h"
 #import "Parse/Parse.h"
 #import "User.h"
+#import <GoogleMaps/GoogleMaps.h>
+#import <GooglePlaces/GooglePlaces.h>
 
 @interface SignUpViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *firstNameField;
@@ -21,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UITextField *confirmPasswordField;
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
 @end
 
@@ -49,6 +52,87 @@
         return nil;
     }
     return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+    [self.locationManager stopUpdatingLocation];
+}
+
+- (void)startUserLocationSearch {
+    self.locationManager = [[CLLocationManager alloc]init];
+    self.locationManager.delegate = self;
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+    [self.locationManager startUpdatingLocation];
+}
+
+- (IBAction)findMe:(id)sender {
+    [self startUserLocationSearch];
+    [self.locationManager requestAlwaysAuthorization];
+    [self.locationManager requestWhenInUseAuthorization];
+    if (self.locationManager.location != nil) {
+        NSString *baseUrl = @"https://maps.googleapis.com/maps/api/geocode/json?latlng=";
+        NSString *keyUrl = @"&key=AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls";
+        baseUrl = [baseUrl stringByAppendingFormat:@"%f", self.locationManager.location.coordinate.latitude];
+        baseUrl = [baseUrl stringByAppendingFormat:@"%@", @","];
+        baseUrl = [baseUrl stringByAppendingFormat:@"%f", self.locationManager.location.coordinate.longitude];
+        baseUrl = [baseUrl stringByAppendingFormat:@"%@", keyUrl];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+        [request setHTTPMethod:@"GET"];
+        [request setURL:[NSURL URLWithString:baseUrl]];
+        [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
+          ^(NSData * _Nullable data,
+            NSURLResponse * _Nullable response,
+            NSError * _Nullable error) {
+            NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+            NSArray *addressComponents = [JSON valueForKey:@"results"][0][@"address_components"];
+            NSLog(@"%@", addressComponents);
+            dispatch_async(dispatch_get_main_queue(), ^{
+               for (NSDictionary *dict in addressComponents) {
+                   if ([dict[@"types"] containsObject:@"street_number"]) {
+                       NSString *str = dict[@"short_name"];
+                       NSData *data = [str dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+                       NSString *newStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+                       self.streetNumberField.text = newStr;
+                   } else if ([dict[@"types"] containsObject:@"route"]) {
+                       NSString *str = dict[@"short_name"];
+                       NSData *data = [str dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+                       NSString *newStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+                       self.streetNameField.text = newStr;
+                   } else if ([dict[@"types"] containsObject:@"locality"]) {
+                       NSString *str = dict[@"short_name"];
+                       NSData *data = [str dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+                       NSString *newStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+                       self.cityField.text = newStr;
+                    } else if ([dict[@"types"] containsObject:@"administrative_area_level_1"]) {
+                        NSString *str = dict[@"short_name"];
+                        NSData *data = [str dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+                        NSString *newStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+                       self.stateField.text = newStr;
+                   } else if ([dict[@"types"] containsObject:@"postal_code"]) {
+                       NSString *str = dict[@"short_name"];
+                       NSData *data = [str dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+                       NSString *newStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+                       self.zipCodeField.text = newStr;
+                   }
+               }
+            });
+        }] resume];
+    } else {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Location services unavailable."
+               message:@"Please ensure you have granted writivist access to your location."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:YES completion:nil];
+        });
+    }
 }
 
 - (void)registerUser {

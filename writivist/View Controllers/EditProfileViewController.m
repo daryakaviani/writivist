@@ -30,8 +30,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *zipField;
 @property (weak, nonatomic) PFFileObject *pickerView;
 @property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic) CGFloat latitude;
-@property (nonatomic) CGFloat longitude;
 
 @end
 
@@ -64,8 +62,6 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
     [self.locationManager stopUpdatingLocation];
-    self.latitude = self.locationManager.location.coordinate.latitude;
-    self.longitude = self.locationManager.location.coordinate.longitude;
 }
 
 - (void)startUserLocationSearch {

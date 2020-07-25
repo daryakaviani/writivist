@@ -909,7 +909,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c6T-bh-Cvt">
                                                 <rect key="frame" x="286" y="617" width="87" height="34"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="87" id="RWQ-Zk-FZh"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="RWQ-Zk-FZh"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>

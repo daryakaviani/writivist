@@ -60,6 +60,12 @@
     [self.profileView loadInBackground];
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+    CGSize size = CGSizeMake(320, 750);
+    self.scrollView.scrollEnabled = YES;
+    self.scrollView.contentSize = size;
+}
+
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
     [self.locationManager stopUpdatingLocation];
 }

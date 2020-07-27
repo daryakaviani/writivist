@@ -115,6 +115,7 @@
     Template *template = self.templates[indexPath.row];
     cell.categoryLabel.text = template.category;
     cell.likeLabel.text = [NSString stringWithFormat:@"%@", template.likeCount];
+    cell.senderLabel.text = [NSString stringWithFormat:@"%@", template.senderCount];
     cell.titleLabel.text = template.title;
     NSDate *tempTime = template.createdAt;
     NSDate *timeAgo = [NSDate dateWithTimeInterval:0 sinceDate:tempTime];

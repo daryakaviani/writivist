@@ -219,6 +219,7 @@
         UIView *subview = templateCell.checkView.subviews[0];
         subview.hidden = YES;
         self.templateLibrary.body = @"";
+        self.templateLibrary.previewTitle = @"";
     }
     
 }

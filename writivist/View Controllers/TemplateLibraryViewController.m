@@ -114,10 +114,36 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 }
 
 - (IBAction)previewButton:(id)sender {
-    [self performSegueWithIdentifier:@"preview" sender:nil];
+    if (self.previewTitle == nil || self.body == nil || self.previewTitle.length == 0 || self.body.length == 0) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No template selected."
+               message:@"Please select a template to preview."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:YES completion:nil];
+        });
+    } else {
+        [self performSegueWithIdentifier:@"preview" sender:nil];
+    }
 }
 - (IBAction)doneButton:(id)sender {
-    [self performSegueWithIdentifier:@"selectedTemplate" sender:nil];
+    if (self.previewTitle == nil || self.body == nil || self.previewTitle.length == 0 || self.body.length == 0) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No template selected."
+               message:@"Please select a template to use in your message. If you'd like to write a message from scratch, navigate home and select your representatives from there."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:YES completion:nil];
+        });
+    } else {
+        [self performSegueWithIdentifier:@"selectedTemplate" sender:nil];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

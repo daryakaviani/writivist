@@ -62,7 +62,6 @@
     if (self.category != nil) {
         [query whereKey:@"category" equalTo:self.category];
     }
-//
     query.limit = 20;
 
     // fetch data asynchronously
@@ -119,6 +118,7 @@
         UIView *subview = templateCell.checkView.subviews[0];
         subview.hidden = YES;
         self.templateLibrary.body = @"";
+        self.templateLibrary.previewTitle = @"";
     }
     
 }

@@ -48,7 +48,7 @@
     [self fetchAddresses];
     
     self.trayDownOffset = 560;
-    self.trayUp = CGPointMake(self.trayView.center.x, self.trayView.center.y + 50);
+    self.trayUp = CGPointMake(self.trayView.center.x, self.trayView.center.y + 70);
     self.trayDown = CGPointMake(self.trayView.center.x, self.trayView.center.y + self.trayDownOffset);
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.trayView.bounds byRoundingCorners:(UIRectCornerTopLeft | UIRectCornerTopRight) cornerRadii:CGSizeMake(20.0, 20.0)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];

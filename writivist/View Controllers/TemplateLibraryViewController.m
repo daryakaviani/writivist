@@ -54,6 +54,19 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 1;
 }
+- (IBAction)shareButton:(id)sender {
+    NSString *shareString = @"Check out this letter hosted on the app Writivist! Share it with your representatives and download Writivist on the App Store to get in touch with your elected officials in seconds.";
+    shareString = [NSString stringWithFormat:@"%@\n\n%@",shareString, self.previewTitle];
+    shareString = [NSString stringWithFormat:@"%@\n\n%@",shareString, self.body];
+    NSArray *activityItems = @[shareString];
+    UIActivityViewController *activityViewControntroller = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+    activityViewControntroller.excludedActivityTypes = @[];
+    if (UIUserInterfaceIdiomPad) {
+        activityViewControntroller.popoverPresentationController.sourceView = self.view;
+        activityViewControntroller.popoverPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width/2, self.view.bounds.size.height/4, 0, 0);
+    }
+    [self presentViewController:activityViewControntroller animated:true completion:nil];
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *category = self.categories[indexPath.section];

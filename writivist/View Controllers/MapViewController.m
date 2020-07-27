@@ -76,7 +76,13 @@
        [self.mapView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
        [self.mapView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
     ]];
-    
+//    self.trayView.translatesAutoresizingMaskIntoConstraints = NO;
+//        [NSLayoutConstraint activateConstraints:@[
+//            [self.trayView.leadingAnchor constraintEqualToAnchor:self.mapView.leadingAnchor],
+//           [self.trayView.trailingAnchor constraintEqualToAnchor:self.mapView.trailingAnchor],
+//            [self.trayView.bottomAnchor constraintEqualToAnchor:self.mapView.bottomAnchor],
+//    //        [self.trayView.heightAnchor constraintEqualToConstant:self.mapView.layer.frame.size.height/2]
+//        ]];
 }
 
 - (void)startUserLocationSearch {

@@ -19,6 +19,7 @@
 #import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface ProfileViewController ()<UITableViewDelegate, UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet PFImageView *profileView;
@@ -27,7 +28,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *templatesPublishedLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
-//@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) PFFileObject *pickerView;
 @property (strong, nonatomic) NSArray *templates;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
@@ -51,7 +51,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.tableView addSubview:self.refreshControl];
+    [self.scrollView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(fetchTemplates) forControlEvents:UIControlEventValueChanged];
     // Do any additional setup after loading the view.
 }
@@ -63,6 +63,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self updateInformation];
+    [self fetchTemplates];
 }
 
 -(void)updateInformation{

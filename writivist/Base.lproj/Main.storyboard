@@ -930,6 +930,7 @@
                         <outlet property="letterCountLabel" destination="uDK-3x-Be4" id="9jY-oG-aq0"/>
                         <outlet property="nameLabel" destination="27D-Vu-NYT" id="M6f-lb-Qac"/>
                         <outlet property="profileView" destination="Ajf-Ow-BoB" id="uzz-j4-LeB"/>
+                        <outlet property="scrollView" destination="2XP-gE-dFW" id="BiU-Gw-NLn"/>
                         <outlet property="tableView" destination="w2z-9g-hW8" id="kwW-dz-q5V"/>
                         <outlet property="templateLikeLabel" destination="W1x-G4-4yn" id="HiL-2L-MNY"/>
                         <outlet property="templatesPublishedLabel" destination="kpE-yg-Bcx" id="hl9-lq-tCt"/>

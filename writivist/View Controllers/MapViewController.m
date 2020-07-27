@@ -43,6 +43,8 @@
     self.mapView = [GMSMapView mapWithFrame:self.view.frame camera:camera];
     [self.view addSubview:self.mapView];
     [self.view insertSubview:self.trayView aboveSubview:self.mapView];
+    [self constrainMap];
+    
     [self fetchAddresses];
     
     self.trayDownOffset = 560;
@@ -66,6 +68,16 @@
     self.trayView.center = self.trayDown;
 }
 
+- (void) constrainMap {
+    self.mapView.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+        [self.mapView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+       [self.mapView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+       [self.mapView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
+       [self.mapView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
+    ]];
+    
+}
 
 - (void)startUserLocationSearch {
     self.locationManager = [[CLLocationManager alloc]init];

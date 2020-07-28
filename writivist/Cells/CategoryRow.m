@@ -73,6 +73,10 @@
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.spinner stopAnimating];
+            self.spinner.hidden = YES;
+        });
     }];
 }
 

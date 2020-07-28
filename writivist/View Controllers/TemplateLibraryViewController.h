@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) TemplateCell * _Nullable currentCell;
 @property (strong, nonatomic) User *user;
 @property (strong, nonatomic) Template * _Nullable currentTemplate;
+@property (strong, nonatomic) UIActivityIndicatorView *spinner;
 
 
 @end

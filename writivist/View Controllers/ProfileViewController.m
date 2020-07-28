@@ -44,7 +44,6 @@
         self.editButton.tintColor = [UIColor clearColor];
         self.editButton.enabled = NO;
     }
-    self.navigationController.navigationBar.tintColor = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:1];
     self.templates = [[NSArray alloc] init];
     [self fetchTemplates];
     [self updateInformation];

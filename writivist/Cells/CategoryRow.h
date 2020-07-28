@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSArray *templates;
 @property (strong, nonatomic) TemplateLibraryViewController *templateLibrary;
 @property (nonatomic) NSInteger *indexPathItem;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 - (void) setCategory: (NSString *) category;
 - (void)fetchTemplates;

@@ -96,6 +96,10 @@
                         NSLog(@"%@", error.localizedDescription);
                     }
                     [self rankTemplates];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.spinner stopAnimating];
+                        self.spinner.hidden = YES;
+                    });
                 }];
         }];
     }];

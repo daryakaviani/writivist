@@ -76,7 +76,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
             staticCell.templateLibrary = self;
             self.body = @"";
             staticCell.tag = indexPath.section;
-            [self.spinner startAnimating];
+            [staticCell.spinner startAnimating];
             [staticCell.collectionView reloadData];
             [staticCell.collectionView.collectionViewLayout invalidateLayout];
             [staticCell setCategory:category];

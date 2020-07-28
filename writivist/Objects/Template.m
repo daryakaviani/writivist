@@ -23,6 +23,7 @@
     newTemplate.author = [User currentUser];
     newTemplate.likeCount = @(0);
     newTemplate.senderCount = @(0);
+    newTemplate.saveCount = @(0);
     newTemplate.body = body;
     newTemplate.category = category;
     newTemplate.title = title;

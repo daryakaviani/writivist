@@ -77,6 +77,10 @@ int skip = 20;
     self.collectionView.contentInset = insets;
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+    skip = 0;
+}
+
 - (IBAction)shareButton:(id)sender {
     NSString *shareString = @"Check out this letter hosted on the app Writivist! Share it with your representatives and download Writivist on the App Store to get in touch with your elected officials in seconds.";
     shareString = [NSString stringWithFormat:@"%@\n\n%@",shareString, self.previewTitle];
@@ -213,6 +217,7 @@ int skip = 20;
                 [self.refreshControl endRefreshing];
                 [self.spinner stopAnimating];
                 self.spinner.hidden = YES;
+//                [self.collectionView reloadData];
             }];
         } else {
             PFQuery *query = [Template query];
@@ -342,6 +347,7 @@ int skip = 20;
                             [self.collectionView reloadData];
                         }];
                     }
+//                    [self.collectionView reloadData];
                 } else {
                     NSLog(@"%@", error.localizedDescription);
                 }

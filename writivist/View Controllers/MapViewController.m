@@ -117,8 +117,6 @@
     [self.locationManager startUpdatingLocation];
 }
 - (IBAction)didPanTray:(UIPanGestureRecognizer*)sender {
-//    self.trayUp = CGPointMake(self.trayView.center.x, self.trayView.center.y);
-//    self.trayDown = CGPointMake(self.trayView.center.x, self.trayView.center.y + self.trayDownOffset);
     CGPoint translation = [sender translationInView:self.view];
     if (sender.state == UIGestureRecognizerStateBegan) {
         self.trayOriginalCenter = self.trayView.center;

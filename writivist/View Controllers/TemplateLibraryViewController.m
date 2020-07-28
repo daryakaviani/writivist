@@ -56,8 +56,8 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 }
 - (IBAction)shareButton:(id)sender {
     NSString *shareString = @"Check out this letter hosted on the app Writivist! Share it with your representatives and download Writivist on the App Store to get in touch with your elected officials in seconds.";
-    shareString = [NSString stringWithFormat:@"%@\n\n%@",shareString, self.previewTitle];
-    shareString = [NSString stringWithFormat:@"%@\n\n%@",shareString, self.body];
+    shareString = [NSString stringWithFormat:@"%@\n\n%@",shareString, self.currentTemplate.title];
+    shareString = [NSString stringWithFormat:@"%@\n\n%@",shareString, self.currentTemplate.body];
     NSArray *activityItems = @[shareString];
     UIActivityViewController *activityViewControntroller = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
     activityViewControntroller.excludedActivityTypes = @[];
@@ -74,7 +74,6 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
         case 0:{
             SuggestedCell *staticCell = (SuggestedCell *) [tableView dequeueReusableCellWithIdentifier:@"SuggestedCell"];
             staticCell.templateLibrary = self;
-            self.body = @"";
             staticCell.tag = indexPath.section;
             [staticCell.spinner startAnimating];
             [staticCell.collectionView reloadData];
@@ -85,7 +84,6 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
         default:{
             CategoryRow *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             cell.templateLibrary = self;
-            self.body = @"";
             cell.tag = indexPath.section;
             [cell.spinner startAnimating];
             [cell.collectionView reloadData];
@@ -133,7 +131,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 }
 
 - (IBAction)previewButton:(id)sender {
-    if (self.previewTitle == nil || self.body == nil || self.previewTitle.length == 0 || self.body.length == 0) {
+    if (self.currentTemplate == nil) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No template selected."
                message:@"Please select a template to preview."
         preferredStyle:(UIAlertControllerStyleAlert)];
@@ -149,7 +147,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     }
 }
 - (IBAction)doneButton:(id)sender {
-    if (self.previewTitle == nil || self.body == nil || self.previewTitle.length == 0 || self.body.length == 0) {
+    if (self.currentTemplate == nil) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No template selected."
                message:@"Please select a template to use in your message. If you'd like to write a message from scratch, navigate home and select your representatives from there."
         preferredStyle:(UIAlertControllerStyleAlert)];
@@ -196,10 +194,8 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"selectedTemplate"]) {
         HomeViewController *homeViewController = [segue destinationViewController];
-        homeViewController.body = self.body;
+        homeViewController.body = self.currentTemplate.body;
         homeViewController.currentTemplate = self.currentTemplate;
-        self.body = @"";
-        self.previewTitle = @"";
         TemplateCell *current = self.currentCell;
         UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
         current.checkView.backgroundColor = color;
@@ -209,8 +205,8 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     }
     if ([segue.identifier isEqualToString:@"preview"]) {
         PreviewViewController *previewViewController = [segue destinationViewController];
-        previewViewController.templateTitle = self.previewTitle;
-        previewViewController.body = self.body;
+        previewViewController.templateTitle = self.currentTemplate.title;
+        previewViewController.body = self.currentTemplate.body;
     }
     if ([segue.identifier isEqualToString:@"profileSegue"]) {
         ProfileViewController *profileViewController = [segue destinationViewController];

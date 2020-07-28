@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) NSArray *templates;
 @property (nonatomic, strong) TemplateCell *currentCell;
+@property (nonatomic, strong) Template *currentTemplate;
 @property (nonatomic, strong) NSString *body;
 @property (nonatomic, strong) NSString *previewTitle;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
@@ -78,7 +79,7 @@ int skip = 20;
 }
 
 - (void) viewDidAppear:(BOOL)animated {
-    skip = 0;
+    skip = 20;
 }
 
 - (IBAction)shareButton:(id)sender {
@@ -269,6 +270,7 @@ int skip = 20;
         prevCell.temp.selected = false;
         prevSubview.hidden = YES;
         self.currentCell = templateCell;
+        self.currentTemplate = temp;
         UIView *subview = templateCell.checkView.subviews[0];
         subview.hidden = NO;
         self.body = temp.body;
@@ -294,11 +296,15 @@ int skip = 20;
     cell.otherDelegate = self;
     cell.delegate = self;
     [cell setTemplate:template];
-    if (cell.temp.selected == true) {
+    if (template.selected == true && [self.currentTemplate.objectId isEqualToString:template.objectId]) {
+        self.currentCell = cell;
         UIColor *color = [[UIColor alloc]initWithRed:178/255.0 green:223/255.0 blue:219/255.0 alpha:0.4];
         cell.checkView.backgroundColor = color;
         UIView *subview = cell.checkView.subviews[0];
         subview.hidden = NO;
+    } else if (template.selected) {
+        template.selected = false;
+        [template saveInBackground];
     } else {
         UIColor *color = [UIColor clearColor];
         cell.checkView.backgroundColor = color;

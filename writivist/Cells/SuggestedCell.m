@@ -35,13 +35,17 @@
     cell.otherDelegate = self.templateLibrary;
     cell.templateLibrary = self.templateLibrary;
     [cell setTemplate:template];
-    if (cell.temp.selected == true) {
-        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0.5];
+    if (template.selected == true && [self.templateLibrary.currentTemplate.objectId isEqualToString:template.objectId]) {
+        self.templateLibrary.currentCell = cell;
+        UIColor *color = [[UIColor alloc]initWithRed:178/255.0 green:223/255.0 blue:219/255.0 alpha:0.4];
         cell.checkView.backgroundColor = color;
         UIView *subview = cell.checkView.subviews[0];
         subview.hidden = NO;
+    } else if (template.selected) {
+        template.selected = false;
+        [template saveInBackground];
     } else {
-        UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];
+        UIColor *color = [UIColor clearColor];
         cell.checkView.backgroundColor = color;
         UIView *subview = cell.checkView.subviews[0];
         subview.hidden = YES;
@@ -214,8 +218,9 @@
         self.templateLibrary.currentTemplate = templateCell.temp;
         UIView *subview = templateCell.checkView.subviews[0];
         subview.hidden = NO;
-        self.templateLibrary.body = temp.body;
-        self.templateLibrary.previewTitle = temp.title;
+        self.templateLibrary.currentTemplate = temp;
+        [temp saveInBackground];
+        [prevCell.temp saveInBackground];
     } else if (temp.selected == true) {
         UIColor *color = [UIColor clearColor];
         templateCell.checkView.backgroundColor = color;
@@ -224,8 +229,8 @@
         self.templateLibrary.currentTemplate = nil;
         UIView *subview = templateCell.checkView.subviews[0];
         subview.hidden = YES;
-        self.templateLibrary.body = @"";
-        self.templateLibrary.previewTitle = @"";
+        self.templateLibrary.currentTemplate = nil;
+        [temp saveInBackground];
     }
     
 }

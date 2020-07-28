@@ -113,13 +113,18 @@
     cell.categoryLabel.text = template.category;
     cell.likeLabel.text = [NSString stringWithFormat:@"%@", template.likeCount];
     cell.senderLabel.text = [NSString stringWithFormat:@"%@", template.senderCount];
-    cell.titleLabel.text = template.title;
-    if (template.isPrivate) {
-        cell.privacySwitch.on = NO;
-        cell.publicityText.text = @"Private";
+    if ([self.user.username isEqual:[User currentUser].username]) {
+        cell.titleLabel.text = template.title;
+        if (template.isPrivate) {
+            cell.privacySwitch.on = NO;
+            cell.publicityText.text = @"Private";
+        } else {
+            cell.privacySwitch.on = YES;
+            cell.publicityText.text = @"Public";
+        }
     } else {
-        cell.privacySwitch.on = YES;
-        cell.publicityText.text = @"Public";
+        cell.privacySwitch.hidden = YES;
+        cell.publicityText.hidden = YES;
     }
     NSDate *tempTime = template.createdAt;
     NSDate *timeAgo = [NSDate dateWithTimeInterval:0 sinceDate:tempTime];

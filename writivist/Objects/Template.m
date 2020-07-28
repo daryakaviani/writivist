@@ -24,6 +24,7 @@
     newTemplate.body = body;
     newTemplate.category = category;
     newTemplate.title = title;
+    newTemplate.isPrivate = NO;
     [newTemplate saveInBackgroundWithBlock: completion];
 }
 

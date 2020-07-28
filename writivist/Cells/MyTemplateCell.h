@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Template.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *categoryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *likeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *senderLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *privacySwitch;
+@property (strong, nonatomic) Template *temp;
 
 @end
 

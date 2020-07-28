@@ -38,7 +38,6 @@
     MKDropdownMenu *dropdownMenu = [[MKDropdownMenu alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     self.dropdownMenu = dropdownMenu;
     [dropdownMenu setComponentTextAlignment:NSTextAlignmentLeft];
-//    [dropdownMenu setDisclosureIndicatorImage:[UIImage imageNamed:@"download.png"]];
     [dropdownMenu setDropdownBackgroundColor:[[UIColor alloc]initWithRed:178/255.0 green:223/255.0 blue:219/255.0 alpha:1]];
     [dropdownMenu setDropdownCornerRadius:8];
     dropdownMenu.dataSource = self;

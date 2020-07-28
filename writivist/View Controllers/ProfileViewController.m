@@ -114,10 +114,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MyTemplateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyTemplateCell"];
     Template *template = self.templates[indexPath.row];
+    cell.temp = template;
     cell.categoryLabel.text = template.category;
     cell.likeLabel.text = [NSString stringWithFormat:@"%@", template.likeCount];
     cell.senderLabel.text = [NSString stringWithFormat:@"%@", template.senderCount];
     cell.titleLabel.text = template.title;
+    if (template.isPrivate) {
+        cell.privacySwitch.on = false;
+    } else {
+        cell.privacySwitch.on = true;
+    }
     NSDate *tempTime = template.createdAt;
     NSDate *timeAgo = [NSDate dateWithTimeInterval:0 sinceDate:tempTime];
     cell.timestampLabel.text = timeAgo.timeAgoSinceNow;

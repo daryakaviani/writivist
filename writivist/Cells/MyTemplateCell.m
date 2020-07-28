@@ -14,6 +14,16 @@
     [super awakeFromNib];
     // Initialization code
 }
+- (IBAction)privacySwitch:(id)sender {
+    self.temp.isPrivate = !self.temp.isPrivate;
+    [self.temp saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (self.privacySwitch.on) {
+            self.privacySwitch.on = NO;
+        } else {
+            self.privacySwitch.on = YES;
+        }
+    }];
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

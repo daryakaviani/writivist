@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) User *user;
 - (void)updateInformation;
-
+- (void)fetchTemplates;
 @end
 
 NS_ASSUME_NONNULL_END

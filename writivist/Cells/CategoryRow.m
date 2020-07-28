@@ -59,6 +59,7 @@
     PFQuery *query = [Template query];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"author"];
+    [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
     if (self.category != nil) {
         [query whereKey:@"category" equalTo:self.category];
     }

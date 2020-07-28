@@ -72,11 +72,12 @@ int skip = 20;
     self.collectionView.contentInset = insets;
 }
 
--(void)loadMoreData{
+-(void) loadMoreData {
     // construct query
     PFQuery *query = [Template query];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"author"];
+    [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
     [query whereKey:@"category" equalTo:self.category];
     query.limit = 20;
     query.skip = skip;
@@ -127,6 +128,7 @@ int skip = 20;
     PFQuery *query = [Template query];
     [query orderByDescending:@"createdAt"];
     [query  includeKey:@"author"];
+    [query whereKey:@"isPrivate" equalTo:@"False"];
     if (self.category != nil) {
         [query whereKey:@"category" equalTo:self.category];
     }
@@ -224,6 +226,7 @@ int skip = 20;
         PFQuery *query = [Template query];
         [query orderByDescending:@"createdAt"];
         [query  includeKey:@"author"];
+        [query whereKey:@"isPrivate" equalTo:@"False"];
         [query whereKey:@"category" equalTo:self.category];
         // fetch data asynchronously
         [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {

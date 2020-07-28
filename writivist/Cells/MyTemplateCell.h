@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *senderLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *privacySwitch;
 @property (strong, nonatomic) Template *temp;
+@property (weak, nonatomic) IBOutlet UILabel *publicityText;
 
 @end
 

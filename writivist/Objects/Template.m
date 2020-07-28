@@ -11,12 +11,13 @@
 @dynamic body;
 @dynamic category;
 @dynamic title;
+@dynamic isPrivate;
 
 + (nonnull NSString *)parseClassName {
     return @"Template";
 }
 
-+ (void) postUserTemplate: ( NSString * _Nullable )body withCategory: ( NSString * _Nullable )category withTitle: ( NSString * _Nullable )title withCompletion: (PFBooleanResultBlock  _Nullable)completion {
++ (void) postUserTemplate: ( NSString * _Nullable )body withCategory: ( NSString * _Nullable )category withTitle: ( NSString * _Nullable )title withPrivacy: (BOOL *_Nonnull)isPrivate withCompletion: (PFBooleanResultBlock  _Nullable)completion {
     Template *newTemplate = [Template new];
     newTemplate.author = [User currentUser];
     newTemplate.likeCount = @(0);
@@ -24,7 +25,7 @@
     newTemplate.body = body;
     newTemplate.category = category;
     newTemplate.title = title;
-    newTemplate.isPrivate = NO;
+    newTemplate.isPrivate = isPrivate;
     [newTemplate saveInBackgroundWithBlock: completion];
 }
 

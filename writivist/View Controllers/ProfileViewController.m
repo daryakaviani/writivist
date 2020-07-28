@@ -55,10 +55,6 @@
     [self.refreshControl addTarget:self action:@selector(fetchTemplates) forControlEvents:UIControlEventValueChanged];
     // Do any additional setup after loading the view.
 }
-- (IBAction)refreshButton:(id)sender {
-    [self updateInformation];
-    [self fetchTemplates];
-}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -120,9 +116,11 @@
     cell.senderLabel.text = [NSString stringWithFormat:@"%@", template.senderCount];
     cell.titleLabel.text = template.title;
     if (template.isPrivate) {
-        cell.privacySwitch.on = false;
+        cell.privacySwitch.on = NO;
+        cell.publicityText.text = @"Private";
     } else {
-        cell.privacySwitch.on = true;
+        cell.privacySwitch.on = YES;
+        cell.publicityText.text = @"Public";
     }
     NSDate *tempTime = template.createdAt;
     NSDate *timeAgo = [NSDate dateWithTimeInterval:0 sinceDate:tempTime];

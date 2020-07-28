@@ -19,6 +19,8 @@
 @property (strong, nonatomic) NSString *category;
 @property (strong, nonatomic) NSString *navTitle;
 @property (strong, nonatomic) MKDropdownMenu *dropdownMenu;
+@property (weak, nonatomic) IBOutlet UILabel *publicityText;
+@property (weak, nonatomic) IBOutlet UISwitch *privacySwitch;
 
 @end
 
@@ -70,6 +72,13 @@
 - (void)didMoveToParentViewController:(UIViewController *)parent {
     [self.dropdownMenu closeAllComponentsAnimated:YES];
 }
+- (IBAction)privacySwitch:(id)sender {
+    if (self.privacySwitch.on) {
+        self.publicityText.text = @"Public";
+    } else {
+        self.publicityText.text = @"Private";
+    }
+}
 
 
 - (IBAction)shareButton:(id)sender {
@@ -98,7 +107,7 @@
         int val = [user.templateCount intValue];
         user.templateCount = [NSNumber numberWithInt:(val + 1)];
         [user saveInBackground];
-        [Template postUserTemplate:self.letterField.text withCategory:self.category withTitle:self.subjectField.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        [Template postUserTemplate:self.letterField.text withCategory:self.category withTitle:self.subjectField.text withPrivacy:!self.privacySwitch.on withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
             [self performSegueWithIdentifier:@"postedTemplate" sender:nil];
         }];
     }

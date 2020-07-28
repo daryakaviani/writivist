@@ -59,6 +59,7 @@
     PFQuery *senderQuery = [Template query];
     [senderQuery orderByDescending:@"senderCount"];
     [senderQuery includeKey:@"author"];
+    [senderQuery whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
     senderQuery.limit = 20;
     // fetch data asynchronously
     [senderQuery findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
@@ -71,6 +72,7 @@
         PFQuery *likeQuery = [Template query];
         [likeQuery orderByDescending:@"likeCount"];
         [likeQuery includeKey:@"author"];
+        [likeQuery whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
         likeQuery.limit = 20;
 
         // fetch data asynchronously

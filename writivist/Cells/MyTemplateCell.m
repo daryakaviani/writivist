@@ -17,10 +17,12 @@
 - (IBAction)privacySwitch:(id)sender {
     self.temp.isPrivate = !self.temp.isPrivate;
     [self.temp saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if (self.privacySwitch.on) {
+        if (self.temp.isPrivate) {
             self.privacySwitch.on = NO;
+            self.publicityText.text = @"Private";
         } else {
             self.privacySwitch.on = YES;
+            self.publicityText.text = @"Public";
         }
     }];
 }

@@ -91,7 +91,7 @@ int skip = 20;
     [self presentViewController:activityViewControntroller animated:true completion:nil];
 }
 
--(void) loadMoreData {
+- (void) loadMoreData {
     if (self.saved) {
         PFQuery *query = [Template query];
         [query orderByDescending:@"createdAt"];

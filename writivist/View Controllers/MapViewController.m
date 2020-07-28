@@ -21,7 +21,6 @@
 @property (nonatomic, strong) NSArray *offices;
 @property (nonatomic, strong) GMSPlacesClient *placesClient;
 @property (nonatomic) CGPoint trayOriginalCenter;
-@property (nonatomic) CGFloat trayDownOffset;
 @property (nonatomic) CGPoint trayUp;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
@@ -32,7 +31,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self startUserLocationSearch];
-    
     self.navigationItem.title = @"find my reps.";
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:40], NSForegroundColorAttributeName : [UIColor labelColor]};
@@ -47,9 +45,8 @@
     
     [self fetchAddresses];
     
-    self.trayDownOffset = 560;
-    self.trayUp = CGPointMake(self.trayView.center.x, self.trayView.center.y + 70);
-    self.trayDown = CGPointMake(self.trayView.center.x, self.trayView.center.y + self.trayDownOffset);
+    self.trayUp = CGPointMake(self.view.frame.size.width/2, 0.6 * self.view.frame.size.height);
+    self.trayDown = CGPointMake(self.view.frame.size.width/2, 1.2 * self.view.frame.size.height);
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.trayView.bounds byRoundingCorners:(UIRectCornerTopLeft | UIRectCornerTopRight) cornerRadii:CGSizeMake(20.0, 20.0)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
     maskLayer.frame = self.view.bounds;
@@ -61,6 +58,31 @@
     [panRecognizer setMinimumNumberOfTouches:1];
     [panRecognizer setMaximumNumberOfTouches:1];
     [self.trayView addGestureRecognizer:panRecognizer];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator {
+    self.trayUp = CGPointMake(size.width/2, 0.6 * size.height);
+    self.trayDown = CGPointMake(size.width/2, 1.2 * size.height);
+    NSLog(@"%f", size.height);
+    NSLog(@"%f", size.width);
+    [coordinator animateAlongsideTransition:^(id  _Nonnull context) {
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.trayView.bounds byRoundingCorners:(UIRectCornerTopLeft | UIRectCornerTopRight) cornerRadii:CGSizeMake(20.0, 20.0)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame = self.view.bounds;
+        maskLayer.path  = maskPath.CGPath;
+        self.trayView.layer.mask = maskLayer;
+        self.trayView.center = self.trayDown;
+        
+        UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPanTray:)];
+        [panRecognizer setMinimumNumberOfTouches:1];
+        [panRecognizer setMaximumNumberOfTouches:1];
+        [self.trayView addGestureRecognizer:panRecognizer];
+        
+    } completion:^(id  _Nonnull context) {
+        
+        // after rotation
+        
+    }];
 }
 - (IBAction)centerLocation:(id)sender {
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithTarget:self.locationManager.location.coordinate zoom:8];
@@ -76,12 +98,11 @@
        [self.mapView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
        [self.mapView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
     ]];
-//    self.trayView.translatesAutoresizingMaskIntoConstraints = NO;
 //        [NSLayoutConstraint activateConstraints:@[
 //            [self.trayView.leadingAnchor constraintEqualToAnchor:self.mapView.leadingAnchor],
 //           [self.trayView.trailingAnchor constraintEqualToAnchor:self.mapView.trailingAnchor],
 //            [self.trayView.bottomAnchor constraintEqualToAnchor:self.mapView.bottomAnchor],
-//    //        [self.trayView.heightAnchor constraintEqualToConstant:self.mapView.layer.frame.size.height/2]
+//            [self.trayView.heightAnchor constraintEqualToConstant:self.mapView.layer.frame.size.height/2]
 //        ]];
 }
 
@@ -96,6 +117,8 @@
     [self.locationManager startUpdatingLocation];
 }
 - (IBAction)didPanTray:(UIPanGestureRecognizer*)sender {
+//    self.trayUp = CGPointMake(self.trayView.center.x, self.trayView.center.y);
+//    self.trayDown = CGPointMake(self.trayView.center.x, self.trayView.center.y + self.trayDownOffset);
     CGPoint translation = [sender translationInView:self.view];
     if (sender.state == UIGestureRecognizerStateBegan) {
         self.trayOriginalCenter = self.trayView.center;

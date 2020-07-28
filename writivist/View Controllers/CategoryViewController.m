@@ -113,15 +113,15 @@ int skip = 20;
                                 [savedTemplates addObject:template];
                             }
                         }
-                        NSArray *newArray = [self.filteredData arrayByAddingObjectsFromArray:savedTemplates];
-                        self.templates = (NSMutableArray *) newArray;
-                        self.filteredData = (NSMutableArray *) newArray;
-                        skip += savedTemplates.count;
-                        isMoreDataLoading = false;
-                        [loadingMoreView stopAnimating];
-                        [self.collectionView reloadData];
                     }];
                 }
+                NSArray *newArray = [self.filteredData arrayByAddingObjectsFromArray:savedTemplates];
+                self.templates = (NSMutableArray *) newArray;
+                self.filteredData = (NSMutableArray *) newArray;
+                skip += savedTemplates.count;
+                isMoreDataLoading = false;
+                [loadingMoreView stopAnimating];
+                [self.collectionView reloadData];
             } else {
                 NSLog(@"%@", error.localizedDescription);
             }

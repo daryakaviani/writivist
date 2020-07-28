@@ -19,6 +19,7 @@
 @interface CategoryViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, ProfileDelegate, UISearchBarDelegate, TemplateCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) NSArray *templates;
 @property (nonatomic, strong) TemplateCell *currentCell;
 @property (nonatomic, strong) NSString *body;
@@ -37,7 +38,7 @@ int skip = 20;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"%@", self.category);
+    [self.spinner startAnimating];
     self.navigationController.navigationBar.tintColor = [[UIColor alloc]initWithRed:96/255.0 green:125/255.0 blue:139/255.0 alpha:1];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
@@ -70,6 +71,19 @@ int skip = 20;
     UIEdgeInsets insets = self.collectionView.contentInset;
     insets.bottom += InfiniteScrollActivityView.defaultHeight;
     self.collectionView.contentInset = insets;
+}
+- (IBAction)shareButton:(id)sender {
+    NSString *shareString = @"Check out this letter hosted on the app Writivist! Share it with your representatives and download Writivist on the App Store to get in touch with your elected officials in seconds.";
+    shareString = [NSString stringWithFormat:@"%@\n\n%@",shareString, self.previewTitle];
+    shareString = [NSString stringWithFormat:@"%@\n\n%@",shareString, self.body];
+    NSArray *activityItems = @[shareString];
+    UIActivityViewController *activityViewControntroller = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+    activityViewControntroller.excludedActivityTypes = @[];
+    if (UIUserInterfaceIdiomPad) {
+        activityViewControntroller.popoverPresentationController.sourceView = self.view;
+        activityViewControntroller.popoverPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width/2, self.view.bounds.size.height/4, 0, 0);
+    }
+    [self presentViewController:activityViewControntroller animated:true completion:nil];
 }
 
 -(void) loadMoreData {
@@ -144,6 +158,8 @@ int skip = 20;
             NSLog(@"%@", error.localizedDescription);
         }
         [self.refreshControl endRefreshing];
+        [self.spinner stopAnimating];
+        self.spinner.hidden = YES;
     }];
 }
 

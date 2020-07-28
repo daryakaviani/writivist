@@ -1506,6 +1506,10 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
+                                <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" id="xPu-eP-Ufa">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="752"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </activityIndicatorView>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TemplateCell" id="ypz-8W-7Lm" customClass="TemplateCell">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
@@ -1635,6 +1639,12 @@
                                     <segue destination="3yW-d3-FQE" kind="show" identifier="selectedTemplate" id="glp-DH-tfj"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem systemItem="action" id="Ctz-jC-A78">
+                                <color key="tintColor" red="0.37647058820000001" green="0.49019607840000001" blue="0.5450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="shareButton:" destination="Alw-S1-ZA3" id="VMt-zQ-qDG"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem title="Preview" image="doc.text" catalog="system" id="EDn-RC-lUM">
                                 <color key="tintColor" red="0.37647058823529411" green="0.49019607843137253" blue="0.54509803921568623" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -1646,6 +1656,7 @@
                     <connections>
                         <outlet property="collectionView" destination="TbJ-hs-877" id="rYw-cs-SDM"/>
                         <outlet property="searchBar" destination="kUk-CC-nJe" id="xph-ru-ce2"/>
+                        <outlet property="spinner" destination="xPu-eP-Ufa" id="5wd-Fg-rRD"/>
                         <segue destination="Gyg-a9-A0H" kind="show" identifier="profileSegue" id="hPE-iF-O2s"/>
                     </connections>
                 </viewController>
@@ -2095,10 +2106,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="FIB-93-9Mk"/>
+        <segue reference="glp-DH-tfj"/>
         <segue reference="NWH-Dg-Zb7"/>
-        <segue reference="cHr-Rj-NO5"/>
-        <segue reference="BUt-yG-D0s"/>
+        <segue reference="PuW-oL-poE"/>
+        <segue reference="hPE-iF-O2s"/>
         <segue reference="0nU-vq-fGN"/>
     </inferredMetricsTieBreakers>
     <resources>

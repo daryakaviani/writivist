@@ -34,10 +34,6 @@
     [relation addObject:user];
     int val = [temp.likeCount intValue];
     temp.likeCount = [NSNumber numberWithInt:(val + 1)];
-    
-//    int authorVal = [temp.author.likeCount intValue];
-//    temp.author.likeCount = [NSNumber numberWithInt:(authorVal + 1)];
-//    [temp.author saveInBackground];
     [temp saveInBackground];
 }
 
@@ -46,10 +42,6 @@
     [relation removeObject:user];
     int val = [temp.likeCount intValue];
     temp.likeCount = [NSNumber numberWithInt:(val - 1)];
-    
-//    int authorVal = [temp.author.likeCount intValue];
-//    temp.author.likeCount = [NSNumber numberWithInt:(authorVal - 1)];
-//    [temp.author saveInBackground];
     [temp saveInBackground];
 }
 

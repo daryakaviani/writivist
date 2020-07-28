@@ -6,6 +6,7 @@
 
 @property (nonatomic, strong) User * _Nonnull author;
 @property (nonatomic, strong) NSNumber  * _Nonnull likeCount;
+@property (nonatomic, strong) NSNumber  * _Nonnull saveCount;
 @property (nonatomic, strong) NSNumber  * _Nonnull senderCount;
 @property (nonatomic, strong) NSString  * _Nonnull category;
 @property (nonatomic, strong) NSString  * _Nonnull body;
@@ -16,5 +17,8 @@
 + (void) postUserTemplate: ( NSString * _Nullable )body withCategory: ( NSString * _Nullable )category withTitle: ( NSString * _Nullable )title withPrivacy: (BOOL *_Nonnull)isPrivate withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 + (void) postUserLike: ( User * _Nullable)user withTemplate: ( Template * _Nullable ) temp withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 + (void) postUserUnlike: ( User * _Nullable)user withTemplate: ( Template * _Nullable ) temp withCompletion: (PFBooleanResultBlock  _Nullable)completion;
++ (void) postUserSave: ( User * _Nullable)user withTemplate: ( Template * _Nullable ) temp withCompletion: (PFBooleanResultBlock  _Nullable)completion;
++ (void) postUserUnsave: ( User * _Nullable)user withTemplate: ( Template * _Nullable ) temp withCompletion: (PFBooleanResultBlock  _Nullable)completion;
+
 
 @end

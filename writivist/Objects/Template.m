@@ -12,6 +12,7 @@
 @dynamic category;
 @dynamic title;
 @dynamic isPrivate;
+@dynamic saveCount;
 
 + (nonnull NSString *)parseClassName {
     return @"Template";
@@ -42,6 +43,22 @@
     [relation removeObject:user];
     int val = [temp.likeCount intValue];
     temp.likeCount = [NSNumber numberWithInt:(val - 1)];
+    [temp saveInBackground];
+}
+
++ (void) postUserSave: ( User * _Nullable)user withTemplate: ( Template * _Nullable ) temp withCompletion: (PFBooleanResultBlock  _Nullable)completion {
+    PFRelation *relation = [temp relationForKey:@"savedBy"];
+    [relation addObject:user];
+    int val = [temp.saveCount intValue];
+    temp.saveCount = [NSNumber numberWithInt:(val + 1)];
+    [temp saveInBackground];
+}
+
++ (void) postUserUnsave: ( User * _Nullable)user withTemplate: ( Template * _Nullable ) temp withCompletion: (PFBooleanResultBlock  _Nullable)completion {
+    PFRelation *relation = [temp relationForKey:@"savedBy"];
+    [relation removeObject:user];
+    int val = [temp.saveCount intValue];
+    temp.saveCount = [NSNumber numberWithInt:(val - 1)];
     [temp saveInBackground];
 }
 

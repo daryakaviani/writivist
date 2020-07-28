@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *senderLabel;
 @property (strong, nonatomic) TemplateLibraryViewController *templateLibrary;
 @property (weak, nonatomic) IBOutlet UILabel *categoryLabel;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
 - (void)setTemplate:(Template *)template;
 

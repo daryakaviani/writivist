@@ -29,6 +29,7 @@
     self.titleLabel.text = template.title;
     self.categoryLabel.text = template.category;
     [self fetchLikes];
+    [self fetchSaves];
     [self roundImage];
     PFFileObject *data = self.temp.author.profilePicture;
     [data getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error) {
@@ -42,6 +43,29 @@
     NSDate *tempTime = template.createdAt;
     NSDate *timeAgo = [NSDate dateWithTimeInterval:0 sinceDate:tempTime];
     self.timestampLabel.text = timeAgo.timeAgoSinceNow;
+}
+- (IBAction)saveButton:(id)sender {
+    __block bool containsUser = false;
+    PFRelation *relation = [self.temp relationForKey:@"savedBy"];
+    PFQuery *query = [relation query];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        for (User *user in objects) {
+            if ([user.username isEqual:[User currentUser].username]) {
+                self.saveButton.selected = NO;
+                containsUser = true;
+                NSLog(@"Found user");
+                [Template postUserUnsave:[User currentUser] withTemplate:self.temp withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                }];
+            }
+            break;
+        }
+        if (!containsUser) {
+            NSLog(@"Did not find user");
+            self.saveButton.selected = YES;
+            [Template postUserSave:[User currentUser] withTemplate:self.temp withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            }];
+        }
+    }];
 }
 - (IBAction)likeButton:(id)sender {
     __block bool containsUser = false;
@@ -97,6 +121,26 @@
         self.likeLabel.text = [NSString stringWithFormat:@"%@", self.temp.likeCount];
     }];
 }
+     
+ - (void)fetchSaves {
+     __block bool containsUser = false;
+     PFRelation *relation = [self.temp relationForKey:@"savedBy"];
+     PFQuery *query = [relation query];
+     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+         for (User *user in objects) {
+             if ([user.username isEqual:[User currentUser].username]) {
+                self.saveButton.selected = YES;
+                containsUser = true;
+             }
+             break;
+         }
+         if (!containsUser) {
+             self.saveButton.selected = NO;
+         }
+//         self.likeLabel.text = [NSString stringWithFormat:@"%@", self.temp.likeCount];
+     }];
+ }
+     
 - (IBAction)authorButton:(id)sender {
     [self.otherDelegate profileTemplateCell:self didTap:self.temp.author];
 }

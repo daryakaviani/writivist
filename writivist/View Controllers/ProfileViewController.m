@@ -17,6 +17,7 @@
 #import "PreviewViewController.h"
 #import "EditProfileViewController.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
+#import "CategoryViewController.h"
 
 @interface ProfileViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -52,13 +53,16 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.scrollView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(fetchTemplates) forControlEvents:UIControlEventValueChanged];
-    // Do any additional setup after loading the view.
+        self.navigationController.navigationBar.tintColor = [[UIColor alloc]initWithRed:96/255.0 green:125/255.0 blue:139/255.0 alpha:1];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self updateInformation];
     [self fetchTemplates];
+}
+- (IBAction)saveButton:(id)sender {
+    [self performSegueWithIdentifier:@"toSaved" sender:nil];
 }
 
 -(void)updateInformation{
@@ -210,7 +214,10 @@
       } else if ([segue.identifier isEqualToString:@"editSegue"]) {
           EditProfileViewController *editProfileViewController = [segue destinationViewController];
           editProfileViewController.profileViewController = self;
-      }
+      } else if ([segue.identifier isEqualToString:@"toSaved"]) {
+        CategoryViewController *categoryViewController = [segue destinationViewController];
+        categoryViewController.saved = YES;
+    }
 }
 
 @end

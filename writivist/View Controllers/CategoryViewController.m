@@ -44,7 +44,11 @@ int skip = 20;
     self.collectionView.delegate = self;
     self.searchBar.delegate = self;
     
-    self.navigationItem.title = self.category;
+    if (self.saved) {
+        self.navigationItem.title = @"saved";
+    } else {
+        self.navigationItem.title = self.category;
+    }
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:30], NSForegroundColorAttributeName : [UIColor labelColor]};
     
@@ -72,6 +76,7 @@ int skip = 20;
     insets.bottom += InfiniteScrollActivityView.defaultHeight;
     self.collectionView.contentInset = insets;
 }
+
 - (IBAction)shareButton:(id)sender {
     NSString *shareString = @"Check out this letter hosted on the app Writivist! Share it with your representatives and download Writivist on the App Store to get in touch with your elected officials in seconds.";
     shareString = [NSString stringWithFormat:@"%@\n\n%@",shareString, self.previewTitle];
@@ -87,29 +92,67 @@ int skip = 20;
 }
 
 -(void) loadMoreData {
-    // construct query
-    PFQuery *query = [Template query];
-    [query orderByDescending:@"createdAt"];
-    [query includeKey:@"author"];
-    [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
-    [query whereKey:@"category" equalTo:self.category];
-    query.limit = 20;
-    query.skip = skip;
-    // fetch data asynchronously
-    [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
-        if (templates != nil) {
-            NSMutableArray *newTemplates = (NSMutableArray *) templates;
-            NSArray *newArray = [self.filteredData arrayByAddingObjectsFromArray:newTemplates];
-            self.templates = (NSMutableArray *) newArray;
-            self.filteredData = (NSMutableArray *) newArray;
-            skip += templates.count;
-            isMoreDataLoading = false;
-            [loadingMoreView stopAnimating];
-            [self.collectionView reloadData];
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
-    }];
+    if (self.saved) {
+        PFQuery *query = [Template query];
+        [query orderByDescending:@"createdAt"];
+        [query includeKey:@"author"];
+        [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
+        query.skip = skip;
+        query.limit = 20;
+
+        // fetch data asynchronously
+        [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
+            if (templates != nil) {
+                NSMutableArray *savedTemplates = [[NSMutableArray alloc] init];
+                for (Template *template in templates) {
+                    PFRelation *relation = [template relationForKey:@"savedBy"];
+                    PFQuery *query = [relation query];
+                    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+                        for (User *user in objects) {
+                            if ([user.username isEqualToString:[User currentUser].username]) {
+                                [savedTemplates addObject:template];
+                            }
+                        }
+                        NSArray *newArray = [self.filteredData arrayByAddingObjectsFromArray:savedTemplates];
+                        self.templates = (NSMutableArray *) newArray;
+                        self.filteredData = (NSMutableArray *) newArray;
+                        skip += savedTemplates.count;
+                        isMoreDataLoading = false;
+                        [loadingMoreView stopAnimating];
+                        [self.collectionView reloadData];
+                    }];
+                }
+            } else {
+                NSLog(@"%@", error.localizedDescription);
+            }
+            [self.refreshControl endRefreshing];
+            [self.spinner stopAnimating];
+            self.spinner.hidden = YES;
+        }];
+    } else {
+        PFQuery *query = [Template query];
+        [query orderByDescending:@"createdAt"];
+        [query includeKey:@"author"];
+        [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
+        [query whereKey:@"category" equalTo:self.category];
+        query.limit = 20;
+        query.skip = skip;
+        // fetch data asynchronously
+        [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
+            if (templates != nil) {
+                NSMutableArray *newTemplates = (NSMutableArray *) templates;
+                NSArray *newArray = [self.filteredData arrayByAddingObjectsFromArray:newTemplates];
+                self.templates = (NSMutableArray *) newArray;
+                self.filteredData = (NSMutableArray *) newArray;
+                skip += templates.count;
+                isMoreDataLoading = false;
+                [loadingMoreView stopAnimating];
+                [self.collectionView reloadData];
+            } else {
+                NSLog(@"%@", error.localizedDescription);
+            }
+        }];
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -127,11 +170,8 @@ int skip = 20;
              loadingMoreView.frame = frame;
              
              // Code to load more results
-             bool isAtLeast20 = self.filteredData.count >= 20;
-             if (isAtLeast20) {
-                 [loadingMoreView startAnimating];
-                 [self loadMoreData];
-             }
+             [loadingMoreView startAnimating];
+             [self loadMoreData];
          }
      }
 }
@@ -139,32 +179,68 @@ int skip = 20;
 
 - (void)fetchTemplates {
     // construct query
-    PFQuery *query = [Template query];
-    [query orderByDescending:@"createdAt"];
-    [query  includeKey:@"author"];
-    [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
-    if (self.category != nil) {
-        [query whereKey:@"category" equalTo:self.category];
-    }
-    query.limit = 20;
+    if (self.saved) {
+        PFQuery *query = [Template query];
+            [query orderByDescending:@"createdAt"];
+            [query includeKey:@"author"];
+            [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
+            if (self.category != nil) {
+                [query whereKey:@"category" equalTo:self.category];
+            }
+            query.limit = 20;
 
-    // fetch data asynchronously
-    [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
-        if (templates != nil) {
-            self.templates = templates;
-            self.filteredData = self.templates;
-            [self.collectionView reloadData];
+            // fetch data asynchronously
+            [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
+                if (templates != nil) {
+                    NSMutableArray *savedTemplates = [[NSMutableArray alloc] init];
+                    for (Template *template in templates) {
+                        PFRelation *relation = [template relationForKey:@"savedBy"];
+                        PFQuery *query = [relation query];
+                        [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+                            for (User *user in objects) {
+                                if ([user.username isEqualToString:[User currentUser].username]) {
+                                    [savedTemplates addObject:template];
+                                }
+                            }
+                            self.templates = savedTemplates;
+                            self.filteredData = self.templates;
+                            [self.collectionView reloadData];
+                        }];
+                    }
+                } else {
+                    NSLog(@"%@", error.localizedDescription);
+                }
+                [self.refreshControl endRefreshing];
+                [self.spinner stopAnimating];
+                self.spinner.hidden = YES;
+            }];
         } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
-        [self.refreshControl endRefreshing];
-        [self.spinner stopAnimating];
-        self.spinner.hidden = YES;
-    }];
+            PFQuery *query = [Template query];
+            [query orderByDescending:@"createdAt"];
+            [query  includeKey:@"author"];
+            [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
+            if (self.category != nil) {
+                [query whereKey:@"category" equalTo:self.category];
+            }
+            query.limit = 20;
+
+            // fetch data asynchronously
+            [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
+                if (templates != nil) {
+                    self.templates = templates;
+                    self.filteredData = self.templates;
+                    [self.collectionView reloadData];
+                } else {
+                    NSLog(@"%@", error.localizedDescription);
+                }
+                [self.refreshControl endRefreshing];
+                [self.spinner stopAnimating];
+                self.spinner.hidden = YES;
+            }];
+    }
 }
 
 - (void)profileTemplateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull User *)user {
-    NSLog(@"hi");
     self.user = user;
     [self performSegueWithIdentifier:@"profileSegue" sender:user];
 }
@@ -201,7 +277,6 @@ int skip = 20;
         subview.hidden = YES;
         self.body = @"";
     }
-    
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -239,20 +314,54 @@ int skip = 20;
             NSString *templateTitle = template.title;
             return [templateTitle containsString:searchText];
         }];
-        PFQuery *query = [Template query];
-        [query orderByDescending:@"createdAt"];
-        [query  includeKey:@"author"];
-        [query whereKey:@"isPrivate" equalTo:@"False"];
-        [query whereKey:@"category" equalTo:self.category];
-        // fetch data asynchronously
-        [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
-            if (templates != nil) {
-                self.filteredData = [templates filteredArrayUsingPredicate:predicate];
-                [self.collectionView reloadData];
-            } else {
-                NSLog(@"%@", error.localizedDescription);
+        
+        if (self.saved) {
+            PFQuery *query = [Template query];
+            [query orderByDescending:@"createdAt"];
+            [query includeKey:@"author"];
+            [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
+            if (self.category != nil) {
+                [query whereKey:@"category" equalTo:self.category];
             }
-        }];
+            query.limit = 20;
+
+            // fetch data asynchronously
+            [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
+                if (templates != nil) {
+                    NSMutableArray *savedTemplates = [[NSMutableArray alloc] init];
+                    for (Template *template in templates) {
+                        PFRelation *relation = [template relationForKey:@"savedBy"];
+                        PFQuery *query = [relation query];
+                        [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+                            for (User *user in objects) {
+                                if ([user.username isEqualToString:[User currentUser].username]) {
+                                    [savedTemplates addObject:template];
+                                }
+                            }
+                            self.filteredData = [savedTemplates filteredArrayUsingPredicate:predicate];
+                            [self.collectionView reloadData];
+                        }];
+                    }
+                } else {
+                    NSLog(@"%@", error.localizedDescription);
+                }
+            }];
+        } else {
+            PFQuery *query = [Template query];
+                   [query orderByDescending:@"createdAt"];
+                   [query  includeKey:@"author"];
+                   [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
+                   [query whereKey:@"category" equalTo:self.category];
+                   // fetch data asynchronously
+                   [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
+                       if (templates != nil) {
+                           self.filteredData = [templates filteredArrayUsingPredicate:predicate];
+                           [self.collectionView reloadData];
+                       } else {
+                           NSLog(@"%@", error.localizedDescription);
+                       }
+                   }];
+        }
     } else {
         self.filteredData = self.templates;
     }

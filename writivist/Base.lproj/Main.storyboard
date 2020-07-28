@@ -371,6 +371,15 @@
                                                                             <action selector="likeButton:" destination="FS9-nw-3Sb" eventType="touchUpInside" id="E0I-OM-HfE"/>
                                                                         </connections>
                                                                     </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B8n-BL-wex">
+                                                                        <rect key="frame" x="156" y="142" width="35" height="28"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                        <state key="normal" image="banner"/>
+                                                                        <state key="selected" image="bannerfill"/>
+                                                                        <connections>
+                                                                            <action selector="saveButton:" destination="FS9-nw-3Sb" eventType="touchUpInside" id="LKB-75-KaM"/>
+                                                                        </connections>
+                                                                    </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="black lives matter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AIT-uC-ALs">
                                                                         <rect key="frame" x="34" y="71.5" width="128" height="20"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -389,7 +398,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="darya" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eOm-aM-wES">
-                                                                        <rect key="frame" x="56" y="148" width="131" height="20"/>
+                                                                        <rect key="frame" x="56" y="148" width="91" height="20"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -439,6 +448,7 @@
                                                                 <outlet property="checkView" destination="uR8-mv-l1u" id="Mxk-sd-Pbz"/>
                                                                 <outlet property="likeButton" destination="k2Z-Yx-GK9" id="zsy-Mx-HH5"/>
                                                                 <outlet property="likeLabel" destination="6mt-1I-4i1" id="hE5-IK-84U"/>
+                                                                <outlet property="saveButton" destination="B8n-BL-wex" id="CNL-Lt-T9Q"/>
                                                                 <outlet property="senderLabel" destination="e7b-jU-7Kv" id="bP5-mz-LtP"/>
                                                                 <outlet property="timestampLabel" destination="2hd-L0-gkm" id="6Qx-f9-1ff"/>
                                                                 <outlet property="titleLabel" destination="y5I-1D-tj3" id="WBW-u3-Yx2"/>
@@ -566,6 +576,15 @@
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
+                                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5cg-eC-TnB">
+                                                                        <rect key="frame" x="155" y="144.5" width="35" height="28"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                        <state key="normal" image="banner"/>
+                                                                        <state key="selected" image="bannerfill"/>
+                                                                        <connections>
+                                                                            <action selector="saveButton:" destination="jkB-LO-zDF" eventType="touchUpInside" id="mlD-BW-2AB"/>
+                                                                        </connections>
+                                                                    </button>
                                                                 </subviews>
                                                             </view>
                                                             <size key="customSize" width="200" height="200"/>
@@ -576,6 +595,7 @@
                                                                 <outlet property="checkView" destination="FCh-5L-Pwh" id="qDM-si-aSQ"/>
                                                                 <outlet property="likeButton" destination="6et-DE-TLt" id="zHT-hO-3Su"/>
                                                                 <outlet property="likeLabel" destination="wud-mb-M1U" id="jet-Dh-BlA"/>
+                                                                <outlet property="saveButton" destination="5cg-eC-TnB" id="CtH-34-Glf"/>
                                                                 <outlet property="senderLabel" destination="8g9-Bf-CkV" id="AHR-B6-2iw"/>
                                                                 <outlet property="timestampLabel" destination="nU3-Kb-j21" id="bzK-dR-mKx"/>
                                                                 <outlet property="titleLabel" destination="Fzn-EA-f1A" id="7dL-Qb-vvO"/>
@@ -952,6 +972,12 @@
                         <viewLayoutGuide key="safeArea" id="8O9-nQ-FzK"/>
                     </view>
                     <navigationItem key="navigationItem" id="Mad-5Q-0gE">
+                        <barButtonItem key="leftBarButtonItem" image="bannersmall" id="DQt-Gg-GLK">
+                            <color key="tintColor" red="0.37647058820000001" green="0.49019607840000001" blue="0.5450980392" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="saveButton:" destination="Gyg-a9-A0H" id="VwL-jG-ra4"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="gear" catalog="system" id="WKd-rY-aTE">
                             <color key="tintColor" red="0.37647058820000001" green="0.49019607840000001" blue="0.5450980392" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -970,6 +996,7 @@
                         <outlet property="templateLikeLabel" destination="W1x-G4-4yn" id="HiL-2L-MNY"/>
                         <outlet property="templatesPublishedLabel" destination="kpE-yg-Bcx" id="hl9-lq-tCt"/>
                         <outlet property="usernameLabel" destination="U77-ew-3si" id="ca2-Vd-Wtv"/>
+                        <segue destination="Alw-S1-ZA3" kind="show" identifier="toSaved" id="JVG-K4-CkX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dGK-ao-Aqa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1557,7 +1584,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="darya" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f2i-wB-F5L">
-                                                    <rect key="frame" x="56" y="148" width="131" height="20"/>
+                                                    <rect key="frame" x="56" y="148" width="61" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1597,6 +1624,15 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vr1-4g-3GT">
+                                                    <rect key="frame" x="148" y="139" width="35" height="28"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="banner"/>
+                                                    <state key="selected" image="bannerfill"/>
+                                                    <connections>
+                                                        <action selector="saveButton:" destination="ypz-8W-7Lm" eventType="touchUpInside" id="0RY-vN-hxR"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </view>
                                         <size key="customSize" width="200" height="200"/>
@@ -1607,6 +1643,7 @@
                                             <outlet property="checkView" destination="zYI-AX-b26" id="Sti-dw-bW7"/>
                                             <outlet property="likeButton" destination="UW5-Lv-dvx" id="fxN-T6-jnR"/>
                                             <outlet property="likeLabel" destination="sMp-CQ-dXk" id="r8g-VI-Mj2"/>
+                                            <outlet property="saveButton" destination="Vr1-4g-3GT" id="dfj-DD-lcM"/>
                                             <outlet property="senderLabel" destination="rgo-Ao-BDw" id="2Is-Xd-Vk8"/>
                                             <outlet property="timestampLabel" destination="ATY-hk-ZU1" id="ZFC-eF-ai1"/>
                                             <outlet property="titleLabel" destination="npJ-iT-ddx" id="KmJ-2T-dEK"/>
@@ -2106,13 +2143,16 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="glp-DH-tfj"/>
+        <segue reference="FIB-93-9Mk"/>
         <segue reference="NWH-Dg-Zb7"/>
-        <segue reference="PuW-oL-poE"/>
-        <segue reference="hPE-iF-O2s"/>
+        <segue reference="cHr-Rj-NO5"/>
+        <segue reference="BUt-yG-D0s"/>
         <segue reference="0nU-vq-fGN"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="banner" width="128" height="128"/>
+        <image name="bannerfill" width="128" height="128"/>
+        <image name="bannersmall" width="32" height="32"/>
         <image name="book.fill" catalog="system" width="128" height="100"/>
         <image name="call" width="128" height="128"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>

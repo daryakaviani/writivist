@@ -15,6 +15,7 @@
 #import "UIImageView+AFNetworking.h"
 #import <MessageUI/MessageUI.h>
 #import "User.h"
+#import "PrintViewController.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, RepresentativeCellDelegate, MFMailComposeViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -109,6 +110,20 @@ NSArray *levels;
     [self fetchRepresentatives];
     self.counterView.hidden = YES;
 }
+- (IBAction)printButton:(id)sender {
+    if (self.selectedReps.count == 0) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No representatives selected."
+               message:@"Please select at least one representative to print a letter for."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    } else {
+        [self performSegueWithIdentifier:@"toPrint" sender:nil];
+    }
+}
 
 - (IBAction)logoutButton:(id)sender {
     SceneDelegate *myDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
@@ -145,9 +160,6 @@ NSArray *levels;
       ^(NSData * _Nullable data,
         NSURLResponse * _Nullable response,
         NSError * _Nullable error) {
-//        if (error) {
-//            NSLog(@"oops");
-//        } else {
             NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
             NSArray *representativeArray = [JSON valueForKey:@"officials"];
             NSArray *officesArray = [JSON valueForKey:@"offices"];
@@ -460,14 +472,21 @@ NSArray *levels;
     }
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"toPrint"]) {
+        PrintViewController *printViewController = [segue destinationViewController];
+        NSMutableArray *printReps = [[NSMutableArray alloc] init];
+        for (RepresentativeCell *cell in self.selectedReps) {
+            [printReps addObject:cell.representative];
+        }
+        printViewController.representatives = printReps;
+        printViewController.temp = self.currentTemplate;
+    }
 }
-*/
+
 
 @end

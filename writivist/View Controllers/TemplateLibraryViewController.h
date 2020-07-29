@@ -14,9 +14,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TemplateLibraryViewController : UIViewController
-//@property (strong, nonatomic) NSString *body;
-//@property (strong, nonatomic) NSString *previousBody;
-//@property (strong, nonatomic) NSString *previewTitle;
 @property (strong, nonatomic) TemplateCell * _Nullable currentCell;
 @property (strong, nonatomic) User *user;
 @property (strong, nonatomic) Template * _Nullable currentTemplate;

@@ -23,6 +23,7 @@
 		4B6D8C9924C61AD70042EDC7 /* MapContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D8C9824C61AD70042EDC7 /* MapContentViewController.m */; };
 		4B6D8C9C24C6344C0042EDC7 /* MapContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D8C9B24C6344C0042EDC7 /* MapContentCell.m */; };
 		4B7CB08524BCC03700AC26DF /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7CB08424BCC03700AC26DF /* LoginViewController.m */; };
+		4B83BAC124D0F61600A2E005 /* PrintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B83BAC024D0F61500A2E005 /* PrintViewController.m */; };
 		4BCAD04624CAB77E0007EA6A /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BCAD04524CAB77D0007EA6A /* user.png */; };
 		4BCB1DB224BCAF6300BAE96E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DB124BCAF6300BAE96E /* AppDelegate.m */; };
 		4BCB1DB524BCAF6300BAE96E /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DB424BCAF6300BAE96E /* SceneDelegate.m */; };
@@ -93,6 +94,8 @@
 		4B6D8C9B24C6344C0042EDC7 /* MapContentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapContentCell.m; sourceTree = "<group>"; };
 		4B7CB08324BCC03700AC26DF /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		4B7CB08424BCC03700AC26DF /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		4B83BABF24D0F61500A2E005 /* PrintViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrintViewController.h; sourceTree = "<group>"; };
+		4B83BAC024D0F61500A2E005 /* PrintViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrintViewController.m; sourceTree = "<group>"; };
 		4BCAD04524CAB77D0007EA6A /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = user.png; path = ../../user.png; sourceTree = "<group>"; };
 		4BCB1DAD24BCAF6300BAE96E /* writivist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = writivist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BCB1DB024BCAF6300BAE96E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -198,6 +201,8 @@
 				4B1489AB24C65E9300269C7E /* EditProfileViewController.m */,
 				4BCD151D24C7A3F100B831A4 /* CategoryViewController.h */,
 				4BCD151E24C7A3F100B831A4 /* CategoryViewController.m */,
+				4B83BABF24D0F61500A2E005 /* PrintViewController.h */,
+				4B83BAC024D0F61500A2E005 /* PrintViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -600,6 +605,7 @@
 				4B1CC18024BE89DD007F9A52 /* TemplateLibraryViewController.m in Sources */,
 				4B1489AC24C65E9300269C7E /* EditProfileViewController.m in Sources */,
 				4BCD151B24C7A2BE00B831A4 /* SectionTapper.m in Sources */,
+				4B83BAC124D0F61600A2E005 /* PrintViewController.m in Sources */,
 				4BCD152224C7C34A00B831A4 /* InfiniteScrollActivityView.m in Sources */,
 				4B09E3A824BF92710021F076 /* TemplateCell.m in Sources */,
 				4B6D8C9624C202390042EDC7 /* MapViewController.m in Sources */,

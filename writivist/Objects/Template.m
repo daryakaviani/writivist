@@ -35,6 +35,7 @@
 + (void) postUserLike: ( User * _Nullable)user withTemplate: ( Template * _Nullable ) temp withCompletion: (PFBooleanResultBlock  _Nullable)completion {
     PFRelation *relation = [temp relationForKey:@"likedBy"];
     [relation addObject:user];
+    NSLog(@"Added: %@", user.username);
     int val = [temp.likeCount intValue];
     temp.likeCount = [NSNumber numberWithInt:(val + 1)];
     [temp saveInBackground];
@@ -43,6 +44,7 @@
 + (void) postUserUnlike: ( User * _Nullable)user withTemplate: ( Template * _Nullable ) temp withCompletion: (PFBooleanResultBlock  _Nullable)completion {
     PFRelation *relation = [temp relationForKey:@"likedBy"];
     [relation removeObject:user];
+    NSLog(@"Removed: %@", user.username);
     int val = [temp.likeCount intValue];
     temp.likeCount = [NSNumber numberWithInt:(val - 1)];
     [temp saveInBackground];

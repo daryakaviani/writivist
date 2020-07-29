@@ -28,8 +28,20 @@
     self.senderLabel.text = [NSString stringWithFormat:@"%@", template.senderCount];
     self.titleLabel.text = template.title;
     self.categoryLabel.text = template.category;
-    [self fetchLikes];
-    [self fetchSaves];
+    [self fetchLikes:^(BOOL isComplete) {
+        if (isComplete) {
+            self.likeButton.selected = YES;
+        } else {
+            self.likeButton.selected = NO;
+        }
+    }];
+    [self fetchSaves:^(BOOL isComplete) {
+        if (isComplete) {
+            self.saveButton.selected = YES;
+        } else {
+            self.saveButton.selected = NO;
+        }
+    }];
     [self roundImage];
     PFFileObject *data = self.temp.author.profilePicture;
     [data getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error) {
@@ -57,7 +69,6 @@
                 [Template postUserUnsave:[User currentUser] withTemplate:self.temp withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                 }];
             }
-            break;
         }
         if (!containsUser) {
             NSLog(@"Did not find user");
@@ -80,7 +91,6 @@
                 [Template postUserUnlike:[User currentUser] withTemplate:self.temp withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                 }];
             }
-            break;
         }
         if (!containsUser) {
             NSLog(@"Did not find user");
@@ -103,39 +113,39 @@
     }];
 }
 
-- (void)fetchLikes {
+- (void)fetchLikes:(void(^)(BOOL isComplete))isComplete {
     __block bool containsUser = false;
     PFRelation *relation = [self.temp relationForKey:@"likedBy"];
     PFQuery *query = [relation query];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         for (User *user in objects) {
             if ([user.username isEqual:[User currentUser].username]) {
-               self.likeButton.selected = YES;
                containsUser = true;
+               isComplete(true);
             }
-            break;
         }
         if (!containsUser) {
-            self.likeButton.selected = NO;
+//            self.likeButton.selected = NO;
+            isComplete(false);
         }
         self.likeLabel.text = [NSString stringWithFormat:@"%@", self.temp.likeCount];
     }];
 }
      
- - (void)fetchSaves {
+ - (void)fetchSaves:(void(^)(BOOL isComplete))isComplete {
      __block bool containsUser = false;
      PFRelation *relation = [self.temp relationForKey:@"savedBy"];
      PFQuery *query = [relation query];
      [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
          for (User *user in objects) {
              if ([user.username isEqual:[User currentUser].username]) {
-                self.saveButton.selected = YES;
+                 isComplete(true);
                 containsUser = true;
              }
-             break;
          }
          if (!containsUser) {
-             self.saveButton.selected = NO;
+             isComplete(false);
+//             self.saveButton.selected = NO;
          }
 //         self.likeLabel.text = [NSString stringWithFormat:@"%@", self.temp.likeCount];
      }];

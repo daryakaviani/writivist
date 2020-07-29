@@ -33,6 +33,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.decelerationRate = UIScrollViewDecelerationRateFast;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.searchBar.delegate = self;
@@ -74,33 +75,24 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
         case 0:{
             SuggestedCell *staticCell = (SuggestedCell *) [tableView dequeueReusableCellWithIdentifier:@"SuggestedCell"];
             staticCell.templateLibrary = self;
-            staticCell.tag = indexPath.section;
             [staticCell.spinner startAnimating];
-            [staticCell.collectionView reloadData];
-            [staticCell.collectionView.collectionViewLayout invalidateLayout];
             [staticCell setCategory:category];
             return staticCell;
-        }break;
+            break;
+        }
         default:{
             CategoryRow *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             cell.templateLibrary = self;
-            cell.tag = indexPath.section;
             [cell.spinner startAnimating];
-            [cell.collectionView reloadData];
-            [cell.collectionView.collectionViewLayout invalidateLayout];
             [cell setCategory:category];
             return cell;
-        }break;
+        }
     }
 }
 
 - (void) refresh {
     [self.tableView reloadData];
     [self.refreshControl endRefreshing];
-}
-
-- (void) viewDidAppear:(BOOL)animated {
-    [self.tableView reloadData];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

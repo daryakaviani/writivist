@@ -121,7 +121,24 @@ NSArray *levels;
         [alert addAction:okAction];
         [self presentViewController:alert animated:YES completion:nil];
     } else {
-        [self performSegueWithIdentifier:@"toPrint" sender:nil];
+        Boolean properSelections = true;
+        for (RepresentativeCell *repCell in self.selectedReps) {
+            if (repCell.representative.address == nil) {
+                properSelections = false;
+            }
+        }
+        if (properSelections) {
+            [self performSegueWithIdentifier:@"toPrint" sender:nil];
+        } else {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"At least one of your selected officials does not have an address available."
+                           message:@"Please ensure each of your selected officials displays address verification and try again."
+            preferredStyle:(UIAlertControllerStyleAlert)];
+            // create an OK action
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+            // add the OK action to the alert controller
+            [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
     }
 }
 
@@ -280,38 +297,26 @@ NSArray *levels;
 }
 
 - (void)representativeCell:(RepresentativeCell *)representativeCell didTap:(Representative *)representative{
-    if (representative.email != nil) {
-        if (representative.selected == NO) {
-            UIColor *color = [[UIColor alloc]initWithRed:178/255.0 green:223/255.0 blue:219/255.0 alpha:0.4];
-            representativeCell.checkView.backgroundColor = color;
-            representative.selected = (BOOL * _Nonnull) YES;
-            UIView *subview = representativeCell.checkView.subviews[0];
-            subview.hidden = NO;
-            [self.selectedReps addObject:representativeCell];
-        } else {
-            UIColor *color = [UIColor clearColor];
-            representativeCell.checkView.backgroundColor = color;
-            representative.selected = (BOOL * _Nonnull) NO;
-            UIView *subview = representativeCell.checkView.subviews[0];
-            subview.hidden = YES;
-            [self.selectedReps removeObject:representativeCell];
-        }
-        if (self.selectedReps.count == 0) {
-            self.counterView.hidden = YES;
-        } else {
-            self.counterView.hidden = NO;
-            self.counterLabel.text = [[NSString alloc] initWithFormat:@"%lu", (unsigned long)self.selectedReps.count];
-        }
+    if (representative.selected == NO) {
+        UIColor *color = [[UIColor alloc]initWithRed:178/255.0 green:223/255.0 blue:219/255.0 alpha:0.4];
+        representativeCell.checkView.backgroundColor = color;
+        representative.selected = (BOOL * _Nonnull) YES;
+        UIView *subview = representativeCell.checkView.subviews[0];
+        subview.hidden = NO;
+        [self.selectedReps addObject:representativeCell];
     } else {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Sorry, my email is unavailable to the public."
-               message:@"Feel free to call my office or navigate to my website to contact me. Please take a look at my social media pages to see where I stand on political and social issues!"
-        preferredStyle:(UIAlertControllerStyleAlert)];
-        // create an OK action
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
-        // add the OK action to the alert controller
-        [alert addAction:okAction];
-        [self presentViewController:alert animated:YES completion:^{
-        }];
+        UIColor *color = [UIColor clearColor];
+        representativeCell.checkView.backgroundColor = color;
+        representative.selected = (BOOL * _Nonnull) NO;
+        UIView *subview = representativeCell.checkView.subviews[0];
+        subview.hidden = YES;
+        [self.selectedReps removeObject:representativeCell];
+    }
+    if (self.selectedReps.count == 0) {
+        self.counterView.hidden = YES;
+    } else {
+        self.counterView.hidden = NO;
+        self.counterLabel.text = [[NSString alloc] initWithFormat:@"%lu", (unsigned long)self.selectedReps.count];
     }
 }
 
@@ -325,86 +330,103 @@ NSArray *levels;
         // add the OK action to the alert controller
         [alert addAction:okAction];
         [self presentViewController:alert animated:YES completion:nil];
-    } else if (MFMailComposeViewController.canSendMail){
-        if ([User currentUser].sendIndividually) {
-            MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];
-            mailComposeViewController.mailComposeDelegate = self;
-            RepresentativeCell *representativeCell = self.selectedReps[0];
-            Representative *representative = representativeCell.representative;
-            NSMutableArray *emails = [[NSMutableArray alloc] init];
-            if (representative.email != nil) {
-                [emails addObject:representative.email];
+    } else if (MFMailComposeViewController.canSendMail) {
+        Boolean properSelections = true;
+        for (RepresentativeCell *repCell in self.selectedReps) {
+            if (repCell.representative.email == nil) {
+                properSelections = false;
             }
-            NSString *bodyHeader = @"Dear ";
-            bodyHeader = [bodyHeader stringByAppendingString:representative.role];
-            bodyHeader = [bodyHeader stringByAppendingString:@" "];
-            bodyHeader = [bodyHeader stringByAppendingString:representative.name];
-            bodyHeader = [bodyHeader stringByAppendingString:@", "];
-            UIColor *color = [UIColor clearColor];
-            representativeCell.checkView.backgroundColor = color;
-            representative.selected = (BOOL * _Nonnull) NO;
-            UIView *subview = representativeCell.checkView.subviews[0];
-            subview.hidden = YES;
-            bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, @"My name is "];
-            bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].firstName];
-            bodyHeader = [bodyHeader stringByAppendingString:@" "];
-            bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].lastName];
-            bodyHeader = [bodyHeader stringByAppendingString:@" and I am from "];
-            bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].city];
-            bodyHeader = [bodyHeader stringByAppendingString:@", "];
-            bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].state];
-            bodyHeader = [bodyHeader stringByAppendingString:@". "];
-            if (self.body.length > 0) {
-                bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, self.body];
-            }
-            [self.selectedReps removeObjectAtIndex:0];
-            [mailComposeViewController setToRecipients:emails];
-            [mailComposeViewController setMessageBody:bodyHeader isHTML:false];
-            [self presentViewController:mailComposeViewController animated:YES completion:nil];
-        } else {
-            MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];
-            mailComposeViewController.mailComposeDelegate = self;
-            NSMutableArray *emails = [[NSMutableArray alloc] init];
-            NSString *bodyHeader = @"Dear ";
-            for (RepresentativeCell *representativeCell in self.selectedReps) {
+        }
+        if (properSelections) {
+            if ([User currentUser].sendIndividually) {
+                MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];
+                mailComposeViewController.mailComposeDelegate = self;
+                RepresentativeCell *representativeCell = self.selectedReps[0];
                 Representative *representative = representativeCell.representative;
-                [emails addObject:representative.email];
-                if (emails.count == self.selectedReps.count && emails.count != 1) {
-                    bodyHeader = [bodyHeader stringByAppendingString:@" and "];
+                NSMutableArray *emails = [[NSMutableArray alloc] init];
+                if (representative.email != nil) {
+                    [emails addObject:representative.email];
                 }
+                NSString *bodyHeader = @"Dear ";
                 bodyHeader = [bodyHeader stringByAppendingString:representative.role];
                 bodyHeader = [bodyHeader stringByAppendingString:@" "];
                 bodyHeader = [bodyHeader stringByAppendingString:representative.name];
-                if (self.selectedReps.count != 2) {
-                    bodyHeader = [bodyHeader stringByAppendingString:@", "];
-                }
+                bodyHeader = [bodyHeader stringByAppendingString:@", "];
                 UIColor *color = [UIColor clearColor];
                 representativeCell.checkView.backgroundColor = color;
                 representative.selected = (BOOL * _Nonnull) NO;
                 UIView *subview = representativeCell.checkView.subviews[0];
                 subview.hidden = YES;
-            }
-            if (self.selectedReps.count == 2) {
+                bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, @"My name is "];
+                bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].firstName];
+                bodyHeader = [bodyHeader stringByAppendingString:@" "];
+                bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].lastName];
+                bodyHeader = [bodyHeader stringByAppendingString:@" and I am from "];
+                bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].city];
                 bodyHeader = [bodyHeader stringByAppendingString:@", "];
-            }
-            bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, @"My name is "];
-            bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].firstName];
-            bodyHeader = [bodyHeader stringByAppendingString:@" "];
-            bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].lastName];
-            bodyHeader = [bodyHeader stringByAppendingString:@" and I am from "];
-            bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].city];
-            bodyHeader = [bodyHeader stringByAppendingString:@", "];
-            bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].state];
-            bodyHeader = [bodyHeader stringByAppendingString:@". "];
+                bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].state];
+                bodyHeader = [bodyHeader stringByAppendingString:@". "];
+                if (self.body.length > 0) {
+                    bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, self.body];
+                }
+                [self.selectedReps removeObjectAtIndex:0];
+                [mailComposeViewController setToRecipients:emails];
+                [mailComposeViewController setMessageBody:bodyHeader isHTML:false];
+                [self presentViewController:mailComposeViewController animated:YES completion:nil];
+            } else {
+                MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];
+                mailComposeViewController.mailComposeDelegate = self;
+                NSMutableArray *emails = [[NSMutableArray alloc] init];
+                NSString *bodyHeader = @"Dear ";
+                for (RepresentativeCell *representativeCell in self.selectedReps) {
+                    Representative *representative = representativeCell.representative;
+                    [emails addObject:representative.email];
+                    if (emails.count == self.selectedReps.count && emails.count != 1) {
+                        bodyHeader = [bodyHeader stringByAppendingString:@" and "];
+                    }
+                    bodyHeader = [bodyHeader stringByAppendingString:representative.role];
+                    bodyHeader = [bodyHeader stringByAppendingString:@" "];
+                    bodyHeader = [bodyHeader stringByAppendingString:representative.name];
+                    if (self.selectedReps.count != 2) {
+                        bodyHeader = [bodyHeader stringByAppendingString:@", "];
+                    }
+                    UIColor *color = [UIColor clearColor];
+                    representativeCell.checkView.backgroundColor = color;
+                    representative.selected = (BOOL * _Nonnull) NO;
+                    UIView *subview = representativeCell.checkView.subviews[0];
+                    subview.hidden = YES;
+                }
+                if (self.selectedReps.count == 2) {
+                    bodyHeader = [bodyHeader stringByAppendingString:@", "];
+                }
+                bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, @"My name is "];
+                bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].firstName];
+                bodyHeader = [bodyHeader stringByAppendingString:@" "];
+                bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].lastName];
+                bodyHeader = [bodyHeader stringByAppendingString:@" and I am from "];
+                bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].city];
+                bodyHeader = [bodyHeader stringByAppendingString:@", "];
+                bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].state];
+                bodyHeader = [bodyHeader stringByAppendingString:@". "];
 
-            if (self.body.length > 0) {
-                bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, self.body];
-                self.body = @"";
+                if (self.body.length > 0) {
+                    bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, self.body];
+                    self.body = @"";
+                }
+                [self.selectedReps removeAllObjects];
+                [mailComposeViewController setToRecipients:emails];
+                [mailComposeViewController setMessageBody:bodyHeader isHTML:false];
+                [self presentViewController:mailComposeViewController animated:YES completion:nil];
             }
-            [self.selectedReps removeAllObjects];
-            [mailComposeViewController setToRecipients:emails];
-            [mailComposeViewController setMessageBody:bodyHeader isHTML:false];
-            [self presentViewController:mailComposeViewController animated:YES completion:nil];
+        } else {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"At least one of your selected officials does not have an email available."
+                          message:@"Please ensure each of your selected officials displays email verification and try again."
+           preferredStyle:(UIAlertControllerStyleAlert)];
+           // create an OK action
+           UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+           // add the OK action to the alert controller
+           [alert addAction:okAction];
+           [self presentViewController:alert animated:YES completion:nil];
         }
     } else {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Mail services are unavailable."

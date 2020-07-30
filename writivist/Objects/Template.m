@@ -13,7 +13,7 @@
 @dynamic title;
 @dynamic isPrivate;
 @dynamic saveCount;
-@dynamic selected;
+//@dynamic selected;
 
 + (nonnull NSString *)parseClassName {
     return @"Template";

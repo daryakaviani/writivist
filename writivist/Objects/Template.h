@@ -11,7 +11,7 @@
 @property (nonatomic, strong) NSString  * _Nonnull category;
 @property (nonatomic, strong) NSString  * _Nonnull body;
 @property (nonatomic, strong) NSString  * _Nonnull title;
-@property (nonatomic) bool selected;
+//@property (nonatomic) bool selected;
 @property (nonatomic) BOOL isPrivate;
 
 + (void) postUserTemplate: ( NSString * _Nullable )body withCategory: ( NSString * _Nullable )category withTitle: ( NSString * _Nullable )title withPrivacy: (BOOL *_Nonnull)isPrivate withCompletion: (PFBooleanResultBlock  _Nullable)completion;

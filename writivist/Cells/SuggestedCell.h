@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TemplateCell.h"
 #import "TemplateLibraryViewController.h"
+#import "Template.h"
 @class TemplateLibraryViewController;
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSInteger *indexPathItem;
 @property (nonatomic, strong) NSMutableDictionary *dict;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (nonatomic, strong) Template* selectedTemplate;
 
 - (void) setCategory: (NSString *) category;
 - (void)fetchTemplates;

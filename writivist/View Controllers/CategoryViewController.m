@@ -133,7 +133,6 @@ int newTempCount;
             isMoreDataLoading = false;
             [loadingMoreView stopAnimating];
             dispatch_group_leave(dispatchGroup);
-//            [self.collectionView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -282,7 +281,7 @@ int newTempCount;
 }
 
 - (void)templateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull Template *)temp {
-    if (temp.selected == false) {
+    if (![self.currentTemplate.objectId isEqualToString:temp.objectId]) {
         if (self.currentCell != nil) {
             TemplateCell *current = self.currentCell;
             UIColor *color = [UIColor clearColor];
@@ -292,12 +291,11 @@ int newTempCount;
         }
         UIColor *color = [[UIColor alloc]initWithRed:178/255.0 green:223/255.0 blue:219/255.0 alpha:0.4];
         templateCell.checkView.backgroundColor = color;
-        temp.selected = true;
+        self.currentTemplate = temp;
         TemplateCell *prevCell = self.currentCell;
         UIView *prevSubview = prevCell.checkView.subviews[0];
         UIColor *prevColor = [UIColor clearColor];
         prevCell.checkView.backgroundColor = prevColor;
-        prevCell.temp.selected = false;
         prevSubview.hidden = YES;
         self.currentCell = templateCell;
         self.currentTemplate = temp;
@@ -305,10 +303,10 @@ int newTempCount;
         subview.hidden = NO;
         self.body = temp.body;
         self.previewTitle = temp.title;
-    } else if (temp.selected == true) {
+    } else if ([self.currentTemplate.objectId isEqualToString:temp.objectId]) {
         UIColor *color = [UIColor clearColor];
         templateCell.checkView.backgroundColor = color;
-        temp.selected = false;
+        self.currentTemplate = nil;
         self.currentCell = nil;
         UIView *subview = templateCell.checkView.subviews[0];
         subview.hidden = YES;
@@ -326,15 +324,12 @@ int newTempCount;
     cell.otherDelegate = self;
     cell.delegate = self;
     [cell setTemplate:template];
-    if (template.selected == true && [self.currentTemplate.objectId isEqualToString:template.objectId]) {
+    if ([self.currentTemplate.objectId isEqualToString:template.objectId]) {
         self.currentCell = cell;
         UIColor *color = [[UIColor alloc]initWithRed:178/255.0 green:223/255.0 blue:219/255.0 alpha:0.4];
         cell.checkView.backgroundColor = color;
         UIView *subview = cell.checkView.subviews[0];
         subview.hidden = NO;
-    } else if (template.selected) {
-        template.selected = false;
-        [template saveInBackground];
     } else {
         UIColor *color = [UIColor clearColor];
         cell.checkView.backgroundColor = color;
@@ -383,7 +378,6 @@ int newTempCount;
                             [self.collectionView reloadData];
                         }];
                     }
-//                    [self.collectionView reloadData];
                 } else {
                     NSLog(@"%@", error.localizedDescription);
                 }

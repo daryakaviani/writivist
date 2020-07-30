@@ -35,15 +35,12 @@
     cell.otherDelegate = self.templateLibrary;
     cell.templateLibrary = self.templateLibrary;
     [cell setTemplate:template];
-    if (template.selected == true && [self.templateLibrary.currentTemplate.objectId isEqualToString:template.objectId]) {
+    if ([self.templateLibrary.currentTemplate.objectId isEqualToString:template.objectId]) {
         self.templateLibrary.currentCell = cell;
         UIColor *color = [[UIColor alloc]initWithRed:178/255.0 green:223/255.0 blue:219/255.0 alpha:0.4];
         cell.checkView.backgroundColor = color;
         UIView *subview = cell.checkView.subviews[0];
         subview.hidden = NO;
-    } else if (template.selected) {
-        template.selected = false;
-        [template saveInBackground];
     } else {
         UIColor *color = [UIColor clearColor];
         cell.checkView.backgroundColor = color;
@@ -95,7 +92,7 @@
 }
 
 - (void)templateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull Template *)temp {
-    if (temp.selected == false) {
+    if (![self.templateLibrary.currentTemplate.objectId isEqualToString:temp.objectId]) {
         if (self.templateLibrary.currentCell != nil) {
             TemplateCell *current = self.templateLibrary.currentCell;
             UIColor *color = [UIColor clearColor];
@@ -105,12 +102,10 @@
         }
         UIColor *color = [[UIColor alloc]initWithRed:178/255.0 green:223/255.0 blue:219/255.0 alpha:0.4];
         templateCell.checkView.backgroundColor = color;
-        temp.selected = true;
         TemplateCell *prevCell = self.templateLibrary.currentCell;
         UIView *prevSubview = prevCell.checkView.subviews[0];
         UIColor *prevColor = [UIColor clearColor];
         prevCell.checkView.backgroundColor = prevColor;
-        prevCell.temp.selected = false;
         prevSubview.hidden = YES;
         self.templateLibrary.currentCell = templateCell;
         self.templateLibrary.currentTemplate = templateCell.temp;
@@ -119,10 +114,9 @@
         self.templateLibrary.currentTemplate = temp;
         [temp saveInBackground];
         [prevCell.temp saveInBackground];
-    } else if (temp.selected == true) {
+    } else if ([self.templateLibrary.currentTemplate.objectId isEqualToString:temp.objectId]) {
         UIColor *color = [UIColor clearColor];
         templateCell.checkView.backgroundColor = color;
-        temp.selected = false;
         self.templateLibrary.currentCell = nil;
         self.templateLibrary.currentTemplate = nil;
         UIView *subview = templateCell.checkView.subviews[0];

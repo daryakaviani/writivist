@@ -466,9 +466,6 @@ NSArray *levels;
         
         int senderInt = [self.currentTemplate.senderCount intValue];
         self.currentTemplate.senderCount = [NSNumber numberWithInt:(senderInt + 1)];
-        self.currentTemplate.selected = false;
-        
-        [self.currentTemplate saveInBackground];
         [user saveInBackground];
     }
     self.counterView.hidden = YES;

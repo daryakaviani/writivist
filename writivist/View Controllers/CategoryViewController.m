@@ -202,73 +202,73 @@ int newTempCount;
 - (void) querySaved {
     dispatch_group_t dispatchGroup = dispatch_group_create();
     
-        PFQuery *query = [Template query];
-        [query orderByDescending:@"createdAt"];
-        [query includeKey:@"author"];
-        [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
-        if (self.category != nil) {
-            [query whereKey:@"category" equalTo:self.category];
-        }
-        query.limit = 20;
+    PFQuery *query = [Template query];
+    [query orderByDescending:@"createdAt"];
+    [query includeKey:@"author"];
+    [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
+    if (self.category != nil) {
+        [query whereKey:@"category" equalTo:self.category];
+    }
+    query.limit = 20;
 
-        NSMutableArray *savedTemplates = [NSMutableArray array];
-        // fetch data asynchronously
-        [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
-            if (templates != nil) {
-                for (Template *template in templates) {
-                    dispatch_group_enter(dispatchGroup);
-                    PFRelation *relation = [template relationForKey:@"savedBy"];
-                    PFQuery *query = [relation query];
-                    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-                        for (User *user in objects) {
-                            if ([user.username isEqualToString:[User currentUser].username]) {
-                                [savedTemplates addObject:template];
-                            }
+    NSMutableArray *savedTemplates = [NSMutableArray array];
+    // fetch data asynchronously
+    [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
+        if (templates != nil) {
+            for (Template *template in templates) {
+                dispatch_group_enter(dispatchGroup);
+                PFRelation *relation = [template relationForKey:@"savedBy"];
+                PFQuery *query = [relation query];
+                [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+                    for (User *user in objects) {
+                        if ([user.username isEqualToString:[User currentUser].username]) {
+                            [savedTemplates addObject:template];
                         }
-                        self.templates = savedTemplates;
-                        self.filteredData = self.templates;
-                        dispatch_group_leave(dispatchGroup);
-                    }];
-                }
-            } else {
-                NSLog(@"%@", error.localizedDescription);
+                    }
+                    self.templates = savedTemplates;
+                    self.filteredData = self.templates;
+                    dispatch_group_leave(dispatchGroup);
+                }];
             }
-            dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^(void){
-                 [self.refreshControl endRefreshing];
-                 [self.spinner stopAnimating];
-                self.spinner.hidden = YES;
-                [self.collectionView reloadData];
-            });
-        }];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+        dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^(void){
+            [self.refreshControl endRefreshing];
+            [self.spinner stopAnimating];
+            self.spinner.hidden = YES;
+            [self.collectionView reloadData];
+        });
+    }];
 }
 
 - (void)fetchTemplates {
     // construct query
     if (self.saved) {
         [self querySaved];
-        } else {
-            PFQuery *query = [Template query];
-            [query orderByDescending:@"createdAt"];
-            [query  includeKey:@"author"];
-            [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
-            if (self.category != nil) {
-                [query whereKey:@"category" equalTo:self.category];
-            }
-            query.limit = 20;
+    } else {
+        PFQuery *query = [Template query];
+        [query orderByDescending:@"createdAt"];
+        [query  includeKey:@"author"];
+        [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
+        if (self.category != nil) {
+            [query whereKey:@"category" equalTo:self.category];
+        }
+        query.limit = 20;
 
-            // fetch data asynchronously
-            [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
-                if (templates != nil) {
-                    self.templates = templates;
-                    self.filteredData = self.templates;
-                    [self.collectionView reloadData];
-                } else {
-                    NSLog(@"%@", error.localizedDescription);
-                }
-                [self.refreshControl endRefreshing];
-                [self.spinner stopAnimating];
-                self.spinner.hidden = YES;
-            }];
+        // fetch data asynchronously
+        [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
+            if (templates != nil) {
+                self.templates = templates;
+                self.filteredData = self.templates;
+                [self.collectionView reloadData];
+            } else {
+                NSLog(@"%@", error.localizedDescription);
+            }
+            [self.refreshControl endRefreshing];
+            [self.spinner stopAnimating];
+            self.spinner.hidden = YES;
+        }];
     }
 }
 

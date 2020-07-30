@@ -139,15 +139,13 @@
      [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
          for (User *user in objects) {
              if ([user.username isEqual:[User currentUser].username]) {
-                 isComplete(true);
+                isComplete(true);
                 containsUser = true;
              }
          }
          if (!containsUser) {
              isComplete(false);
-//             self.saveButton.selected = NO;
          }
-//         self.likeLabel.text = [NSString stringWithFormat:@"%@", self.temp.likeCount];
      }];
  }
      

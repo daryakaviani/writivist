@@ -222,7 +222,7 @@
                         [self presentViewController:alert animated:YES completion:nil];
                     } else {
                         NSLog(@"User registered successfully");
-                        [self dismissViewControllerAnimated:YES completion:nil];
+                        [self performSegueWithIdentifier:@"signinSegue" sender:nil];
                     }
                 }];
             }

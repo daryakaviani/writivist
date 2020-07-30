@@ -54,7 +54,7 @@
     }];
     NSDate *tempTime = template.createdAt;
     NSDate *timeAgo = [NSDate dateWithTimeInterval:0 sinceDate:tempTime];
-    self.timestampLabel.text = timeAgo.timeAgoSinceNow;
+    self.timestampLabel.text = timeAgo.shortTimeAgoSinceNow;
 }
 - (IBAction)saveButton:(id)sender {
     __block bool containsUser = false;

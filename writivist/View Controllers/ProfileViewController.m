@@ -133,7 +133,7 @@
     }
     NSDate *tempTime = template.createdAt;
     NSDate *timeAgo = [NSDate dateWithTimeInterval:0 sinceDate:tempTime];
-    cell.timestampLabel.text = timeAgo.timeAgoSinceNow;
+    cell.timestampLabel.text = timeAgo.shortTimeAgoSinceNow;
     return cell;
 }
 

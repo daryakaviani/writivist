@@ -167,12 +167,9 @@ int newTempCount;
                 skip += templates.count;
                 isMoreDataLoading = false;
                 [loadingMoreView stopAnimating];
-//                [self.collectionView reloadData];
             } else {
                 NSLog(@"%@", error.localizedDescription);
-//                [self.collectionView reloadData];
             }
-//            [self.collectionView reloadData];
         }];
     }
 }
@@ -352,6 +349,8 @@ int newTempCount;
         }];
         
         if (self.saved) {
+            dispatch_group_t dispatchGroup = dispatch_group_create();
+            
             PFQuery *query = [Template query];
             [query orderByDescending:@"createdAt"];
             [query includeKey:@"author"];
@@ -361,11 +360,12 @@ int newTempCount;
             }
             query.limit = 20;
 
+            NSMutableArray *savedTemplates = [NSMutableArray array];
             // fetch data asynchronously
             [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
                 if (templates != nil) {
-                    NSMutableArray *savedTemplates = [[NSMutableArray alloc] init];
                     for (Template *template in templates) {
+                        dispatch_group_enter(dispatchGroup);
                         PFRelation *relation = [template relationForKey:@"savedBy"];
                         PFQuery *query = [relation query];
                         [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
@@ -374,38 +374,39 @@ int newTempCount;
                                     [savedTemplates addObject:template];
                                 }
                             }
-                            self.filteredData = [savedTemplates filteredArrayUsingPredicate:predicate];
-                            [self.collectionView reloadData];
+                            self.templates = savedTemplates;
+                            self.filteredData = self.templates;
+                            dispatch_group_leave(dispatchGroup);
                         }];
                     }
                 } else {
                     NSLog(@"%@", error.localizedDescription);
                 }
+                dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^(void){
+                    [self.collectionView reloadData];
+                    self.filteredData = [savedTemplates filteredArrayUsingPredicate:predicate];
+                });
             }];
         } else {
             PFQuery *query = [Template query];
-                   [query orderByDescending:@"createdAt"];
-                   [query  includeKey:@"author"];
-                   [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
-                   [query whereKey:@"category" equalTo:self.category];
-                   // fetch data asynchronously
-                   [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
-                       if (templates != nil) {
-                           self.filteredData = [templates filteredArrayUsingPredicate:predicate];
-                           [self.collectionView reloadData];
-                       } else {
-                           NSLog(@"%@", error.localizedDescription);
-                       }
-                   }];
+           [query orderByDescending:@"createdAt"];
+           [query  includeKey:@"author"];
+           [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
+           [query whereKey:@"category" equalTo:self.category];
+           // fetch data asynchronously
+           [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
+               if (templates != nil) {
+                   self.filteredData = [templates filteredArrayUsingPredicate:predicate];
+                   [self.collectionView reloadData];
+               } else {
+                   NSLog(@"%@", error.localizedDescription);
+               }
+           }];
         }
     } else {
         self.filteredData = self.templates;
+        [self.collectionView reloadData];
     }
-    [self.collectionView reloadData];
-}
-
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    self.searchBar.showsCancelButton = NO;
 }
 
 

@@ -16,6 +16,7 @@
 #import <MessageUI/MessageUI.h>
 #import "User.h"
 #import "PrintViewController.h"
+#import "JGProgressHUD.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, RepresentativeCellDelegate, MFMailComposeViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -27,7 +28,7 @@
 @property (nonatomic) NSMutableArray *stateReps;
 @property (nonatomic) NSMutableArray *countyReps;
 @property (nonatomic) NSMutableArray *cityReps;
-@property(nonatomic, readonly) UIUserInterfaceStyle userInterfaceStyle;
+@property (nonatomic, strong) JGProgressHUD *spinner;
 
 @end
 
@@ -39,6 +40,9 @@ NSArray *levels;
     [super viewDidLoad];
     
     levels = @[@"Federal", @"State", @"County", @"City"];
+    
+    self.spinner = [JGProgressHUD progressHUDWithStyle:JGProgressHUDStyleLight];
+    [self.spinner showInView:self.view];
 
     self.counterView.hidden = YES;
     self.internalView.layer.cornerRadius = self.internalView.bounds.size.width/2;
@@ -226,6 +230,7 @@ NSArray *levels;
             }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
+            [self.spinner dismiss];
         });
         }] resume];
 }

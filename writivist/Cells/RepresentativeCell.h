@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id<RepresentativeCellDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIButton *phoneButton;
 @property (weak, nonatomic) IBOutlet UIImageView *emailView;
+@property (weak, nonatomic) IBOutlet UIImageView *printView;
 @property (weak, nonatomic) IBOutlet UIButton *websiteButton;
 @end
 

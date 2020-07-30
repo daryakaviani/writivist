@@ -157,6 +157,18 @@ NSArray *levels;
     myDelegate.window.rootViewController = loginViewController;
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    for (RepresentativeCell *representativeCell in self.selectedReps) {
+        Representative *representative = representativeCell.representative;
+        UIColor *color = [UIColor clearColor];
+        representativeCell.checkView.backgroundColor = color;
+        representative.selected = (BOOL * _Nonnull) NO;
+        UIView *subview = representativeCell.checkView.subviews[0];
+        subview.hidden = YES;
+    }
+    [self.selectedReps removeAllObjects];
+}
+
 - (void)fetchRepresentatives {
     User *user = [User currentUser];
     NSString *location = user.streetNumber;
@@ -271,6 +283,11 @@ NSArray *levels;
         cell.emailView.hidden = YES;
     } else {
         cell.emailView.hidden = NO;
+    }
+    if (representative.address == nil) {
+        cell.printView.hidden = YES;
+    } else {
+        cell.printView.hidden = NO;
     }
     if (representative.twitter == nil) {
         cell.twitterButton.enabled = NO;

@@ -774,6 +774,10 @@
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="143" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="w2z-9g-hW8">
                                                 <rect key="frame" x="0.0" y="304" width="414" height="482"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" id="cg6-Kp-T68">
+                                                    <rect key="frame" x="0.0" y="199" width="414" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </activityIndicatorView>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MyTemplateCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyTemplateCell" rowHeight="143" id="9nS-Hu-TPi" customClass="MyTemplateCell">
                                                         <rect key="frame" x="0.0" y="28" width="414" height="143"/>
@@ -863,10 +867,6 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="viK-Kb-x8f">
-                                                                    <rect key="frame" x="197" y="62" width="20" height="20"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                </activityIndicatorView>
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstItem="DgT-3O-g7Q" firstAttribute="top" secondItem="6Dj-M7-wGJ" secondAttribute="bottom" constant="9.5" id="35d-1b-R93"/>
@@ -901,7 +901,6 @@
                                                             <outlet property="publicityText" destination="WGK-Bq-BKN" id="3qa-p7-Eq3"/>
                                                             <outlet property="saveLabel" destination="6Dj-M7-wGJ" id="FzH-Jk-mAl"/>
                                                             <outlet property="senderLabel" destination="OOt-vE-Qw8" id="FQe-lu-6Wk"/>
-                                                            <outlet property="spinner" destination="viK-Kb-x8f" id="lKB-ve-9O6"/>
                                                             <outlet property="timestampLabel" destination="DgT-3O-g7Q" id="BTM-eC-TZ6"/>
                                                             <outlet property="titleLabel" destination="EVS-e4-Hw1" id="Kn2-0y-MuV"/>
                                                             <segue destination="9Dh-CU-C0r" kind="presentation" identifier="myTemplateSegue" id="X5I-1p-WB2"/>
@@ -999,6 +998,7 @@
                         <outlet property="profileView" destination="Ajf-Ow-BoB" id="uzz-j4-LeB"/>
                         <outlet property="saveButton" destination="DQt-Gg-GLK" id="BfV-0e-tnc"/>
                         <outlet property="scrollView" destination="2XP-gE-dFW" id="BiU-Gw-NLn"/>
+                        <outlet property="spinner" destination="cg6-Kp-T68" id="RrS-Rd-soS"/>
                         <outlet property="tableView" destination="w2z-9g-hW8" id="kwW-dz-q5V"/>
                         <outlet property="templateLikeLabel" destination="W1x-G4-4yn" id="HiL-2L-MNY"/>
                         <outlet property="templatesPublishedLabel" destination="kpE-yg-Bcx" id="hl9-lq-tCt"/>
@@ -2275,8 +2275,8 @@
         <segue reference="bgJ-Xt-qpA"/>
         <segue reference="FIB-93-9Mk"/>
         <segue reference="8VE-jx-Aez"/>
-        <segue reference="NWH-Dg-Zb7"/>
-        <segue reference="cHr-Rj-NO5"/>
+        <segue reference="JVG-K4-CkX"/>
+        <segue reference="X5I-1p-WB2"/>
         <segue reference="GMH-cY-8qX"/>
         <segue reference="0nU-vq-fGN"/>
     </inferredMetricsTieBreakers>

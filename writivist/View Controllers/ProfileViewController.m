@@ -33,6 +33,7 @@
 @property (weak, nonatomic) PFFileObject *pickerView;
 @property (strong, nonatomic) NSArray *templates;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @end
 
@@ -40,6 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.spinner startAnimating];
     if (self.user == nil || [[User currentUser].username isEqualToString:self.user.username]) {
         self.user = [User currentUser];
     } else {
@@ -196,6 +198,8 @@
             NSLog(@"%@", error.localizedDescription);
         }
         [self.refreshControl endRefreshing];
+        [self.spinner stopAnimating];
+        self.spinner.hidden = YES;
     }];
     [self updateInformation];
 

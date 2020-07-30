@@ -12,7 +12,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
 - (IBAction)privacySwitch:(id)sender {
     self.temp.isPrivate = !self.temp.isPrivate;

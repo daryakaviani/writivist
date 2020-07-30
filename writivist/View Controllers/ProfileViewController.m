@@ -20,6 +20,7 @@
 #import "CategoryViewController.h"
 
 @interface ProfileViewController ()<UITableViewDelegate, UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
@@ -44,6 +45,8 @@
     } else {
         self.editButton.tintColor = [UIColor clearColor];
         self.editButton.enabled = NO;
+        self.saveButton.tintColor = [UIColor clearColor];
+        self.saveButton.enabled = NO;
     }
     self.templates = [[NSArray alloc] init];
     [self fetchTemplates];

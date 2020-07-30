@@ -15,12 +15,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="Icon-60" translatesAutoresizingMaskIntoConstraints="NO" id="B4I-7f-536">
-                                <rect key="frame" x="117" y="376" width="180" height="145"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Icon-60" translatesAutoresizingMaskIntoConstraints="NO" id="B4I-7f-536">
+                                <rect key="frame" x="117" y="375.5" width="180" height="145"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="HjM-7j-rb5"/>
+                                    <constraint firstAttribute="height" constant="145" id="oyq-iM-S6D"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="B4I-7f-536" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="1Mk-86-LP3"/>
+                            <constraint firstItem="B4I-7f-536" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="dza-ET-LTr"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>

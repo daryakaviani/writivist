@@ -24,6 +24,11 @@
 		4B6D8C9C24C6344C0042EDC7 /* MapContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D8C9B24C6344C0042EDC7 /* MapContentCell.m */; };
 		4B7CB08524BCC03700AC26DF /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7CB08424BCC03700AC26DF /* LoginViewController.m */; };
 		4B83BAC124D0F61600A2E005 /* PrintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B83BAC024D0F61500A2E005 /* PrintViewController.m */; };
+		4B83BAE324D3AB2900A2E005 /* HyLoglnButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B83BADC24D3AB2800A2E005 /* HyLoglnButton.m */; };
+		4B83BAE424D3AB2900A2E005 /* HyLoginButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B83BADD24D3AB2800A2E005 /* HyLoginButton.m */; };
+		4B83BAE524D3AB2900A2E005 /* HyTransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B83BADF24D3AB2900A2E005 /* HyTransitions.m */; };
+		4B83BAE624D3AB2900A2E005 /* SpinerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B83BAE024D3AB2900A2E005 /* SpinerLayer.m */; };
+		4B83BAE724D3AB2900A2E005 /* HySpinerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B83BAE124D3AB2900A2E005 /* HySpinerLayer.m */; };
 		4BCAD04624CAB77E0007EA6A /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BCAD04524CAB77D0007EA6A /* user.png */; };
 		4BCB1DB224BCAF6300BAE96E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DB124BCAF6300BAE96E /* AppDelegate.m */; };
 		4BCB1DB524BCAF6300BAE96E /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DB424BCAF6300BAE96E /* SceneDelegate.m */; };
@@ -96,6 +101,16 @@
 		4B7CB08424BCC03700AC26DF /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		4B83BABF24D0F61500A2E005 /* PrintViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrintViewController.h; sourceTree = "<group>"; };
 		4B83BAC024D0F61500A2E005 /* PrintViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrintViewController.m; sourceTree = "<group>"; };
+		4B83BAD924D3AB2800A2E005 /* HyLoginButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HyLoginButton.h; path = "../../../HySubmitTransitionObjective-C-master/HyLoginButton.h"; sourceTree = "<group>"; };
+		4B83BADA24D3AB2800A2E005 /* HySpinerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HySpinerLayer.h; path = "../../../HySubmitTransitionObjective-C-master/HySpinerLayer.h"; sourceTree = "<group>"; };
+		4B83BADB24D3AB2800A2E005 /* HyLoglnButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HyLoglnButton.h; path = "../../../HySubmitTransitionObjective-C-master/HyLoglnButton.h"; sourceTree = "<group>"; };
+		4B83BADC24D3AB2800A2E005 /* HyLoglnButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HyLoglnButton.m; path = "../../../HySubmitTransitionObjective-C-master/HyLoglnButton.m"; sourceTree = "<group>"; };
+		4B83BADD24D3AB2800A2E005 /* HyLoginButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HyLoginButton.m; path = "../../../HySubmitTransitionObjective-C-master/HyLoginButton.m"; sourceTree = "<group>"; };
+		4B83BADE24D3AB2800A2E005 /* HyTransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HyTransitions.h; path = "../../../HySubmitTransitionObjective-C-master/HyTransitions.h"; sourceTree = "<group>"; };
+		4B83BADF24D3AB2900A2E005 /* HyTransitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HyTransitions.m; path = "../../../HySubmitTransitionObjective-C-master/HyTransitions.m"; sourceTree = "<group>"; };
+		4B83BAE024D3AB2900A2E005 /* SpinerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpinerLayer.m; path = "../../../HySubmitTransitionObjective-C-master/SpinerLayer.m"; sourceTree = "<group>"; };
+		4B83BAE124D3AB2900A2E005 /* HySpinerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HySpinerLayer.m; path = "../../../HySubmitTransitionObjective-C-master/HySpinerLayer.m"; sourceTree = "<group>"; };
+		4B83BAE224D3AB2900A2E005 /* SpinerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpinerLayer.h; path = "../../../HySubmitTransitionObjective-C-master/SpinerLayer.h"; sourceTree = "<group>"; };
 		4BCAD04524CAB77D0007EA6A /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = user.png; path = ../../user.png; sourceTree = "<group>"; };
 		4BCB1DAD24BCAF6300BAE96E /* writivist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = writivist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BCB1DB024BCAF6300BAE96E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -272,6 +287,16 @@
 		4BCD151C24C7A37700B831A4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				4B83BAD924D3AB2800A2E005 /* HyLoginButton.h */,
+				4B83BADD24D3AB2800A2E005 /* HyLoginButton.m */,
+				4B83BADB24D3AB2800A2E005 /* HyLoglnButton.h */,
+				4B83BADC24D3AB2800A2E005 /* HyLoglnButton.m */,
+				4B83BADA24D3AB2800A2E005 /* HySpinerLayer.h */,
+				4B83BAE124D3AB2900A2E005 /* HySpinerLayer.m */,
+				4B83BADE24D3AB2800A2E005 /* HyTransitions.h */,
+				4B83BADF24D3AB2900A2E005 /* HyTransitions.m */,
+				4B83BAE224D3AB2900A2E005 /* SpinerLayer.h */,
+				4B83BAE024D3AB2900A2E005 /* SpinerLayer.m */,
 				4BCD151924C7A2BE00B831A4 /* SectionTapper.h */,
 				4BCD151A24C7A2BE00B831A4 /* SectionTapper.m */,
 				4BCD152024C7C34A00B831A4 /* InfiniteScrollActivityView.h */,
@@ -603,6 +628,7 @@
 			files = (
 				4B6D8C9324C131460042EDC7 /* MyTemplateCell.m in Sources */,
 				4B1CC18024BE89DD007F9A52 /* TemplateLibraryViewController.m in Sources */,
+				4B83BAE624D3AB2900A2E005 /* SpinerLayer.m in Sources */,
 				4B1489AC24C65E9300269C7E /* EditProfileViewController.m in Sources */,
 				4BCD151B24C7A2BE00B831A4 /* SectionTapper.m in Sources */,
 				4B83BAC124D0F61600A2E005 /* PrintViewController.m in Sources */,
@@ -615,12 +641,16 @@
 				4B6D8C9924C61AD70042EDC7 /* MapContentViewController.m in Sources */,
 				4B1CC17724BE4DB7007F9A52 /* Template.m in Sources */,
 				4B1CC17A24BE4E68007F9A52 /* User.m in Sources */,
+				4B83BAE324D3AB2900A2E005 /* HyLoglnButton.m in Sources */,
 				4BCD152524C8C41300B831A4 /* SuggestedCell.m in Sources */,
 				4BEA8B2324BCFBC30041A6C9 /* Representative.m in Sources */,
 				4BCB1DB224BCAF6300BAE96E /* AppDelegate.m in Sources */,
 				4BEA8B2024BCF4EE0041A6C9 /* RepresentativeCell.m in Sources */,
+				4B83BAE724D3AB2900A2E005 /* HySpinerLayer.m in Sources */,
 				4BCD151F24C7A3F100B831A4 /* CategoryViewController.m in Sources */,
+				4B83BAE424D3AB2900A2E005 /* HyLoginButton.m in Sources */,
 				4B1CC17D24BE5783007F9A52 /* SignUpViewController.m in Sources */,
+				4B83BAE524D3AB2900A2E005 /* HyTransitions.m in Sources */,
 				4BCB1DC324BCAF6500BAE96E /* main.m in Sources */,
 				4BD44FDD24BCD94200BEE897 /* HomeViewController.m in Sources */,
 				4B6D8C9C24C6344C0042EDC7 /* MapContentCell.m in Sources */,

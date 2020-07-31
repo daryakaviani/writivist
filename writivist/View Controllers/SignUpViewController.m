@@ -46,9 +46,6 @@
 }
 
 
-- (IBAction)signupButton:(id)sender {
-    [self registerUser];
-}
 
 - (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image {
     // check if image is not nil
@@ -147,24 +144,6 @@
 }
 
 - (void)registerUser {
-    // initialize a user object
-    User *newUser = [User user];
-    
-    // set user properties
-    newUser.username = self.usernameField.text;
-    newUser.password = self.passwordField.text;
-    newUser.firstName = self.firstNameField.text;
-    newUser.lastName = self.lastNameField.text;
-    newUser.streetNumber = self.streetNumberField.text;
-    newUser.streetName = self.streetNameField.text;
-    newUser.city = self.cityField.text;
-    newUser.state = self.stateField.text;
-    newUser.zipCode = self.zipCodeField.text;
-    newUser.likeCount = @(0);
-    newUser.templateCount = @(0);
-    newUser.letterCount = @(0);
-    newUser.profilePicture = [self getPFFileFromImage:[UIImage imageNamed:@"user.png"]];
-    newUser.sendIndividually = YES;
     if (self.passwordField.text.length == 0 || self.usernameField.text.length == 0
         || self.firstNameField.text.length == 0 || self.lastNameField.text.length == 0
         || self.streetNumberField.text.length == 0 || self.streetNameField.text.length == 0
@@ -189,32 +168,12 @@
         // add the OK action to the alert controller
         [alert addAction:okAction];
         [self presentViewController:alert animated:YES completion:nil];
-    } else if ([self validateAddress]) {
-        [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
-            if (error != nil) {
-                [self.signupButton ErrorRevertAnimationCompletion:^{}];
-                NSLog(@"User log in failed: %@", error.localizedDescription);
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"User login failed:"
-                       message:error.localizedDescription
-                preferredStyle:(UIAlertControllerStyleAlert)];
-                // create an OK action
-                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
-                // add the OK action to the alert controller
-                [alert addAction:okAction];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self presentViewController:alert animated:YES completion:nil];
-                });
-            } else {
-                NSLog(@"User logged in successfully");
-                [self.signupButton ExitAnimationCompletion:^{
-                    [self performSegueWithIdentifier:@"signinSegue" sender:nil];
-                }];
-            }
-        }];
+    } else {
+        [self validateAddress];
     }
 }
 
-- (BOOL) validateAddress {
+- (void)validateAddress {
     __block bool isValidAddress = false;
     NSString *location = self.streetNumberField.text;
    location = [location stringByAppendingString:@"%20"];
@@ -246,15 +205,52 @@
            [alert addAction:okAction];
            dispatch_async(dispatch_get_main_queue(), ^{
                [self presentViewController:alert animated:YES completion:nil];
+               [self.signupButton ErrorRevertAnimationCompletion:^{}];
            });
        } else {
            isValidAddress = true;
+           User *newUser = [User user];
+           
+           newUser.username = self.usernameField.text;
+           newUser.password = self.passwordField.text;
+           newUser.firstName = self.firstNameField.text;
+           newUser.lastName = self.lastNameField.text;
+           newUser.streetNumber = self.streetNumberField.text;
+           newUser.streetName = self.streetNameField.text;
+           newUser.city = self.cityField.text;
+           newUser.state = self.stateField.text;
+           newUser.zipCode = self.zipCodeField.text;
+           newUser.likeCount = @(0);
+           newUser.templateCount = @(0);
+           newUser.letterCount = @(0);
+           newUser.profilePicture = [self getPFFileFromImage:[UIImage imageNamed:@"user.png"]];
+           newUser.sendIndividually = YES;
+           // set user properties
+           [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
+               if (error != nil) {
+                   [self.signupButton ErrorRevertAnimationCompletion:^{}];
+                   NSLog(@"User log in failed: %@", error.localizedDescription);
+                   UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"User login failed:"
+                          message:error.localizedDescription
+                   preferredStyle:(UIAlertControllerStyleAlert)];
+                   // create an OK action
+                   UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+                   // add the OK action to the alert controller
+                   [alert addAction:okAction];
+                   dispatch_async(dispatch_get_main_queue(), ^{
+                       [self presentViewController:alert animated:YES completion:nil];
+                   });
+               } else {
+                   NSLog(@"User logged in successfully");
+                   dispatch_async(dispatch_get_main_queue(), ^{
+                       [self.signupButton ExitAnimationCompletion:^{
+                           [self performSegueWithIdentifier:@"signinSegue" sender:nil];
+                       }];
+                   });
+               }
+           }];
        }
    }] resume];
-    if (!isValidAddress) {
-        [self.signupButton ErrorRevertAnimationCompletion:^{}];
-    }
-    return isValidAddress;
 }
 
 

@@ -78,6 +78,34 @@ int newTempCount;
     UIEdgeInsets insets = self.collectionView.contentInset;
     insets.bottom += InfiniteScrollActivityView.defaultHeight;
     self.collectionView.contentInset = insets;
+    
+    UIImageSymbolConfiguration *configuration = [UIImageSymbolConfiguration configurationWithPointSize:22 weight:UIImageSymbolWeightLight];
+    
+    UIImage *previewImageName = [UIImage systemImageNamed:@"doc.text" withConfiguration:configuration];
+    UIButton * previewButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [previewButton setImage:previewImageName forState:UIControlStateNormal];
+    [previewButton addTarget:self action:@selector(previewButton) forControlEvents:UIControlEventTouchUpInside];
+    previewButton.tintColor = [[UIColor alloc]initWithRed:96/255.0 green:125/255.0 blue:139/255.0 alpha:1];
+    previewButton.frame = CGRectMake(0, 0, 30, 30);
+    UIBarButtonItem *previewBarButton = [[UIBarButtonItem alloc] initWithCustomView:previewButton];
+    
+    UIImage *doneImageName = [UIImage systemImageNamed:@"checkmark.circle.fill" withConfiguration:configuration];
+    UIButton * doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [doneButton setImage:doneImageName forState:UIControlStateNormal];
+    [doneButton addTarget:self action:@selector(doneButton) forControlEvents:UIControlEventTouchUpInside];
+    doneButton.tintColor = [[UIColor alloc]initWithRed:96/255.0 green:125/255.0 blue:139/255.0 alpha:1];
+    doneButton.frame = CGRectMake(0, 0, 30, 30);
+    UIBarButtonItem *doneBarButton = [[UIBarButtonItem alloc] initWithCustomView:doneButton];
+    
+    UIImage *shareImageName = [UIImage systemImageNamed:@"square.and.arrow.up" withConfiguration:configuration];
+    UIButton * shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [shareButton setImage:shareImageName forState:UIControlStateNormal];
+    [shareButton addTarget:self action:@selector(shareButton) forControlEvents:UIControlEventTouchUpInside];
+    shareButton.tintColor = [[UIColor alloc]initWithRed:96/255.0 green:125/255.0 blue:139/255.0 alpha:1];
+    shareButton.frame = CGRectMake(0, 0, 30, 30);
+    UIBarButtonItem *shareBarButton = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
+
+    self.navigationItem.rightBarButtonItems  = @[doneBarButton, shareBarButton, previewBarButton];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -85,7 +113,15 @@ int newTempCount;
     newTempCount = 0;
 }
 
-- (IBAction)shareButton:(id)sender {
+- (void)doneButton {
+    [self performSegueWithIdentifier:@"selectedTemplate" sender:nil];
+}
+
+- (void)previewButton {
+    [self performSegueWithIdentifier:@"preview" sender:nil];
+}
+
+- (void)shareButton {
     NSString *shareString = @"Check out this letter hosted on the app Writivist! Share it with your representatives and download Writivist on the App Store to get in touch with your elected officials in seconds.";
     shareString = [NSString stringWithFormat:@"%@\n\n%@",shareString, self.previewTitle];
     shareString = [NSString stringWithFormat:@"%@\n\n%@",shareString, self.body];

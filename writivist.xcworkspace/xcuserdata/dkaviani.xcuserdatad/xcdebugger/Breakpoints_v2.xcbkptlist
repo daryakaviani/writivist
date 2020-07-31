@@ -90,8 +90,8 @@
             filePath = "writivist/View Controllers/CategoryViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
             landmarkName = "-loadMoreData"
             landmarkType = "7">
             <Locations>
@@ -138,8 +138,8 @@
             filePath = "writivist/View Controllers/SignUpViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
             landmarkName = "-registerUser"
             landmarkType = "7">
             <Locations>
@@ -172,54 +172,6 @@
                   startingLineNumber = "195"
                   endingLineNumber = "195"
                   offsetFromSymbolStart = "58">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B72DEAAF-A137-41B8-9F0F-17F38F4A793D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "writivist/View Controllers/SignUpViewController.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
-            landmarkName = "-registerUser"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "B72DEAAF-A137-41B8-9F0F-17F38F4A793D - b32b50dfc0a4c6f8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__36-[SignUpViewController registerUser]_block_invoke_5"
-                  moduleName = "writivist"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dkaviani/Desktop/writivist/writivist/View%20Controllers/SignUpViewController.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "196"
-                  endingLineNumber = "196"
-                  offsetFromSymbolStart = "82">
-               </Location>
-               <Location
-                  uuid = "B72DEAAF-A137-41B8-9F0F-17F38F4A793D - b32b50dfc024c6fb"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__36-[SignUpViewController registerUser]_block_invoke_6"
-                  moduleName = "writivist"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dkaviani/Desktop/writivist/writivist/View%20Controllers/SignUpViewController.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "196"
-                  endingLineNumber = "196"
-                  offsetFromSymbolStart = "12">
                </Location>
             </Locations>
          </BreakpointContent>

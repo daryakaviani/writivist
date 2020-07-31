@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.loginButton = [[HyLoglnButton alloc] initWithFrame:CGRectMake(self.view.center.x - self.passwordField.layer.frame.size.width/2, CGRectGetHeight(self.view.bounds) - self.view.frame.size.height/7, self.passwordField.layer.frame.size.width, 40)];
+    self.loginButton = [[HyLoglnButton alloc] initWithFrame:CGRectMake(self.view.center.x - self.passwordField.layer.frame.size.width/2, CGRectGetHeight(self.view.bounds) - self.view.frame.size.height/6.5, self.passwordField.layer.frame.size.width, 40)];
     [self.loginButton setBackgroundColor:[[UIColor alloc]initWithRed:178/255.0 green:223/255.0 blue:219/255.0 alpha:1]];
     [self.view addSubview:self.loginButton];
     [self.loginButton setTitle:@"Login" forState:UIControlStateNormal];

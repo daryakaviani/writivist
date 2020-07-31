@@ -23,8 +23,6 @@
 @property (nonatomic, strong) NSArray *templates;
 @property (nonatomic, strong) TemplateCell *currentCell;
 @property (nonatomic, strong) Template *currentTemplate;
-@property (nonatomic, strong) NSString *body;
-@property (nonatomic, strong) NSString *previewTitle;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) User *user;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -114,25 +112,64 @@ int newTempCount;
 }
 
 - (void)doneButton {
-    [self performSegueWithIdentifier:@"selectedTemplate" sender:nil];
+    if (self.currentTemplate == nil) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No template selected."
+               message:@"Please select a template to use in your message. If you'd like to write a message from scratch, navigate home and select your representatives from there."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:YES completion:nil];
+        });
+    } else {
+        [self performSegueWithIdentifier:@"selectedTemplate" sender:nil];
+    }
 }
 
 - (void)previewButton {
-    [self performSegueWithIdentifier:@"preview" sender:nil];
+    if (self.currentTemplate == nil) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No template selected."
+               message:@"Please select a template to preview."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:YES completion:nil];
+        });
+    } else {
+        [self performSegueWithIdentifier:@"preview" sender:nil];
+    }
 }
 
 - (void)shareButton {
-    NSString *shareString = @"Check out this letter hosted on the app Writivist! Share it with your representatives and download Writivist on the App Store to get in touch with your elected officials in seconds.";
-    shareString = [NSString stringWithFormat:@"%@\n\n%@",shareString, self.previewTitle];
-    shareString = [NSString stringWithFormat:@"%@\n\n%@",shareString, self.body];
-    NSArray *activityItems = @[shareString];
-    UIActivityViewController *activityViewControntroller = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
-    activityViewControntroller.excludedActivityTypes = @[];
-    if (UIUserInterfaceIdiomPad) {
-        activityViewControntroller.popoverPresentationController.sourceView = self.view;
-        activityViewControntroller.popoverPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width/2, self.view.bounds.size.height/4, 0, 0);
+    if (self.currentTemplate == nil) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No template selected."
+               message:@"Please select a template to share."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:YES completion:nil];
+        });
+    } else {
+        NSString *shareString = @"Check out this letter hosted on the app Writivist! Share it with your representatives and download Writivist on the App Store to get in touch with your elected officials in seconds.";
+        shareString = [NSString stringWithFormat:@"%@\n\n%@",shareString, self.currentTemplate.title];
+        shareString = [NSString stringWithFormat:@"%@\n\n%@",shareString, self.currentTemplate.body];
+        NSArray *activityItems = @[shareString];
+        UIActivityViewController *activityViewControntroller = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+        activityViewControntroller.excludedActivityTypes = @[];
+        if (UIUserInterfaceIdiomPad) {
+            activityViewControntroller.popoverPresentationController.sourceView = self.view;
+            activityViewControntroller.popoverPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width/2, self.view.bounds.size.height/4, 0, 0);
+        }
+        [self presentViewController:activityViewControntroller animated:true completion:nil];
     }
-    [self presentViewController:activityViewControntroller animated:true completion:nil];
 }
 
 - (void) queryMoreSaved {
@@ -331,8 +368,6 @@ int newTempCount;
         self.currentTemplate = temp;
         UIView *subview = templateCell.checkView.subviews[0];
         subview.hidden = NO;
-        self.body = temp.body;
-        self.previewTitle = temp.title;
     } else if ([self.currentTemplate.objectId isEqualToString:temp.objectId]) {
         UIColor *color = [UIColor clearColor];
         templateCell.checkView.backgroundColor = color;
@@ -340,7 +375,6 @@ int newTempCount;
         self.currentCell = nil;
         UIView *subview = templateCell.checkView.subviews[0];
         subview.hidden = YES;
-        self.body = @"";
     }
 }
 
@@ -446,20 +480,19 @@ int newTempCount;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"selectedTemplate"]) {
         HomeViewController *homeViewController = [segue destinationViewController];
-        homeViewController.body = self.body;
-        self.body = @"";
-        self.previewTitle = @"";
+        homeViewController.currentTemplate = self.currentTemplate;
         TemplateCell *current = self.currentCell;
         UIColor *color = [UIColor clearColor];
         current.checkView.backgroundColor = color;
         UIView *subview = current.checkView.subviews[0];
         subview.hidden = YES;
         self.currentCell = nil;
+        self.currentTemplate = nil;
     }
     if ([segue.identifier isEqualToString:@"preview"]) {
         PreviewViewController *previewViewController = [segue destinationViewController];
-        previewViewController.templateTitle = self.previewTitle;
-        previewViewController.body = self.body;
+        previewViewController.templateTitle = self.currentTemplate.title;
+        previewViewController.body = self.currentTemplate.body;
     }
     if ([segue.identifier isEqualToString:@"profileSegue"]) {
         ProfileViewController *profileViewController = [segue destinationViewController];

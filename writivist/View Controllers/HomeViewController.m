@@ -59,7 +59,7 @@ NSArray *levels;
     self.tableView.delegate = self;
     self.selectedReps = [[NSMutableArray alloc]init];
     [self fetchRepresentatives];
-    if (self.body != nil) {
+    if (self.currentTemplate != nil) {
         self.navigationItem.title = @"select reps.";
         self.logoutButton.tintColor = [UIColor clearColor];
         self.logoutButton.enabled = NO;
@@ -388,8 +388,8 @@ NSArray *levels;
                 bodyHeader = [bodyHeader stringByAppendingString:@", "];
                 bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].state];
                 bodyHeader = [bodyHeader stringByAppendingString:@". "];
-                if (self.body.length > 0) {
-                    bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, self.body];
+                if (self.currentTemplate != nil) {
+                    bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, self.currentTemplate.body];
                 }
                 [self.selectedReps removeObjectAtIndex:0];
                 [mailComposeViewController setToRecipients:emails];
@@ -431,9 +431,8 @@ NSArray *levels;
                 bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].state];
                 bodyHeader = [bodyHeader stringByAppendingString:@". "];
 
-                if (self.body.length > 0) {
-                    bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, self.body];
-                    self.body = @"";
+                if (self.currentTemplate != nil) {
+                    bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, self.currentTemplate.body];
                 }
                 [self.selectedReps removeAllObjects];
                 [mailComposeViewController setToRecipients:emails];
@@ -501,15 +500,15 @@ NSArray *levels;
         bodyHeader = [bodyHeader stringByAppendingString:@", "];
         bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].state];
         bodyHeader = [bodyHeader stringByAppendingString:@". "];
-        if (self.body.length > 0) {
-            bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, self.body];
+        if (self.currentTemplate != nil) {
+            bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, self.currentTemplate.body];
         }
         [self.selectedReps removeObjectAtIndex:0];
         [mailComposeViewController setToRecipients:emails];
         [mailComposeViewController setMessageBody:bodyHeader isHTML:false];
         [self presentViewController:mailComposeViewController animated:YES completion:nil];
     } else if ([User currentUser].sendIndividually) {
-        self.body = @"";
+        self.currentTemplate = nil;
     }
 }
 

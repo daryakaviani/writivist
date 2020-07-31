@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray *representatives;
 @property (nonatomic, strong) NSArray *offices;
 @property (nonatomic, strong) User *user;
-@property (nonatomic, strong) NSString *body;
 @property (weak, nonatomic) IBOutlet UILabel *counterLabel;
 @property (nonatomic, strong) Template * _Nullable currentTemplate;
 

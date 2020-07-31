@@ -84,18 +84,32 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     return 1;
 }
 - (void)shareButton {
-    NSString *shareString = @"Check out this letter hosted on the app Writivist! Share it with your representatives and download Writivist on the App Store to get in touch with your elected officials in seconds.";
-    shareString = [NSString stringWithFormat:@"%@\n\n%@",shareString, self.currentTemplate.title];
-    shareString = [NSString stringWithFormat:@"%@\n\n%@",shareString, self.currentTemplate.body];
-    NSArray *activityItems = @[shareString];
-    UIActivityViewController *activityViewControntroller = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
-    activityViewControntroller.excludedActivityTypes = @[];
-    if (UIUserInterfaceIdiomPad) {
-        activityViewControntroller.popoverPresentationController.sourceView = self.view;
-        activityViewControntroller.popoverPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width/2, self.view.bounds.size.height/4, 0, 0);
+    if (self.currentTemplate == nil) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No template selected."
+               message:@"Please select a template to share."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:YES completion:nil];
+        });
+    } else {
+        NSString *shareString = @"Check out this letter hosted on the app Writivist! Share it with your representatives and download Writivist on the App Store to get in touch with your elected officials in seconds.";
+        shareString = [NSString stringWithFormat:@"%@\n\n%@",shareString, self.currentTemplate.title];
+        shareString = [NSString stringWithFormat:@"%@\n\n%@",shareString, self.currentTemplate.body];
+        NSArray *activityItems = @[shareString];
+        UIActivityViewController *activityViewControntroller = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+        activityViewControntroller.excludedActivityTypes = @[];
+        if (UIUserInterfaceIdiomPad) {
+            activityViewControntroller.popoverPresentationController.sourceView = self.view;
+            activityViewControntroller.popoverPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width/2, self.view.bounds.size.height/4, 0, 0);
+        }
+        [self presentViewController:activityViewControntroller animated:true completion:nil];
     }
-    [self presentViewController:activityViewControntroller animated:true completion:nil];
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *category = self.categories[indexPath.section];
@@ -214,7 +228,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"selectedTemplate"]) {
         HomeViewController *homeViewController = [segue destinationViewController];
-        homeViewController.body = self.currentTemplate.body;
+        homeViewController.currentTemplate = self.currentTemplate;
         homeViewController.currentTemplate = self.currentTemplate;
         TemplateCell *current = self.currentCell;
         UIColor *color = [[UIColor alloc]initWithRed:248/255.0 green:193/255.0 blue:176/255.0 alpha:0];

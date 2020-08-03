@@ -24,7 +24,6 @@ PODS:
   - GooglePlaces (3.9.0):
     - GoogleMaps/Base (= 3.9.0)
   - IQKeyboardManager (6.5.5)
-  - JGProgressHUD (2.1)
   - MKDropdownMenu (1.4)
   - Parse (1.18.0):
     - Parse/Core (= 1.18.0)
@@ -39,7 +38,6 @@ DEPENDENCIES:
   - GoogleMaps
   - GooglePlaces
   - IQKeyboardManager
-  - JGProgressHUD
   - MKDropdownMenu
   - Parse
   - Parse/UI
@@ -52,7 +50,6 @@ SPEC REPOS:
     - GoogleMaps
     - GooglePlaces
     - IQKeyboardManager
-    - JGProgressHUD
     - MKDropdownMenu
     - Parse
 
@@ -63,10 +60,9 @@ SPEC CHECKSUMS:
   GoogleMaps: 4b5346bddfe6911bb89155d43c903020170523ac
   GooglePlaces: 1634d019549b969d40fe0ccb0b9513055adebe01
   IQKeyboardManager: 3a8b9e603f8b0eeaf5f096a1f2b2cfcf121992ef
-  JGProgressHUD: aa403e9a5b45cae98903c4600cccdd98c0c3ec90
   MKDropdownMenu: 269df4a41d21a1db684ce8bc709befe419fc5bae
   Parse: 79bdda34fdb7eb2a707a43a951c8aae236cb3e34
 
-PODFILE CHECKSUM: 4a0527df852eb2d9b2530e2c8b1a274cb1140805
+PODFILE CHECKSUM: c93cd958797813f79363739196fd8ddf968440b4
 
 COCOAPODS: 1.9.3

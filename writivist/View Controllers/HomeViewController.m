@@ -28,7 +28,8 @@
 @property (nonatomic) NSMutableArray *stateReps;
 @property (nonatomic) NSMutableArray *countyReps;
 @property (nonatomic) NSMutableArray *cityReps;
-@property (nonatomic, strong) JGProgressHUD *spinner;
+//@property (nonatomic, strong) JGProgressHUD *spinner;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @end
 
@@ -41,8 +42,7 @@ NSArray *levels;
     
     levels = @[@"Federal", @"State", @"County", @"City"];
     
-    self.spinner = [JGProgressHUD progressHUDWithStyle:JGProgressHUDStyleLight];
-    [self.spinner showInView:self.view];
+    [self.spinner startAnimating];
 
     self.counterView.hidden = YES;
     self.internalView.layer.cornerRadius = self.internalView.bounds.size.width/2;
@@ -232,7 +232,8 @@ NSArray *levels;
             }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
-            [self.spinner dismiss];
+            [self.spinner stopAnimating];
+            self.spinner.hidden = YES;
         });
         }] resume];
 }

@@ -14,7 +14,6 @@ target 'writivist' do
   pod 'DateTools'
   pod 'GoogleMaps'
   pod 'GooglePlaces'
-  pod 'JGProgressHUD'
 
   target 'writivistTests' do
     inherit! :search_paths

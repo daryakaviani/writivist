@@ -237,35 +237,37 @@
                });
            } else {
                isValidAddress = true;
-               // set user properties
-               [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
-                   if (error != nil) {
-                       [self.signupButton ErrorRevertAnimationCompletion:^{}];
-                       NSLog(@"User log in failed: %@", error.localizedDescription);
-                       UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"User login failed:"
-                              message:error.localizedDescription
-                       preferredStyle:(UIAlertControllerStyleAlert)];
-                       // create an OK action
-                       UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
-                       // add the OK action to the alert controller
-                       [alert addAction:okAction];
-                       dispatch_async(dispatch_get_main_queue(), ^{
-                           [self presentViewController:alert animated:YES completion:nil];
-                       });
-                   } else {
-                       NSLog(@"User logged in successfully");
-                       dispatch_async(dispatch_get_main_queue(), ^{
-                           [self.signupButton ExitAnimationCompletion:^{
-                               [self performSegueWithIdentifier:@"signinSegue" sender:nil];
-                           }];
-                       });
-                   }
-               }];
+               [self attemptSignup:newUser];
            }
        }
     }] resume];
 }
 
+- (void) attemptSignup:(User *)newUser {
+   [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
+       if (error != nil) {
+           [self.signupButton ErrorRevertAnimationCompletion:^{}];
+           NSLog(@"User log in failed: %@", error.localizedDescription);
+           UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"User login failed:"
+                  message:error.localizedDescription
+           preferredStyle:(UIAlertControllerStyleAlert)];
+           // create an OK action
+           UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+           // add the OK action to the alert controller
+           [alert addAction:okAction];
+           dispatch_async(dispatch_get_main_queue(), ^{
+               [self presentViewController:alert animated:YES completion:nil];
+           });
+       } else {
+           NSLog(@"User logged in successfully");
+           dispatch_async(dispatch_get_main_queue(), ^{
+               [self.signupButton ExitAnimationCompletion:^{
+                   [self performSegueWithIdentifier:@"signinSegue" sender:nil];
+               }];
+           });
+       }
+   }];
+}
 
 #pragma mark Orientation
 //-(BOOL)shouldAutorotate

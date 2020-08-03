@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "PFImageView.h"
 #import "User.h"
+#import "Representative.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import <GoogleMaps/GoogleMaps.h>
 #import <GooglePlaces/GooglePlaces.h>
@@ -214,44 +215,65 @@
         user.sendIndividually = NO;
     }
     
-    NSString *location = user.streetNumber;
-    location = [location stringByAppendingString:@"%20"];
-    location = [location stringByAppendingString:user.streetName];
-    location = [location stringByAppendingString:@".%20"];
-    location = [location stringByAppendingString:user.city];
-    location = [location stringByAppendingString:@"%20"];
-    location = [location stringByAppendingString:user.state];
-    location = [location stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
-    NSLog(@"%@", user);
-    NSLog(@"%@", location);
-    NSString *targetUrl = [@"https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls&address=&address=" stringByAppendingString:location];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setHTTPMethod:@"GET"];
-    [request setURL:[NSURL URLWithString:targetUrl]];
-    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
-      ^(NSData * _Nullable data,
-        NSURLResponse * _Nullable response,
-        NSError * _Nullable error) {
-        if (error) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Your address is unsupported."
-                   message:@"Please ensure your submission is valid and that there are no accents in your address."
-            preferredStyle:(UIAlertControllerStyleAlert)];
-            // create an OK action
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
-            // add the OK action to the alert controller
-            [alert addAction:okAction];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self presentViewController:alert animated:YES completion:nil];
-            });
-        } else {
-            [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+    [self validateAddress];
+}
+
+- (void)validateAddress {
+    User *user = [User currentUser];
+    NSString *location = self.streetNumberField.text;
+   location = [location stringByAppendingString:@"%20"];
+    location = [location stringByAppendingString:self.streetNameField.text];
+   location = [location stringByAppendingString:@".%20"];
+    location = [location stringByAppendingString:self.cityField.text];
+   location = [location stringByAppendingString:@"%20"];
+    location = [location stringByAppendingString:self.stateField.text];
+   location = [location stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+   NSLog(@"%@", location);
+   NSString *targetUrl = [@"https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls&address=&address=" stringByAppendingString:location];
+   NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+   [request setHTTPMethod:@"GET"];
+   [request setURL:[NSURL URLWithString:targetUrl]];
+   [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
+     ^(NSData * _Nullable data,
+       NSURLResponse * _Nullable response,
+       NSError * _Nullable error) {
+       if (data == nil || error) {
+           UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Your address is unsupported."
+                  message:@"Please ensure your submission is valid and that there are no accents in your address."
+           preferredStyle:(UIAlertControllerStyleAlert)];
+           // create an OK action
+           UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+           // add the OK action to the alert controller
+           [alert addAction:okAction];
+           dispatch_async(dispatch_get_main_queue(), ^{
+               [self presentViewController:alert animated:YES completion:nil];
+           });
+       } else {
+           NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+           NSArray *representativeArray = [JSON valueForKey:@"officials"];
+           NSMutableArray *representatives  = [Representative representativesWithArray:representativeArray];
+           if (representatives.count == 0) {
+               UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Your address is unsupported."
+                      message:@"Please ensure your submission is valid and that there are no accents in your address."
+               preferredStyle:(UIAlertControllerStyleAlert)];
+               // create an OK action
+               UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+               // add the OK action to the alert controller
+               [alert addAction:okAction];
+               dispatch_async(dispatch_get_main_queue(), ^{
+                   [self presentViewController:alert animated:YES completion:nil];
+               });
+           } else {
+               [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                    [self dismissViewControllerAnimated:YES completion:^{
                        [self.profileViewController viewWillAppear:YES];
                    }];
                }];
-        }
-        }] resume];
+           }
+       }
+    }] resume];
 }
+
 - (IBAction)cancelButton:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }

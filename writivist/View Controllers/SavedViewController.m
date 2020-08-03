@@ -322,7 +322,7 @@ int newSavedTempCount;
     [cell.layer setBorderWidth:1];
     Template *template = self.filteredData[indexPath.item];
     cell.temp = template;
-    cell.otherDelegate = self;
+    cell.profileDelegate = self;
     cell.delegate = self;
     [cell setTemplate:template];
     if ([self.currentTemplate.objectId isEqualToString:template.objectId]) {

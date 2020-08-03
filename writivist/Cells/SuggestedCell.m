@@ -32,7 +32,8 @@
     Template *template = self.templates[indexPath.item];
     cell.temp = template;
     cell.delegate = self;
-    cell.otherDelegate = self.templateLibrary;
+    cell.profileDelegate = self.templateLibrary;
+    cell.reportDelegate = self.templateLibrary;
     cell.templateLibrary = self.templateLibrary;
     [cell setTemplate:template];
     if ([self.templateLibrary.currentTemplate.objectId isEqualToString:template.objectId]) {

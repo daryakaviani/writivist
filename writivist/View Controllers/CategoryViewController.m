@@ -15,8 +15,10 @@
 #import "User.h"
 #import "ProfileViewController.h"
 #import "InfiniteScrollActivityView.h"
+#import "PopupViewController.h"
+#import <HWPopController/HWPopController.h>
 
-@interface CategoryViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, ProfileDelegate, UISearchBarDelegate, TemplateCellDelegate>
+@interface CategoryViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, ProfileDelegate, ReportDelegate, UISearchBarDelegate, TemplateCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
@@ -248,6 +250,16 @@ int newTempCount;
     [self performSegueWithIdentifier:@"profileSegue" sender:user];
 }
 
+- (void)reportTemplateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull Template *)temp {
+    PopupViewController *pop1ViewController = [PopupViewController new];
+    HWPopController *popController = [[HWPopController alloc] initWithViewController:pop1ViewController];
+    // popView position
+    popController.popPosition = HWPopPositionCenter;
+    pop1ViewController.temp = temp;
+    [popController setPopType:HWPopTypeSlideInFromTop];
+    [popController presentInViewController:self];
+}
+
 - (void)templateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull Template *)temp {
     if (![self.currentTemplate.objectId isEqualToString:temp.objectId]) {
         if (self.currentCell != nil) {
@@ -286,7 +298,8 @@ int newTempCount;
     [cell.layer setBorderWidth:1];
     Template *template = self.filteredData[indexPath.item];
     cell.temp = template;
-    cell.otherDelegate = self;
+    cell.profileDelegate = self;
+    cell.reportDelegate = self;
     cell.delegate = self;
     [cell setTemplate:template];
     if ([self.currentTemplate.objectId isEqualToString:template.objectId]) {

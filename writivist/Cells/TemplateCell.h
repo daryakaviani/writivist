@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol TemplateCellDelegate;
 @protocol ProfileDelegate;
+@protocol ReportDelegate;
 
 @interface TemplateCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -25,7 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) Template   *temp;
 @property (weak, nonatomic) IBOutlet UIView *checkView;
 @property (nonatomic, weak) id<TemplateCellDelegate> delegate;
-@property (nonatomic, weak) id<ProfileDelegate> otherDelegate;
+@property (nonatomic, weak) id<ProfileDelegate> profileDelegate;
+@property (nonatomic, weak) id<ReportDelegate> reportDelegate;
 @property (weak, nonatomic) IBOutlet UIButton *authorButton;
 @property (weak, nonatomic) IBOutlet UILabel *timestampLabel;
 @property (weak, nonatomic) IBOutlet UILabel *senderLabel;
@@ -45,5 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)profileTemplateCell:(TemplateCell *) templateCell didTap: (User *)user;
 @end
 
+@protocol ReportDelegate
+- (void)reportTemplateCell:(TemplateCell *) templateCell didTap: (Template *)temp;
+@end
 
 NS_ASSUME_NONNULL_END

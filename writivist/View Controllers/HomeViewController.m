@@ -27,7 +27,6 @@
 @property (nonatomic) NSMutableArray *stateReps;
 @property (nonatomic) NSMutableArray *countyReps;
 @property (nonatomic) NSMutableArray *cityReps;
-//@property (nonatomic, strong) JGProgressHUD *spinner;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @end

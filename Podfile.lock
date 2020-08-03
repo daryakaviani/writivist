@@ -23,6 +23,7 @@ PODS:
     - GoogleMaps/Base
   - GooglePlaces (3.9.0):
     - GoogleMaps/Base (= 3.9.0)
+  - HWPopController (1.0.6)
   - IQKeyboardManager (6.5.5)
   - MKDropdownMenu (1.4)
   - Parse (1.18.0):
@@ -37,6 +38,7 @@ DEPENDENCIES:
   - DateTools
   - GoogleMaps
   - GooglePlaces
+  - HWPopController (~> 1.0.5)
   - IQKeyboardManager
   - MKDropdownMenu
   - Parse
@@ -49,6 +51,7 @@ SPEC REPOS:
     - DateTools
     - GoogleMaps
     - GooglePlaces
+    - HWPopController
     - IQKeyboardManager
     - MKDropdownMenu
     - Parse
@@ -59,10 +62,11 @@ SPEC CHECKSUMS:
   DateTools: 933ac9c490f21f92127cf690ccd8c397e0126caf
   GoogleMaps: 4b5346bddfe6911bb89155d43c903020170523ac
   GooglePlaces: 1634d019549b969d40fe0ccb0b9513055adebe01
+  HWPopController: 7a079918fe8ca5bf7de3d971faf1cab7fc905529
   IQKeyboardManager: 3a8b9e603f8b0eeaf5f096a1f2b2cfcf121992ef
   MKDropdownMenu: 269df4a41d21a1db684ce8bc709befe419fc5bae
   Parse: 79bdda34fdb7eb2a707a43a951c8aae236cb3e34
 
-PODFILE CHECKSUM: c93cd958797813f79363739196fd8ddf968440b4
+PODFILE CHECKSUM: 884fed6aed86112d3d9887770a38f3509b1908e8
 
 COCOAPODS: 1.9.3

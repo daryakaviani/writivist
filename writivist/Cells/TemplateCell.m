@@ -150,7 +150,10 @@
  }
      
 - (IBAction)authorButton:(id)sender {
-    [self.otherDelegate profileTemplateCell:self didTap:self.temp.author];
+    [self.profileDelegate profileTemplateCell:self didTap:self.temp.author];
+}
+- (IBAction)reportButton:(id)sender {
+    [self.reportDelegate reportTemplateCell:self didTap:self.temp];
 }
 
 - (void) roundImage {

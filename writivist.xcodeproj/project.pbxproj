@@ -22,6 +22,8 @@
 		4B6D8C9624C202390042EDC7 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D8C9524C202390042EDC7 /* MapViewController.m */; };
 		4B6D8C9924C61AD70042EDC7 /* MapContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D8C9824C61AD70042EDC7 /* MapContentViewController.m */; };
 		4B6D8C9C24C6344C0042EDC7 /* MapContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D8C9B24C6344C0042EDC7 /* MapContentCell.m */; };
+		4B7C582624D88AEF005E1460 /* PopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7C582524D88AEF005E1460 /* PopupViewController.m */; };
+		4B7C582924D89EBC005E1460 /* Report.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7C582824D89EBC005E1460 /* Report.m */; };
 		4B7CB08524BCC03700AC26DF /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7CB08424BCC03700AC26DF /* LoginViewController.m */; };
 		4B83BAC124D0F61600A2E005 /* PrintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B83BAC024D0F61500A2E005 /* PrintViewController.m */; };
 		4B83BAE324D3AB2900A2E005 /* HyLoglnButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B83BADC24D3AB2800A2E005 /* HyLoglnButton.m */; };
@@ -98,6 +100,10 @@
 		4B6D8C9824C61AD70042EDC7 /* MapContentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapContentViewController.m; sourceTree = "<group>"; };
 		4B6D8C9A24C6344C0042EDC7 /* MapContentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapContentCell.h; sourceTree = "<group>"; };
 		4B6D8C9B24C6344C0042EDC7 /* MapContentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapContentCell.m; sourceTree = "<group>"; };
+		4B7C582424D88AEF005E1460 /* PopupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopupViewController.h; sourceTree = "<group>"; };
+		4B7C582524D88AEF005E1460 /* PopupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopupViewController.m; sourceTree = "<group>"; };
+		4B7C582724D89EBC005E1460 /* Report.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Report.h; sourceTree = "<group>"; };
+		4B7C582824D89EBC005E1460 /* Report.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Report.m; sourceTree = "<group>"; };
 		4B7CB08324BCC03700AC26DF /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		4B7CB08424BCC03700AC26DF /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		4B83BABF24D0F61500A2E005 /* PrintViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrintViewController.h; sourceTree = "<group>"; };
@@ -223,6 +229,8 @@
 				4B83BAC024D0F61500A2E005 /* PrintViewController.m */,
 				4B83BAE824D8707800A2E005 /* SavedViewController.h */,
 				4B83BAE924D8707800A2E005 /* SavedViewController.m */,
+				4B7C582424D88AEF005E1460 /* PopupViewController.h */,
+				4B7C582524D88AEF005E1460 /* PopupViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -338,6 +346,8 @@
 				4B1CC17624BE4DB7007F9A52 /* Template.m */,
 				4B1CC17824BE4E68007F9A52 /* User.h */,
 				4B1CC17924BE4E68007F9A52 /* User.m */,
+				4B7C582724D89EBC005E1460 /* Report.h */,
+				4B7C582824D89EBC005E1460 /* Report.m */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -647,6 +657,8 @@
 				4B6D8C9924C61AD70042EDC7 /* MapContentViewController.m in Sources */,
 				4B1CC17724BE4DB7007F9A52 /* Template.m in Sources */,
 				4B1CC17A24BE4E68007F9A52 /* User.m in Sources */,
+				4B7C582624D88AEF005E1460 /* PopupViewController.m in Sources */,
+				4B7C582924D89EBC005E1460 /* Report.m in Sources */,
 				4B83BAE324D3AB2900A2E005 /* HyLoglnButton.m in Sources */,
 				4BCD152524C8C41300B831A4 /* SuggestedCell.m in Sources */,
 				4BEA8B2324BCFBC30041A6C9 /* Representative.m in Sources */,

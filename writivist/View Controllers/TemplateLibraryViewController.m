@@ -14,10 +14,11 @@
 #import "SectionTapper.h"
 #import "CategoryViewController.h"
 #import "SuggestedCell.h"
+#import <HWPopController/HWPop.h>
+#import "PopupViewController.h"
 
-@interface TemplateLibraryViewController ()<UITableViewDelegate, UITableViewDataSource, ProfileDelegate, UISearchBarDelegate>
+@interface TemplateLibraryViewController ()<UITableViewDelegate, UITableViewDataSource, ProfileDelegate, ReportDelegate, UISearchBarDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) NSString *category;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -75,7 +76,17 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 
     self.navigationItem.rightBarButtonItems  = @[doneBarButton, shareBarButton, previewBarButton];
 }
-   
+
+- (void)reportTemplateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull Template *)temp {
+    PopupViewController *pop1ViewController = [PopupViewController new];
+    HWPopController *popController = [[HWPopController alloc] initWithViewController:pop1ViewController];
+    // popView position
+    popController.popPosition = HWPopPositionCenter;
+    pop1ViewController.temp = temp;
+    [popController setPopType:HWPopTypeSlideInFromTop];
+    [popController presentInViewController:self];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.filteredData.count;
 }

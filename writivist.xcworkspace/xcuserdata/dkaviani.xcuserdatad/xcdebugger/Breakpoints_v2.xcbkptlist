@@ -138,8 +138,8 @@
             filePath = "writivist/View Controllers/SignUpViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
             landmarkName = "-registerUser"
             landmarkType = "7">
             <Locations>
@@ -186,8 +186,8 @@
             filePath = "writivist/View Controllers/SignUpViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
             landmarkName = "-validateAddress"
             landmarkType = "7">
          </BreakpointContent>

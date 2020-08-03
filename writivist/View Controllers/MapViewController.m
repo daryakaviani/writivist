@@ -143,7 +143,9 @@
 
 - (void) addMarker:(Representative *) representative {
     NSString *baseUrl = @"https://maps.googleapis.com/maps/api/geocode/json?address=";
-    NSString *keyUrl = @"&key=AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls";
+    NSString *keyUrl = @"&key=";
+    NSString *key = [[NSProcessInfo processInfo] environment][@"key"];
+    keyUrl = [keyUrl stringByAppendingString:key];
     baseUrl = [baseUrl stringByAppendingFormat:@"%@", representative.address[0][@"line1"]];
     baseUrl = [baseUrl stringByAppendingFormat:@"%@", @","];
     baseUrl = [baseUrl stringByAppendingFormat:@"%@", @"+"];
@@ -211,7 +213,11 @@
     location = [location stringByAppendingString:@"%20"];
     location = [location stringByAppendingString:user.state];
     location = [location stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
-    NSString *targetUrl = [@"https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls&address=&address=" stringByAppendingString:location];
+    NSString *key = [[NSProcessInfo processInfo] environment][@"key"];
+    NSString *targetUrl = @"https://www.googleapis.com/civicinfo/v2/representatives?key=";
+    targetUrl = [targetUrl stringByAppendingString:key];
+    targetUrl = [targetUrl stringByAppendingString:@"&address="];
+    targetUrl = [targetUrl stringByAppendingString:location];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"GET"];
     [request setURL:[NSURL URLWithString:targetUrl]];

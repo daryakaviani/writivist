@@ -83,7 +83,9 @@
     [self.locationManager requestWhenInUseAuthorization];
     if (self.locationManager.location != nil) {
         NSString *baseUrl = @"https://maps.googleapis.com/maps/api/geocode/json?latlng=";
-        NSString *keyUrl = @"&key=AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls";
+        NSString *keyUrl = @"&key=";
+        NSString *key = [[NSProcessInfo processInfo] environment][@"key"];
+        keyUrl = [keyUrl stringByAppendingString:key];
         baseUrl = [baseUrl stringByAppendingFormat:@"%f", self.locationManager.location.coordinate.latitude];
         baseUrl = [baseUrl stringByAppendingFormat:@"%@", @","];
         baseUrl = [baseUrl stringByAppendingFormat:@"%f", self.locationManager.location.coordinate.longitude];
@@ -199,7 +201,11 @@
     location = [location stringByAppendingString:self.stateField.text];
    location = [location stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
    NSLog(@"%@", location);
-   NSString *targetUrl = [@"https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls&address=&address=" stringByAppendingString:location];
+   NSString *key = [[NSProcessInfo processInfo] environment][@"key"];
+   NSString *targetUrl = @"https://www.googleapis.com/civicinfo/v2/representatives?key=";
+   targetUrl = [targetUrl stringByAppendingString:key];
+   targetUrl = [targetUrl stringByAppendingString:@"&address="];
+   targetUrl = [targetUrl stringByAppendingString:location];
    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
    [request setHTTPMethod:@"GET"];
    [request setURL:[NSURL URLWithString:targetUrl]];

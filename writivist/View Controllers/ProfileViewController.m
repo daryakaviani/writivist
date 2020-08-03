@@ -34,6 +34,7 @@
 @property (strong, nonatomic) NSArray *templates;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (weak, nonatomic) IBOutlet UILabel *templateTitleLabel;
 
 @end
 
@@ -52,7 +53,6 @@
     }
     self.templates = [[NSArray alloc] init];
     [self fetchTemplates];
-    [self updateInformation];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -63,8 +63,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self updateInformation];
     [self fetchTemplates];
+    [self updateInformation];
 }
 - (IBAction)saveButton:(id)sender {
     [self performSegueWithIdentifier:@"toSaved" sender:nil];
@@ -72,6 +72,11 @@
 
 -(void)updateInformation{
     User *user = self.user;
+    if (self.templates.count == 0) {
+        self.templateTitleLabel.hidden = YES;
+    } else {
+        self.templateTitleLabel.hidden = NO;
+    }
     self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
     self.usernameLabel.text = [NSString stringWithFormat:@"%@%@", @"@", user.username];
     self.letterCountLabel.text = [NSString stringWithFormat:@"%@",  user.letterCount];
@@ -199,9 +204,9 @@
         }
         [self.refreshControl endRefreshing];
         [self.spinner stopAnimating];
+        [self updateInformation];
         self.spinner.hidden = YES;
     }];
-    [self updateInformation];
 
 }
 

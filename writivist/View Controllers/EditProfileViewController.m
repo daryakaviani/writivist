@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet PFImageView *profileView;
 @property (weak, nonatomic) IBOutlet UITextField *firstNameField;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameField;
-@property (weak, nonatomic) IBOutlet UITextField *usernameField;
+@property (weak, nonatomic) IBOutlet UITextField *confirmPasswordField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UITextField *streetNumberField;
 @property (weak, nonatomic) IBOutlet UITextField *streetNameField;
@@ -42,7 +42,6 @@
     User *user = [User currentUser];
     self.firstNameField.text = user.firstName;
     self.lastNameField.text = user.lastName;
-    self.usernameField.text = user.username;
     self.passwordField.text = user.password;
     self.streetNumberField.text = user.streetNumber;
     self.streetNameField.text = user.streetName;
@@ -202,7 +201,6 @@
     User *user = [User currentUser];
     user.firstName = self.firstNameField.text;
     user.lastName = self.lastNameField.text;
-    user.username = self.usernameField.text;
     user.password = self.passwordField.text;
     user.streetNumber = self.streetNumberField.text;
     user.streetName = self.streetNameField.text;
@@ -215,7 +213,18 @@
         user.sendIndividually = NO;
     }
     
-    [self validateAddress];
+    if (![self.passwordField.text isEqual:self.confirmPasswordField.text]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Passwords must match."
+               message:@"Please try again."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    } else {
+        [self validateAddress];
+    }
 }
 
 - (void)validateAddress {

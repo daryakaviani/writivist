@@ -16,7 +16,6 @@
 #import <MessageUI/MessageUI.h>
 #import "User.h"
 #import "PrintViewController.h"
-#import "JGProgressHUD.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, RepresentativeCellDelegate, MFMailComposeViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

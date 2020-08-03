@@ -18,6 +18,7 @@
 #import "EditProfileViewController.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import "CategoryViewController.h"
+#import "SavedViewController.h"
 
 @interface ProfileViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
@@ -65,9 +66,6 @@
     [super viewWillAppear:animated];
     [self fetchTemplates];
     [self updateInformation];
-}
-- (IBAction)saveButton:(id)sender {
-    [self performSegueWithIdentifier:@"toSaved" sender:nil];
 }
 
 -(void)updateInformation{
@@ -227,10 +225,7 @@
       } else if ([segue.identifier isEqualToString:@"editSegue"]) {
           EditProfileViewController *editProfileViewController = [segue destinationViewController];
           editProfileViewController.profileViewController = self;
-      } else if ([segue.identifier isEqualToString:@"toSaved"]) {
-        CategoryViewController *categoryViewController = [segue destinationViewController];
-        categoryViewController.saved = YES;
-    }
+      }
 }
 
 @end

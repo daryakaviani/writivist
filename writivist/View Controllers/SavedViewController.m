@@ -1,12 +1,12 @@
 //
-//  CategoryViewController.m
+//  SavedViewController.m
 //  writivist
 //
-//  Created by dkaviani on 7/21/20.
+//  Created by dkaviani on 8/3/20.
 //  Copyright © 2020 dkaviani. All rights reserved.
 //
 
-#import "CategoryViewController.h"
+#import "SavedViewController.h"
 #import "Template.h"
 #import "TemplateCell.h"
 #import <Parse/Parse.h>
@@ -16,7 +16,7 @@
 #import "ProfileViewController.h"
 #import "InfiniteScrollActivityView.h"
 
-@interface CategoryViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, ProfileDelegate, UISearchBarDelegate, TemplateCellDelegate>
+@interface SavedViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, ProfileDelegate, UISearchBarDelegate, TemplateCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
@@ -30,11 +30,11 @@
 
 @end
 
-@implementation CategoryViewController
-bool isMoreDataLoading = false;
-InfiniteScrollActivityView* loadingMoreView;
-int skip = 20;
-int newTempCount;
+@implementation SavedViewController
+bool isMoreSavedDataLoading = false;
+InfiniteScrollActivityView* loadingMoreSavedView;
+int savedSkip = 20;
+int newSavedTempCount;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,7 +45,7 @@ int newTempCount;
     self.collectionView.delegate = self;
     self.searchBar.delegate = self;
     
-    self.navigationItem.title = self.category;
+    self.navigationItem.title = @"saved";
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:30], NSForegroundColorAttributeName : [UIColor labelColor]};
     
@@ -65,9 +65,9 @@ int newTempCount;
     
     // Set up Infinite Scroll loading indicator
     CGRect frame = CGRectMake(0, self.collectionView.contentSize.height, self.collectionView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
-    loadingMoreView = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
-    loadingMoreView.hidden = true;
-    [self.collectionView addSubview:loadingMoreView];
+    loadingMoreSavedView = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
+    loadingMoreSavedView.hidden = true;
+    [self.collectionView addSubview:loadingMoreSavedView];
     
     UIEdgeInsets insets = self.collectionView.contentInset;
     insets.bottom += InfiniteScrollActivityView.defaultHeight;
@@ -103,8 +103,8 @@ int newTempCount;
 }
 
 - (void) viewDidAppear:(BOOL)animated {
-    skip = 20;
-    newTempCount = 0;
+    savedSkip = 20;
+    newSavedTempCount = 0;
 }
 
 - (void)doneButton {
@@ -169,77 +169,113 @@ int newTempCount;
 }
 
 - (void) loadMoreData {
+    dispatch_group_t dispatchGroup = dispatch_group_create();
+
     PFQuery *query = [Template query];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"author"];
     [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
-    [query whereKey:@"category" equalTo:self.category];
-    query.limit = 20;
-    query.skip = skip;
+    query.skip = savedSkip;
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
         if (templates != nil) {
-            NSMutableArray *newTemplates = (NSMutableArray *) templates;
-            newTempCount = (int) newTemplates.count;
-            NSArray *newArray = [self.filteredData arrayByAddingObjectsFromArray:newTemplates];
+            NSMutableArray *savedTemplates = [[NSMutableArray alloc] init];
+            for (Template *template in templates) {
+                dispatch_group_enter(dispatchGroup);
+                PFRelation *relation = [template relationForKey:@"savedBy"];
+                PFQuery *query = [relation query];
+                [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+                    for (User *user in objects) {
+                        if ([user.username isEqualToString:[User currentUser].username]) {
+                            [savedTemplates addObject:template];
+                        }
+                    }
+                }];
+            }
+            NSArray *newArray = [self.filteredData arrayByAddingObjectsFromArray:savedTemplates];
+            newSavedTempCount = (int) savedTemplates.count;
             self.templates = (NSMutableArray *) newArray;
             self.filteredData = (NSMutableArray *) newArray;
-            skip += templates.count;
-            isMoreDataLoading = false;
-            [loadingMoreView stopAnimating];
+            savedSkip += savedTemplates.count;
+            isMoreSavedDataLoading = false;
+            [loadingMoreSavedView stopAnimating];
+            dispatch_group_leave(dispatchGroup);
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
+        dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^(void){
+             [self.refreshControl endRefreshing];
+             [self.spinner stopAnimating];
+            self.spinner.hidden = YES;
+            [self.collectionView reloadData];
+        });
     }];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-     if(!isMoreDataLoading){
+     if(!isMoreSavedDataLoading){
          // Calculate the position of one screen length before the bottom of the results
          int scrollViewContentHeight = self.collectionView.contentSize.height;
          int scrollOffsetThreshold = scrollViewContentHeight - self.collectionView.bounds.size.height;
          
          // When the user has scrolled past the threshold, start requesting
          if(scrollView.contentOffset.y > scrollOffsetThreshold && self.collectionView.isDragging) {
-             isMoreDataLoading = true;
+             isMoreSavedDataLoading = true;
              
              // Update position of loadingMoreView, and start loading indicator
              CGRect frame = CGRectMake(0, self.collectionView.contentSize.height, self.collectionView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
-             loadingMoreView.frame = frame;
+             loadingMoreSavedView.frame = frame;
              
              // Code to load more results
-             [loadingMoreView startAnimating];
+             [loadingMoreSavedView startAnimating];
              [self loadMoreData];
-             if (newTempCount > 0) {
+             if (newSavedTempCount > 0) {
                  [self.collectionView reloadData];
              }
          }
      }
 }
 
-- (void)fetchTemplates {
-    // construct query
-   PFQuery *query = [Template query];
-    [query orderByDescending:@"createdAt"];
-    [query  includeKey:@"author"];
-    [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
-    if (self.category != nil) {
-        [query whereKey:@"category" equalTo:self.category];
-    }
-    query.limit = 20;
 
+- (void) fetchTemplates {
+    dispatch_group_t dispatchGroup = dispatch_group_create();
+    
+    PFQuery *query = [Template query];
+    [query orderByDescending:@"createdAt"];
+    [query includeKey:@"author"];
+    [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
+    NSMutableArray *savedTemplates = [NSMutableArray array];
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
         if (templates != nil) {
-            self.templates = templates;
-            self.filteredData = self.templates;
-            [self.collectionView reloadData];
+            for (Template *template in templates) {
+                dispatch_group_enter(dispatchGroup);
+                PFRelation *relation = [template relationForKey:@"savedBy"];
+                PFQuery *query = [relation query];
+                [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+                    if (objects) {
+                        for (User *user in objects) {
+                            if ([user.username isEqualToString:[User currentUser].username]) {
+                                [savedTemplates addObject:template];
+                            }
+                        }
+                        self.templates = savedTemplates;
+                        self.filteredData = self.templates;
+                    } else {
+                        NSLog(@"not working");
+                    }
+                    dispatch_group_leave(dispatchGroup);
+                }];
+            }
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
-        [self.refreshControl endRefreshing];
-        [self.spinner stopAnimating];
-        self.spinner.hidden = YES;
+        dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^(void){
+             [self.refreshControl endRefreshing];
+             [self.spinner stopAnimating];
+             self.spinner.hidden = YES;
+             [self.collectionView reloadData];
+        });
     }];
 }
 
@@ -315,20 +351,40 @@ int newTempCount;
             NSString *templateTitle = template.title;
             return [templateTitle containsString:searchText];
         }];
-            PFQuery *query = [Template query];
-           [query orderByDescending:@"createdAt"];
-           [query  includeKey:@"author"];
-           [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
-           [query whereKey:@"category" equalTo:self.category];
-           // fetch data asynchronously
-           [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
-               if (templates != nil) {
-                   self.filteredData = [templates filteredArrayUsingPredicate:predicate];
-                   [self.collectionView reloadData];
-               } else {
-                   NSLog(@"%@", error.localizedDescription);
-               }
-           }];
+        
+        dispatch_group_t dispatchGroup = dispatch_group_create();
+        
+        PFQuery *query = [Template query];
+        [query orderByDescending:@"createdAt"];
+        [query includeKey:@"author"];
+        [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
+        NSMutableArray *savedTemplates = [NSMutableArray array];
+        // fetch data asynchronously
+        [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
+            if (templates != nil) {
+                for (Template *template in templates) {
+                    dispatch_group_enter(dispatchGroup);
+                    PFRelation *relation = [template relationForKey:@"savedBy"];
+                    PFQuery *query = [relation query];
+                    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+                        for (User *user in objects) {
+                            if ([user.username isEqualToString:[User currentUser].username]) {
+                                [savedTemplates addObject:template];
+                            }
+                        }
+                        self.templates = savedTemplates;
+                        self.filteredData = self.templates;
+                        dispatch_group_leave(dispatchGroup);
+                    }];
+                }
+            } else {
+                NSLog(@"%@", error.localizedDescription);
+            }
+            dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^(void){
+                [self.collectionView reloadData];
+                self.filteredData = [savedTemplates filteredArrayUsingPredicate:predicate];
+            });
+        }];
     } else {
         self.filteredData = self.templates;
         [self.collectionView reloadData];

@@ -39,6 +39,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.scrollView.shouldIgnoreScrollingAdjustment = YES;
+    self.passwordField.secureTextEntry = YES;
+    self.confirmPasswordField.secureTextEntry = YES;
     User *user = [User currentUser];
     self.firstNameField.text = user.firstName;
     self.lastNameField.text = user.lastName;
@@ -201,7 +203,6 @@
     User *user = [User currentUser];
     user.firstName = self.firstNameField.text;
     user.lastName = self.lastNameField.text;
-    user.password = self.passwordField.text;
     user.streetNumber = self.streetNumberField.text;
     user.streetName = self.streetNameField.text;
     user.city = self.cityField.text;
@@ -212,7 +213,9 @@
     } else {
         user.sendIndividually = NO;
     }
-    
+    if (self.passwordField.text.length > 0) {
+        user.password = self.passwordField.text;
+    }
     if (![self.passwordField.text isEqual:self.confirmPasswordField.text]) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Passwords must match."
                message:@"Please try again."

@@ -32,6 +32,9 @@ PODS:
     - Bolts/Tasks (= 1.9.1)
   - Parse/UI (1.18.0):
     - Parse/Core
+  - TNTutorialManager (1.3.2):
+    - TNTutorialManager/TNTutorialManager (= 1.3.2)
+  - TNTutorialManager/TNTutorialManager (1.3.2)
 
 DEPENDENCIES:
   - AFNetworking
@@ -43,6 +46,7 @@ DEPENDENCIES:
   - MKDropdownMenu
   - Parse
   - Parse/UI
+  - TNTutorialManager
 
 SPEC REPOS:
   trunk:
@@ -55,6 +59,7 @@ SPEC REPOS:
     - IQKeyboardManager
     - MKDropdownMenu
     - Parse
+    - TNTutorialManager
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
@@ -66,7 +71,8 @@ SPEC CHECKSUMS:
   IQKeyboardManager: 3a8b9e603f8b0eeaf5f096a1f2b2cfcf121992ef
   MKDropdownMenu: 269df4a41d21a1db684ce8bc709befe419fc5bae
   Parse: 79bdda34fdb7eb2a707a43a951c8aae236cb3e34
+  TNTutorialManager: 7d49f4c1b3b5057aa32203949c99a72d96e9d46b
 
-PODFILE CHECKSUM: 884fed6aed86112d3d9887770a38f3509b1908e8
+PODFILE CHECKSUM: 652fd20e73582c3c83718fdc2378638e40b805ee
 
 COCOAPODS: 1.9.3

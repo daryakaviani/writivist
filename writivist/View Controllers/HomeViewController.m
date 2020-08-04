@@ -16,8 +16,15 @@
 #import <MessageUI/MessageUI.h>
 #import "User.h"
 #import "PrintViewController.h"
+#import "TNTutorialManager.h"
 
-@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, RepresentativeCellDelegate, MFMailComposeViewControllerDelegate>
+@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, RepresentativeCellDelegate, MFMailComposeViewControllerDelegate, TNTutorialManagerDelegate> {
+    TNTutorialManager *tutorialManager;
+}
+@property (weak, nonatomic) IBOutlet UIView *testView;
+@property (weak, nonatomic) IBOutlet UILabel *label;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *printButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *composeButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
 @property (nonatomic, strong) NSMutableArray *selectedReps;
@@ -28,6 +35,7 @@
 @property (nonatomic) NSMutableArray *countyReps;
 @property (nonatomic) NSMutableArray *cityReps;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+//@property (nonatomic, strong) TNTutorialManager *tutorialManager;
 
 @end
 
@@ -58,16 +66,23 @@ NSArray *levels;
     self.selectedReps = [[NSMutableArray alloc]init];
     [self fetchRepresentatives];
     if (self.currentTemplate != nil) {
-        self.navigationItem.title = @"select reps.";
+        self.navigationItem.title = @"Select Officials";
+        UINavigationBar *navigationBar = self.navigationController.navigationBar;
+        navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20], NSForegroundColorAttributeName : [UIColor labelColor]};
         self.logoutButton.tintColor = [UIColor clearColor];
         self.logoutButton.enabled = NO;
     } else {
-        self.navigationItem.title = @"let's write.";
+        self.navigationItem.title = @"writivist";
+        UINavigationBar *navigationBar = self.navigationController.navigationBar;
+        navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:45], NSForegroundColorAttributeName : [UIColor labelColor]};
         self.logoutButton.tintColor = [[UIColor alloc]initWithRed:96/255.0 green:125/255.0 blue:139/255.0 alpha:1];
         self.logoutButton.enabled = YES;
     }
-    UINavigationBar *navigationBar = self.navigationController.navigationBar;
-    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:40], NSForegroundColorAttributeName : [UIColor labelColor]};
+    if ([TNTutorialManager shouldDisplayTutorial:self]) {
+        tutorialManager = [[TNTutorialManager alloc] initWithDelegate:self blurFactor:0.1];
+    } else {
+        tutorialManager = nil;
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -512,6 +527,89 @@ NSArray *levels;
         self.currentTemplate = nil;
     }
 }
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    if (tutorialManager) {
+        [tutorialManager updateTutorial];
+    }
+}
+
+
+-(NSArray<UIView *> *)tutorialViewsToHighlight:(NSInteger)index
+{
+    if (index == 1) {
+        return @[self.label];
+    } else if (index == 2) {
+        return @[self.label];
+    }
+
+    return nil;
+}
+
+-(NSArray<NSString *> *)tutorialTexts:(NSInteger)index
+{
+    if (index == 0) {
+        return @[@"Welcome to the tutorial!"];
+    } else if (index == 1) {
+        return @[@"This is _label1"];
+    } else if (index == 2) {
+        return @[@"This is _label2"];
+    }
+
+    return nil;
+}
+
+-(NSArray<TNTutorialEdgeInsets *> *)tutorialViewsEdgeInsets:(NSInteger)index
+{
+    if (index == 1) {
+        return @[TNTutorialEdgeInsetsMake(8, 8, 8, 8)];
+    }
+
+    return nil;
+}
+
+-(NSArray<NSNumber *> *)tutorialTextPositions:(NSInteger)index
+{
+    return @[@(TNTutorialTextPositionTop)];
+}
+
+-(CGFloat)tutorialDelay:(NSInteger)index
+{
+    return 0;
+}
+
+-(BOOL)tutorialShouldCoverStatusBar
+{
+    return YES;
+}
+
+-(void)tutorialWrapUp
+{
+    tutorialManager = nil;
+}
+
+-(NSInteger)tutorialMaxIndex
+{
+    return 3;
+}
+
+-(UIFont *)tutorialSkipButtonFont
+{
+    return [UIFont systemFontOfSize:25 weight:UIFontWeightBold];
+}
+
+-(NSArray<UIFont *> *)tutorialTextFonts:(NSInteger)index
+{
+    if (index == 0) {
+        return @[[UIFont systemFontOfSize:35.f weight:UIFontWeightBold]];
+    }
+
+    return @[[UIFont systemFontOfSize:17.f]];
+}
+
 
 
 #pragma mark - Navigation

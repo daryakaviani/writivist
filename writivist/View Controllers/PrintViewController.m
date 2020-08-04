@@ -18,9 +18,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"print";
+    self.navigationItem.title = @"Print";
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
-    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:35], NSForegroundColorAttributeName : [UIColor labelColor]};
+    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20], NSForegroundColorAttributeName : [UIColor labelColor]};
     self.navigationController.navigationBar.tintColor = [[UIColor alloc]initWithRed:96/255.0 green:125/255.0 blue:139/255.0 alpha:1];
     self.printView.text = self.temp.body;
     self.printView.layer.cornerRadius = 5;

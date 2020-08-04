@@ -60,6 +60,10 @@
     [self roundImage];
     self.profileView.file = user.profilePicture;
     [self.profileView loadInBackground];
+    
+    self.navigationItem.title = @"Settings";
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20], NSForegroundColorAttributeName : [UIColor labelColor]};
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{

@@ -45,10 +45,10 @@ int newSavedTempCount;
     self.collectionView.delegate = self;
     self.searchBar.delegate = self;
     
-    self.navigationItem.title = @"saved";
+    self.navigationItem.title = @"Saved";
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
-    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:30], NSForegroundColorAttributeName : [UIColor labelColor]};
-    
+    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20], NSForegroundColorAttributeName : [UIColor labelColor]};
+
     [self fetchTemplates];
     
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *) self.collectionView.collectionViewLayout;

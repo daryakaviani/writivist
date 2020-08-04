@@ -31,10 +31,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self startUserLocationSearch];
-    self.navigationItem.title = @"find my reps.";
+    self.navigationItem.title = @"Find My Reps";
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
-    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:40], NSForegroundColorAttributeName : [UIColor labelColor]};
-    
+    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20], NSForegroundColorAttributeName : [UIColor labelColor]};
+
     [self.locationManager requestAlwaysAuthorization];
     
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithTarget:self.locationManager.location.coordinate zoom:8];

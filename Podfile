@@ -15,6 +15,7 @@ target 'writivist' do
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'HWPopController', '~> 1.0.5'
+  pod 'TNTutorialManager'
 
   target 'writivistTests' do
     inherit! :search_paths

@@ -35,7 +35,7 @@
     NSString *username = self.usernameField.text;
     NSString *password = self.passwordField.text;
     [User logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
-        if (error != nil) {
+        if (user == nil) {
             [self.loginButton ErrorRevertAnimationCompletion:^{}];
             NSLog(@"User log in failed: %@", error.localizedDescription);
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"User login failed:"
@@ -49,9 +49,11 @@
             }];
         } else {
             NSLog(@"User logged in successfully");
-            [self.loginButton ExitAnimationCompletion:^{
-                [self performSegueWithIdentifier:@"loginSegue" sender:nil];
-            }];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.loginButton ExitAnimationCompletion:^{
+                    [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+                }];
+            });
         }
     }];
 }

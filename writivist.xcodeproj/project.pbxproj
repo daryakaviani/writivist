@@ -34,7 +34,6 @@
 		4B83BAEA24D8707800A2E005 /* SavedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B83BAE924D8707800A2E005 /* SavedViewController.m */; };
 		4BCAD04624CAB77E0007EA6A /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BCAD04524CAB77D0007EA6A /* user.png */; };
 		4BCB1DB224BCAF6300BAE96E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DB124BCAF6300BAE96E /* AppDelegate.m */; };
-		4BCB1DB524BCAF6300BAE96E /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB1DB424BCAF6300BAE96E /* SceneDelegate.m */; };
 		4BCB1DBB24BCAF6300BAE96E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BCB1DB924BCAF6300BAE96E /* Main.storyboard */; };
 		4BCB1DBD24BCAF6500BAE96E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BCB1DBC24BCAF6500BAE96E /* Assets.xcassets */; };
 		4BCB1DC024BCAF6500BAE96E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BCB1DBE24BCAF6500BAE96E /* LaunchScreen.storyboard */; };
@@ -124,8 +123,6 @@
 		4BCB1DAD24BCAF6300BAE96E /* writivist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = writivist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BCB1DB024BCAF6300BAE96E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4BCB1DB124BCAF6300BAE96E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4BCB1DB324BCAF6300BAE96E /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		4BCB1DB424BCAF6300BAE96E /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		4BCB1DBA24BCAF6300BAE96E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4BCB1DBC24BCAF6500BAE96E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4BCB1DBF24BCAF6500BAE96E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -266,8 +263,6 @@
 				4B7CB08224BCC02000AC26DF /* View Controllers */,
 				4BCB1DB024BCAF6300BAE96E /* AppDelegate.h */,
 				4BCB1DB124BCAF6300BAE96E /* AppDelegate.m */,
-				4BCB1DB324BCAF6300BAE96E /* SceneDelegate.h */,
-				4BCB1DB424BCAF6300BAE96E /* SceneDelegate.m */,
 				4BCB1DB924BCAF6300BAE96E /* Main.storyboard */,
 				4B09E3A424BF8F4E0021F076 /* download.png */,
 				4BCAD04524CAB77D0007EA6A /* user.png */,
@@ -674,7 +669,6 @@
 				4B6D8C9C24C6344C0042EDC7 /* MapContentCell.m in Sources */,
 				4B09E3A324BF7BA10021F076 /* ComposeViewController.m in Sources */,
 				4B1CC18324BEA71E007F9A52 /* CategoryRow.m in Sources */,
-				4BCB1DB524BCAF6300BAE96E /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@
 
 #import "HomeViewController.h"
 #import "LoginViewController.h"
-#import "SceneDelegate.h"
+#import "AppDelegate.h"
 #import "Parse/Parse.h"
 #import "Representative.h"
 #import "RepresentativeCell.h"
@@ -19,7 +19,7 @@
 #import "TNTutorialManager.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, RepresentativeCellDelegate, MFMailComposeViewControllerDelegate, TNTutorialManagerDelegate> {
-    TNTutorialManager *tutorialManager;
+//    TNTutorialManager *tutorialManager;
 }
 @property (weak, nonatomic) IBOutlet UIView *testView;
 @property (weak, nonatomic) IBOutlet UILabel *label;
@@ -35,7 +35,7 @@
 @property (nonatomic) NSMutableArray *countyReps;
 @property (nonatomic) NSMutableArray *cityReps;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
-//@property (nonatomic, strong) TNTutorialManager *tutorialManager;
+@property (nonatomic, strong) TNTutorialManager *tutorialManager;
 
 @end
 
@@ -80,9 +80,9 @@ NSArray *levels;
         self.logoutButton.enabled = YES;
     }
     if ([TNTutorialManager shouldDisplayTutorial:self]) {
-        tutorialManager = [[TNTutorialManager alloc] initWithDelegate:self blurFactor:0.1];
+        self.tutorialManager = [[TNTutorialManager alloc] initWithDelegate:self blurFactor:0.1];
     } else {
-        tutorialManager = nil;
+        self.tutorialManager = nil;
     }
 }
 
@@ -161,7 +161,7 @@ NSArray *levels;
 }
 
 - (IBAction)logoutButton:(id)sender {
-    SceneDelegate *myDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
+    AppDelegate *myDelegate = (AppDelegate *)self.view.window.windowScene.delegate;
 
     [User logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
         // PFUser.current() will now be nil
@@ -549,8 +549,8 @@ NSArray *levels;
 {
     [super viewDidAppear:animated];
 
-    if (tutorialManager) {
-        [tutorialManager updateTutorial];
+    if (self.tutorialManager) {
+        [self.tutorialManager updateTutorial];
     }
 }
 
@@ -558,9 +558,8 @@ NSArray *levels;
 -(NSArray<UIView *> *)tutorialViewsToHighlight:(NSInteger)index
 {
     if (index == 1) {
-        return @[self.label];
     } else if (index == 2) {
-        return @[self.label];
+//        return @[self.label];
     }
 
     return nil;
@@ -605,7 +604,7 @@ NSArray *levels;
 
 -(void)tutorialWrapUp
 {
-    tutorialManager = nil;
+    self.tutorialManager = nil;
 }
 
 -(NSInteger)tutorialMaxIndex

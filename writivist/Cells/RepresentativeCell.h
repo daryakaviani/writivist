@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol RepresentativeCellDelegate;
 
 @interface RepresentativeCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailToCell;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *printConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *roleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *partyLabel;

@@ -48,6 +48,7 @@ NSArray *levels;
     
     levels = @[@"Federal", @"State", @"County", @"City"];
     
+    self.spinner.hidden = NO;
     [self.spinner startAnimating];
 
     self.counterView.hidden = YES;
@@ -300,13 +301,29 @@ NSArray *levels;
     } else {
         [cell.profileView setImage:[UIImage imageNamed:@"user.png"]];
     }
+    if (representative.email && representative.address) {
+        cell.emailToCell.active = YES;
+        if ([cell.partyLabel.text  isEqual: @""] ) {
+            cell.printConstraint.constant = 50;
+        } else {
+            cell.printConstraint.constant = 70;
+        }
+    }
     if (representative.email == nil) {
+        cell.emailToCell.active = NO;
         cell.emailView.hidden = YES;
+        if ([cell.partyLabel.text isEqual: @""] ) {
+            cell.printConstraint.constant = 20;
+        } else {
+            cell.printConstraint.constant = 40;
+            cell.emailToCell.constant = 0;
+        }
     } else {
         cell.emailView.hidden = NO;
     }
     if (representative.address == nil) {
         cell.printView.hidden = YES;
+        cell.emailConstraint.constant = 5;
     } else {
         cell.printView.hidden = NO;
     }

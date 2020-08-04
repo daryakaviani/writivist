@@ -45,7 +45,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     [self.tableView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
-    self.navigationItem.title = @"Templates";
+    self.navigationItem.title = @"Template Library";
     navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20], NSForegroundColorAttributeName : [UIColor labelColor]};
     
     UIImageSymbolConfiguration *configuration = [UIImageSymbolConfiguration configurationWithPointSize:22 weight:UIImageSymbolWeightLight];

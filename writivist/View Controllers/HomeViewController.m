@@ -560,7 +560,8 @@ NSArray *levels;
     } else if (index == 3) {
         return @[[self.navigationItem.rightBarButtonItems[1] valueForKey:@"view"]];
     } else if (index == 4) {
-        RepresentativeCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+        RepresentativeCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+        cell.representative.selected = (BOOL * _Nonnull) YES;
         return @[cell.stackView];
     }
 

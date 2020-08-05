@@ -19,8 +19,9 @@
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import "CategoryViewController.h"
 #import "SavedViewController.h"
+#import "TNTutorialManager.h"
 
-@interface ProfileViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface ProfileViewController ()<UITableViewDelegate, UITableViewDataSource, TNTutorialManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -36,6 +37,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UILabel *templateTitleLabel;
+@property (nonatomic, strong) TNTutorialManager *tutorialManager;
 
 @end
 
@@ -64,6 +66,11 @@
     self.navigationItem.title = self.user.username;
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20], NSForegroundColorAttributeName : [UIColor labelColor]};
+    if ([TNTutorialManager shouldDisplayTutorial:self]) {
+        self.tutorialManager = [[TNTutorialManager alloc] initWithDelegate:self blurFactor:0.1];
+    } else {
+        self.tutorialManager = nil;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -210,6 +217,76 @@
         self.spinner.hidden = YES;
     }];
 
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    if (self.tutorialManager) {
+        [self.tutorialManager updateTutorial];
+    }
+}
+
+
+- (NSArray<UIView *> *)tutorialViewsToHighlight:(NSInteger)index {
+    if (index == 1) {
+        return @[[self.navigationItem.rightBarButtonItems[1] valueForKey:@"view"]];
+    }
+    return nil;
+}
+
+-(NSArray<NSString *> *)tutorialTexts:(NSInteger)index
+{
+    if (index == 0) {
+        return @[@"Welcome to your profile, where you can manage your account settings, view your stats, and edit or delete your posted templates."];
+    } else if (index == 1) {
+        return @[@"Once you've saved templates, you view them here."];
+    }
+    return nil;
+}
+
+-(NSArray<TNTutorialEdgeInsets *> *)tutorialViewsEdgeInsets:(NSInteger)index {
+    if (index == 1) {
+        return @[TNTutorialEdgeInsetsMake(8, 8, 8, 8)];
+    }
+
+    return nil;
+}
+
+- (void)tutorialPreHighlightAction:(NSInteger)index {
+}
+
+-(void)tutorialPerformAction:(NSInteger)index {
+}
+
+
+- (NSArray<NSNumber *> *)tutorialTextPositions:(NSInteger)index {
+    return @[@(TNTutorialTextPositionBottom)];
+}
+
+- (BOOL)tutorialShouldCoverStatusBar {
+    return YES;
+}
+
+- (void)tutorialWrapUp {
+    self.tutorialManager = nil;
+}
+
+- (NSInteger)tutorialMaxIndex {
+    return 2;
+}
+
+- (CGFloat)tutorialPreActionDelay:(NSUInteger)index {
+    return 0;
+}
+
+- (BOOL)tutorialHasSkipButton:(NSInteger)index {
+    return YES;
+}
+
+- (NSArray<UIFont *> *)tutorialTextFonts:(NSInteger)index {
+    return @[[UIFont systemFontOfSize:17.f]];
 }
 
  

@@ -10,6 +10,7 @@
 #import "Template.h"
 #import "MKDropdownMenu.h"
 #import "User.h"
+#import <TNTutorialManager.h>
 
 @interface ComposeViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *subjectField;
@@ -21,6 +22,7 @@
 @property (strong, nonatomic) MKDropdownMenu *dropdownMenu;
 @property (weak, nonatomic) IBOutlet UILabel *publicityText;
 @property (weak, nonatomic) IBOutlet UISwitch *privacySwitch;
+@property (nonatomic, strong) TNTutorialManager *tutorialManager;
 
 @end
 
@@ -111,6 +113,30 @@
             [self performSegueWithIdentifier:@"postedTemplate" sender:nil];
         }];
     }
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (self.isTutorial) {
+        [self performSelector:@selector(dismissCompose) withObject:self afterDelay:2];
+    }
+}
+
+- (void) dismissCompose {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (NSInteger)tutorialMaxIndex {
+    return 1;
+}
+
+- (BOOL)tutorialShouldCoverStatusBar {
+    return YES;
+}
+
+- (void)tutorialWrapUp {
+    self.tutorialManager = nil;
 }
 /*
 #pragma mark - Navigation

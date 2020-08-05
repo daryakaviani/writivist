@@ -372,9 +372,7 @@ int newTempCount;
 
 
 - (NSArray<UIView *> *)tutorialViewsToHighlight:(NSInteger)index {
-    if (index == 0) {
-        return @[self.collectionView, self.searchBar];
-    } else if (index == 1) {
+    if (index == 1) {
         return @[self.searchBar];
     } else if (index == 2) {
         TemplateCell *tempCell = (TemplateCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
@@ -392,7 +390,9 @@ int newTempCount;
 
 -(NSArray<NSString *> *)tutorialTexts:(NSInteger)index
 {
-    if (index == 1) {
+    if (index == 0) {
+        return @[@"Here, you can scroll and search through every template in the selected category."];
+    } else if (index == 1) {
         return @[@"Here, you can search for particular templates."];
     } else if (index == 2) {
         return @[@"Time for the primary power of Writivist. Tap this template."];

@@ -620,7 +620,7 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="1n7-sH-YXs">
                             <color key="tintColor" red="0.37647058823529411" green="0.49019607843137253" blue="0.54509803921568623" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="ifm-OH-TuW" kind="show" id="o0O-ap-Bhy"/>
+                                <action selector="composeButton:" destination="YnS-dc-5zz" id="MLI-Fd-WmO"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -632,6 +632,7 @@
                         <segue destination="Alw-S1-ZA3" kind="show" identifier="toCategory" id="NWH-Dg-Zb7"/>
                         <segue destination="9Dh-CU-C0r" kind="presentation" identifier="preview" id="cHr-Rj-NO5"/>
                         <segue destination="3yW-d3-FQE" kind="show" identifier="selectedTemplate" id="FIB-93-9Mk"/>
+                        <segue destination="ifm-OH-TuW" kind="show" identifier="toCompose" id="3iy-vX-xb4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hqW-mP-Vyg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -643,14 +644,14 @@
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="Gyg-a9-A0H" customClass="ProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zGP-qB-PL1">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2XP-gE-dFW">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="786"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jXC-oP-pRB" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="786"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="LUF-yr-5te">
                                                 <rect key="frame" x="49" y="157" width="316" height="100"/>
@@ -748,7 +749,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="143" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="w2z-9g-hW8">
-                                                <rect key="frame" x="0.0" y="298" width="414" height="510"/>
+                                                <rect key="frame" x="0.0" y="298" width="414" height="488"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" id="cg6-Kp-T68">
                                                     <rect key="frame" x="0.0" y="199" width="414" height="44"/>
@@ -1892,17 +1893,17 @@
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="KcL-Ub-Ubw" customClass="PrintViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZYz-om-Llx">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LLe-A8-eqW">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="786"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GeM-Uy-8Vw" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="786"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" allowsEditingTextAttributes="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y15-TG-fuQ">
-                                                <rect key="frame" x="30" y="83" width="353" height="626"/>
+                                                <rect key="frame" x="30" y="83" width="353" height="604"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <attributedString key="attributedText"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1969,11 +1970,11 @@
             <objects>
                 <viewController wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" id="3yW-d3-FQE" customClass="HomeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oiW-Kk-eyD">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="131" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="32j-zl-EjN">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" id="uNf-ly-wy8">
                                     <rect key="frame" x="0.0" y="187" width="414" height="44"/>
@@ -2140,7 +2141,7 @@
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mkz-T3-Sde">
-                                <rect key="frame" x="325" y="773" width="65" height="65"/>
+                                <rect key="frame" x="325" y="670" width="65" height="65"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hzB-2B-LRr">
                                         <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
@@ -2470,12 +2471,12 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="L3D-J6-Vl2"/>
-        <segue reference="pBZ-RL-oGI"/>
+        <segue reference="FIB-93-9Mk"/>
         <segue reference="8VE-jx-Aez"/>
         <segue reference="lmP-wm-xKP"/>
         <segue reference="NWH-Dg-Zb7"/>
-        <segue reference="Wy8-eu-l7X"/>
-        <segue reference="eAw-cc-dXe"/>
+        <segue reference="cHr-Rj-NO5"/>
+        <segue reference="BUt-yG-D0s"/>
         <segue reference="0nU-vq-fGN"/>
     </inferredMetricsTieBreakers>
     <resources>

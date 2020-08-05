@@ -17,6 +17,7 @@
 #import <HWPopController/HWPop.h>
 #import "PopupViewController.h"
 #import "TNTutorialManager.h"
+#import "ComposeViewController.h"
 
 @interface TemplateLibraryViewController ()<UITableViewDelegate, UITableViewDataSource, ProfileDelegate, ReportDelegate, UISearchBarDelegate, TNTutorialManagerDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -251,6 +252,9 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
         [self.tutorialManager updateTutorial];
     }
 }
+- (IBAction)composeButton:(id)sender {
+    [self performSegueWithIdentifier:@"toCompose" sender:nil];
+}
 
 
 - (NSArray<UIView *> *)tutorialViewsToHighlight:(NSInteger)index {
@@ -304,13 +308,12 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 }
 
 - (void)tutorialPreHighlightAction:(NSInteger)index {
-//    if (index == 0) {
-//        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-//    }
 }
 
 -(void)tutorialPerformAction:(NSInteger)index {
-    if (index == 5) {
+    if (index == 4) {
+        [self performSegueWithIdentifier:@"toCompose" sender:nil];
+    } else if (index == 5) {
         self.searchBar.text = @"black lives matter";
         [self searchBar:self.searchBar textDidChange: @"black lives matter"];
     } else if (index == 6) {
@@ -328,7 +331,11 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 }
 
 -(CGFloat)tutorialPreActionDelay:(NSUInteger)index {
-    return 0;
+    if (index == 5) {
+        return 3;
+    } else {
+        return 0;
+    }
 }
 
 
@@ -381,7 +388,12 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
         CategoryViewController *categoryViewController = [segue destinationViewController];
         categoryViewController.category = self.category;
     }
-
+    if ([segue.identifier isEqualToString:@"toCompose"]) {
+        ComposeViewController *composeViewController = [segue destinationViewController];
+        if (self.tutorialManager) {
+            composeViewController.isTutorial = (BOOL * _Nonnull) YES;
+        }
+    }
 }
 
 @end

@@ -416,7 +416,7 @@ int newTempCount;
 
 -(CGFloat)tutorialPreActionDelay:(NSUInteger)index {
     if (index == 4 || index == 5) {
-        return 1;
+        return 1.5;
     } else {
         return 0;
     }
@@ -489,6 +489,9 @@ int newTempCount;
         PreviewViewController *previewViewController = [segue destinationViewController];
         previewViewController.templateTitle = self.currentTemplate.title;
         previewViewController.body = self.currentTemplate.body;
+        if (self.tutorialManager) {
+            previewViewController.isTutorial = true;
+        }
     }
     if ([segue.identifier isEqualToString:@"profileSegue"]) {
         ProfileViewController *profileViewController = [segue destinationViewController];

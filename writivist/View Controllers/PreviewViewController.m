@@ -53,6 +53,12 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if (self.isTutorial) {
+        [self performSelector:@selector(dismissPreview) withObject:self afterDelay:1];
+    }
+}
+
+- (void) dismissPreview {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

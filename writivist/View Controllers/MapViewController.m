@@ -298,14 +298,6 @@
     return nil;
 }
 
--(CGFloat)tutorialPreActionDelay:(NSUInteger)index {
-    if (index == 4 || index == 5) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
 - (void)tutorialPreHighlightAction:(NSInteger)index {
 }
 
@@ -349,6 +341,14 @@
 
 - (NSInteger)tutorialMaxIndex {
     return 4;
+}
+
+- (CGFloat)tutorialPreActionDelay:(NSUInteger)index {
+    if (index == 3) {
+        return 1.5;
+    } else {
+        return 0;
+    }
 }
 
 - (BOOL)tutorialHasSkipButton:(NSInteger)index {

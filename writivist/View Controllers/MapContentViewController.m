@@ -14,7 +14,6 @@
 #import <GooglePlaces/GooglePlaces.h>
 
 @interface MapContentViewController ()<UITableViewDelegate, UITableViewDataSource, MapContentCellDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *barView;
 @property (nonatomic, strong) NSArray *offices;
 @property (nonatomic, strong) NSMutableArray *representatives;

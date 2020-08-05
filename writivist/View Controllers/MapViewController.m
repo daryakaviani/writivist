@@ -12,9 +12,9 @@
 #import "Representative.h"
 #import "User.h"
 #import "MapContentViewController.h"
+#import "TNTutorialManager.h"
 
-
-@interface MapViewController ()
+@interface MapViewController ()<TNTutorialManagerDelegate>
 @property (nonatomic) CGFloat latitude;
 @property (nonatomic) CGFloat longitude;
 @property (nonatomic, strong) NSArray *representatives;
@@ -23,6 +23,8 @@
 @property (nonatomic) CGPoint trayOriginalCenter;
 @property (nonatomic) CGPoint trayUp;
 @property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) TNTutorialManager *tutorialManager;
+@property (nonatomic, strong) MapContentViewController *contentViewController;
 
 @end
 
@@ -59,6 +61,12 @@
     [panRecognizer setMinimumNumberOfTouches:1];
     [panRecognizer setMaximumNumberOfTouches:1];
     [self.trayView addGestureRecognizer:panRecognizer];
+    
+    if ([TNTutorialManager shouldDisplayTutorial:self]) {
+        self.tutorialManager = [[TNTutorialManager alloc] initWithDelegate:self blurFactor:0.1];
+    } else {
+        self.tutorialManager = nil;
+    }
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator {
@@ -99,12 +107,6 @@
        [self.mapView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
        [self.mapView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
     ]];
-//        [NSLayoutConstraint activateConstraints:@[
-//            [self.trayView.leadingAnchor constraintEqualToAnchor:self.mapView.leadingAnchor],
-//           [self.trayView.trailingAnchor constraintEqualToAnchor:self.mapView.trailingAnchor],
-//            [self.trayView.bottomAnchor constraintEqualToAnchor:self.mapView.bottomAnchor],
-//            [self.trayView.heightAnchor constraintEqualToConstant:self.mapView.layer.frame.size.height/2]
-//        ]];
 }
 
 - (void)startUserLocationSearch {
@@ -252,6 +254,112 @@
     }] resume];
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    if (self.tutorialManager) {
+        [self.tutorialManager updateTutorial];
+    }
+}
+
+
+- (NSArray<UIView *> *)tutorialViewsToHighlight:(NSInteger)index {
+    if (index == 1) {
+        return @[self.trayView];
+    } else if (index == 2) {
+        return @[[self.contentViewController.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]]];
+    } else if (index == 3) {
+        return @[[self.navigationItem.rightBarButtonItem valueForKey:@"view"]];
+    }
+
+    return nil;
+}
+
+-(NSArray<NSString *> *)tutorialTexts:(NSInteger)index
+{
+    if (index == 0) {
+        return @[@"Welcome to Find My Reps, where you can visualize the geographic vicinity of your elected officials and pinpoint their addresses for letter-mailing purposes."];
+    } else if (index == 1) {
+        return @[@"Swipe up to view your representatives."];
+    } else if (index == 2) {
+        return @[@"Tap this cell to view the corresponding elected official's location."];
+    } else if (index == 3) {
+        return @[@"Tap here to recenter your map to your current location."];
+    }
+    return nil;
+}
+
+-(NSArray<TNTutorialEdgeInsets *> *)tutorialViewsEdgeInsets:(NSInteger)index {
+    if (index == 1) {
+        return @[TNTutorialEdgeInsetsMake(8, 8, 8, 8)];
+    }
+
+    return nil;
+}
+
+-(CGFloat)tutorialPreActionDelay:(NSUInteger)index {
+    if (index == 4 || index == 5) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+- (void)tutorialPreHighlightAction:(NSInteger)index {
+}
+
+-(void)tutorialPerformAction:(NSInteger)index {
+    if (index == 1) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.trayView.center = self.trayUp;
+        }];
+    } else if (index == 2) {
+        MapContentCell *cell = [self.contentViewController.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        [self.contentViewController.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
+        [self.contentViewController mapContentCell:cell didTap:cell.representative];
+        [UIView animateWithDuration:0.3 animations:^{
+            self.trayView.center = self.trayDown;
+            [self centerLocation:self];
+        }];
+    } else if (index == 3) {
+        [self.contentViewController.tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES];
+        [UIView animateWithDuration:0.3 animations:^{
+            self.trayView.center = self.trayDown;
+            [self centerLocation:self];
+        }];
+    }
+}
+
+
+- (NSArray<NSNumber *> *)tutorialTextPositions:(NSInteger)index {
+    if (index == 3) {
+        return @[@(TNTutorialTextPositionBottom)];
+    }
+    return @[@(TNTutorialTextPositionTop)];
+}
+
+- (BOOL)tutorialShouldCoverStatusBar {
+    return YES;
+}
+
+- (void)tutorialWrapUp {
+    self.tutorialManager = nil;
+}
+
+- (NSInteger)tutorialMaxIndex {
+    return 4;
+}
+
+- (BOOL)tutorialHasSkipButton:(NSInteger)index {
+    return YES;
+}
+
+- (NSArray<UIFont *> *)tutorialTextFonts:(NSInteger)index {
+    return @[[UIFont systemFontOfSize:17.f]];
+}
+
+
 
 #pragma mark - Navigation
 
@@ -260,6 +368,7 @@
     if ([segue.identifier isEqualToString:@"contentSegue"]) {
         MapContentViewController *contentViewController = [segue destinationViewController];
         contentViewController.mapViewController = self;
+        self.contentViewController = contentViewController;
     }
 }
 

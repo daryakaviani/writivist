@@ -18,11 +18,7 @@
 #import "PrintViewController.h"
 #import "TNTutorialManager.h"
 
-@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, RepresentativeCellDelegate, MFMailComposeViewControllerDelegate, TNTutorialManagerDelegate> {
-//    TNTutorialManager *tutorialManager;
-}
-@property (weak, nonatomic) IBOutlet UIView *testView;
-@property (weak, nonatomic) IBOutlet UILabel *label;
+@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, RepresentativeCellDelegate, MFMailComposeViewControllerDelegate, TNTutorialManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *printButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *composeButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -558,8 +554,14 @@ NSArray *levels;
 -(NSArray<UIView *> *)tutorialViewsToHighlight:(NSInteger)index
 {
     if (index == 1) {
+        return @[[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]]];
     } else if (index == 2) {
-//        return @[self.label];
+        return @[[self.navigationItem.rightBarButtonItems[0] valueForKey:@"view"]];
+    } else if (index == 3) {
+        return @[[self.navigationItem.rightBarButtonItems[1] valueForKey:@"view"]];
+    } else if (index == 4) {
+        RepresentativeCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+        return @[cell.stackView];
     }
 
     return nil;
@@ -568,18 +570,21 @@ NSArray *levels;
 -(NSArray<NSString *> *)tutorialTexts:(NSInteger)index
 {
     if (index == 0) {
-        return @[@"Welcome to the tutorial!"];
+        return @[@"Welcome to Writivist!"];
     } else if (index == 1) {
-        return @[@"This is _label1"];
+        return @[@"Tap on this cell!"];
     } else if (index == 2) {
-        return @[@"This is _label2"];
+        return @[@"Use this button to compose emails to selected reps."];
+    } else if (index == 3) {
+        return @[@"Use this button to print letters to mail selected reps."];
+    } else if (index == 4) {
+        return @[@"Call your representatives and visit their website to demand change or navigate to their social media to evaluate their stance on social and political issues."];
     }
 
     return nil;
 }
 
--(NSArray<TNTutorialEdgeInsets *> *)tutorialViewsEdgeInsets:(NSInteger)index
-{
+-(NSArray<TNTutorialEdgeInsets *> *)tutorialViewsEdgeInsets:(NSInteger)index {
     if (index == 1) {
         return @[TNTutorialEdgeInsetsMake(8, 8, 8, 8)];
     }
@@ -587,38 +592,49 @@ NSArray *levels;
     return nil;
 }
 
--(NSArray<NSNumber *> *)tutorialTextPositions:(NSInteger)index
-{
-    return @[@(TNTutorialTextPositionTop)];
+- (void)tutorialPreHighlightAction:(NSInteger)index {
+    if (index == 1) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    }
 }
 
--(CGFloat)tutorialDelay:(NSInteger)index
+-(void)tutorialPerformAction:(NSInteger)index
 {
+    if (index == 1) {
+        [self representativeCell:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]] didTap:self.representatives[3]];
+    }
+}
+
+
+- (NSArray<NSNumber *> *)tutorialTextPositions:(NSInteger)index {
+    if (index == 2 || index == 3) {
+        return @[@(TNTutorialTextPositionBottom)];
+    } else {
+        return @[@(TNTutorialTextPositionTop)];
+    }
+}
+
+- (CGFloat)tutorialDelay:(NSInteger)index {
     return 0;
 }
 
--(BOOL)tutorialShouldCoverStatusBar
-{
+- (BOOL)tutorialShouldCoverStatusBar {
     return YES;
 }
 
--(void)tutorialWrapUp
-{
+- (void)tutorialWrapUp {
     self.tutorialManager = nil;
 }
 
--(NSInteger)tutorialMaxIndex
-{
-    return 3;
+- (NSInteger)tutorialMaxIndex {
+    return 5;
 }
 
--(UIFont *)tutorialSkipButtonFont
-{
-    return [UIFont systemFontOfSize:25 weight:UIFontWeightBold];
+- (BOOL)tutorialHasSkipButton:(NSInteger)index {
+    return NO;
 }
 
--(NSArray<UIFont *> *)tutorialTextFonts:(NSInteger)index
-{
+- (NSArray<UIFont *> *)tutorialTextFonts:(NSInteger)index {
     if (index == 0) {
         return @[[UIFont systemFontOfSize:35.f weight:UIFontWeightBold]];
     }

@@ -2132,6 +2132,7 @@
                                             <outlet property="printView" destination="aFG-vh-ZjF" id="sHg-SG-exQ"/>
                                             <outlet property="profileView" destination="S4C-Ng-mNM" id="aLv-25-aRN"/>
                                             <outlet property="roleLabel" destination="3Q9-D5-pTW" id="5Ma-8R-FfP"/>
+                                            <outlet property="stackView" destination="MM9-Gz-JCw" id="Btx-dI-gue"/>
                                             <outlet property="twitterButton" destination="hhe-No-Ol9" id="XRq-Ea-e6j"/>
                                             <outlet property="websiteButton" destination="Jtg-Hr-ve7" id="WSR-Oy-CQX"/>
                                         </connections>

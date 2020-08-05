@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol RepresentativeCellDelegate;
 
 @interface RepresentativeCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIStackView *stackView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailToCell;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *printConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailConstraint;

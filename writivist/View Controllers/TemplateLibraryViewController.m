@@ -16,14 +16,17 @@
 #import "SuggestedCell.h"
 #import <HWPopController/HWPop.h>
 #import "PopupViewController.h"
+#import "TNTutorialManager.h"
 
-@interface TemplateLibraryViewController ()<UITableViewDelegate, UITableViewDataSource, ProfileDelegate, ReportDelegate, UISearchBarDelegate>
+@interface TemplateLibraryViewController ()<UITableViewDelegate, UITableViewDataSource, ProfileDelegate, ReportDelegate, UISearchBarDelegate, TNTutorialManagerDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) NSString *category;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, strong) NSArray *filteredData;
 @property (nonatomic, strong) NSArray *categories;
+@property (nonatomic, strong) TNTutorialManager *tutorialManager;
+@property (nonatomic, strong) NSMutableArray *sectionViews;
 
 @end
 
@@ -44,6 +47,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.tableView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    self.sectionViews = [[NSMutableArray alloc] init];
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     self.navigationItem.title = @"Template Library";
     navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20], NSForegroundColorAttributeName : [UIColor labelColor]};
@@ -75,6 +79,12 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     UIBarButtonItem *shareBarButton = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
 
     self.navigationItem.rightBarButtonItems  = @[doneBarButton, shareBarButton, previewBarButton];
+    
+    if ([TNTutorialManager shouldDisplayTutorial:self]) {
+        self.tutorialManager = [[TNTutorialManager alloc] initWithDelegate:self blurFactor:0.1];
+    } else {
+        self.tutorialManager = nil;
+    }
 }
 
 - (void)reportTemplateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull Template *)temp {
@@ -151,6 +161,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     NSString *string = self.filteredData[section];
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 50)];
+    [self.sectionViews addObject:view];
     
     if (![string isEqual:@"for you"]) {
         SectionTapper *singleTapRecognizer = [[SectionTapper alloc] initWithTarget:self action:@selector(handleGesture:)];
@@ -233,6 +244,127 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     self.searchBar.showsCancelButton = NO;
 }
+
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    if (self.tutorialManager) {
+        [self.tutorialManager updateTutorial];
+    }
+}
+
+
+- (NSArray<UIView *> *)tutorialViewsToHighlight:(NSInteger)index {
+    if (index == 0) {
+        return @[self.tableView];
+    } else if (index == 1) {
+        CategoryRow *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+        return @[cell];
+    } else if (index == 2) {
+        CategoryRow *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+        return @[[cell.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]];
+    } else if (index == 3) {
+        SuggestedCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        return @[cell];
+    } else if (index == 4) {
+        return @[self.searchBar];
+    } else if (index == 5) {
+        return @[self.sectionViews[2]];
+    }
+
+    return nil;
+}
+
+-(NSArray<NSString *> *)tutorialTexts:(NSInteger)index
+{
+    if (index == 0) {
+        return @[@"Welcome to the Template Library, a collection of prewritten templates regarding an array of social issues."];
+    } else if (index == 1) {
+        return @[@"Access the 20 most recent templates in each category."];
+    } else if (index == 2) {
+        return @[@"Favorite and bookmark templates and view the number of times a template has been saved or liked."];
+    } else if (index == 3) {
+        return @[@"Up here, check out trending templates tailored to your favorite categories."];
+    } else if (index == 4) {
+        return @[@"Here, you can search for particular categories."];
+    } else if (index == 5) {
+        return @[@"Tap any section header to view all templates in that category."];
+    }
+    return nil;
+}
+
+-(NSArray<TNTutorialEdgeInsets *> *)tutorialViewsEdgeInsets:(NSInteger)index {
+    if (index == 1) {
+        return @[TNTutorialEdgeInsetsMake(8, 8, 8, 8)];
+    }
+
+    return nil;
+}
+
+- (void)tutorialPreHighlightAction:(NSInteger)index {
+//    if (index == 0) {
+//        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+//    }
+}
+
+-(void)tutorialPerformAction:(NSInteger)index {
+    if (index == 4) {
+        self.searchBar.text = @"black lives matter";
+        [self searchBar:self.searchBar textDidChange: @"black lives matter"];
+    } else if (index == 5) {
+        self.category = self.searchBar.text;
+        [self performSegueWithIdentifier:@"toCategory" sender:nil];
+    }
+}
+
+
+- (NSArray<NSNumber *> *)tutorialTextPositions:(NSInteger)index {
+    if (index == 5 || index == 6 || index == 7) {
+        return @[@(TNTutorialTextPositionBottom)];
+    }
+    return @[@(TNTutorialTextPositionTop)];
+}
+//
+//-(BOOL)tutorialWaitAfterAction:(NSInteger)index {
+//    if (index == 5) {
+//        return YES;
+//    } else {
+//        return NO;
+//    }
+//}
+
+-(CGFloat)tutorialPreActionDelay:(NSUInteger)index {
+    if (index == 6) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+
+- (BOOL)tutorialShouldCoverStatusBar {
+    return YES;
+}
+
+- (void)tutorialWrapUp {
+    self.tutorialManager = nil;
+}
+
+- (NSInteger)tutorialMaxIndex {
+    return 6;
+}
+
+- (BOOL)tutorialHasSkipButton:(NSInteger)index {
+    return NO;
+}
+
+- (NSArray<UIFont *> *)tutorialTextFonts:(NSInteger)index {
+    return @[[UIFont systemFontOfSize:17.f]];
+}
+
+
 
 #pragma mark - Navigation
 

@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) setCategory: (NSString *) category;
 - (void)fetchTemplates;
+- (void)templateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull Template *)temp;
 @end
 
 

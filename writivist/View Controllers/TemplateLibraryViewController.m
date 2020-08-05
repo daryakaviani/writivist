@@ -26,7 +26,6 @@
 @property (nonatomic, strong) NSArray *filteredData;
 @property (nonatomic, strong) NSArray *categories;
 @property (nonatomic, strong) TNTutorialManager *tutorialManager;
-@property (nonatomic, strong) NSMutableArray *sectionViews;
 
 @end
 
@@ -47,7 +46,6 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.tableView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-    self.sectionViews = [[NSMutableArray alloc] init];
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     self.navigationItem.title = @"Template Library";
     navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20], NSForegroundColorAttributeName : [UIColor labelColor]};
@@ -161,7 +159,6 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     NSString *string = self.filteredData[section];
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 50)];
-    [self.sectionViews addObject:view];
     
     if (![string isEqual:@"for you"]) {
         SectionTapper *singleTapRecognizer = [[SectionTapper alloc] initWithTarget:self action:@selector(handleGesture:)];
@@ -269,27 +266,30 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
         SuggestedCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         return @[cell];
     } else if (index == 4) {
-        return @[self.searchBar];
+        return @[[self.navigationItem.leftBarButtonItem valueForKey:@"view"]];
     } else if (index == 5) {
-        return @[self.sectionViews[2]];
+        return @[self.searchBar];
+    } else if (index == 6) {
+        return @[self.tableView];
     }
 
     return nil;
 }
 
--(NSArray<NSString *> *)tutorialTexts:(NSInteger)index
-{
+-(NSArray<NSString *> *)tutorialTexts:(NSInteger)index {
     if (index == 0) {
         return @[@"Welcome to the Template Library, a collection of prewritten templates regarding an array of social issues."];
     } else if (index == 1) {
         return @[@"Access the 20 most recent templates in each category."];
     } else if (index == 2) {
-        return @[@"Favorite and bookmark templates and view the number of times a template has been saved or liked."];
+        return @[@"Favorite, bookmark, or check out the author of a template and view the number of times a template has been saved or liked."];
     } else if (index == 3) {
         return @[@"Up here, check out trending templates tailored to your favorite categories."];
     } else if (index == 4) {
-        return @[@"Here, you can search for particular categories."];
+        return @[@"Tap here to compose a new template of your choice for the Template Library."];
     } else if (index == 5) {
+        return @[@"Here, you can search for particular categories."];
+    } else if (index == 6) {
         return @[@"Tap any section header to view all templates in that category."];
     }
     return nil;
@@ -310,10 +310,10 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 }
 
 -(void)tutorialPerformAction:(NSInteger)index {
-    if (index == 4) {
+    if (index == 5) {
         self.searchBar.text = @"black lives matter";
         [self searchBar:self.searchBar textDidChange: @"black lives matter"];
-    } else if (index == 5) {
+    } else if (index == 6) {
         self.category = self.searchBar.text;
         [self performSegueWithIdentifier:@"toCategory" sender:nil];
     }
@@ -321,26 +321,14 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 
 
 - (NSArray<NSNumber *> *)tutorialTextPositions:(NSInteger)index {
-    if (index == 5 || index == 6 || index == 7) {
+    if (index == 4 || index == 5) {
         return @[@(TNTutorialTextPositionBottom)];
     }
     return @[@(TNTutorialTextPositionTop)];
 }
-//
-//-(BOOL)tutorialWaitAfterAction:(NSInteger)index {
-//    if (index == 5) {
-//        return YES;
-//    } else {
-//        return NO;
-//    }
-//}
 
 -(CGFloat)tutorialPreActionDelay:(NSUInteger)index {
-    if (index == 6) {
-        return 1;
-    } else {
-        return 0;
-    }
+    return 0;
 }
 
 
@@ -353,11 +341,11 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 }
 
 - (NSInteger)tutorialMaxIndex {
-    return 6;
+    return 7;
 }
 
 - (BOOL)tutorialHasSkipButton:(NSInteger)index {
-    return NO;
+    return YES;
 }
 
 - (NSArray<UIFont *> *)tutorialTextFonts:(NSInteger)index {

@@ -17,8 +17,9 @@
 #import "InfiniteScrollActivityView.h"
 #import "PopupViewController.h"
 #import <HWPopController/HWPopController.h>
+#import "TNTutorialManager.h"
 
-@interface CategoryViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, ProfileDelegate, ReportDelegate, UISearchBarDelegate, TemplateCellDelegate>
+@interface CategoryViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, ProfileDelegate, ReportDelegate, UISearchBarDelegate, TemplateCellDelegate, TNTutorialManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
@@ -29,6 +30,7 @@
 @property (nonatomic, strong) User *user;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, strong) NSArray *filteredData;
+@property (nonatomic, strong) TNTutorialManager *tutorialManager;
 
 @end
 
@@ -102,11 +104,12 @@ int newTempCount;
     UIBarButtonItem *shareBarButton = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
 
     self.navigationItem.rightBarButtonItems  = @[doneBarButton, shareBarButton, previewBarButton];
-}
-
-- (void) viewDidAppear:(BOOL)animated {
-    skip = 20;
-    newTempCount = 0;
+    
+    if ([TNTutorialManager shouldDisplayTutorial:self]) {
+        self.tutorialManager = [[TNTutorialManager alloc] initWithDelegate:self blurFactor:0.1];
+    } else {
+        self.tutorialManager = nil;
+    }
 }
 
 - (void)doneButton {
@@ -167,7 +170,14 @@ int newTempCount;
             activityViewControntroller.popoverPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width/2, self.view.bounds.size.height/4, 0, 0);
         }
         [self presentViewController:activityViewControntroller animated:true completion:nil];
+        if (self.tutorialManager){
+            [self performSelector:@selector(dismissShare:) withObject:activityViewControntroller afterDelay:1];
+        }
     }
+}
+
+- (void) dismissShare: (UIActivityViewController *) activityViewController {
+    [activityViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void) loadMoreData {
@@ -348,7 +358,116 @@ int newTempCount;
     }
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    
+    skip = 20;
+    newTempCount = 0;
+    [super viewDidAppear:animated];
 
+    if (self.tutorialManager) {
+        [self.tutorialManager updateTutorial];
+    }
+}
+
+
+- (NSArray<UIView *> *)tutorialViewsToHighlight:(NSInteger)index {
+    if (index == 0) {
+        return @[self.collectionView, self.searchBar];
+    } else if (index == 1) {
+        return @[self.searchBar];
+    } else if (index == 2) {
+        TemplateCell *tempCell = (TemplateCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+        return @[tempCell];
+    } else if (index == 3) {
+        return @[[self.navigationItem.rightBarButtonItems[2] valueForKey:@"view"]];
+    } else if (index == 4) {
+        return @[[self.navigationItem.rightBarButtonItems[1] valueForKey:@"view"]];
+    } else if (index == 5) {
+        return @[[self.navigationItem.rightBarButtonItems[0] valueForKey:@"view"]];
+    }
+
+    return nil;
+}
+
+-(NSArray<NSString *> *)tutorialTexts:(NSInteger)index
+{
+    if (index == 1) {
+        return @[@"Here, you can search for particular templates."];
+    } else if (index == 2) {
+        return @[@"Time for the primary power of Writivist. Tap this template."];
+    } else if (index == 3) {
+        return @[@"Tap here to preview this template."];
+    } else if (index == 4) {
+        return @[@"Tap here to share this template via social media and beyond."];
+    } else if (index == 5) {
+        return @[@"Tap here to funnel this template's contents into your email or printable letter."];
+    }
+    return nil;
+}
+
+-(NSArray<TNTutorialEdgeInsets *> *)tutorialViewsEdgeInsets:(NSInteger)index {
+    if (index == 1) {
+        return @[TNTutorialEdgeInsetsMake(8, 8, 8, 8)];
+    }
+
+    return nil;
+}
+
+-(CGFloat)tutorialPreActionDelay:(NSUInteger)index {
+    if (index == 4 || index == 5) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+- (void)tutorialPreHighlightAction:(NSInteger)index {
+}
+
+-(void)tutorialPerformAction:(NSInteger)index {
+    if (index == 1) {
+        self.searchBar.text = @"CA For BLM";
+        [self searchBar:self.searchBar textDidChange: @"CA For BLM"];
+    } else if (index == 2) {
+        TemplateCell *tempCell = (TemplateCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+        [self templateCell:tempCell didTap:tempCell.temp];
+    } else if (index == 3) {
+        [self previewButton];
+    } else if (index == 4) {
+        [self shareButton];
+    } else if (index == 5) {
+        [self doneButton];
+    }
+}
+
+
+- (NSArray<NSNumber *> *)tutorialTextPositions:(NSInteger)index {
+    if (index == 3 || index == 4 || index == 5) {
+        return @[@(TNTutorialTextPositionBottom)];
+    }
+    return @[@(TNTutorialTextPositionTop)];
+}
+
+- (BOOL)tutorialShouldCoverStatusBar {
+    return YES;
+}
+
+- (void)tutorialWrapUp {
+    self.tutorialManager = nil;
+}
+
+- (NSInteger)tutorialMaxIndex {
+    return 6;
+}
+
+- (BOOL)tutorialHasSkipButton:(NSInteger)index {
+    return YES;
+}
+
+- (NSArray<UIFont *> *)tutorialTextFonts:(NSInteger)index {
+    return @[[UIFont systemFontOfSize:17.f]];
+}
 
 
 #pragma mark - Navigation

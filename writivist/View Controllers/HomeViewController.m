@@ -631,7 +631,7 @@ NSArray *levels;
 }
 
 - (BOOL)tutorialHasSkipButton:(NSInteger)index {
-    return NO;
+    return YES;
 }
 
 - (NSArray<UIFont *> *)tutorialTextFonts:(NSInteger)index {

@@ -27,11 +27,6 @@
     self.bodyLabel.editable = NO;
     self.bodyLabel.text = self.body;
     self.titleLabel.text = self.templateTitle;
-//    if ([TNTutorialManager shouldDisplayTutorial:self]) {
-//        self.tutorialManager = [[TNTutorialManager alloc] initWithDelegate:self blurFactor:0.1];
-//    } else {
-//        self.tutorialManager = nil;
-//    }
 }
 - (IBAction)doneButton:(id)sender {
     if (self.temp == nil) {

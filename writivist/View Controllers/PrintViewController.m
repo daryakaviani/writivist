@@ -9,8 +9,11 @@
 #import "PrintViewController.h"
 #import "Representative.h"
 #import "User.h"
+#import <TNTutorialManager.h>
 
 @interface PrintViewController ()
+
+@property (nonatomic, strong) TNTutorialManager *tutorialManager;
 
 @end
 
@@ -53,6 +56,30 @@
     formatter.perPageContentInsets = UIEdgeInsetsMake(72, 72, 72, 72);
     printController.printFormatter = formatter;
     [printController presentAnimated:true completionHandler: nil];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (self.isTutorial) {
+        [self performSelector:@selector(dismissPrint) withObject:self afterDelay:2];
+    }
+}
+
+- (void) dismissPrint {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (NSInteger)tutorialMaxIndex {
+    return 1;
+}
+
+- (BOOL)tutorialShouldCoverStatusBar {
+    return YES;
+}
+
+- (void)tutorialWrapUp {
+    self.tutorialManager = nil;
 }
 
 /*

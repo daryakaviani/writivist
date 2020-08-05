@@ -32,6 +32,7 @@
 @property (nonatomic) NSMutableArray *cityReps;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) TNTutorialManager *tutorialManager;
+@property (nonatomic, strong) MFMailComposeViewController *mailComposeViewController;
 
 @end
 
@@ -371,6 +372,43 @@ NSArray *levels;
     }
 }
 
+- (void) showSingleEmail {
+    self.mailComposeViewController = [[MFMailComposeViewController alloc] init];
+    self.mailComposeViewController.mailComposeDelegate = self;
+    RepresentativeCell *representativeCell = self.selectedReps[0];
+    Representative *representative = representativeCell.representative;
+    NSMutableArray *emails = [[NSMutableArray alloc] init];
+    if (representative.email != nil) {
+        [emails addObject:representative.email];
+    }
+    NSString *bodyHeader = @"Dear ";
+    bodyHeader = [bodyHeader stringByAppendingString:representative.role];
+    bodyHeader = [bodyHeader stringByAppendingString:@" "];
+    bodyHeader = [bodyHeader stringByAppendingString:representative.name];
+    bodyHeader = [bodyHeader stringByAppendingString:@", "];
+    UIColor *color = [UIColor clearColor];
+    representativeCell.checkView.backgroundColor = color;
+    representative.selected = (BOOL * _Nonnull) NO;
+    UIView *subview = representativeCell.checkView.subviews[0];
+    subview.hidden = YES;
+    bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, @"My name is "];
+    bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].firstName];
+    bodyHeader = [bodyHeader stringByAppendingString:@" "];
+    bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].lastName];
+    bodyHeader = [bodyHeader stringByAppendingString:@" and I am from "];
+    bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].city];
+    bodyHeader = [bodyHeader stringByAppendingString:@", "];
+    bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].state];
+    bodyHeader = [bodyHeader stringByAppendingString:@". "];
+    if (self.currentTemplate != nil) {
+        bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, self.currentTemplate.body];
+    }
+    [self.selectedReps removeObjectAtIndex:0];
+    [self.mailComposeViewController setToRecipients:emails];
+    [self.mailComposeViewController setMessageBody:bodyHeader isHTML:false];
+    [self presentViewController:self.mailComposeViewController animated:YES completion:nil];
+}
+
 - (IBAction)composeButton:(id)sender {
     if (self.selectedReps.count == 0) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No representatives selected."
@@ -390,40 +428,7 @@ NSArray *levels;
         }
         if (properSelections) {
             if ([User currentUser].sendIndividually) {
-                MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];
-                mailComposeViewController.mailComposeDelegate = self;
-                RepresentativeCell *representativeCell = self.selectedReps[0];
-                Representative *representative = representativeCell.representative;
-                NSMutableArray *emails = [[NSMutableArray alloc] init];
-                if (representative.email != nil) {
-                    [emails addObject:representative.email];
-                }
-                NSString *bodyHeader = @"Dear ";
-                bodyHeader = [bodyHeader stringByAppendingString:representative.role];
-                bodyHeader = [bodyHeader stringByAppendingString:@" "];
-                bodyHeader = [bodyHeader stringByAppendingString:representative.name];
-                bodyHeader = [bodyHeader stringByAppendingString:@", "];
-                UIColor *color = [UIColor clearColor];
-                representativeCell.checkView.backgroundColor = color;
-                representative.selected = (BOOL * _Nonnull) NO;
-                UIView *subview = representativeCell.checkView.subviews[0];
-                subview.hidden = YES;
-                bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, @"My name is "];
-                bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].firstName];
-                bodyHeader = [bodyHeader stringByAppendingString:@" "];
-                bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].lastName];
-                bodyHeader = [bodyHeader stringByAppendingString:@" and I am from "];
-                bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].city];
-                bodyHeader = [bodyHeader stringByAppendingString:@", "];
-                bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].state];
-                bodyHeader = [bodyHeader stringByAppendingString:@". "];
-                if (self.currentTemplate != nil) {
-                    bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, self.currentTemplate.body];
-                }
-                [self.selectedReps removeObjectAtIndex:0];
-                [mailComposeViewController setToRecipients:emails];
-                [mailComposeViewController setMessageBody:bodyHeader isHTML:false];
-                [self presentViewController:mailComposeViewController animated:YES completion:nil];
+                [self showSingleEmail];
             } else {
                 MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];
                 mailComposeViewController.mailComposeDelegate = self;
@@ -544,6 +549,20 @@ NSArray *levels;
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    if (self.currentTemplate != nil) {
+        self.navigationItem.title = @"Select Officials";
+        UINavigationBar *navigationBar = self.navigationController.navigationBar;
+        navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20], NSForegroundColorAttributeName : [UIColor labelColor]};
+        self.logoutButton.tintColor = [UIColor clearColor];
+        self.logoutButton.enabled = NO;
+    } else {
+        self.navigationItem.title = @"writivist";
+        UINavigationBar *navigationBar = self.navigationController.navigationBar;
+        navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"Snell Roundhand" size:45], NSForegroundColorAttributeName : [UIColor labelColor]};
+        self.logoutButton.tintColor = [[UIColor alloc]initWithRed:96/255.0 green:125/255.0 blue:139/255.0 alpha:1];
+        self.logoutButton.enabled = YES;
+    }
 
     if (self.tutorialManager) {
         [self.tutorialManager updateTutorial];
@@ -554,15 +573,15 @@ NSArray *levels;
 -(NSArray<UIView *> *)tutorialViewsToHighlight:(NSInteger)index
 {
     if (index == 1) {
-        return @[[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]]];
-    } else if (index == 2) {
-        return @[[self.navigationItem.rightBarButtonItems[0] valueForKey:@"view"]];
-    } else if (index == 3) {
-        return @[[self.navigationItem.rightBarButtonItems[1] valueForKey:@"view"]];
-    } else if (index == 4) {
         RepresentativeCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
         cell.representative.selected = (BOOL * _Nonnull) YES;
         return @[cell.stackView];
+    } else if (index == 2) {
+        return @[[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]]];
+    } else if (index == 3) {
+        return @[[self.navigationItem.rightBarButtonItems[0] valueForKey:@"view"]];
+    } else if (index == 4) {
+        return @[[self.navigationItem.rightBarButtonItems[1] valueForKey:@"view"]];
     }
 
     return nil;
@@ -573,13 +592,14 @@ NSArray *levels;
     if (index == 0) {
         return @[@"Welcome to Writivist!"];
     } else if (index == 1) {
-        return @[@"Tap on this cell!"];
-    } else if (index == 2) {
-        return @[@"Use this button to compose emails to selected reps."];
-    } else if (index == 3) {
-        return @[@"Use this button to print letters to mail selected reps."];
-    } else if (index == 4) {
         return @[@"Call your representatives and visit their website to demand change or navigate to their social media to evaluate their stance on social and political issues."];
+    } else if (index == 2) {
+        return @[@"Tap on this cell!"];
+    } else if (index == 3) {
+        return @[@"Use this button to compose emails to selected reps."];
+    } else if (index == 4) {
+        return @[@"Use this button to print letters to mail selected reps."];
+    } else if (index == 5) {
     }
 
     return nil;
@@ -599,24 +619,35 @@ NSArray *levels;
     }
 }
 
--(void)tutorialPerformAction:(NSInteger)index
-{
-    if (index == 1) {
+-(void)tutorialPerformAction:(NSInteger)index {
+    if (index == 2) {
         [self representativeCell:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]] didTap:self.representatives[3]];
+    } else if (index == 3) {
+        [self showSingleEmail];
+        [self performSelector:@selector(dismissEmail:) withObject:self.mailComposeViewController afterDelay:3];
+    } else if (index == 4) {
+        [self performSegueWithIdentifier:@"toPrint" sender:nil];
     }
 }
 
+- (void) dismissEmail: (MFMailComposeViewController *) mailComposeViewController {
+    [mailComposeViewController dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (NSArray<NSNumber *> *)tutorialTextPositions:(NSInteger)index {
-    if (index == 2 || index == 3) {
+    if (index == 3 || index == 4) {
         return @[@(TNTutorialTextPositionBottom)];
     } else {
         return @[@(TNTutorialTextPositionTop)];
     }
 }
 
-- (CGFloat)tutorialDelay:(NSInteger)index {
-    return 0;
+-(CGFloat)tutorialPreActionDelay:(NSUInteger)index {
+    if (index == 4) {
+        return 3;
+    } else {
+        return 0;
+    }
 }
 
 - (BOOL)tutorialShouldCoverStatusBar {
@@ -657,6 +688,9 @@ NSArray *levels;
         }
         printViewController.representatives = printReps;
         printViewController.temp = self.currentTemplate;
+        if (self.tutorialManager) {
+            printViewController.isTutorial = (BOOL * _Nonnull) YES;
+        }
     }
 }
 

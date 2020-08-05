@@ -417,6 +417,8 @@ int newTempCount;
 -(CGFloat)tutorialPreActionDelay:(NSUInteger)index {
     if (index == 4 || index == 5) {
         return 1.5;
+    } else if (index == 3) {
+        return 1;
     } else {
         return 0;
     }

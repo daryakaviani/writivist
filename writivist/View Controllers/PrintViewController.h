@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextView *printView;
 @property (nonatomic, strong) NSArray *representatives;
 @property (nonatomic, strong) Template *temp;
+@property (nonatomic) BOOL *isTutorial;
 
 @end
 

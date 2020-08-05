@@ -194,9 +194,8 @@ NSArray *levels;
     location = [location stringByAppendingString:@"%20"];
     location = [location stringByAppendingString:user.state];
     location = [location stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
-    NSString *key = [[NSProcessInfo processInfo] environment][@"key"];
     NSString *targetUrl = @"https://www.googleapis.com/civicinfo/v2/representatives?key=";
-    targetUrl = [targetUrl stringByAppendingString:key];
+    targetUrl = [targetUrl stringByAppendingString:@"AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls"];
     targetUrl = [targetUrl stringByAppendingString:@"&address="];
     targetUrl = [targetUrl stringByAppendingString:location];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
@@ -570,8 +569,7 @@ NSArray *levels;
 }
 
 
--(NSArray<UIView *> *)tutorialViewsToHighlight:(NSInteger)index
-{
+-(NSArray<UIView *> *)tutorialViewsToHighlight:(NSInteger)index {
     if (index == 1) {
         RepresentativeCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
         cell.representative.selected = (BOOL * _Nonnull) YES;
@@ -623,8 +621,10 @@ NSArray *levels;
     if (index == 2) {
         [self representativeCell:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]] didTap:self.representatives[3]];
     } else if (index == 3) {
-        [self showSingleEmail];
-        [self performSelector:@selector(dismissEmail:) withObject:self.mailComposeViewController afterDelay:3];
+        if (MFMailComposeViewController.canSendMail) {
+            [self showSingleEmail];
+            [self performSelector:@selector(dismissEmail:) withObject:self.mailComposeViewController afterDelay:3];
+        }
     } else if (index == 4) {
         [self performSegueWithIdentifier:@"toPrint" sender:nil];
     }
@@ -643,7 +643,7 @@ NSArray *levels;
 }
 
 -(CGFloat)tutorialPreActionDelay:(NSUInteger)index {
-    if (index == 4) {
+    if (index == 4 && MFMailComposeViewController.canSendMail) {
         return 3;
     } else {
         return 0;

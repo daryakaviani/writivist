@@ -67,9 +67,8 @@
     location = [location stringByAppendingString:@"%20"];
     location = [location stringByAppendingString:user.state];
     location = [location stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
-    NSString *key = [[NSProcessInfo processInfo] environment][@"key"];
     NSString *targetUrl = @"https://www.googleapis.com/civicinfo/v2/representatives?key=";
-    targetUrl = [targetUrl stringByAppendingString:key];
+    targetUrl = [targetUrl stringByAppendingString:@"AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls"];
     targetUrl = [targetUrl stringByAppendingString:@"&address="];
     targetUrl = [targetUrl stringByAppendingString:location];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
@@ -118,8 +117,7 @@
 - (void)mapContentCell:(nonnull MapContentCell *)mapContentCell didTap:(nonnull Representative *)representative {
     NSString *baseUrl = @"https://maps.googleapis.com/maps/api/geocode/json?address=";
         NSString *keyUrl = @"&key=";
-        NSString *key = [[NSProcessInfo processInfo] environment][@"key"];
-        keyUrl = [keyUrl stringByAppendingString:key];
+        keyUrl = [keyUrl stringByAppendingString:@"AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls"];
         baseUrl = [baseUrl stringByAppendingFormat:@"%@", representative.address[0][@"line1"]];
         baseUrl = [baseUrl stringByAppendingFormat:@"%@", @","];
         baseUrl = [baseUrl stringByAppendingFormat:@"%@", @"+"];

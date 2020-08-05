@@ -393,7 +393,7 @@ int newTempCount;
     if (index == 0) {
         return @[@"Here, you can scroll and search through every template in the selected category."];
     } else if (index == 1) {
-        return @[@"Here, you can search for particular templates."];
+        return @[@"Search for particular templates."];
     } else if (index == 2) {
         return @[@"Time for the primary power of Writivist. Tap this template."];
     } else if (index == 3) {
@@ -445,7 +445,7 @@ int newTempCount;
 
 
 - (NSArray<NSNumber *> *)tutorialTextPositions:(NSInteger)index {
-    if (index == 3 || index == 4 || index == 5) {
+    if (index == 3 || index == 4 || index == 5 || index == 1) {
         return @[@(TNTutorialTextPositionBottom)];
     }
     return @[@(TNTutorialTextPositionTop)];
@@ -492,7 +492,7 @@ int newTempCount;
         previewViewController.templateTitle = self.currentTemplate.title;
         previewViewController.body = self.currentTemplate.body;
         if (self.tutorialManager) {
-            previewViewController.isTutorial = true;
+            previewViewController.isTutorial = (BOOL * _Nonnull) YES;
         }
     }
     if ([segue.identifier isEqualToString:@"profileSegue"]) {

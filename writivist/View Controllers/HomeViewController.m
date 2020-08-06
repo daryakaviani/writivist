@@ -408,6 +408,7 @@ NSArray *levels;
     if (self.currentTemplate != nil) {
         bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, self.currentTemplate.body];
     }
+    bodyHeader = [NSString stringWithFormat:@"%@\n\n%@\n\n%@ %@",bodyHeader, @"Sincerely but not silently,", [User currentUser].firstName, [User currentUser].lastName];
     [self.selectedReps removeObjectAtIndex:0];
     [self.mailComposeViewController setToRecipients:emails];
     [self.mailComposeViewController setMessageBody:bodyHeader isHTML:false];
@@ -473,6 +474,7 @@ NSArray *levels;
                 if (self.currentTemplate != nil) {
                     bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, self.currentTemplate.body];
                 }
+                bodyHeader = [NSString stringWithFormat:@"%@\n\n%@\n\n%@ %@",bodyHeader, @"Sincerely but not silently,", [User currentUser].firstName, [User currentUser].lastName];
                 [self.selectedReps removeAllObjects];
                 [mailComposeViewController setToRecipients:emails];
                 [mailComposeViewController setMessageBody:bodyHeader isHTML:false];
@@ -542,6 +544,7 @@ NSArray *levels;
         if (self.currentTemplate != nil) {
             bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, self.currentTemplate.body];
         }
+        bodyHeader = [NSString stringWithFormat:@"%@\n\n%@\n\n%@ %@",bodyHeader, @"Sincerely but not silently,", [User currentUser].firstName, [User currentUser].lastName];
         [self.selectedReps removeObjectAtIndex:0];
         [mailComposeViewController setToRecipients:emails];
         [mailComposeViewController setMessageBody:bodyHeader isHTML:false];

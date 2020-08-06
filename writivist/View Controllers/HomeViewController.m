@@ -138,8 +138,8 @@ NSArray *levels;
         [self presentViewController:alert animated:YES completion:nil];
     } else {
         Boolean properSelections = true;
-        for (RepresentativeCell *repCell in self.selectedReps) {
-            if (repCell.representative.address == nil) {
+        for (Representative *representative in self.selectedReps) {
+            if (representative.address == nil) {
                 properSelections = false;
             }
         }
@@ -174,13 +174,12 @@ NSArray *levels;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-    for (RepresentativeCell *representativeCell in self.selectedReps) {
-        Representative *representative = representativeCell.representative;
+    for (Representative *representative in self.selectedReps) {
         UIColor *color = [UIColor clearColor];
-        representativeCell.checkView.backgroundColor = color;
+//        representativeCell.checkView.backgroundColor = color;
         representative.selected = (BOOL * _Nonnull) NO;
-        UIView *subview = representativeCell.checkView.subviews[0];
-        subview.hidden = YES;
+//        UIView *subview = representativeCell.checkView.subviews[0];
+//        subview.hidden = YES;
     }
     [self.selectedReps removeAllObjects];
 }
@@ -360,14 +359,14 @@ NSArray *levels;
         representative.selected = (BOOL * _Nonnull) YES;
         UIView *subview = representativeCell.checkView.subviews[0];
         subview.hidden = NO;
-        [self.selectedReps addObject:representativeCell];
+        [self.selectedReps addObject:representative];
     } else {
         UIColor *color = [UIColor clearColor];
         representativeCell.checkView.backgroundColor = color;
         representative.selected = (BOOL * _Nonnull) NO;
         UIView *subview = representativeCell.checkView.subviews[0];
         subview.hidden = YES;
-        [self.selectedReps removeObject:representativeCell];
+        [self.selectedReps removeObject:representative];
     }
     if (self.selectedReps.count == 0) {
         self.counterView.hidden = YES;
@@ -380,8 +379,8 @@ NSArray *levels;
 - (void) showSingleEmail {
     self.mailComposeViewController = [[MFMailComposeViewController alloc] init];
     self.mailComposeViewController.mailComposeDelegate = self;
-    RepresentativeCell *representativeCell = self.selectedReps[0];
-    Representative *representative = representativeCell.representative;
+    Representative *representative = self.selectedReps[0];
+//    Representative *representative = representativeCell.representative;
     NSMutableArray *emails = [[NSMutableArray alloc] init];
     if (representative.email != nil) {
         [emails addObject:representative.email];
@@ -392,10 +391,10 @@ NSArray *levels;
     bodyHeader = [bodyHeader stringByAppendingString:representative.name];
     bodyHeader = [bodyHeader stringByAppendingString:@", "];
     UIColor *color = [UIColor clearColor];
-    representativeCell.checkView.backgroundColor = color;
+//    representativeCell.checkView.backgroundColor = color;
     representative.selected = (BOOL * _Nonnull) NO;
-    UIView *subview = representativeCell.checkView.subviews[0];
-    subview.hidden = YES;
+//    UIView *subview = representativeCell.checkView.subviews[0];
+//    subview.hidden = YES;
     bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, @"My name is "];
     bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].firstName];
     bodyHeader = [bodyHeader stringByAppendingString:@" "];
@@ -427,8 +426,8 @@ NSArray *levels;
         [self presentViewController:alert animated:YES completion:nil];
     } else if (MFMailComposeViewController.canSendMail) {
         Boolean properSelections = true;
-        for (RepresentativeCell *repCell in self.selectedReps) {
-            if (repCell.representative.email == nil) {
+        for (Representative *representative in self.selectedReps) {
+            if (representative.email == nil) {
                 properSelections = false;
             }
         }
@@ -440,8 +439,7 @@ NSArray *levels;
                 mailComposeViewController.mailComposeDelegate = self;
                 NSMutableArray *emails = [[NSMutableArray alloc] init];
                 NSString *bodyHeader = @"Dear ";
-                for (RepresentativeCell *representativeCell in self.selectedReps) {
-                    Representative *representative = representativeCell.representative;
+                for (Representative *representative in self.selectedReps) {
                     [emails addObject:representative.email];
                     if (emails.count == self.selectedReps.count && emails.count != 1) {
                         bodyHeader = [bodyHeader stringByAppendingString:@" and "];
@@ -453,10 +451,10 @@ NSArray *levels;
                         bodyHeader = [bodyHeader stringByAppendingString:@", "];
                     }
                     UIColor *color = [UIColor clearColor];
-                    representativeCell.checkView.backgroundColor = color;
+//                    representativeCell.checkView.backgroundColor = color;
                     representative.selected = (BOOL * _Nonnull) NO;
-                    UIView *subview = representativeCell.checkView.subviews[0];
-                    subview.hidden = YES;
+//                    UIView *subview = representativeCell.checkView.subviews[0];
+//                    subview.hidden = YES;
                 }
                 if (self.selectedReps.count == 2) {
                     bodyHeader = [bodyHeader stringByAppendingString:@", "];
@@ -504,6 +502,7 @@ NSArray *levels;
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller
           didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    [self.tableView reloadData];
     if (result == MFMailComposeResultSent) {
         User *user = [User currentUser];
         int val = [user.letterCount intValue];
@@ -519,8 +518,7 @@ NSArray *levels;
     if (self.selectedReps.count > 0 && [User currentUser].sendIndividually) {
         MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];
         mailComposeViewController.mailComposeDelegate = self;
-        RepresentativeCell *representativeCell = self.selectedReps[0];
-        Representative *representative = representativeCell.representative;
+        Representative *representative = self.selectedReps[0];
         NSArray *emails = @[representative.email];
         NSString *bodyHeader = @"Dear ";
         bodyHeader = [bodyHeader stringByAppendingString:representative.role];
@@ -528,10 +526,10 @@ NSArray *levels;
         bodyHeader = [bodyHeader stringByAppendingString:representative.name];
         bodyHeader = [bodyHeader stringByAppendingString:@", "];
         UIColor *color = [UIColor clearColor];
-        representativeCell.checkView.backgroundColor = color;
+//        representativeCell.checkView.backgroundColor = color;
         representative.selected = (BOOL * _Nonnull) NO;
-        UIView *subview = representativeCell.checkView.subviews[0];
-        subview.hidden = YES;
+//        UIView *subview = representativeCell.checkView.subviews[0];
+//        subview.hidden = YES;
         bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, @"My name is "];
         bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].firstName];
         bodyHeader = [bodyHeader stringByAppendingString:@" "];
@@ -693,8 +691,8 @@ NSArray *levels;
     if ([segue.identifier isEqualToString:@"toPrint"]) {
         PrintViewController *printViewController = [segue destinationViewController];
         NSMutableArray *printReps = [[NSMutableArray alloc] init];
-        for (RepresentativeCell *cell in self.selectedReps) {
-            [printReps addObject:cell.representative];
+        for (Representative *representative in self.selectedReps) {
+            [printReps addObject:representative];
         }
         printViewController.representatives = printReps;
         printViewController.temp = self.currentTemplate;

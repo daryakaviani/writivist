@@ -578,7 +578,6 @@ NSArray *levels;
 -(NSArray<UIView *> *)tutorialViewsToHighlight:(NSInteger)index {
     if (index == 1) {
         RepresentativeCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
-        cell.representative.selected = (BOOL * _Nonnull) YES;
         return @[cell.stackView];
     } else if (index == 2) {
         return @[[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]]];
@@ -625,7 +624,9 @@ NSArray *levels;
 
 -(void)tutorialPerformAction:(NSInteger)index {
     if (index == 2) {
-        [self representativeCell:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]] didTap:self.representatives[3]];
+        RepresentativeCell *repCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+        [self representativeCell:repCell didTap:self.representatives[3]];
+        repCell.representative.selected = (BOOL * _Nonnull) YES;
     } else if (index == 3) {
         if (MFMailComposeViewController.canSendMail) {
             [self showSingleEmail];

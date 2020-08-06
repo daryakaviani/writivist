@@ -17,6 +17,7 @@
 #import "User.h"
 #import "PrintViewController.h"
 #import "TNTutorialManager.h"
+#import "AppDelegate.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, RepresentativeCellDelegate, MFMailComposeViewControllerDelegate, TNTutorialManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *printButton;
@@ -158,7 +159,7 @@ NSArray *levels;
 }
 
 - (IBAction)logoutButton:(id)sender {
-    AppDelegate *myDelegate = (AppDelegate *)self.view.window.windowScene.delegate;
+    AppDelegate *myDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
 
     [User logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
         // PFUser.current() will now be nil
@@ -588,7 +589,7 @@ NSArray *levels;
 -(NSArray<NSString *> *)tutorialTexts:(NSInteger)index
 {
     if (index == 0) {
-        return @[@"Welcome to Writivist!"];
+        return @[@"Welcome to the Writivist Tutorial!"];
     } else if (index == 1) {
         return @[@"Call your representatives and visit their website to demand change or navigate to their social media to evaluate their stance on social and political issues."];
     } else if (index == 2) {

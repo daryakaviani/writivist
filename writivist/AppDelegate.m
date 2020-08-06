@@ -39,6 +39,8 @@
         [_window makeKeyAndVisible];
     }
     
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];
+    
     return YES;
 }
 

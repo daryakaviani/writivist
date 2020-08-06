@@ -265,7 +265,12 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
         return @[cell];
     } else if (index == 2) {
         CategoryRow *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-        return @[[cell.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]];
+        TemplateCell *tempCell = (TemplateCell *) [cell.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+        while (true) {
+            if (tempCell) {
+                return @[[cell.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]];
+            }
+        }
     } else if (index == 3) {
         SuggestedCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         return @[cell];
@@ -331,6 +336,9 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 }
 
 -(CGFloat)tutorialPreActionDelay:(NSUInteger)index {
+//    if (index == 1) {
+//        return 2;
+//    }
     if (index == 5) {
         return 3;
     } else {

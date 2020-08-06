@@ -256,6 +256,11 @@ NSArray *levels;
 // Creating and configured a cell.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RepresentativeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RepresentativeCell"];
+    // Restore contentView
+    BOOL hasContentView = [cell.subviews containsObject:cell.contentView];
+    if (!hasContentView) {
+        [cell addSubview:cell.contentView];
+    }
     Representative *representative;
     NSString *repIndex = [NSString stringWithFormat: @"%ld", indexPath.row];
     if (indexPath.section == 0) {

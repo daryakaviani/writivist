@@ -18,6 +18,16 @@
     [self roundImage];
 }
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+
+    // Clear contentView
+    BOOL hasContentView = [self.subviews containsObject:self.contentView];
+    if (hasContentView) {
+        [self.contentView removeFromSuperview];
+    }
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

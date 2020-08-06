@@ -66,10 +66,12 @@
     self.navigationItem.title = self.user.username;
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20], NSForegroundColorAttributeName : [UIColor labelColor]};
-    if ([TNTutorialManager shouldDisplayTutorial:self]) {
-        self.tutorialManager = [[TNTutorialManager alloc] initWithDelegate:self blurFactor:0.1];
-    } else {
-        self.tutorialManager = nil;
+    if ([[User currentUser].username isEqualToString:self.user.username]) {
+        if ([TNTutorialManager shouldDisplayTutorial:self]) {
+            self.tutorialManager = [[TNTutorialManager alloc] initWithDelegate:self blurFactor:0.1];
+        } else {
+            self.tutorialManager = nil;
+        }
     }
 }
 

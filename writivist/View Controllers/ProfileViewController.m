@@ -139,8 +139,8 @@
     cell.likeLabel.text = [NSString stringWithFormat:@"%@", template.likeCount];
     cell.senderLabel.text = [NSString stringWithFormat:@"%@", template.senderCount];
     cell.saveLabel.text = [NSString stringWithFormat:@"%@", template.saveCount];
+    cell.titleLabel.text = template.title;
     if ([self.user.username isEqual:[User currentUser].username]) {
-        cell.titleLabel.text = template.title;
         if (template.isPrivate) {
             cell.privacySwitch.on = NO;
             cell.publicityText.text = @"Private";

@@ -38,7 +38,7 @@
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20], NSForegroundColorAttributeName : [UIColor labelColor]};
     self.navigationController.navigationBar.tintColor = [[UIColor alloc]initWithRed:96/255.0 green:125/255.0 blue:139/255.0 alpha:1];
-    self.categories = @[@"black lives matter", @"climate action", @"financial justice", @"islamophobia", @"topic", @"topic", @"topic", @"topic"];
+    self.categories = @[@"Black Lives Matter", @"Public Health", @"Financial Justice", @"Gender Minority Rights", @"LGBTQ+ Rights", @"Native American Rights", @"Religious Freedom", @"Humanitarian Aid", @"Gun Control", @"Climate Action", @"Animal Rights", @"Technology", @"Housing", @"Middle Eastern Affairs", @"European Affairs", @"African Affairs", @"Asian Affairs", @"Latin American Affairs", @"Poverty", @"Sexual Violence", @"Privacy", @"Human Rights", @"Civil Rights", @"Education", @"Other"];
     MKDropdownMenu *dropdownMenu = [[MKDropdownMenu alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     self.dropdownMenu = dropdownMenu;
     [dropdownMenu setComponentTextAlignment:NSTextAlignmentLeft];

@@ -42,7 +42,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     self.tableView.delegate = self;
     self.searchBar.delegate = self;
     self.navigationItem.hidesBackButton = YES;
-    self.categories = @[@"for you", @"black lives matter", @"climate action", @"financial justice", @"islamophobia", @"topic", @"topic", @"topic", @"topic"];
+    self.categories = @[@"For You", @"Black Lives Matter", @"Public Health", @"Financial Justice", @"Gender Minority Rights", @"LGBTQ+ Rights", @"Native American Rights", @"Religious Freedom", @"Humanitarian Aid", @"Gun Control", @"Climate Action", @"Animal Rights", @"Technology", @"Housing", @"Middle Eastern Affairs", @"European Affairs", @"African Affairs", @"Asian Affairs", @"Latin American Affairs", @"Poverty", @"Sexual Violence", @"Ableism", @"Privacy", @"Human Rights", @"Civil Rights", @"Education", @"Other"];
     self.filteredData = self.categories;
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.tableView addSubview:self.refreshControl];
@@ -161,7 +161,7 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     NSString *string = self.filteredData[section];
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 50)];
     
-    if (![string isEqual:@"for you"]) {
+    if (![string isEqual:@"For You"]) {
         SectionTapper *singleTapRecognizer = [[SectionTapper alloc] initWithTarget:self action:@selector(handleGesture:)];
         [singleTapRecognizer setDelegate:self];
         singleTapRecognizer.numberOfTouchesRequired = 1;

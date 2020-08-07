@@ -248,6 +248,10 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 {
     [super viewDidAppear:animated];
 
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+    self.navigationItem.title = @"Template Library";
+    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20], NSForegroundColorAttributeName : [UIColor labelColor]};
+    
     if (self.tutorialManager) {
         [self.tutorialManager updateTutorial];
     }

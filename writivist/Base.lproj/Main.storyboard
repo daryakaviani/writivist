@@ -648,10 +648,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2XP-gE-dFW">
-                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jXC-oP-pRB" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="852"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="LUF-yr-5te">
                                                 <rect key="frame" x="49" y="157" width="316" height="100"/>
@@ -749,7 +749,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="143" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="w2z-9g-hW8">
-                                                <rect key="frame" x="0.0" y="298" width="414" height="554"/>
+                                                <rect key="frame" x="0.0" y="298" width="414" height="510"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" id="cg6-Kp-T68">
                                                     <rect key="frame" x="0.0" y="199" width="414" height="44"/>
@@ -995,11 +995,11 @@
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="9uN-lg-gWE" customClass="EditProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lJo-vB-RIA">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ufC-2F-z1x">
-                                <rect key="frame" x="0.0" y="56" width="414" height="786"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lD9-wV-Hos" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
@@ -1525,7 +1525,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TbJ-hs-877">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TbJ-hs-877">
                                 <rect key="frame" x="0.0" y="100" width="414" height="796"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="6Rq-NA-qQC">
@@ -1701,7 +1701,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9Dy-Pv-sXE">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9Dy-Pv-sXE">
                                 <rect key="frame" x="0.0" y="144" width="414" height="752"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="w8N-hh-bbw">
@@ -1894,13 +1894,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LLe-A8-eqW">
-                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GeM-Uy-8Vw" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="852"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" allowsEditingTextAttributes="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y15-TG-fuQ">
-                                                <rect key="frame" x="30" y="83" width="353" height="670"/>
+                                                <rect key="frame" x="30" y="83" width="353" height="626"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <attributedString key="attributedText"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -2464,12 +2464,12 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="L3D-J6-Vl2"/>
-        <segue reference="FIB-93-9Mk"/>
+        <segue reference="pBZ-RL-oGI"/>
         <segue reference="8VE-jx-Aez"/>
         <segue reference="lmP-wm-xKP"/>
         <segue reference="NWH-Dg-Zb7"/>
-        <segue reference="cHr-Rj-NO5"/>
-        <segue reference="BUt-yG-D0s"/>
+        <segue reference="Wy8-eu-l7X"/>
+        <segue reference="eAw-cc-dXe"/>
         <segue reference="rNY-De-iyh"/>
     </inferredMetricsTieBreakers>
     <resources>

@@ -547,8 +547,6 @@ NSArray *levels;
         [mailComposeViewController setToRecipients:emails];
         [mailComposeViewController setMessageBody:bodyHeader isHTML:false];
         [self presentViewController:mailComposeViewController animated:YES completion:nil];
-    } else if ([User currentUser].sendIndividually) {
-        self.currentTemplate = nil;
     }
 }
 

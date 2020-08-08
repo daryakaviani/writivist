@@ -624,7 +624,7 @@ NSArray *levels;
 -(void)tutorialPerformAction:(NSInteger)index {
     if (index == 2) {
         RepresentativeCell *repCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
-        [self representativeCell:repCell didTap:self.representatives[3]];
+        [self representativeCell:repCell didTap:self.representatives[2]];
         repCell.representative.selected = (BOOL * _Nonnull) YES;
     } else if (index == 3) {
         if (MFMailComposeViewController.canSendMail) {

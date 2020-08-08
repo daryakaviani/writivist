@@ -323,8 +323,8 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     if (index == 4) {
         [self performSegueWithIdentifier:@"toCompose" sender:nil];
     } else if (index == 5) {
-        self.searchBar.text = @"black lives matter";
-        [self searchBar:self.searchBar textDidChange: @"black lives matter"];
+        self.searchBar.text = @"Black Lives Matter";
+        [self searchBar:self.searchBar textDidChange: @"Black Lives Matter"];
     } else if (index == 6) {
         self.category = self.searchBar.text;
         [self performSegueWithIdentifier:@"toCategory" sender:nil];

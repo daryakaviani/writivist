@@ -9,7 +9,7 @@
 
 ## Description
 
-Optimize & customize sending letters to elected officials with the objective of technologizing activism one letter at a time.
+Optimize & customize sending letters to elected officials with the objective of technologizing activism one letter at a time. Writivist streamlines contacting City, County, State, and Federal elected officials with the intention of making activism and civic involvement accessible and effortless. Includes a vast Template Library, a find my representatives map, and letter-emailing and letter-printing functionality. 
 
 ## Demo
 
@@ -83,6 +83,7 @@ The [Google Civic Information API](https://developers.google.com/civic-informati
 - [GooglePlaces](https://cocoapods.org/pods/GooglePlaces) - used for calculating current location
 - [TNTutorialManager](https://github.com/Tawa/TNTutorialManager) - onboarding tutorial
 - [HWPopController](https://github.com/HeathWang/HWPopController) - report template popup
+- [Reachability](https://github.com/tonymillion/Reachability) - network reachability alerts
 
 ## License
 

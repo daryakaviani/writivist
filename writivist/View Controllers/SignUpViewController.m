@@ -14,6 +14,7 @@
 #import "HyTransitions.h"
 #import "HyLoglnButton.h"
 #import "Representative.h"
+#import "Reachability.h"
 
 @interface SignUpViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *firstNameField;
@@ -81,96 +82,126 @@
 }
 
 - (IBAction)findMe:(id)sender {
-    if (self.locationManager.location != nil) {
-        NSString *baseUrl = @"https://maps.googleapis.com/maps/api/geocode/json?latlng=";
-        NSString *keyUrl = @"&key=";
-        keyUrl = [keyUrl stringByAppendingString:@"AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls"];
-        baseUrl = [baseUrl stringByAppendingFormat:@"%f", self.locationManager.location.coordinate.latitude];
-        baseUrl = [baseUrl stringByAppendingFormat:@"%@", @","];
-        baseUrl = [baseUrl stringByAppendingFormat:@"%f", self.locationManager.location.coordinate.longitude];
-        baseUrl = [baseUrl stringByAppendingFormat:@"%@", keyUrl];
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-        [request setHTTPMethod:@"GET"];
-        [request setURL:[NSURL URLWithString:baseUrl]];
-        [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
-          ^(NSData * _Nullable data,
-            NSURLResponse * _Nullable response,
-            NSError * _Nullable error) {
-            NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-            NSArray *addressComponents = [JSON valueForKey:@"results"][0][@"address_components"];
-            NSLog(@"%@", addressComponents);
-            dispatch_async(dispatch_get_main_queue(), ^{
-               for (NSDictionary *dict in addressComponents) {
-                   if ([dict[@"types"] containsObject:@"street_number"]) {
-                       NSString *str = dict[@"short_name"];
-                       NSData *data = [str dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-                       NSString *newStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-                       self.streetNumberField.text = newStr;
-                   } else if ([dict[@"types"] containsObject:@"route"]) {
-                       NSString *str = dict[@"short_name"];
-                       NSData *data = [str dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-                       NSString *newStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-                       self.streetNameField.text = newStr;
-                   } else if ([dict[@"types"] containsObject:@"locality"]) {
-                       NSString *str = dict[@"short_name"];
-                       NSData *data = [str dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-                       NSString *newStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-                       self.cityField.text = newStr;
-                    } else if ([dict[@"types"] containsObject:@"administrative_area_level_1"]) {
-                        NSString *str = dict[@"short_name"];
-                        NSData *data = [str dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-                        NSString *newStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-                       self.stateField.text = newStr;
-                   } else if ([dict[@"types"] containsObject:@"postal_code"]) {
-                       NSString *str = dict[@"short_name"];
-                       NSData *data = [str dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-                       NSString *newStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-                       self.zipCodeField.text = newStr;
-                   }
-               }
-            });
-        }] resume];
-    } else {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Location services unavailable."
-               message:@"Please ensure you have granted writivist access to your location."
+    if (![self connected]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"There was a network error."
+               message:@"Check your internet connection and try again."
         preferredStyle:(UIAlertControllerStyleAlert)];
         // create an OK action
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
         // add the OK action to the alert controller
         [alert addAction:okAction];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self presentViewController:alert animated:YES completion:nil];
-        });
+        [self presentViewController:alert animated:YES completion:^{}];
+    } else {
+        if (self.locationManager.location != nil) {
+            NSString *baseUrl = @"https://maps.googleapis.com/maps/api/geocode/json?latlng=";
+            NSString *keyUrl = @"&key=";
+            keyUrl = [keyUrl stringByAppendingString:@"AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls"];
+            baseUrl = [baseUrl stringByAppendingFormat:@"%f", self.locationManager.location.coordinate.latitude];
+            baseUrl = [baseUrl stringByAppendingFormat:@"%@", @","];
+            baseUrl = [baseUrl stringByAppendingFormat:@"%f", self.locationManager.location.coordinate.longitude];
+            baseUrl = [baseUrl stringByAppendingFormat:@"%@", keyUrl];
+            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+            [request setHTTPMethod:@"GET"];
+            [request setURL:[NSURL URLWithString:baseUrl]];
+            [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
+              ^(NSData * _Nullable data,
+                NSURLResponse * _Nullable response,
+                NSError * _Nullable error) {
+                NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+                NSArray *addressComponents = [JSON valueForKey:@"results"][0][@"address_components"];
+                NSLog(@"%@", addressComponents);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                   for (NSDictionary *dict in addressComponents) {
+                       if ([dict[@"types"] containsObject:@"street_number"]) {
+                           NSString *str = dict[@"short_name"];
+                           NSData *data = [str dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+                           NSString *newStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+                           self.streetNumberField.text = newStr;
+                       } else if ([dict[@"types"] containsObject:@"route"]) {
+                           NSString *str = dict[@"short_name"];
+                           NSData *data = [str dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+                           NSString *newStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+                           self.streetNameField.text = newStr;
+                       } else if ([dict[@"types"] containsObject:@"locality"]) {
+                           NSString *str = dict[@"short_name"];
+                           NSData *data = [str dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+                           NSString *newStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+                           self.cityField.text = newStr;
+                        } else if ([dict[@"types"] containsObject:@"administrative_area_level_1"]) {
+                            NSString *str = dict[@"short_name"];
+                            NSData *data = [str dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+                            NSString *newStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+                           self.stateField.text = newStr;
+                       } else if ([dict[@"types"] containsObject:@"postal_code"]) {
+                           NSString *str = dict[@"short_name"];
+                           NSData *data = [str dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+                           NSString *newStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+                           self.zipCodeField.text = newStr;
+                       }
+                   }
+                });
+            }] resume];
+        } else {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Location services unavailable."
+                   message:@"Please ensure you have granted writivist access to your location."
+            preferredStyle:(UIAlertControllerStyleAlert)];
+            // create an OK action
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+            // add the OK action to the alert controller
+            [alert addAction:okAction];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:alert animated:YES completion:nil];
+            });
+        }
     }
 }
 
+- (BOOL)connected
+{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    return networkStatus != NotReachable;
+}
+
 - (void)registerUser {
-    if (self.passwordField.text.length == 0 || self.usernameField.text.length == 0
-        || self.firstNameField.text.length == 0 || self.lastNameField.text.length == 0
-        || self.streetNumberField.text.length == 0 || self.streetNameField.text.length == 0
-        || self.cityField.text.length == 0 || self.stateField.text.length == 0
-        || self.zipCodeField.text.length == 0) {
+    if (![self connected]) {
         [self.signupButton ErrorRevertAnimationCompletion:^{}];
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"At least one field is empty."
-               message:@"Please ensure all fields are completed and try again."
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"There was a network error."
+               message:@"Check your internet connection and try again."
         preferredStyle:(UIAlertControllerStyleAlert)];
         // create an OK action
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
         // add the OK action to the alert controller
         [alert addAction:okAction];
-        [self presentViewController:alert animated:YES completion:nil];
-    } else if (![self.passwordField.text isEqual:self.confirmPasswordField.text]) {
-        [self.signupButton ErrorRevertAnimationCompletion:^{}];
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Passwords must match."
-               message:@"Please try again."
-        preferredStyle:(UIAlertControllerStyleAlert)];
-        // create an OK action
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
-        // add the OK action to the alert controller
-        [alert addAction:okAction];
-        [self presentViewController:alert animated:YES completion:nil];
+        [self presentViewController:alert animated:YES completion:^{}];
     } else {
-        [self validateAddress];
+        if (self.passwordField.text.length == 0 || self.usernameField.text.length == 0
+            || self.firstNameField.text.length == 0 || self.lastNameField.text.length == 0
+            || self.streetNumberField.text.length == 0 || self.streetNameField.text.length == 0
+            || self.cityField.text.length == 0 || self.stateField.text.length == 0
+            || self.zipCodeField.text.length == 0) {
+            [self.signupButton ErrorRevertAnimationCompletion:^{}];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"At least one field is empty."
+                   message:@"Please ensure all fields are completed and try again."
+            preferredStyle:(UIAlertControllerStyleAlert)];
+            // create an OK action
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+            // add the OK action to the alert controller
+            [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        } else if (![self.passwordField.text isEqual:self.confirmPasswordField.text]) {
+            [self.signupButton ErrorRevertAnimationCompletion:^{}];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Passwords must match."
+                   message:@"Please try again."
+            preferredStyle:(UIAlertControllerStyleAlert)];
+            // create an OK action
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+            // add the OK action to the alert controller
+            [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        } else {
+            [self validateAddress];
+        }
     }
 }
 
@@ -271,28 +302,6 @@
            });
        }
    }];
-}
-
-#pragma mark Orientation
-//-(BOOL)shouldAutorotate
-//{
-//    [super shouldAutorotate];
-//    return NO;
-//}
-- (NSUInteger) supportedInterfaceOrientations {
-    [super supportedInterfaceOrientations];
-    // Return a bitmask of supported orientations. If you need more,
-    // use bitwise or (see the commented return).
-    return UIInterfaceOrientationMaskPortrait;
-    // return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown;
-}
-
-- (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
-    [super preferredInterfaceOrientationForPresentation];
-    // Return the orientation you'd prefer - this is what it launches to. The
-    // user can still rotate. You don't have to implement this method, in which
-    // case it launches in the current orientation
-    return UIInterfaceOrientationPortrait;
 }
 
 #pragma mark - Navigation

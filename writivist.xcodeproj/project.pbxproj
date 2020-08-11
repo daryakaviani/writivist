@@ -18,6 +18,7 @@
 		4B1CC17D24BE5783007F9A52 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CC17C24BE5783007F9A52 /* SignUpViewController.m */; };
 		4B1CC18024BE89DD007F9A52 /* TemplateLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CC17F24BE89DD007F9A52 /* TemplateLibraryViewController.m */; };
 		4B1CC18324BEA71E007F9A52 /* CategoryRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CC18224BEA71E007F9A52 /* CategoryRow.m */; };
+		4B28AD9424E21CB5006E6112 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B28AD9324E21CB5006E6112 /* Reachability.m */; };
 		4B6D8C9324C131460042EDC7 /* MyTemplateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D8C9224C131460042EDC7 /* MyTemplateCell.m */; };
 		4B6D8C9624C202390042EDC7 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D8C9524C202390042EDC7 /* MapViewController.m */; };
 		4B6D8C9924C61AD70042EDC7 /* MapContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D8C9824C61AD70042EDC7 /* MapContentViewController.m */; };
@@ -91,6 +92,8 @@
 		4B1CC17F24BE89DD007F9A52 /* TemplateLibraryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TemplateLibraryViewController.m; sourceTree = "<group>"; };
 		4B1CC18124BEA71E007F9A52 /* CategoryRow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CategoryRow.h; sourceTree = "<group>"; };
 		4B1CC18224BEA71E007F9A52 /* CategoryRow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CategoryRow.m; sourceTree = "<group>"; };
+		4B28AD9224E21CB5006E6112 /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		4B28AD9324E21CB5006E6112 /* Reachability.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		4B6D8C9124C131460042EDC7 /* MyTemplateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyTemplateCell.h; sourceTree = "<group>"; };
 		4B6D8C9224C131460042EDC7 /* MyTemplateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyTemplateCell.m; sourceTree = "<group>"; };
 		4B6D8C9424C202390042EDC7 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -309,6 +312,8 @@
 				4BCD151A24C7A2BE00B831A4 /* SectionTapper.m */,
 				4BCD152024C7C34A00B831A4 /* InfiniteScrollActivityView.h */,
 				4BCD152124C7C34A00B831A4 /* InfiniteScrollActivityView.m */,
+				4B28AD9224E21CB5006E6112 /* Reachability.h */,
+				4B28AD9324E21CB5006E6112 /* Reachability.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -638,6 +643,7 @@
 			files = (
 				4B6D8C9324C131460042EDC7 /* MyTemplateCell.m in Sources */,
 				4B1CC18024BE89DD007F9A52 /* TemplateLibraryViewController.m in Sources */,
+				4B28AD9424E21CB5006E6112 /* Reachability.m in Sources */,
 				4B83BAEA24D8707800A2E005 /* SavedViewController.m in Sources */,
 				4B83BAE624D3AB2900A2E005 /* SpinerLayer.m in Sources */,
 				4B1489AC24C65E9300269C7E /* EditProfileViewController.m in Sources */,

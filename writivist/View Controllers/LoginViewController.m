@@ -11,6 +11,8 @@
 #import "User.h"
 #import "HyTransitions.h"
 #import "HyLoglnButton.h"
+#import "Reachability.h"
+#import <SystemConfiguration/SystemConfiguration.h>
 
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
@@ -31,56 +33,51 @@
     NSLog(@"%@", @"Name");
 }
 
-- (void)loginUser {
-    NSString *username = self.usernameField.text;
-    NSString *password = self.passwordField.text;
-    [User logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
-        if (user == nil) {
-            [self.loginButton ErrorRevertAnimationCompletion:^{}];
-            NSLog(@"User log in failed: %@", error.localizedDescription);
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"User login failed:"
-                   message:error.localizedDescription
-            preferredStyle:(UIAlertControllerStyleAlert)];
-            // create an OK action
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
-            // add the OK action to the alert controller
-            [alert addAction:okAction];
-            [self presentViewController:alert animated:YES completion:^{
-            }];
-        } else {
-            NSLog(@"User logged in successfully");
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.loginButton ExitAnimationCompletion:^{
-                    [self performSegueWithIdentifier:@"loginSegue" sender:nil];
-                }];
-            });
-        }
-    }];
-}
-
-
-#pragma mark Orientation
--(BOOL)shouldAutorotate
+- (BOOL)connected
 {
-    [super shouldAutorotate];
-    return NO;
-}
-- (NSUInteger) supportedInterfaceOrientations {
-    [super supportedInterfaceOrientations];
-    // Return a bitmask of supported orientations. If you need more,
-    // use bitwise or (see the commented return).
-    return UIInterfaceOrientationMaskPortrait;
-    // return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown;
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    return networkStatus != NotReachable;
 }
 
-- (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
-    [super preferredInterfaceOrientationForPresentation];
-    // Return the orientation you'd prefer - this is what it launches to. The
-    // user can still rotate. You don't have to implement this method, in which
-    // case it launches in the current orientation
-    return UIInterfaceOrientationPortrait;
+- (void)loginUser {
+    if (![self connected]) {
+        [self.loginButton ErrorRevertAnimationCompletion:^{}];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"There was a network error."
+               message:@"Check your internet connection and try again."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{}];
+    } else {
+        NSString *username = self.usernameField.text;
+        NSString *password = self.passwordField.text;
+        [User logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
+            if (user == nil) {
+                [self.loginButton ErrorRevertAnimationCompletion:^{}];
+                NSLog(@"User log in failed: %@", error.localizedDescription);
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"User login failed:"
+                       message:error.localizedDescription
+                preferredStyle:(UIAlertControllerStyleAlert)];
+                // create an OK action
+                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+                // add the OK action to the alert controller
+                [alert addAction:okAction];
+                [self presentViewController:alert animated:YES completion:^{
+                }];
+            } else {
+                NSLog(@"User logged in successfully");
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.loginButton ExitAnimationCompletion:^{
+                        [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+                    }];
+                });
+            }
+        }];
+    }
 }
-
 
 - (IBAction)signupButton:(id)sender {
     [self performSegueWithIdentifier:@"signupsegue" sender:self];

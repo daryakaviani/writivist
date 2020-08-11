@@ -12,6 +12,8 @@
 #import "User.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <GooglePlaces/GooglePlaces.h>
+#import "Reachability.h"
+#import <SystemConfiguration/SystemConfiguration.h>
 
 @interface MapContentViewController ()<UITableViewDelegate, UITableViewDataSource, MapContentCellDelegate>
 @property (weak, nonatomic) IBOutlet UIView *barView;
@@ -28,9 +30,18 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.representatives = [[NSMutableArray alloc] init];
-    [self fetchAddresses];
+    if ([self connected]) {
+        [self fetchAddresses];
+    }
     self.barView.layer.cornerRadius = 5;
     self.barView.layer.masksToBounds = true;
+}
+
+- (BOOL)connected
+{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    return networkStatus != NotReachable;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -115,7 +126,18 @@
 }
 
 - (void)mapContentCell:(nonnull MapContentCell *)mapContentCell didTap:(nonnull Representative *)representative {
-    NSString *baseUrl = @"https://maps.googleapis.com/maps/api/geocode/json?address=";
+    if (![self connected]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"There was a network error."
+               message:@"Check your internet connection and try again."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{
+        }];
+    } else {
+        NSString *baseUrl = @"https://maps.googleapis.com/maps/api/geocode/json?address=";
         NSString *keyUrl = @"&key=";
         keyUrl = [keyUrl stringByAppendingString:@"AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls"];
         baseUrl = [baseUrl stringByAppendingFormat:@"%@", representative.address[0][@"line1"]];
@@ -152,6 +174,7 @@
                 self.mapViewController.trayView.center = self.mapViewController.trayDown;
             });
         }] resume];
+    }
 }
 
 

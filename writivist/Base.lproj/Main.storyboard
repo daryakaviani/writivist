@@ -1327,6 +1327,12 @@
                         <viewLayoutGuide key="safeArea" id="DPf-CD-Iht"/>
                     </view>
                     <navigationItem key="navigationItem" id="QVL-Ro-R4k">
+                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="U1m-Eu-9N1">
+                            <color key="tintColor" red="0.37647058820000001" green="0.49019607840000001" blue="0.5450980392" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="refreshButton:" destination="Xa2-iR-rd3" id="bmh-Gz-ebY"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="location.fill" catalog="system" id="OPd-eL-w45">
                             <color key="tintColor" red="0.37647058820000001" green="0.49019607840000001" blue="0.5450980392" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -2463,7 +2469,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="3iy-vX-xb4"/>
         <segue reference="L3D-J6-Vl2"/>
         <segue reference="ajH-yl-TTW"/>
         <segue reference="8VE-jx-Aez"/>

@@ -13,6 +13,8 @@
 #import "User.h"
 #import "MapContentViewController.h"
 #import "TNTutorialManager.h"
+#import "Reachability.h"
+#import <SystemConfiguration/SystemConfiguration.h>
 
 @interface MapViewController ()<TNTutorialManagerDelegate>
 @property (nonatomic) CGFloat latitude;
@@ -32,22 +34,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self startUserLocationSearch];
+    
     self.navigationItem.title = @"Find My Reps";
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20], NSForegroundColorAttributeName : [UIColor labelColor]};
-
-    [self.locationManager requestAlwaysAuthorization];
-    [self.locationManager requestWhenInUseAuthorization];
-    
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithTarget:self.locationManager.location.coordinate zoom:8];
-    self.mapView = [GMSMapView mapWithFrame:self.view.frame camera:camera];
-    [self.view addSubview:self.mapView];
-    [self.view insertSubview:self.trayView aboveSubview:self.mapView];
-    [self constrainMap];
-    
-    [self fetchAddresses];
-    
     [self.trayView setFrame:CGRectMake(0, self.view.frame.size.height/3, self.view.frame.size.width, 2*self.view.frame.size.height/3)];
     self.trayUp = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height - self.trayView.frame.size.height/2);
     self.trayDown = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height + self.trayView.frame.size.height/2 - 115);
@@ -57,6 +47,7 @@
     maskLayer.path  = maskPath.CGPath;
     self.trayView.layer.mask = maskLayer;
     self.trayView.center = self.trayDown;
+    [self startUserLocationSearch];
     
     UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPanTray:)];
     [panRecognizer setMinimumNumberOfTouches:1];
@@ -68,6 +59,42 @@
     } else {
         self.tutorialManager = nil;
     }
+    [self.locationManager requestWhenInUseAuthorization];
+    
+    if (![self connected]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"There was a network error."
+               message:@"Check your internet connection and try again."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{
+        }];
+    } else {
+        [self startUserLocationSearch];
+        
+        GMSCameraPosition *camera = [GMSCameraPosition cameraWithTarget:self.locationManager.location.coordinate zoom:8];
+        self.mapView = [GMSMapView mapWithFrame:self.view.frame camera:camera];
+        [self.view addSubview:self.mapView];
+        [self.view insertSubview:self.trayView aboveSubview:self.mapView];
+        [self constrainMap];
+        
+        [self fetchAddresses];
+    }
+}
+- (IBAction)refreshButton:(id)sender {
+    [self viewDidLoad];
+    if ([self connected]) {
+        [self.contentViewController fetchAddresses];
+    }
+}
+
+- (BOOL)connected
+{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    return networkStatus != NotReachable;
 }
 
 - (IBAction)centerLocation:(id)sender {

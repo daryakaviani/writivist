@@ -18,6 +18,8 @@
 #import "PopupViewController.h"
 #import "TNTutorialManager.h"
 #import "ComposeViewController.h"
+#import "Reachability.h"
+#import <SystemConfiguration/SystemConfiguration.h>
 
 @interface TemplateLibraryViewController ()<UITableViewDelegate, UITableViewDataSource, ProfileDelegate, ReportDelegate, UISearchBarDelegate, TNTutorialManagerDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -84,6 +86,13 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     } else {
         self.tutorialManager = nil;
     }
+}
+
+- (BOOL)connected
+{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    return networkStatus != NotReachable;
 }
 
 - (void)reportTemplateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull Template *)temp {
@@ -153,8 +162,21 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 }
 
 - (void) refresh {
-    [self.tableView reloadData];
-    [self.refreshControl endRefreshing];
+    if (![self connected]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"There was a network error."
+               message:@"Check your internet connection and try again."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{
+            [self.refreshControl endRefreshing];
+        }];
+    } else {
+        [self.tableView reloadData];
+        [self.refreshControl endRefreshing];
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -248,12 +270,25 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 {
     [super viewDidAppear:animated];
 
-    UINavigationBar *navigationBar = self.navigationController.navigationBar;
-    self.navigationItem.title = @"Template Library";
-    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20], NSForegroundColorAttributeName : [UIColor labelColor]};
     
-    if (self.tutorialManager) {
-        [self.tutorialManager updateTutorial];
+    if (![self connected]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"There was a network error."
+               message:@"Check your internet connection and try again."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{}];
+    } else {
+        
+        UINavigationBar *navigationBar = self.navigationController.navigationBar;
+        self.navigationItem.title = @"Template Library";
+        navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20], NSForegroundColorAttributeName : [UIColor labelColor]};
+
+        if (self.tutorialManager) {
+            [self.tutorialManager updateTutorial];
+        }
     }
 }
 - (IBAction)composeButton:(id)sender {

@@ -20,6 +20,8 @@
 #import "CategoryViewController.h"
 #import "SavedViewController.h"
 #import "TNTutorialManager.h"
+#import "Reachability.h"
+#import <SystemConfiguration/SystemConfiguration.h>
 
 @interface ProfileViewController ()<UITableViewDelegate, UITableViewDataSource, TNTutorialManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
@@ -75,6 +77,13 @@
     }
 }
 
+- (BOOL)connected
+{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    return networkStatus != NotReachable;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self fetchTemplates];
@@ -82,19 +91,31 @@
 }
 
 -(void)updateInformation{
-    User *user = self.user;
-    if (self.templates.count == 0) {
-        self.templateTitleLabel.hidden = YES;
+    if (![self connected]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"There was a network error."
+               message:@"Check your internet connection and try again."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{
+        }];
     } else {
-        self.templateTitleLabel.hidden = NO;
+        User *user = self.user;
+        if (self.templates.count == 0) {
+            self.templateTitleLabel.hidden = YES;
+        } else {
+            self.templateTitleLabel.hidden = NO;
+        }
+        self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
+        self.usernameLabel.text = [NSString stringWithFormat:@"%@%@", @"@", user.username];
+        self.letterCountLabel.text = [NSString stringWithFormat:@"%@",  user.letterCount];
+        self.templatesPublishedLabel.text = [NSString stringWithFormat:@"%@",  user.templateCount];
+        [self roundImage];
+        self.profileView.file = self.user.profilePicture;
+        [self.profileView loadInBackground];
     }
-    self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
-    self.usernameLabel.text = [NSString stringWithFormat:@"%@%@", @"@", user.username];
-    self.letterCountLabel.text = [NSString stringWithFormat:@"%@",  user.letterCount];
-    self.templatesPublishedLabel.text = [NSString stringWithFormat:@"%@",  user.templateCount];
-    [self roundImage];
-    self.profileView.file = self.user.profilePicture;
-    [self.profileView loadInBackground];
 }
 
 - (void) roundImage {
@@ -192,33 +213,44 @@
 }
 
 - (void)fetchTemplates {
-    // construct query
-    PFQuery *query = [Template query];
-    [query orderByDescending:@"createdAt"];
-    [query includeKey:@"author"];
-    [query whereKey:@"author" equalTo:self.user];
-    query.limit = 20;
+    if (![self connected]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"There was a network error."
+               message:@"Check your internet connection and try again."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{
+        }];
+    } else {
+        // construct query
+        PFQuery *query = [Template query];
+        [query orderByDescending:@"createdAt"];
+        [query includeKey:@"author"];
+        [query whereKey:@"author" equalTo:self.user];
+        query.limit = 20;
 
-    // fetch data asynchronously
-    [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
-        if (templates != nil) {
-            self.templates = templates;
-            int likes = 0;
-            for (Template *template in templates) {
-                likes += [template.likeCount intValue];
-                NSLog(@"%@", template.likeCount);
+        // fetch data asynchronously
+        [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
+            if (templates != nil) {
+                self.templates = templates;
+                int likes = 0;
+                for (Template *template in templates) {
+                    likes += [template.likeCount intValue];
+                    NSLog(@"%@", template.likeCount);
+                }
+                self.templateLikeLabel.text = [NSString stringWithFormat:@"%d",  likes];
+                [self.tableView reloadData];
+            } else {
+                NSLog(@"%@", error.localizedDescription);
             }
-            self.templateLikeLabel.text = [NSString stringWithFormat:@"%d",  likes];
-            [self.tableView reloadData];
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
-        [self.refreshControl endRefreshing];
-        [self.spinner stopAnimating];
-        [self updateInformation];
-        self.spinner.hidden = YES;
-    }];
-
+            [self.refreshControl endRefreshing];
+            [self.spinner stopAnimating];
+            [self updateInformation];
+            self.spinner.hidden = YES;
+        }];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated

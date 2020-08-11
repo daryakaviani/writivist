@@ -1,48 +1,37 @@
-# writivist
+# Writivist
 
 ## Table of Contents
-1. [Overview](#Overview)
-1. [Product Spec](#Product-Spec)
-1. [Wireframes](#Wireframes)
-2. [Schema](#Schema)
+1. [Description](#Description)
+2. [Features](#Features)
+3. [Schema](#Schema)
+4. [Credits](#Credits)
+5. [License](#License)
 
-## Overview
-### Description
-Optimize & customize sending letters to politicians for activism at your fingertips.
+## Description
 
-### App Evaluation
-[Evaluation of your app across the following attributes]
-- **Category:** Activism
-- **Mobile:** Potential mobile features include the ability to take pictures of a printed letter to upload, the ability to upload your profile picture internally, and even the ability to use GPS functionality to determine the user's location without necessitating address input. 
-- **Story:** Simplicity - Because of the Template Library and the ease of finding your politicians, users are inclined to send emails to contribute to advocacy.
-Customizability - When large templates go around, politicians often use blockers to funnel all emails with a certain subject or body to a folder they don't look at. Customizability allows templates to be adjusted so all emails are actually read and thoroughly processed by staff.
-- **Market:** The market is anyone interested in activism whatsoever. The inexperienced will benefit from the simplicity and the experienced will benefit from the uniqueness of the customizability.
-- **Habit:** People can most definitely use this habitually. Once they recognize and experience the pure simplicity of the application, they will be able to form a habit out of reaching out to their politicians as often as possible. Addictive features can include infinite scrolling in the template library, minimalistic and beautiful UI, and potentially even rewards points to incline users to write more.
-- **Scope:** The scope is very dependent. It would not be too challenging to build the client that sends the emails, but adding GPS, storing the template library, finding the right API for representatives, as well as adding on additional features could be challenging.
+Optimize & customize sending letters to elected officials with the objective of technologizing activism one letter at a time.
 
-## Product Spec
+## Demo
 
-### 1. User Stories (Required and Optional)
+[![Writivist Demo](https://img.youtube.com/vi/Uo7qFxssK8U/0.jpg)](https://www.youtube.com/watch?v=Uo7qFxssK8U)
 
-**Required Must-have Stories**
+## Features
 
 * User can sign up with a new user profile.
 * User can log in and out of their account.
-* User can view a list of their elected officials based upon their address.
+* User can view a list of their elected officials based upon their address, sectioned off by government level.
 * User can compose a letter and send it to the selected representatives.
-* User can save their letter to the Template Library.
+* User can call a representative.
+* User can visit the social media of a representative.
+* User can visit the website of a representative.
+* User can post their letter to the Template Library.
 * User can switch between their profile, templates, and home scren in a tab bar.
 * User can view a list of all templates, categorized.
 * User can select a template and begin with that body text in the Compose view.
-* User can submit their address in the Profile view to set their location.
 * User can set their profile picture in the Profile view.
-* User can use Google Maps SDK to view their location.
-
-**Optional Nice-to-have Stories**
-
+* User can submit their address in the Profile view to set their location.
+* User can use Google Maps SDK to view the location of the offices of each of the representatives.
 * User can like a template.
-* User can add tags to template.
-* User can see a recommended view of suggested templates based on past keywords.
 * User can view the number of letters they have sent.
 * User can view their total templates likes.
 * User can view their total number of templates.
@@ -50,144 +39,63 @@ Customizability - When large templates go around, politicians often use blockers
 * User can use GPS detection to set their location.
 * User can edit a template they have written.
 * User can delete a template they have written.
-* User can comment on a template.
-* User can either take a photo to detect the writing on a prewritten letter or upload a PDF document.
-
-### 2. Screen Archetypes
-
-* Login Screen
-    * User can Login.
-* Choose Path Screen
-    * User can determine whether they want to write from scratch or use the template library.
-* Template Library
-    * After selecting to use the template library path, users are met with a table view of templates. Type in keywords to the search bar to select a template           that suits your needs, modify to your liking, and send.
-* Compose Screen
-    * User can write the body of the message (either from scratch or already incorporating a template) and send. You can choose to also submit this template to         the Template Library of Writivism.
-* Profile Screen
-    * Includes the number of letters sent, profile picture, and location.
-
-### 3. Navigation
-
-**Tab Navigation** (Tab to Screen)
-
-* Template Feed
-* Profile
-* Write Letter (Home)
-
-**Flow Navigation** (Screen to Screen)
-
-* Login Screen
-    => Home
-* Write Letter (Home)
-    => Choose Path Screen
-* Choose Path Screen + Template Library
-    => Choose Template Library
-    => Pick Template
-    => Compose Message
-* Choose From Scratch
-    => Compose Message
-
-## Wireframes
-Work in Progress: https://www.figma.com/file/paTyAfiEkzWdTvL2JOXDej/writivist?node-id=0%3A1
+* User can preview a template in the Template Library.
+* User can view another user's profile by tapping on their profile picture in the Template Library.
+* User can edit their own profile fields and save changes.
+* User can see email and print availability verification checkmarks allocated towards users.
+* User sees a timestamp for each template.
+* User sees the number of senders of each template.
+* User can see the number of cells they have selected while selecting representatives.
+* User can pull to refresh their profile, Template Library, and personal templates.
+* User can see a list of their representative addresses on the Find My Reps map.
+* User can click to expand a section of the Template Library to view the templates in that category.
+* User can search among categories in the Template Library.
+* User can search among templates in the Category view.
+* User can see a suggested view of popular templates at the top of the Template Library based upon their favorite categories.
+* User can select whether emails are sent to elected officials individually or as a group.
+* User can set one of their templates to be public or private.
+* User can save a template to use later.
+* User can AirPrint an automatically formatted letter for each selected representative.
+* User can share a template via messages or social media.
+* User experiences an onboarding tutorial upon installation.
+* User can report an inappropriate template.
 
 ## Schema 
 
-### Models
+### Backend
 
-#### User
+Utilized a Parse server for the backend, saving and querying User, Template, and Report objects.
 
-|Property|Type|Description|
-|---|---|---|
-|objectId|String|unique id for the user (default field)|
-|templates|Array|series of templates uploaded by the user|
-|location|String|current inputted location of the user|
-|profilePicture|File|user's profile picture|
-|likeCount|Number|number of likes acquired by the user's templates|	
-|templateCount|Number|number of templates posted by the user|	
-|letterCount|Number|number of letters sent by the user|	
-|createdAt|DateTime|date when the user account is created (default field)|	
-|updatedAt|DateTime|date when the user account is last updated (default field)|	
+### API
 
-#### Template
+The [Google Civic Information API](https://developers.google.com/civic-information/docs/v2) is utilized for representative information based upon the user address, including representative name, role, number, email, social media, address, picture, and website.
 
-|Property|Type|Description|
-|---|---|---|
-|objectId|String|unique id for the template (default field)|
-|author|Pointer|to User	template author|
-|likeCount|Number|number of likes the template has acquired|
-|category|String|category of the template (environmental justice, racial justice, etc.)|
-|body|String|contents of the letter|
-|title|String|title of the letter|
-|createdAt|DateTime|date when the template is created (default field)|
-|updatedAt|DateTime|date when the template is last updated (default field)|
+## Credits
 
+- [AFNetworking](https://github.com/AFNetworking/AFNetworking) - networking task library
+- [Parse](https://parseplatform.org/) - customizable backend
+- [DateTools](https://github.com/MatthewYork/DateTools) - calculates the time ago from now
+- [MBProgressHUD](https://github.com/jdg/MBProgressHUD) - activity indicators
+- [IQKeyboardManager](https://github.com/hackiftekhar/IQKeyboardManager) - pushes views up with the keyboard
+- [FlatIcon](flaticon.com) - icons
+- [MKDropdownMenu](https://github.com/maxkonovalov/MKDropdownMenu) - Category View dropdown menu
+- [GoogleMaps](https://cocoapods.org/pods/GoogleMaps) - used for Find My Reps map
+- [GooglePlaces](https://cocoapods.org/pods/GooglePlaces) - used for calculating current location
+- [TNTutorialManager](https://github.com/Tawa/TNTutorialManager) - onboarding tutorial
+- [HWPopController](https://github.com/HeathWang/HWPopController) - report template popup
 
-### Networking
+## License
 
-#### Network Request Outline
+    Copyright 2020 Darya Kaviani
 
-##### Login
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
-(Create/POST) Create a new user
-[newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
-    //perform segue
-}];
+        http://www.apache.org/licenses/LICENSE-2.0
 
-##### Template Library
-
-(Read/GET) Get the templates
-Title
-Likes
-Author
-Category
-```
-PFQuery *query = [PFQuery queryWithClassName:@"Template"];
-[query orderByDescending:@"createdAt"];
-query.limit = 30;
-[query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
-    if (templates != nil) {
-        self.templates = templates;
-        [self.tableView reloadData];
-    } else {
-        NSLog(@"%@", error.localizedDescription);
-    }
-}];
-```
-
-(Create/Post) Like a template //will do once i figure out how liking works for instagram!
-
-##### Compose
-
-(Create/Post) If saved to template library is selected, make a new template
-
-```
-Template *newTemplate = [Template new];
-newTemplate.author = [PFUser currentUser];
-newTemplate.category = category;
-newTemplate.body = body;
-newTemplate.title = title;
-newPost.likeCount = @(0);
-[newPost saveInBackgroundWithBlock: completion];
-```
-
-##### Profile
-
-(Read/GET) Get the User
-Name
-Profile Picture
-Letter count
-Current location
-Here, we can use ```[PFUser currentUser]``` to access the current logged-in user.
-
-(Create/POST or Update/PUT) Set your profile picture
-```
-[PFUser.currentUser setObject:self.pickerView forKey:@"profilePic"];
-[PFUser.currentUser saveInBackground];
-(Create/POST or Update/PUT) Set your location
-[PFUser.currentUser setObject:self.location forKey:@"location"];
-[PFUser.currentUser saveInBackground];
-```
-
-#### APIs
-
-Need an API to ```GET``` list of elected officials for each user's location using the Google Civic API.
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.

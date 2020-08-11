@@ -18,6 +18,8 @@
 #import "PrintViewController.h"
 #import "TNTutorialManager.h"
 #import "AppDelegate.h"
+#import "Reachability.h"
+#import <SystemConfiguration/SystemConfiguration.h>
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, RepresentativeCellDelegate, MFMailComposeViewControllerDelegate, TNTutorialManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *printButton;
@@ -84,6 +86,13 @@ NSArray *levels;
     }
 }
 
+- (BOOL)connected
+{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    return networkStatus != NotReachable;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (self.cityReps.count == 0) {
         return 3;
@@ -123,7 +132,18 @@ NSArray *levels;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self fetchRepresentatives];
+    if (![self connected]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"There was a network error."
+               message:@"Check your internet connection and try again."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{}];
+    } else {
+        [self fetchRepresentatives];
+    }
     self.counterView.hidden = YES;
 }
 - (IBAction)printButton:(id)sender {
@@ -185,67 +205,78 @@ NSArray *levels;
 }
 
 - (void)fetchRepresentatives {
-    User *user = [User currentUser];
-    NSString *location = user.streetNumber;
-    location = [location stringByAppendingString:@"%20"];
-    location = [location stringByAppendingString:user.streetName];
-    location = [location stringByAppendingString:@".%20"];
-    location = [location stringByAppendingString:user.city];
-    location = [location stringByAppendingString:@"%20"];
-    location = [location stringByAppendingString:user.state];
-    location = [location stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
-    NSString *targetUrl = @"https://www.googleapis.com/civicinfo/v2/representatives?key=";
-    targetUrl = [targetUrl stringByAppendingString:@"AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls"];
-    targetUrl = [targetUrl stringByAppendingString:@"&address="];
-    targetUrl = [targetUrl stringByAppendingString:location];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setHTTPMethod:@"GET"];
-    [request setURL:[NSURL URLWithString:targetUrl]];
-    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
-      ^(NSData * _Nullable data,
-        NSURLResponse * _Nullable response,
-        NSError * _Nullable error) {
-            NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-            NSArray *representativeArray = [JSON valueForKey:@"officials"];
-            NSArray *officesArray = [JSON valueForKey:@"offices"];
-            NSMutableArray *representatives  = [Representative representativesWithArray:representativeArray];
-            self.representatives = representatives;
-            self.offices = officesArray;
-            self.federalReps = [[NSMutableArray alloc] init];
-            self.stateReps = [[NSMutableArray alloc] init];
-            self.countyReps = [[NSMutableArray alloc] init];
-            self.cityReps = [[NSMutableArray alloc] init];
-            for (int i = 0; i < self.representatives.count; i += 1) {
-                Representative *representative = self.representatives[i];
-               for (NSDictionary *dictionary in self.offices) {
-                   for (NSString *index in dictionary[@"officialIndices"]) {
-                       NSString *repIndex = [NSString stringWithFormat: @"%d", i];
-                       NSString *officialIndex = [NSString stringWithFormat: @"%@", index];
-                       if (repIndex == officialIndex) {
-                           representative.level = dictionary[@"levels"][0];
-                           if ([representative.level isEqual:@"country"]) {
-                               [self.federalReps addObject:representative];
-                           }
-                           if ([representative.level isEqual:@"administrativeArea1"]) {
-                               [self.stateReps addObject:representative];
-                           }
-                           if ([representative.level isEqual:@"administrativeArea2"]) {
-                               [self.countyReps addObject:representative];
-                           }
-                           if ([representative.level isEqual:@"locality"]) {
-                               [self.cityReps addObject:representative];
+    if (![self connected]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"There was a network error."
+               message:@"Check your internet connection and try again."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{}];
+    } else {
+        User *user = [User currentUser];
+        NSString *location = user.streetNumber;
+        location = [location stringByAppendingString:@"%20"];
+        location = [location stringByAppendingString:user.streetName];
+        location = [location stringByAppendingString:@".%20"];
+        location = [location stringByAppendingString:user.city];
+        location = [location stringByAppendingString:@"%20"];
+        location = [location stringByAppendingString:user.state];
+        location = [location stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+        NSString *targetUrl = @"https://www.googleapis.com/civicinfo/v2/representatives?key=";
+        targetUrl = [targetUrl stringByAppendingString:@"AIzaSyAEUwl_p-yu4m8pIgaoLu7axLJX71Oofls"];
+        targetUrl = [targetUrl stringByAppendingString:@"&address="];
+        targetUrl = [targetUrl stringByAppendingString:location];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+        [request setHTTPMethod:@"GET"];
+        [request setURL:[NSURL URLWithString:targetUrl]];
+        [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
+          ^(NSData * _Nullable data,
+            NSURLResponse * _Nullable response,
+            NSError * _Nullable error) {
+                NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+                NSArray *representativeArray = [JSON valueForKey:@"officials"];
+                NSArray *officesArray = [JSON valueForKey:@"offices"];
+                NSMutableArray *representatives  = [Representative representativesWithArray:representativeArray];
+                self.representatives = representatives;
+                self.offices = officesArray;
+                self.federalReps = [[NSMutableArray alloc] init];
+                self.stateReps = [[NSMutableArray alloc] init];
+                self.countyReps = [[NSMutableArray alloc] init];
+                self.cityReps = [[NSMutableArray alloc] init];
+                for (int i = 0; i < self.representatives.count; i += 1) {
+                    Representative *representative = self.representatives[i];
+                   for (NSDictionary *dictionary in self.offices) {
+                       for (NSString *index in dictionary[@"officialIndices"]) {
+                           NSString *repIndex = [NSString stringWithFormat: @"%d", i];
+                           NSString *officialIndex = [NSString stringWithFormat: @"%@", index];
+                           if (repIndex == officialIndex) {
+                               representative.level = dictionary[@"levels"][0];
+                               if ([representative.level isEqual:@"country"]) {
+                                   [self.federalReps addObject:representative];
+                               }
+                               if ([representative.level isEqual:@"administrativeArea1"]) {
+                                   [self.stateReps addObject:representative];
+                               }
+                               if ([representative.level isEqual:@"administrativeArea2"]) {
+                                   [self.countyReps addObject:representative];
+                               }
+                               if ([representative.level isEqual:@"locality"]) {
+                                   [self.cityReps addObject:representative];
+                               }
                            }
                        }
                    }
-               }
 
-            }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-            [self.spinner stopAnimating];
-            self.spinner.hidden = YES;
-        });
-        }] resume];
+                }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                [self.spinner stopAnimating];
+                self.spinner.hidden = YES;
+            });
+            }] resume];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -415,88 +446,99 @@ NSArray *levels;
 }
 
 - (IBAction)composeButton:(id)sender {
-    if (self.selectedReps.count == 0) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No representatives selected."
-               message:@"Please select at least one representative to send your message to."
+    if (![self connected]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"There was a network error."
+               message:@"Check your internet connection and try again."
         preferredStyle:(UIAlertControllerStyleAlert)];
         // create an OK action
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
         // add the OK action to the alert controller
         [alert addAction:okAction];
-        [self presentViewController:alert animated:YES completion:nil];
-    } else if (MFMailComposeViewController.canSendMail) {
-        Boolean properSelections = true;
-        for (Representative *representative in self.selectedReps) {
-            if (representative.email == nil) {
-                properSelections = false;
+        [self presentViewController:alert animated:YES completion:^{}];
+    } else {
+        if (self.selectedReps.count == 0) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No representatives selected."
+                   message:@"Please select at least one representative to send your message to."
+            preferredStyle:(UIAlertControllerStyleAlert)];
+            // create an OK action
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+            // add the OK action to the alert controller
+            [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        } else if (MFMailComposeViewController.canSendMail) {
+            Boolean properSelections = true;
+            for (Representative *representative in self.selectedReps) {
+                if (representative.email == nil) {
+                    properSelections = false;
+                }
             }
-        }
-        if (properSelections) {
-            if ([User currentUser].sendIndividually) {
-                [self showSingleEmail];
-            } else {
-                MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];
-                mailComposeViewController.mailComposeDelegate = self;
-                NSMutableArray *emails = [[NSMutableArray alloc] init];
-                NSString *bodyHeader = @"Dear ";
-                for (Representative *representative in self.selectedReps) {
-                    [emails addObject:representative.email];
-                    if (emails.count == self.selectedReps.count && emails.count != 1) {
-                        bodyHeader = [bodyHeader stringByAppendingString:@" and "];
+            if (properSelections) {
+                if ([User currentUser].sendIndividually) {
+                    [self showSingleEmail];
+                } else {
+                    MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];
+                    mailComposeViewController.mailComposeDelegate = self;
+                    NSMutableArray *emails = [[NSMutableArray alloc] init];
+                    NSString *bodyHeader = @"Dear ";
+                    for (Representative *representative in self.selectedReps) {
+                        [emails addObject:representative.email];
+                        if (emails.count == self.selectedReps.count && emails.count != 1) {
+                            bodyHeader = [bodyHeader stringByAppendingString:@" and "];
+                        }
+                        bodyHeader = [bodyHeader stringByAppendingString:representative.role];
+                        bodyHeader = [bodyHeader stringByAppendingString:@" "];
+                        bodyHeader = [bodyHeader stringByAppendingString:representative.name];
+                        if (self.selectedReps.count != 2) {
+                            bodyHeader = [bodyHeader stringByAppendingString:@", "];
+                        }
+                        UIColor *color = [UIColor clearColor];
+    //                    representativeCell.checkView.backgroundColor = color;
+                        representative.selected = (BOOL * _Nonnull) NO;
+    //                    UIView *subview = representativeCell.checkView.subviews[0];
+    //                    subview.hidden = YES;
                     }
-                    bodyHeader = [bodyHeader stringByAppendingString:representative.role];
-                    bodyHeader = [bodyHeader stringByAppendingString:@" "];
-                    bodyHeader = [bodyHeader stringByAppendingString:representative.name];
-                    if (self.selectedReps.count != 2) {
+                    if (self.selectedReps.count == 2) {
                         bodyHeader = [bodyHeader stringByAppendingString:@", "];
                     }
-                    UIColor *color = [UIColor clearColor];
-//                    representativeCell.checkView.backgroundColor = color;
-                    representative.selected = (BOOL * _Nonnull) NO;
-//                    UIView *subview = representativeCell.checkView.subviews[0];
-//                    subview.hidden = YES;
-                }
-                if (self.selectedReps.count == 2) {
+                    bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, @"My name is "];
+                    bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].firstName];
+                    bodyHeader = [bodyHeader stringByAppendingString:@" "];
+                    bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].lastName];
+                    bodyHeader = [bodyHeader stringByAppendingString:@" and I am from "];
+                    bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].city];
                     bodyHeader = [bodyHeader stringByAppendingString:@", "];
-                }
-                bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, @"My name is "];
-                bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].firstName];
-                bodyHeader = [bodyHeader stringByAppendingString:@" "];
-                bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].lastName];
-                bodyHeader = [bodyHeader stringByAppendingString:@" and I am from "];
-                bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].city];
-                bodyHeader = [bodyHeader stringByAppendingString:@", "];
-                bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].state];
-                bodyHeader = [bodyHeader stringByAppendingString:@". "];
+                    bodyHeader = [bodyHeader stringByAppendingString:[User currentUser].state];
+                    bodyHeader = [bodyHeader stringByAppendingString:@". "];
 
-                if (self.currentTemplate != nil) {
-                    bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, self.currentTemplate.body];
+                    if (self.currentTemplate != nil) {
+                        bodyHeader = [NSString stringWithFormat:@"%@\n\n%@",bodyHeader, self.currentTemplate.body];
+                    }
+                    bodyHeader = [NSString stringWithFormat:@"%@\n\n%@\n\n%@ %@",bodyHeader, @"Sincerely but not silently,", [User currentUser].firstName, [User currentUser].lastName];
+                    [self.selectedReps removeAllObjects];
+                    [mailComposeViewController setToRecipients:emails];
+                    [mailComposeViewController setMessageBody:bodyHeader isHTML:false];
+                    [self presentViewController:mailComposeViewController animated:YES completion:nil];
                 }
-                bodyHeader = [NSString stringWithFormat:@"%@\n\n%@\n\n%@ %@",bodyHeader, @"Sincerely but not silently,", [User currentUser].firstName, [User currentUser].lastName];
-                [self.selectedReps removeAllObjects];
-                [mailComposeViewController setToRecipients:emails];
-                [mailComposeViewController setMessageBody:bodyHeader isHTML:false];
-                [self presentViewController:mailComposeViewController animated:YES completion:nil];
+            } else {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"At least one of your selected officials does not have an email available."
+                              message:@"Please ensure each of your selected officials displays email verification and try again."
+               preferredStyle:(UIAlertControllerStyleAlert)];
+               // create an OK action
+               UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+               // add the OK action to the alert controller
+               [alert addAction:okAction];
+               [self presentViewController:alert animated:YES completion:nil];
             }
         } else {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"At least one of your selected officials does not have an email available."
-                          message:@"Please ensure each of your selected officials displays email verification and try again."
-           preferredStyle:(UIAlertControllerStyleAlert)];
-           // create an OK action
-           UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
-           // add the OK action to the alert controller
-           [alert addAction:okAction];
-           [self presentViewController:alert animated:YES completion:nil];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Mail services are unavailable."
+                   message:@"Please ensure that you have Apple's mail app installed and are logged in."
+            preferredStyle:(UIAlertControllerStyleAlert)];
+            // create an OK action
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+            // add the OK action to the alert controller
+            [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:nil];
         }
-    } else {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Mail services are unavailable."
-               message:@"Please ensure that you have Apple's mail app installed and are logged in."
-        preferredStyle:(UIAlertControllerStyleAlert)];
-        // create an OK action
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
-        // add the OK action to the alert controller
-        [alert addAction:okAction];
-        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 

@@ -259,45 +259,58 @@ int newSavedTempCount;
 
 
 - (void) fetchTemplates {
-    dispatch_group_t dispatchGroup = dispatch_group_create();
-    
-    PFQuery *query = [Template query];
-    [query orderByDescending:@"createdAt"];
-    [query includeKey:@"author"];
-    [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
-    NSMutableArray *savedTemplates = [NSMutableArray array];
-    // fetch data asynchronously
-    [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
-        if (templates != nil) {
-            for (Template *template in templates) {
-                dispatch_group_enter(dispatchGroup);
-                PFRelation *relation = [template relationForKey:@"savedBy"];
-                PFQuery *query = [relation query];
-                [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-                    if (objects) {
-                        for (User *user in objects) {
-                            if ([user.username isEqualToString:[User currentUser].username]) {
-                                [savedTemplates addObject:template];
+    if (![self connected]) {
+        [self.refreshControl endRefreshing];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"There was a network error."
+               message:@"Check your internet connection and try again."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{
+        }];
+    } else {
+        dispatch_group_t dispatchGroup = dispatch_group_create();
+        
+        PFQuery *query = [Template query];
+        [query orderByDescending:@"createdAt"];
+        [query includeKey:@"author"];
+        [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
+        NSMutableArray *savedTemplates = [NSMutableArray array];
+        // fetch data asynchronously
+        [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
+            if (templates != nil) {
+                for (Template *template in templates) {
+                    dispatch_group_enter(dispatchGroup);
+                    PFRelation *relation = [template relationForKey:@"savedBy"];
+                    PFQuery *query = [relation query];
+                    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+                        if (objects) {
+                            for (User *user in objects) {
+                                if ([user.username isEqualToString:[User currentUser].username]) {
+                                    [savedTemplates addObject:template];
+                                }
                             }
+                            self.templates = savedTemplates;
+                            self.filteredData = self.templates;
+                        } else {
+                            NSLog(@"not working");
                         }
-                        self.templates = savedTemplates;
-                        self.filteredData = self.templates;
-                    } else {
-                        NSLog(@"not working");
-                    }
-                    dispatch_group_leave(dispatchGroup);
-                }];
+                        dispatch_group_leave(dispatchGroup);
+                    }];
+                }
+            } else {
+                NSLog(@"%@", error.localizedDescription);
             }
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
-        dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^(void){
-             [self.refreshControl endRefreshing];
-             [self.spinner stopAnimating];
-             self.spinner.hidden = YES;
-             [self.collectionView reloadData];
-        });
-    }];
+            dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^(void){
+                 [self.refreshControl endRefreshing];
+                 [self.spinner stopAnimating];
+                 self.spinner.hidden = YES;
+                 [self.collectionView reloadData];
+            });
+        }];
+    }
 }
 
 - (void)profileTemplateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull User *)user {

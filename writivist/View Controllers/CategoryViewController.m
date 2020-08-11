@@ -18,6 +18,8 @@
 #import "PopupViewController.h"
 #import <HWPopController/HWPopController.h>
 #import "TNTutorialManager.h"
+#import "Reachability.h"
+#import <SystemConfiguration/SystemConfiguration.h>
 
 @interface CategoryViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, ProfileDelegate, ReportDelegate, UISearchBarDelegate, TemplateCellDelegate, TNTutorialManagerDelegate>
 
@@ -110,6 +112,13 @@ int newTempCount;
     } else {
         self.tutorialManager = nil;
     }
+}
+
+- (BOOL)connected
+{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    return networkStatus != NotReachable;
 }
 
 - (void)doneButton {
@@ -230,29 +239,42 @@ int newTempCount;
 }
 
 - (void)fetchTemplates {
-    // construct query
-   PFQuery *query = [Template query];
-    [query orderByDescending:@"createdAt"];
-    [query  includeKey:@"author"];
-    [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
-    if (self.category != nil) {
-        [query whereKey:@"category" equalTo:self.category];
-    }
-    query.limit = 20;
-
-    // fetch data asynchronously
-    [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
-        if (templates != nil) {
-            self.templates = templates;
-            self.filteredData = self.templates;
-            [self.collectionView reloadData];
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
+    if (![self connected]) {
         [self.refreshControl endRefreshing];
-        [self.spinner stopAnimating];
-        self.spinner.hidden = YES;
-    }];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"There was a network error."
+               message:@"Check your internet connection and try again."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{
+        }];
+    } else {
+    // construct query
+       PFQuery *query = [Template query];
+        [query orderByDescending:@"createdAt"];
+        [query  includeKey:@"author"];
+        [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
+        if (self.category != nil) {
+            [query whereKey:@"category" equalTo:self.category];
+        }
+        query.limit = 20;
+
+        // fetch data asynchronously
+        [query findObjectsInBackgroundWithBlock:^(NSArray *templates, NSError *error) {
+            if (templates != nil) {
+                self.templates = templates;
+                self.filteredData = self.templates;
+                [self.collectionView reloadData];
+            } else {
+                NSLog(@"%@", error.localizedDescription);
+            }
+            [self.refreshControl endRefreshing];
+            [self.spinner stopAnimating];
+            self.spinner.hidden = YES;
+        }];
+    }
 }
 
 - (void)profileTemplateCell:(nonnull TemplateCell *)templateCell didTap:(nonnull User *)user {
@@ -360,13 +382,24 @@ int newTempCount;
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    
-    skip = 20;
-    newTempCount = 0;
-    [super viewDidAppear:animated];
+    if (![self connected]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"There was a network error."
+               message:@"Check your internet connection and try again."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{
+        }];
+    } else {
+        skip = 20;
+        newTempCount = 0;
+        [super viewDidAppear:animated];
 
-    if (self.tutorialManager) {
-        [self.tutorialManager updateTutorial];
+        if (self.tutorialManager) {
+            [self.tutorialManager updateTutorial];
+        }
     }
 }
 

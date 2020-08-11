@@ -75,7 +75,6 @@ The [Google Civic Information API](https://developers.google.com/civic-informati
 - [AFNetworking](https://github.com/AFNetworking/AFNetworking) - networking task library
 - [Parse](https://parseplatform.org/) - customizable backend
 - [DateTools](https://github.com/MatthewYork/DateTools) - calculates the time ago from now
-- [MBProgressHUD](https://github.com/jdg/MBProgressHUD) - activity indicators
 - [IQKeyboardManager](https://github.com/hackiftekhar/IQKeyboardManager) - pushes views up with the keyboard
 - [FlatIcon](flaticon.com) - icons
 - [MKDropdownMenu](https://github.com/maxkonovalov/MKDropdownMenu) - Category View dropdown menu

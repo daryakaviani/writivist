@@ -15,6 +15,8 @@
 #import "User.h"
 #import "ProfileViewController.h"
 #import "InfiniteScrollActivityView.h"
+#import "Reachability.h"
+#import <SystemConfiguration/SystemConfiguration.h>
 
 @interface SavedViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, ProfileDelegate, UISearchBarDelegate, TemplateCellDelegate>
 
@@ -102,9 +104,28 @@ int newSavedTempCount;
     self.navigationItem.rightBarButtonItems  = @[doneBarButton, shareBarButton, previewBarButton];
 }
 
+- (BOOL)connected
+{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    return networkStatus != NotReachable;
+}
+
 - (void) viewDidAppear:(BOOL)animated {
-    savedSkip = 20;
-    newSavedTempCount = 0;
+    if (![self connected]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"There was a network error."
+               message:@"Check your internet connection and try again."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{
+        }];
+    } else {
+        savedSkip = 20;
+        newSavedTempCount = 0;
+    }
 }
 
 - (void)doneButton {

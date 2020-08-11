@@ -11,7 +11,8 @@
 #import "MKDropdownMenu.h"
 #import "User.h"
 #import <TNTutorialManager.h>
-
+#import "Reachability.h"
+#import <SystemConfiguration/SystemConfiguration.h>
 @interface ComposeViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *subjectField;
 @property (weak, nonatomic) IBOutlet UITextView *letterField;
@@ -23,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *publicityText;
 @property (weak, nonatomic) IBOutlet UISwitch *privacySwitch;
 @property (nonatomic, strong) TNTutorialManager *tutorialManager;
+
 
 @end
 
@@ -50,6 +52,13 @@
     self.letterField.layer.borderWidth = 0.7;
     self.letterField.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     [self.categoryView addSubview:dropdownMenu];
+}
+
+- (BOOL)connected
+{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    return networkStatus != NotReachable;
 }
 
 - (NSInteger)numberOfComponentsInDropdownMenu:(MKDropdownMenu *)dropdownMenu{
@@ -84,34 +93,46 @@
 
 
 - (IBAction)shareButton:(id)sender {
-    if ([self.letterField.text isEqual: @""] || [self.subjectField.text isEqual: @""]) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Empty Subject or Message"
-               message:@"Please enter a message and subject before submitting your template."
+    if (![self connected]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"There was a network error."
+               message:@"Check your internet connection and try again."
         preferredStyle:(UIAlertControllerStyleAlert)];
         // create an OK action
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
         // add the OK action to the alert controller
         [alert addAction:okAction];
         [self presentViewController:alert animated:YES completion:^{
         }];
-    } else if ([self.category isEqualToString:@"Select a category..."]) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Empty Category"
-                      message:@"Please select a category before submitting your template."
-               preferredStyle:(UIAlertControllerStyleAlert)];
-       // create an OK action
-       UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
-       // add the OK action to the alert controller
-       [alert addAction:okAction];
-       [self presentViewController:alert animated:YES completion:^{
-       }];
     } else {
-        User *user = [User currentUser];
-        int val = [user.templateCount intValue];
-        user.templateCount = [NSNumber numberWithInt:(val + 1)];
-        [user saveInBackground];
-        [Template postUserTemplate:self.letterField.text withCategory:self.category withTitle:self.subjectField.text withPrivacy:!self.privacySwitch.on withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-            [self performSegueWithIdentifier:@"postedTemplate" sender:nil];
-        }];
+        if ([self.letterField.text isEqual: @""] || [self.subjectField.text isEqual: @""]) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Empty Subject or Message"
+                   message:@"Please enter a message and subject before submitting your template."
+            preferredStyle:(UIAlertControllerStyleAlert)];
+            // create an OK action
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+            // add the OK action to the alert controller
+            [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:^{
+            }];
+        } else if ([self.category isEqualToString:@"Select a category..."]) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Empty Category"
+                          message:@"Please select a category before submitting your template."
+                   preferredStyle:(UIAlertControllerStyleAlert)];
+           // create an OK action
+           UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
+           // add the OK action to the alert controller
+           [alert addAction:okAction];
+           [self presentViewController:alert animated:YES completion:^{
+           }];
+        } else {
+            User *user = [User currentUser];
+            int val = [user.templateCount intValue];
+            user.templateCount = [NSNumber numberWithInt:(val + 1)];
+            [user saveInBackground];
+            [Template postUserTemplate:self.letterField.text withCategory:self.category withTitle:self.subjectField.text withPrivacy:!self.privacySwitch.on withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                [self performSegueWithIdentifier:@"postedTemplate" sender:nil];
+            }];
+        }
     }
 }
 

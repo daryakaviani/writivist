@@ -10,6 +10,8 @@
 #import "Representative.h"
 #import "User.h"
 #import <TNTutorialManager.h>
+#import "Reachability.h"
+#import <SystemConfiguration/SystemConfiguration.h>
 
 @interface PrintViewController ()
 
@@ -31,37 +33,56 @@
     self.printView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
 }
 
+- (BOOL)connected
+{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    return networkStatus != NotReachable;
+}
+
 - (IBAction)printButton:(id)sender {
-    UIPrintInfo *printInfo = [UIPrintInfo printInfo];
-    printInfo.outputType = UIPrintInfoOutputGeneral;
-    UIPrintInteractionController *printController = [UIPrintInteractionController sharedPrintController];
-    printController.printInfo = printInfo;
-    NSDate *date = [[NSDate alloc] init];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MMMM d, y"];
-    NSString *dateStr = [dateFormatter stringFromDate:date];
-    NSString *enterFix = [self.printView.text stringByReplacingOccurrencesOfString:@"\n"withString:@"<br>"];
-    User *user = [User currentUser];
-    NSString *markupText = @"";
-    for (int i = 0; i < self.representatives.count; i += 1) {
-        Representative *representative = self.representatives[i];
-        NSString *honorable = @"";
-        if ([representative.role containsString:@"Senator"] || [representative.role containsString:@"Representative"] || [representative.role containsString:@"Mayor"] || [representative.role containsString:@"Supreme Court"] || [representative.role containsString:@"Governor"]) {
-            honorable = @"The Honorable ";
-        } else {
-            honorable = @"";
+    if (![self connected]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"There was a network error."
+               message:@"Check your internet connection and try again."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{
+        }];
+    } else {
+        UIPrintInfo *printInfo = [UIPrintInfo printInfo];
+        printInfo.outputType = UIPrintInfoOutputGeneral;
+        UIPrintInteractionController *printController = [UIPrintInteractionController sharedPrintController];
+        printController.printInfo = printInfo;
+        NSDate *date = [[NSDate alloc] init];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MMMM d, y"];
+        NSString *dateStr = [dateFormatter stringFromDate:date];
+        NSString *enterFix = [self.printView.text stringByReplacingOccurrencesOfString:@"\n"withString:@"<br>"];
+        User *user = [User currentUser];
+        NSString *markupText = @"";
+        for (int i = 0; i < self.representatives.count; i += 1) {
+            Representative *representative = self.representatives[i];
+            NSString *honorable = @"";
+            if ([representative.role containsString:@"Senator"] || [representative.role containsString:@"Representative"] || [representative.role containsString:@"Mayor"] || [representative.role containsString:@"Supreme Court"] || [representative.role containsString:@"Governor"]) {
+                honorable = @"The Honorable ";
+            } else {
+                honorable = @"";
+            }
+            NSString *repLetter = [NSString stringWithFormat:@"%@<br><br>%@ %@<br>%@ %@<br>%@, %@, %@<br><br>%@ %@<br>%@<br>%@<br>%@, %@, %@<br><br>Dear %@ %@,<br><br>My name is %@ %@ and I am from %@, %@.<br><br>%@<br><br>Sincerely but not silently,<br><br>______________________________<br><br>%@ %@", dateStr, user.firstName, user.lastName, user.streetNumber, user.streetName, user.city, user.state, user.zipCode, honorable, representative.name, representative.role, representative.address[0][@"line1"], representative.address[0][@"city"], representative.address[0][@"state"], representative.address[0][@"zip"],  representative.role, representative.name, user.firstName, user.lastName, user.city, user.state, enterFix, user.firstName, user.lastName];
+            if (i < self.representatives.count - 1) {
+                repLetter = [repLetter stringByAppendingString:@"<p style='page-break-before: always;'>&nbsp;</p>"];
+            }
+            markupText = [markupText stringByAppendingString:repLetter];
         }
-        NSString *repLetter = [NSString stringWithFormat:@"%@<br><br>%@ %@<br>%@ %@<br>%@, %@, %@<br><br>%@ %@<br>%@<br>%@<br>%@, %@, %@<br><br>Dear %@ %@,<br><br>My name is %@ %@ and I am from %@, %@.<br><br>%@<br><br>Sincerely but not silently,<br><br>______________________________<br><br>%@ %@", dateStr, user.firstName, user.lastName, user.streetNumber, user.streetName, user.city, user.state, user.zipCode, honorable, representative.name, representative.role, representative.address[0][@"line1"], representative.address[0][@"city"], representative.address[0][@"state"], representative.address[0][@"zip"],  representative.role, representative.name, user.firstName, user.lastName, user.city, user.state, enterFix, user.firstName, user.lastName];
-        if (i < self.representatives.count - 1) {
-            repLetter = [repLetter stringByAppendingString:@"<p style='page-break-before: always;'>&nbsp;</p>"];
-        }
-        markupText = [markupText stringByAppendingString:repLetter];
+        
+        UIMarkupTextPrintFormatter *formatter = [[UIMarkupTextPrintFormatter alloc] initWithMarkupText:markupText];
+        formatter.perPageContentInsets = UIEdgeInsetsMake(72, 72, 72, 72);
+        printController.printFormatter = formatter;
+        [printController presentAnimated:true completionHandler: nil];
     }
-    
-    UIMarkupTextPrintFormatter *formatter = [[UIMarkupTextPrintFormatter alloc] initWithMarkupText:markupText];
-    formatter.perPageContentInsets = UIEdgeInsetsMake(72, 72, 72, 72);
-    printController.printFormatter = formatter;
-    [printController presentAnimated:true completionHandler: nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated

@@ -9,7 +9,7 @@
 
 ## Description
 
-Optimize & customize sending letters to elected officials with the objective of technologizing activism one letter at a time. Writivist streamlines contacting City, County, State, and Federal elected officials with the intention of making activism and civic involvement accessible and effortless. Includes a vast Template Library, a find my representatives map, and letter-emailing and letter-printing functionality. 
+Optimize & customize sending letters to elected officials with the objective of technologizing activism one letter at a time. Writivist streamlines contacting City, County, State, and Federal elected officials with the intention of making activism and civic involvement accessible and effortless. Includes a vast Template Library, a find my representatives map, several avenues to contact your representatives in seconds, as well as robust letter-emailing and letter-printing functionality.
 
 ## Demo
 

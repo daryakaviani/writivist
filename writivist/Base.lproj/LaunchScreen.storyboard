@@ -15,7 +15,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Icon-60" translatesAutoresizingMaskIntoConstraints="NO" id="B4I-7f-536">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Launch" translatesAutoresizingMaskIntoConstraints="NO" id="B4I-7f-536">
                                 <rect key="frame" x="117" y="375.5" width="180" height="145"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="180" id="HjM-7j-rb5"/>
@@ -37,6 +37,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Icon-60" width="694" height="561"/>
+        <image name="Launch" width="500" height="500"/>
     </resources>
 </document>

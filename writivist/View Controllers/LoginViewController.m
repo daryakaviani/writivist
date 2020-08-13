@@ -52,31 +52,35 @@
         [alert addAction:okAction];
         [self presentViewController:alert animated:YES completion:^{}];
     } else {
-        NSString *username = self.usernameField.text;
-        NSString *password = self.passwordField.text;
-        [User logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
-            if (user == nil) {
-                [self.loginButton ErrorRevertAnimationCompletion:^{}];
-                NSLog(@"User log in failed: %@", error.localizedDescription);
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"User login failed:"
-                       message:error.localizedDescription
-                preferredStyle:(UIAlertControllerStyleAlert)];
-                // create an OK action
-                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
-                // add the OK action to the alert controller
-                [alert addAction:okAction];
-                [self presentViewController:alert animated:YES completion:^{
-                }];
-            } else {
-                NSLog(@"User logged in successfully");
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self.loginButton ExitAnimationCompletion:^{
-                        [self performSegueWithIdentifier:@"loginSegue" sender:nil];
-                    }];
-                });
-            }
-        }];
+        [self performLogin];
     }
+}
+
+- (void) performLogin {
+    NSString *username = self.usernameField.text;
+    NSString *password = self.passwordField.text;
+    [User logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
+        if (user == nil) {
+            [self.loginButton ErrorRevertAnimationCompletion:^{}];
+            NSLog(@"User log in failed: %@", error.localizedDescription);
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"User login failed:"
+                   message:error.localizedDescription
+            preferredStyle:(UIAlertControllerStyleAlert)];
+            // create an OK action
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+            // add the OK action to the alert controller
+            [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:^{
+            }];
+        } else {
+            NSLog(@"User logged in successfully");
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.loginButton ExitAnimationCompletion:^{
+                    [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+                }];
+            });
+        }
+    }];
 }
 
 - (IBAction)signupButton:(id)sender {

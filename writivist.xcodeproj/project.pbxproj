@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		045C1E4BFE4E1F674D9468A7 /* Pods_writivistTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9B8CCF1C340ACBAAD38E3F /* Pods_writivistTests.framework */; };
 		4B09E3A324BF7BA10021F076 /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B09E3A224BF7BA10021F076 /* ComposeViewController.m */; };
-		4B09E3A524BF8F4E0021F076 /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B09E3A424BF8F4E0021F076 /* download.png */; };
 		4B09E3A824BF92710021F076 /* TemplateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B09E3A724BF92710021F076 /* TemplateCell.m */; };
 		4B09E3AB24C01CA70021F076 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B09E3AA24C01CA70021F076 /* PreviewViewController.m */; };
 		4B1489AC24C65E9300269C7E /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1489AB24C65E9300269C7E /* EditProfileViewController.m */; };
@@ -75,7 +74,6 @@
 		2D37CDD18E86B7514B082E08 /* Pods_writivist_writivistUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_writivist_writivistUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B09E3A124BF7BA10021F076 /* ComposeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
 		4B09E3A224BF7BA10021F076 /* ComposeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
-		4B09E3A424BF8F4E0021F076 /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = download.png; path = ../../download.png; sourceTree = "<group>"; };
 		4B09E3A624BF92710021F076 /* TemplateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TemplateCell.h; sourceTree = "<group>"; };
 		4B09E3A724BF92710021F076 /* TemplateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TemplateCell.m; sourceTree = "<group>"; };
 		4B09E3A924C01CA70021F076 /* PreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
@@ -110,19 +108,19 @@
 		4B7CB08424BCC03700AC26DF /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		4B83BABF24D0F61500A2E005 /* PrintViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrintViewController.h; sourceTree = "<group>"; };
 		4B83BAC024D0F61500A2E005 /* PrintViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrintViewController.m; sourceTree = "<group>"; };
-		4B83BAD924D3AB2800A2E005 /* HyLoginButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HyLoginButton.h; path = "../../../HySubmitTransitionObjective-C-master/HyLoginButton.h"; sourceTree = "<group>"; };
-		4B83BADA24D3AB2800A2E005 /* HySpinerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HySpinerLayer.h; path = "../../../HySubmitTransitionObjective-C-master/HySpinerLayer.h"; sourceTree = "<group>"; };
-		4B83BADB24D3AB2800A2E005 /* HyLoglnButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HyLoglnButton.h; path = "../../../HySubmitTransitionObjective-C-master/HyLoglnButton.h"; sourceTree = "<group>"; };
-		4B83BADC24D3AB2800A2E005 /* HyLoglnButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HyLoglnButton.m; path = "../../../HySubmitTransitionObjective-C-master/HyLoglnButton.m"; sourceTree = "<group>"; };
-		4B83BADD24D3AB2800A2E005 /* HyLoginButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HyLoginButton.m; path = "../../../HySubmitTransitionObjective-C-master/HyLoginButton.m"; sourceTree = "<group>"; };
-		4B83BADE24D3AB2800A2E005 /* HyTransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HyTransitions.h; path = "../../../HySubmitTransitionObjective-C-master/HyTransitions.h"; sourceTree = "<group>"; };
-		4B83BADF24D3AB2900A2E005 /* HyTransitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HyTransitions.m; path = "../../../HySubmitTransitionObjective-C-master/HyTransitions.m"; sourceTree = "<group>"; };
-		4B83BAE024D3AB2900A2E005 /* SpinerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpinerLayer.m; path = "../../../HySubmitTransitionObjective-C-master/SpinerLayer.m"; sourceTree = "<group>"; };
-		4B83BAE124D3AB2900A2E005 /* HySpinerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HySpinerLayer.m; path = "../../../HySubmitTransitionObjective-C-master/HySpinerLayer.m"; sourceTree = "<group>"; };
-		4B83BAE224D3AB2900A2E005 /* SpinerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpinerLayer.h; path = "../../../HySubmitTransitionObjective-C-master/SpinerLayer.h"; sourceTree = "<group>"; };
+		4B83BAD924D3AB2800A2E005 /* HyLoginButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HyLoginButton.h; path = writivist/Utilities/HyLoginButton.h; sourceTree = SOURCE_ROOT; };
+		4B83BADA24D3AB2800A2E005 /* HySpinerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HySpinerLayer.h; path = writivist/Utilities/HySpinerLayer.h; sourceTree = SOURCE_ROOT; };
+		4B83BADB24D3AB2800A2E005 /* HyLoglnButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyLoglnButton.h; sourceTree = "<group>"; };
+		4B83BADC24D3AB2800A2E005 /* HyLoglnButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HyLoglnButton.m; path = writivist/Utilities/HyLoglnButton.m; sourceTree = SOURCE_ROOT; };
+		4B83BADD24D3AB2800A2E005 /* HyLoginButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HyLoginButton.m; path = writivist/Utilities/HyLoginButton.m; sourceTree = SOURCE_ROOT; };
+		4B83BADE24D3AB2800A2E005 /* HyTransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HyTransitions.h; path = writivist/Utilities/HyTransitions.h; sourceTree = SOURCE_ROOT; };
+		4B83BADF24D3AB2900A2E005 /* HyTransitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HyTransitions.m; path = writivist/Utilities/HyTransitions.m; sourceTree = SOURCE_ROOT; };
+		4B83BAE024D3AB2900A2E005 /* SpinerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpinerLayer.m; path = writivist/Utilities/SpinerLayer.m; sourceTree = SOURCE_ROOT; };
+		4B83BAE124D3AB2900A2E005 /* HySpinerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HySpinerLayer.m; path = writivist/Utilities/HySpinerLayer.m; sourceTree = SOURCE_ROOT; };
+		4B83BAE224D3AB2900A2E005 /* SpinerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpinerLayer.h; path = writivist/Utilities/SpinerLayer.h; sourceTree = SOURCE_ROOT; };
 		4B83BAE824D8707800A2E005 /* SavedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SavedViewController.h; sourceTree = "<group>"; };
 		4B83BAE924D8707800A2E005 /* SavedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SavedViewController.m; sourceTree = "<group>"; };
-		4BCAD04524CAB77D0007EA6A /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = user.png; path = ../../user.png; sourceTree = "<group>"; };
+		4BCAD04524CAB77D0007EA6A /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = user.png; path = writivist/user.png; sourceTree = SOURCE_ROOT; };
 		4BCB1DAD24BCAF6300BAE96E /* writivist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = writivist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BCB1DB024BCAF6300BAE96E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4BCB1DB124BCAF6300BAE96E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -137,7 +135,7 @@
 		4BCB1DD324BCAF6500BAE96E /* writivistUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = writivistUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BCB1DD724BCAF6500BAE96E /* writivistUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = writivistUITests.m; sourceTree = "<group>"; };
 		4BCB1DD924BCAF6500BAE96E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4BCD151924C7A2BE00B831A4 /* SectionTapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SectionTapper.h; sourceTree = "<group>"; };
+		4BCD151924C7A2BE00B831A4 /* SectionTapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SectionTapper.h; path = writivist/Utilities/SectionTapper.h; sourceTree = SOURCE_ROOT; };
 		4BCD151A24C7A2BE00B831A4 /* SectionTapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SectionTapper.m; sourceTree = "<group>"; };
 		4BCD151D24C7A3F100B831A4 /* CategoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
 		4BCD151E24C7A3F100B831A4 /* CategoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
@@ -267,7 +265,6 @@
 				4BCB1DB024BCAF6300BAE96E /* AppDelegate.h */,
 				4BCB1DB124BCAF6300BAE96E /* AppDelegate.m */,
 				4BCB1DB924BCAF6300BAE96E /* Main.storyboard */,
-				4B09E3A424BF8F4E0021F076 /* download.png */,
 				4BCAD04524CAB77D0007EA6A /* user.png */,
 				4BCB1DBC24BCAF6500BAE96E /* Assets.xcassets */,
 				4BCB1DBE24BCAF6500BAE96E /* LaunchScreen.storyboard */,
@@ -477,7 +474,6 @@
 			files = (
 				4BCB1DC024BCAF6500BAE96E /* LaunchScreen.storyboard in Resources */,
 				4BCAD04624CAB77E0007EA6A /* user.png in Resources */,
-				4B09E3A524BF8F4E0021F076 /* download.png in Resources */,
 				4BCB1DBD24BCAF6500BAE96E /* Assets.xcassets in Resources */,
 				4BCB1DBB24BCAF6300BAE96E /* Main.storyboard in Resources */,
 			);
@@ -845,7 +841,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = R59J689FUY;
+				DEVELOPMENT_TEAM = YYH4GZD4SD;
 				INFOPLIST_FILE = writivist/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -863,7 +859,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = R59J689FUY;
+				DEVELOPMENT_TEAM = YYH4GZD4SD;
 				INFOPLIST_FILE = writivist/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
